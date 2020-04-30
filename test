@@ -1,0 +1,10 @@
+const Achivment = {
+  "👷": {
+    name: "!Милионер",
+    description: "Заработать 1-вую тысячу 1000$"
+  }
+  "emodji"{
+  name: "Name",
+  description: "description"
+  }
+};
