@@ -1,7 +1,7 @@
 module.exports = {
-    name: "help",
+    name: "botinfo",
     description: "Команда позволяющая узнать описание других, не круто ли?",
-    aliases: ["h"],
+    aliases: ["boti","botstats","bi"],
     public: true,
     async execute(Main, message, args) {
         const duration = moment.duration(bot.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
