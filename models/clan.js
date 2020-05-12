@@ -1,12 +1,11 @@
-
 const clanShema = mongoose.Schema({
-    guildID: String,
-    userID: String,
-    money: { type: Number, default: 0 },
-    level: { type: Number, default: 0 },
-    xp: { type: Number, default: 0 },
-    messages: { type: Number, default: 0 },
-    warn:{type: Number,default:0},
-    achivment:{type: String,default:0}
+    ownerid: String,
+    claname: String,
+    description: String,
+    messages: String,
+    xp: String,
+    level:{type:String,default:1},
+    money: String,
+    members: String
 });
 module.exports = mongoose.model("clan", clanShema)

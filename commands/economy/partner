@@ -1,0 +1,17 @@
+const partnerEmbed = new Discord.RichEmbed()
+.setColor("#F430FF")
+.setTitle(`Партнер`);
+let partner = Main.User.partner;
+User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
+if (err){console.log(err)}
+if (Data){
+switch (args[0]) {
+case 'send':{
+if User.level < 10 return 
+
+
+}
+case 'cancel'
+case 'accept'
+case 'divorce':
+                  }

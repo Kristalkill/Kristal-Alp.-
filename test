@@ -1,10 +1,16 @@
-const Achivment = {
-  "👷": {
-    name: "!Милионер",
-    description: "Заработать 1-вую тысячу 1000$"
+cpuUsage
+case 'info' || 'Info': {
+  const capitalize = i => {
+    i = i.toString();
+    return i[0].toUpperCase() + i.slice(1)
   }
-  "emodji"{
-  name: "Name",
-  description: "description"
-  }
-};
+  Leaveinfo = new Discord.MessageEmbed()
+  .setTitle('**Информация о настройке leave**')
+  .addField('**🕥 Статус**', capitalize(Data.Lmessage.status))
+  .addField('**📖 Заголовок**',Data.Lmessage.title || 'Нету')
+  .addField('**📒 Описание**', Data.Lmessage.description || 'Нету')
+  .addField('**📁 Канал**', Data.Lmessage.LChannel ? `<#${Data.Lmessage.LChannel}>` : 'Нету')
+  .setImage(message.guild.iconURL());
+  message.channel.send(Leaveinfo)
+  break
+}

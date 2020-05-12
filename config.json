@@ -1,4 +1,6 @@
 {
   "dataURL":"mongodb+srv://KristalBOT:GqlgUcjKvNlnZKyP@cluster0-wpkte.mongodb.net/test?retryWrites=true&w=majority",
-  "Token":"NzA0NjA0NDU2MzEzOTQ2MTgy.Xqnsxg.VoUmwB11941UhcoA7vRTbCGyfcM"
+  "Token":"NzA0NjA0NDU2MzEzOTQ2MTgy.Xqnsxg.VoUmwB11941UhcoA7vRTbCGyfcM",
+  "owner":["359678229096955904"],
+  "prefix":"!"
 }
