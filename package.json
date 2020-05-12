@@ -1,0 +1,23 @@
+{
+  "name": "KristalBot",
+  "version": "0.2.0",
+  "description": "kristalBot",
+  "main": "indexs.js",
+  "scripts": {
+    "start": "node indexs.js"
+  },
+  "author": "END(kristalkillPlay)",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.2",
+    "fs-extra": "^9.0.0",
+    "missapi": "^0.0.4",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.13",
+    "ms": "^2.1.2",
+    "strftime": "^0.10.0",
+    "typeorm": "^0.2.24"
+  }
+}
