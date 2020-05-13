@@ -4,7 +4,6 @@ global.miss  = require('missapi');
 global.moment = require("moment");
 global.typeorm = require("typeorm");
 global.ms = require('ms');
-process.env.PORT = 3000;
 global.fs = require("fs");
 global.dotenv = require('dotenv');
 global.mongoose = require("mongoose");
@@ -21,6 +20,7 @@ global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
 ////__PROMISE__//
+process.env.PORT = 3000;
 //____MAIN____///
 global.Main = new Discord.Client();
 Main.colors = require("./color.json");
