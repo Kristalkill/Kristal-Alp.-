@@ -74,7 +74,7 @@ Main.on('message', async(message) => {
         user.save()
       }
     if(Data){
-    addAchievement(Data.level >= 5,'📘',"Новачок","5 лвл",Data,message);
+    addAchievement(Data.level >= 4,'📘',"Новачок","5 лвл",Data,message);
     addAchievement(Data.money >= 1000,'🐵',"Бизнес","1000 бабла",Data,message);
     Data.xp += Data1.Economy.xp;
     Data.money += Data1.Economy.money;
