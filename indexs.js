@@ -20,7 +20,7 @@ global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
 ////__PROMISE__//
-process.env.PORT = 3000;
+process.env.PORT = 5000;
 //____MAIN____///
 global.Main = new Discord.Client();
 Main.colors = require("./color.json");
