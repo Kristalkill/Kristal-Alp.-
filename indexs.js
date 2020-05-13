@@ -21,7 +21,6 @@ global.config = require('./config.json');
 global.BotID = 704604456313946182;
 //____MAIN____///
 global.Main = new Discord.Client();
-var port = process.env.PORT || 3002;
 Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
