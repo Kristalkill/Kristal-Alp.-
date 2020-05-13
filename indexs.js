@@ -11,7 +11,7 @@ global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();;
 const app = express();
-port = process.env.PORT || 4000
+PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
 global.User = require('./models/user.js');
