@@ -3,15 +3,11 @@ global.Discord = require('discord.js')
 global.miss  = require('missapi');
 global.moment = require("moment");
 global.typeorm = require("typeorm");
-var dotenv = require('dotenv').config();
-var url = process.env.MONGOLAB_URI;
+global.dotenv = require('dotenv').config();
 global.ms = require('ms');
 global.fs = require("fs");
 global.mongoose = require("mongoose");
 ///____CONST____////
-const randomize = function(min, max) {
-    return Math.floor(Math.random() * (max-min) + min)
-};
 ////____FUNCTIONS___///
 addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
@@ -26,7 +22,7 @@ Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
@@ -81,7 +77,6 @@ Main.on('message', async(message) => {
     Data.save()
     if(User.xp > (Data1.Economy.upXp*User.level)){
      let embed = new Discord.MessageEmbed()
-    .setColor(color)
     .setTitle('Ура!')
     .setDescription(`[:tada:] Поздравим **${message.author.username}** с ${Data.level} уровнем!`)
     message.channel.send(embed)
@@ -99,9 +94,9 @@ Main.on('message', async(message) => {
         .setDescription(`${message.author.tag} был замучен за частое нарушение.`)
         message.channel.send(embed)
         setTimeout(function(){
-         removeRole(Data.userid);
+         message.member.removeRole(Data1.Moderation.muteRole);
          message.channel.send(`<@${tomute.id}> has been unmuted!`);
-       }, ms(mutetime));
+       }, ms(Data._muteTime));
         }
       }
       if(err1) return message.channel.send(`[❌DataBase] Произошла ошибка при добавлении сервера в базу-данных`)
