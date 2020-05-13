@@ -3,6 +3,8 @@ global.Discord = require('discord.js')
 global.miss  = require('missapi');
 global.moment = require("moment");
 global.typeorm = require("typeorm");
+var dotenv = require('dotenv');
+dotenv.config();
 global.ms = require('ms');
 global.fs = require("fs");
 global.mongoose = require("mongoose");
