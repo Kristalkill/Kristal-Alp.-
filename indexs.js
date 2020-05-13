@@ -19,8 +19,6 @@ global.Guild = require('./models/guild.js');
 global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
-////__PROMISE__//
-process.env.PORT = 5000;
 //____MAIN____///
 global.Main = new Discord.Client();
 Main.colors = require("./color.json");
@@ -74,7 +72,7 @@ Main.on('message', async(message) => {
         user.save()
       }
     if(Data){
-    addAchievement(Data.level >= 4,'📘',"Новачок","5 лвл",Data,message);
+    addAchievement(Data.level >= 5,'📘',"Новачок","5 лвл",Data,message);
     addAchievement(Data.money >= 1000,'🐵',"Бизнес","1000 бабла",Data,message);
     Data.xp += Data1.Economy.xp;
     Data.money += Data1.Economy.money;
