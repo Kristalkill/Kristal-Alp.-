@@ -18,7 +18,7 @@ global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
 global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
-global.owners = ["359678229096955904"];
+global.BotID = 704604456313946182;
 ////__PROMISE__//
 //____MAIN____///
 global.Main = new Discord.Client();

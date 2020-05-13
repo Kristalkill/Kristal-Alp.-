@@ -37,7 +37,7 @@ module.exports = {
       new Discord.MessageEmbed()
         .setTitle(`**Сатистика сервера ${guildID.name}**`)
         .setAuthor(`${guildID.name}`, `${guildID.iconURL}`)
-        .setColor("#a7f442")
+        .setColor("RANDOM")
         .setThumbnail(guildID.iconURL)
         .addField("**<:online:703442135533224136>В сети:** ", `**${guildID.members.filter(m => ["online"].includes(m.presence.status)).size}**`, true)
         .addField("**<:offline:703442135273439403>Не в сети:** ", `**${guildID.members.filter(m => m.presence.status === "offline").size}**` ,true)

@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["leaders"],
     public: true,
     async execute(Main, message, args) {
-    User.find({__v:0}).sort([['money','descending']]).exec((err,res)=> {
+    User.find({guildID:message.guild.id}).sort([['money','descending','guildID']]).exec((err,res)=> {
     let embed = new Discord.MessageEmbed().setColor(config.color)
     if(res.length === 0){embed.setDescription('К сожелению таблица данного сервера пуста.') }
     else if (res.length < 10){ for(i = 0; i < res.length; i++){

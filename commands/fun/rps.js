@@ -21,7 +21,7 @@ let comp = Math.floor((Math.random() * 3) + 1);
 let comp_res = parseInt(comp) - parseInt("1");
 let comp_val = rps[parseInt(comp_res)];
   if(i === comp_res) {
-    return message.channel.send(`Ты выбрал**${args[0]}** и я выбрал **${comp_val}** и ничья,можетт попробуем ещо :?`);
+    return message.channel.send(`Ты выбрал**${args[0]}** и я выбрал **${comp_val}** и ничья,может попробуем ещо :?`);
   }
   if(i > comp_res) {
     return message.channel.send(`Ты выбра **${args[0]}** и я выбрал **${comp_val}** и я Победил! GGWP.`);
