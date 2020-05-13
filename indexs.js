@@ -9,6 +9,7 @@ global.fs = require("fs");
 global.mongoose = require("mongoose");
 ///____CONST____////
 ////____FUNCTIONS___///
+process.env.PORT
 addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
 global.User = require('./models/user.js');
