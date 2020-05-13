@@ -5,10 +5,13 @@ global.moment = require("moment");
 global.typeorm = require("typeorm");
 global.ms = require('ms');
 global.fs = require("fs");
+const express = require('express');
 global.mongoose = require("mongoose");
 ///____CONST____////
 ////____FUNCTIONS___///
-const dotenv = require("dotenv");
+require("dotenv").config();;
+const app = express();
+const PORT = 4000;
 dotenv.config();
 process.env.PORT
 addAchievement = require('./functions/addAchievement.js')
@@ -24,7 +27,10 @@ Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+app.listen(PORT,()=>{
+console.log(`Server Running on port ${PORT}`);
+});
+mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
