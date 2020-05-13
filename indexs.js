@@ -3,8 +3,8 @@ global.Discord = require('discord.js')
 global.miss  = require('missapi');
 global.moment = require("moment");
 global.typeorm = require("typeorm");
-var dotenv = require('dotenv');
-dotenv.config();
+var dotenv = require('dotenv').config();
+var url = process.env.MONGOLAB_URI;
 global.ms = require('ms');
 global.fs = require("fs");
 global.mongoose = require("mongoose");
@@ -26,7 +26,7 @@ Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
