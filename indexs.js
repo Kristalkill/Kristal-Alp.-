@@ -18,7 +18,7 @@ global.Guild = require('./models/guild.js');
 global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
-const host = process.env.HOST ||'0.0.0.0';
+const host = '0.0.0.0';
 const port = process.env.PORT || 3000;
 //____MAIN____///
 global.Main = new Discord.Client();
