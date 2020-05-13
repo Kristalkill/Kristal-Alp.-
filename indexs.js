@@ -9,9 +9,8 @@ global.mongoose = require("mongoose");
 ///____CONST____////
 ////____FUNCTIONS___///
 const dotenv = require("dotenv");
-
 dotenv.config();
-process.env.PORT
+port = process.env.PORT
 addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
 global.User = require('./models/user.js');
@@ -25,7 +24,7 @@ Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(`${process.env.MONGODB_URI}`, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
