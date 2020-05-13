@@ -11,8 +11,6 @@ global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();;
 const app = express();
-const PORT = 4000;
-dotenv.config();
 process.env.PORT
 addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
