@@ -5,7 +5,6 @@ global.moment = require("moment");
 global.typeorm = require("typeorm");
 global.ms = require('ms');
 global.fs = require("fs");
-global.dotenv = require('dotenv');
 global.mongoose = require("mongoose");
 ///____CONST____////
 const randomize = function(min, max) {
@@ -19,6 +18,8 @@ global.Guild = require('./models/guild.js');
 global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
+const host = process.env.HOST ||'0.0.0.0';
+const port = process.env.PORT || 3000;
 //____MAIN____///
 global.Main = new Discord.Client();
 Main.colors = require("./color.json");
