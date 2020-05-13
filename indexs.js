@@ -18,15 +18,13 @@ global.Guild = require('./models/guild.js');
 global.Clan = require('./models/clan.js');
 global.config = require('./config.json');
 global.BotID = 704604456313946182;
-const host = '0.0.0.0';
-const port = process.env.PORT || 3000;
 //____MAIN____///
 global.Main = new Discord.Client();
 Main.colors = require("./color.json");
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
@@ -131,4 +129,4 @@ Main.on('ready', async () => {
        }, 15 * 1000);
 
 });
-Main.login(config.Token)
+Main.login(process.env.Token)
