@@ -8,8 +8,8 @@
     "lavalink": "java -jar Lavalink.jar"
   },
   "engine": {
-"node": "14.x"
-},
+    "node": "14.x"
+  },
   "author": "END(kristalkillPlay)",
   "license": "MIT",
   "dependencies": {
