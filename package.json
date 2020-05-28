@@ -4,8 +4,7 @@
   "description": "kristalBot",
   "main": "indexs.js",
   "scripts": {
-    "start": "node indexs.js",
-    "lavalink": "java -jar Lavalink.jar"
+    "start": "node indexs.js"
   },
   "author": "END(kristalkillPlay)",
   "license": "MIT",
