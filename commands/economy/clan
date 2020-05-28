@@ -1,0 +1,7 @@
+const Discord = module.require('discord.js');
+module.exports.run = async (bot, message, args) => {
+    try {
+      User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
+      Guild.findOne({guildID: message.guild.id} , (err1,Data1) => {
+            if (Data.money < Data1.Economy.clanPrice) return message.reply`**Вам нехватает денег для создания клана ${Data.money}/${Data1.Economy.clanPrice}$**`, true, message);
+                let clan = new Clan({guildID:message.guild.id,clanName:args.slice(1).join(' '),clanID::message})

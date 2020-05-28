@@ -1,6 +1,14 @@
 const guildchema = mongoose.Schema({
     guildID: String,
     ownerID:{ type: Array, default: "[359678229096955904]" },
+    Logs:{
+      Invite:String,
+      Ban:String,
+      Message:String,
+      Kick:String,
+      Mute:String,
+      
+    },
     Moderation:{
      Warns:{
        muteWarns:{type:Number,default:2},
@@ -13,9 +21,14 @@ const guildchema = mongoose.Schema({
      linked:{type: Boolean,default: true},
      logs:{type: Boolean,default: true},
      blockinvites:{type:String,default:1},
-     muteRole:{type:String,default:1}
+     muteRole:{type:String,default:1},
+     nonpfroles:Array,
    },
     Economy:{
+      Partner:{
+         price:{type:Number,default:5000},
+         level:{type:Number,default:5},
+      },
       upXP:{type:Number,default:100},
       bonus:{type:Number,default:50},
       timely:{type:Number,default:1440},

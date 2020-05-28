@@ -8,8 +8,7 @@ module.exports = {
             .setColor('FFA947')
             .setFooter(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
             .setTitle(`🏓 Pong!`)
-            .addField(`Discord API:`, new Date().getTime() - message.createdTimestamp + 'ms')
-            .addField(`Ping:`,`${Math.round(Main.ws.ping)}ms.`);
+            .addField(`PINGs:`, `Discord API:${new Date().getTime() - message.createdTimestamp + 'ms'}\nPing:${Math.round(Main.ws.ping)}ms.`)
         message.channel.send(embed);
 
 }

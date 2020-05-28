@@ -3,7 +3,7 @@ module.exports = {
   description: "Снятие предупреждения с пользователя.",
   aliases: [],
   public: true,
-  async execute(bot, message, args) {
+  async execute(Main, message, args) {
       let member = message.guild.member(message.mentions.users.first())
       if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`К сожелению у вас нету прав "Кик Участников". Я не могу исполнить вашу команду.`)
       if(!member) return message.reply(`Пользователь не найден. Укажите его, упоменув его.`)

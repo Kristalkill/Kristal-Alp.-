@@ -1,4 +1,5 @@
 const clanShema = mongoose.Schema({
+    guildID: String,
     ownerid: String,
     claname: String,
     description: String,

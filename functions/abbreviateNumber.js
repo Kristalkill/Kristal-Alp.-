@@ -8,7 +8,7 @@ module.exports=
     expK += 1;
   }
 
-  var SI_SYMBOLS = "apμm ТМБTPE";
+  var SI_SYMBOLS = "apμm KМBTКQ";
   var BASE0_OFFSET = SI_SYMBOLS.indexOf(' ');
 
   if (expK + BASE0_OFFSET>=SI_SYMBOLS.length) { // Bound check
