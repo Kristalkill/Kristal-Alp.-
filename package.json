@@ -7,6 +7,9 @@
     "start": "node indexs.js",
     "lavalink": "java -jar Lavalink.jar"
   },
+  "engine": {
+"node": "12.x"
+},
   "author": "END(kristalkillPlay)",
   "license": "MIT",
   "dependencies": {
