@@ -32,6 +32,9 @@ module.exports = {
       .setTitle("Setting")
       .setDescription(commandes("setting"))
       let pages = [Page1,Page2,Page3,Page4,Page5,Page6,Page7];
+      if(memberp){
+        message.delete();
+       }
       message.channel.send(Page1.setFooter(`Страница ${page} из ${pages.length}`)).then(msg => {
       msg.react('⏪').then( r => {
       msg.react('⬅').then( r => {
@@ -50,7 +53,7 @@ module.exports = {
       const forward_fast = msg.createReactionCollector(forward_fastF, {timer: 6000});
       backward.on('collect', r => {
       if (page == 1) {
-        let page = pages.length
+        page = pages.length
         msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
         if(memberp){
          r.users.remove(message.author.id)
@@ -66,7 +69,7 @@ module.exports = {
       })
     forward.on('collect', r => {
       if (page == pages.length) {
-        let page = 1
+        page = 1
         msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
         if(memberp){
          r.users.remove(message.author.id)
@@ -84,14 +87,14 @@ module.exports = {
       msg.delete();
     })
     rewind.on('collect', r => {
-      let page = 1;
+      page = 1;
       msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
       if(message.guild.me.hasPermission('MANAGE_MESSAGES')){
         r.users.remove(message.author.id)
       }
     })
     forward_fast.on('collect', r => {
-       let page = pages.length;
+       page = pages.length;
        msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
       if(message.guild.me.hasPermission('MANAGE_MESSAGES')){
         r.users.remove(message.author.id)

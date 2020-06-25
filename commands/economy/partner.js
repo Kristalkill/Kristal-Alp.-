@@ -1,6 +1,4 @@
 toNum = require('../../functions/toNum.js')
-ErrEmbed = require('../../embeds/ErrEmbed.js')
-OKEmbed = require('../../embeds/OKEmbed.js')
 module.exports = {
     name: 'partner',
     description: 'Напишу потом',

@@ -1,12 +1,13 @@
 {
-  "name": "KristalBot",
+  "name": "kristalbot",
   "version": "0.2.0",
   "description": "kristalBot",
   "main": "indexs.js",
   "scripts": {
-    "start": "node indexs.js"
+    "start": "node indexs.js",
+    "lavalink": "java -jar Lavalink.jar"
   },
-  "author": "END(kristalkillPlay)",
+  "author": "END (kristalkillPlay)",
   "license": "MIT",
   "dependencies": {
     "@lavacord/discord.js": "0.0.7",
@@ -15,16 +16,20 @@
     "erela.js": "^1.1.8",
     "express": "^4.17.1",
     "fs": "0.0.2",
+    "fs-extra": "^9.0.0",
     "lavacord": "^1.1.9",
     "missapi": "^0.0.4",
     "moment": "^2.25.3",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.9.13",
     "ms": "^2.1.2",
-    "nodemon": "^2.0.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "strftime": "^0.10.0",
+    "superagent": "^5.2.2",
     "typeorm": "^0.2.24"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

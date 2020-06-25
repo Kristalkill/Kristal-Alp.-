@@ -1,5 +1,4 @@
 abbreviateNumber = require('../../functions/abbreviateNumber.js')
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
     name: 'lb',
     description: 'Топы пользователей',

@@ -1,4 +1,3 @@
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
     name: 'pay',
     description: 'Передать монетки другому юзеру',

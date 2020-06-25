@@ -1,5 +1,5 @@
 module.exports =
-function formatDate(date) {
+ function formatDate(date) {
   if (typeof date == 'number') {
     date = new Date(date * 1000);
   } else if (typeof date == 'string') {

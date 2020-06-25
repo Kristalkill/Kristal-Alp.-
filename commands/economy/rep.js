@@ -3,7 +3,7 @@ module.exports = {
   name: 'reputation',
   description: 'rep',
   aliases: ["rep"],
-  public: false,
+  public: true,
   async execute(Main, message, args) {
     const capitalize = i => {
       i = i.toString();
