@@ -112,10 +112,15 @@ if(Data) {
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
       .setColor('RANDOM')
       .setFooter(`Страница 3 из 3`);
+      if(Data.Achievements.length > 1){
       for (let i = 0; i < Data.Achievements.length; i++) {
         let getted = Achievements[(Data.Achievements)[i]]
         profileembed2.addField(`**${i + 1}.${getted.name}|${getted.emoji}**`,`\n**${getted.description}**`)
     }
+  }
+  else {
+    profileembed2.setDescription(`**Нету**`)
+  }
     const pages = [profileembed1,profileembed2,profileembed3]
     if(memberp){
      message.delete();
