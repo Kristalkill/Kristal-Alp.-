@@ -108,7 +108,7 @@ if(Data) {
       .setFooter(`Страница 2 из 3`);
       let profileembed3 = new Discord.MessageEmbed()
       .setTitle('**🏅 Роли**')
-      .setDescription(`${member.roles.cache.filter(r => r.id !== message.guild.id && res.Moderation.nonpfroles != undefined && res.Moderation.nonpfroles.includes(r.id) === false).sort((a,b)=>b.position-a.position).map(m => m).slice(0, 90).join(" **|** ") ||"Нету"}`)
+      .setDescription(`${member.roles.cache.map(m => m).slice(0, 90).join(" **|** ") ||"Нету"}`)
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
       .setColor('RANDOM')
       .setFooter(`Страница 3 из 3`);
