@@ -1,5 +1,4 @@
 const MarryEmbed = new Discord.MessageEmbed()
-const member = message.mentions.users.first() || message.guild.members.cache.get(args[1])
 module.exports = {
     name: 'divorce',
     description: 'Напишу потом',
@@ -7,6 +6,7 @@ module.exports = {
     public: true,
      async execute (Main, message, args,res) {
 User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
+const member = message.mentions.users.first() || message.guild.members.cache.get(args[1])
 (async function(){
 if ((Data.partner||Data1.partner) == '0')return message.reply('У тебя нету партнера');
 let activePartner = User.findOne({ userID:Data.partner });

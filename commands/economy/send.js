@@ -1,14 +1,14 @@
-const MarryEmbed = new Discord.MessageEmbed()
-const member = message.mentions.users.first() || message.guild.members.cache.get(args[1])
 module.exports = {
     name: 'send',
     description: 'Напишу потом',
     aliases: ["send"],
     public: true,
      async execute (Main, message, args,res) {
+        const MarryEmbed = new Discord.MessageEmbed()
+        const member = message.mentions.users.first() || message.guild.members.cache.get(args[1])
         if (!member)return message.reply('Укажите пользователя');
         User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
-        User.findOne({guildID: message.guild.id, userID:member.id},(err,Data) => {
+        User.findOne({guildID: message.guild.id, userID:member.id},(err,Data1) => {
         if ((Data.level||Data1.level) < res.Economy.Partner.level) return message.reply(`У вас или у вашего партнера нету ${res.Economy.Partner.level} уровня`);
         if (Data.money < res.Economy.Partner.level)return message.reply(`Для отправки предложения надо ${res.Economy.Partner.level}`);
         if ((Data.partner||Data1.partner)!= '0')return message.reply('У вас или у игрока уже есть партнер');
