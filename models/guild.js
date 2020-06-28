@@ -23,8 +23,8 @@ const guildchema = mongoose.Schema({
       money:{type: Number, default:3},
       xp:{type: Number, default:5},
     },
-    Wmessage:{type:String},
-    Lstatus:{type:String},
+    Wchannel:{type:String},
+    Lchannel:{type:String},
 })
 
 module.exports = mongoose.model("Guild", guildchema)

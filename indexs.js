@@ -6,11 +6,13 @@ global.typeorm = require("typeorm");
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
+const html = require('html');
 global.mongoose = require("mongoose");
 ///____CONST____////
 ////____FUNCTIONS___///
 require("dotenv").config();;
-const expresser = express();
+var app = express();
+var bot = express();
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
 const invites = {};
@@ -24,9 +26,6 @@ global.Main = new Discord.Client();
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-expresser.listen(PORT,()=>{
-console.log(`Server Running on port ${PORT}`);
-});
 mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
@@ -162,11 +161,44 @@ Data.save()
 })
 Main.on('ready', async () => {
   console.log(`[✅Bot] ${Main.user.tag} Online!`)
-       let statuses = [`!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
+       let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
        let acitvestatus = statuses[Math.floor(Math.random() * statuses.length)];
        setInterval(function () {
            Main.user.setPresence({ game: { name: acitvestatus, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
            Main.user.setPresence({ activity: { name: acitvestatus }, status: 'online' });
        }, 15 * 1000);
 });
+////// HTML //////////
+app.set('view engine', 'html');
+app.get("/api/guilds",(req,res)=>{
+res.send(String(Main.guilds.cache.size))
+});
+app.get("/api/users",(req,res)=>{
+res.send(String(Main.users.cache.size))
+});
+app.get("/api/channels",(req,res)=>{
+res.send(String(Main.channels.cache.size))
+});
+app.get("/api/cpu",(req,res)=>{
+res.send(String((process.cpuUsage().user/1024/1024).toFixed(2)))
+});
+app.get("/api/ram",(req,res)=>{
+res.send(String((process.memoryUsage().heapTotal / process.memoryUsage().heapTotal * 100).toFixed(2)))
+});
+app.get("/api/storage",(req,res)=>{
+res.send(String((process.cpuUsage().user/1024/1024/100).toFixed(2)))
+});
+app.use("/index", function(request, res){
+  res.sendFile(__dirname +'/index.html')
+});
+app.use("/dashboard", function(request, res){
+  res.sendFile(__dirname +'/dashboard.html')
+});
+app.use(express.static('public'));
+app.listen(4001,()=>{
+  console.log(`Сайт запущен на ${4001}`);
+  });
+bot.listen(PORT,()=>{
+    console.log(`Бот запущен на ${PORT}`);
+    });
 Main.login(process.env.Token)

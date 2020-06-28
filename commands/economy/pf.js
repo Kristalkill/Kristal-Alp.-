@@ -100,19 +100,23 @@ if(Data) {
         .setTitle(`**${member.user.username}**`)
         .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**:  ${JoinedData}`)
         .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**⚔│Клан**:  ${clanName||'Нету'}\n**💑│Партнер**:  ${Main.users.cache.get(Data.partner)? Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
-        .setFooter(`Страница 1 из 3`);
       let profileembed2 = new Discord.MessageEmbed()
       .setTitle('**🏅 Достижения**')
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
       .setColor('RANDOM')
-      .setFooter(`Страница 2 из 3`);
       let profileembed3 = new Discord.MessageEmbed()
       .setTitle('**🏅 Роли**')
-      .setDescription(`${member.roles.cache.map(m => m).slice(0, 90).join(" **|** ") ||"Нету"}`)
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
       .setColor('RANDOM')
-      .setFooter(`Страница 3 из 3`);
-      if(Data.Achievements.length > 1){
+      if(member.roles.cache.size > 1){
+        for (let i = 0; i < member.roles.cache.size ; i++) {
+          profileembed3.addField('** **',`${(member.roles.cache.array().filter(r => r.id !== message.guild.id).sort((a,b) => b.position - a.position))[i]}`)
+      }
+    }
+    else {
+      profileembed2.setDescription(`**Нету**`)
+    }
+  if(Data.Achievements.length > 1){
       for (let i = 0; i < Data.Achievements.length; i++) {
         let getted = Achievements[(Data.Achievements)[i]]
         profileembed2.addField(`**${i + 1}.${getted.name}|${getted.emoji}**`,`\n**${getted.description}**`)
@@ -125,7 +129,7 @@ if(Data) {
     if(memberp){
      message.delete();
     }
-      message.channel.send(profileembed1).then(msg => {
+      message.channel.send(profileembed1.setFooter(`Страница ${page} из ${pages.length}`)).then(msg => {
       msg.react('⬅').then( r => {
       msg.react('⏹').then( r => {
       msg.react('➡')
