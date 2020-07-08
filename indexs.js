@@ -73,50 +73,55 @@ Main.on('guildCreate', guild => {
 Main.on('guildDelete', guild => {
 Guild.deleteOne({guildID: guild.id})
 })
-Main.on('messageUpdate', async(message) => {
-  if(message.author.bot)return;
-  User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
-  Guild.findOne({guildID: message.guild.id},(err,res) => {
+Main.on('messageUpdate', async(oldMsg, newMsg) => {
+  if(newMsg.author.bot)return;
+  User.findOne({guildID: newMsg.guild.id, userID: newMsg.author.id},(err,Data)=> {
+  Guild.findOne({guildID: newMsg.guild.id},(err,res) => {
  if(err){console.log(err);}
  if(!Data){
-    let user = new User({guildID:message.guild.id, userID:message.author.id})
+    let user = new User({guildID:newMsg.guild.id, userID:newMsg.author.id})
       user.save()
  }
   if(!res){
-      let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
+      let guild = new Guild({guildID: newMsg.guild.id,ownerID:newMsg.guild.ownerid})
       guild.save()
     }
 if(Data&&res){
 Data.xp += res.Economy.xp
 Data.money += res.Economy.money
 Data.massages++
-addAchievement(Data.level >= 5,'3',Data,message)
-addAchievement(Data.money >= 1000,'2',Data,message)
+addAchievement(Data.level >= 5,'3',Data,newMsg)
+addAchievement(Data.money >= 1000,'2',Data,newMsg)
 if(Data.xp >= res.Economy.upXP*Data.level){
 Data.xp -= res.Economy.upXP*Data.level;
 Data.level+=1
 let embed = new Discord.MessageEmbed()
-.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`);
-message.channel.send(embed);
+.setDescription(`Поздравим **${newMsg.author.username}** с ${Data.level} уровнем!`);
+newMsg.channel.send(embed);
 }
 Data.save()
-if(!message.content.startsWith(res.Moderation.prefix))return;
-const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
+if(!newMsg.content.startsWith(res.Moderation.prefix))return;
+const args = newMsg.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
 const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 if(!command)return;
-if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command ){
-  let BotEmbed = new Discord.MessageEmbed()
+if(newMsg.guild.member(newMsg.mentions.users.first()) == newMsg.guild.me && !command ){
+  let BotEmbed = new Discord.newMsgEmbed()
   .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
-  message.channel.send(BotEmbed)
+  newMsg.channel.send(BotEmbed)
 }
-if(!require('./config.json').owner.includes(message.author.id) && command.public === false) return;
-command.execute(Main, message, args,res,Data,err);
+if(!require('./config.json').owner.includes(newMsg.author.id) && command.public === false) return;
+if(!config.owner.includes(newMsg.author.id)&&(!newMsg.guild.owner.user)&&(!member.hasPermission(command.Permission)))return newMsg.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
+if(!newMsg.guild.me.hasPermission(command.Permission))return newMsg.reply(ErrEmbed.setDescription(`У бота не хватает следуйщих прав:${command.Permission}`))
+command.execute(Main, newMsg, args,res,Data,err);
 }
 })
 })
 })
 Main.on('message', async(message) => {
+  if(["646718665559113759","419926964195950603"].includes(message.author.id)){
+    message.react("⏪")
+  }
     if(message.author.bot)return;
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
     Guild.findOne({guildID: message.guild.id},(err,res) => {
@@ -154,6 +159,8 @@ Data.save()
     message.channel.send(BotEmbed)
   }
   if(!require('./config.json').owner.includes(message.author.id) && command.public === false) return;
+  if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
+  if(!message.guild.me.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`У бота не хватает следуйщих прав:${command.Permission}`))
   command.execute(Main, message, args,res,Data,err);
 }
 })
@@ -196,7 +203,7 @@ app.use("/dashboard", function(request, res){
 });
 app.use(express.static('public'));
 app.listen(4001,()=>{
-  console.log(`Сайт запущен на ${4001}`);
+  console.log(`Сайт запущен на ${PORT + 1}`);
   });
 bot.listen(PORT,()=>{
     console.log(`Бот запущен на ${PORT}`);

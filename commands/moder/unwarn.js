@@ -1,6 +1,7 @@
 module.exports = {
   name: "unwarn",
   description: "Снятие предупреждения с пользователя.",
+  Permission:["KICK_MEMBERS"],
   aliases: [],
   public: true,
   async execute(Main, message, args) {
@@ -23,7 +24,7 @@ module.exports = {
           data.save()
           let embed = new Discord.MessageEmbed()
           .setColor(config.color)
-          .setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\n\nПпредупреждений: ${data.warn}/${config.warn}`)
+          .setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\n\nПредупреждений: ${data.warn}/${config.warn}`)
           message.channel.send(embed)
       })
   }

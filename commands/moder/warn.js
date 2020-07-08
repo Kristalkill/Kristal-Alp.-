@@ -1,6 +1,7 @@
 module.exports = {
   name: "warn",
   description: "Выдать предупреждение пользователю",
+  Permission:["KICK_MEMBERS"],
   aliases: [],
   public: true,
   async execute(Main, message, args) {
