@@ -5,6 +5,7 @@ module.exports = {
     name: 'lb',
     description: 'Топы пользователей',
     aliases: ["leaders"],
+    Permission:[],
     public: true,
     async execute(Main, message, args) {
       let embed = new Discord.MessageEmbed()

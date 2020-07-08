@@ -2,6 +2,7 @@ ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'set',
   description: 'Поставить уровень',
+  Permission:["ADMINISTRATOR"],
   aliases: [],
   public: true,
   async execute(Main, message, args) {

@@ -1,7 +1,8 @@
 module.exports = {
     name: "slowmode",
     description: "Слов мод.",
-    Permission:["SEND_MESSAGES","MANAGE_CHANNELS"],
+    Permission:["MANAGE_CHANNELS"],
+    PermissionBOT:["MANAGE_CHANNELS"],
     aliases: [],
     public: true,
     async execute(Main, message, args) {

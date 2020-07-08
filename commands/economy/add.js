@@ -2,6 +2,7 @@ ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'add',
   description: 'Добавить монетки юзеру',
+  Permission:["ADMINISTRATOR"],
   aliases: [],
   public: true,
   async execute(Main, message, args) {
