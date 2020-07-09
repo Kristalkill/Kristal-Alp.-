@@ -1,8 +1,6 @@
-const { config } = require("dotenv/types")
-
 module.exports = {
-    name: 'block',
-    description: 'block',
+    name: "block",
+    description: "block",
     aliases: [],
     public: false,
     async execute(Main, message, args) {
