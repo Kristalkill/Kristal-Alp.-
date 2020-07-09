@@ -90,8 +90,6 @@ if(Data) {
         reputationtext = `${Data.rep}|Ангел`
          break;
 }
-    let clan = Clan.findOne({id:Data.clanID});
-        clanName = Data.claname;
     let page = 1;
     if(member.presence.activities == null){activity = "Нету"}
     let profileembed1 = new Discord.MessageEmbed()

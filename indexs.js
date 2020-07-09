@@ -15,7 +15,7 @@ addAchievement = require('./functions/addAchievement.js')
 ////____GLOBAL____///
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
-global.Clan = require('./models/clan.js');
+global.Block = require('./models/block.js');
 global.config = require('./config.json');
 global.Main = new Discord.Client();
 //____MAIN____///
@@ -106,9 +106,11 @@ const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ 
 const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 if(!command)return;
-if(config.block.includes(message.author.id)){
+Block.findOne({id: message.author.id},(err,BlockY)=> {
+if(BlockY){
  return message.react("⏪"); 
 }
+})
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
@@ -154,9 +156,11 @@ if(message.guild.member(message.mentions.users.first()) == message.guild.me && !
  const cmdName = args.shift().toLowerCase();
  const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
  if(!command)return;
- if(config.block.includes(message.author.id)){
-  return message.react("⏪"); 
- }
+ Block.findOne({id: message.author.id},(err,BlockY)=> {
+  if(BlockY){
+   return message.react("⏪"); 
+  }
+  })
  if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
  if(!config.owner.includes(message.author.id) && command.public === false) return;
  if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
