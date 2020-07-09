@@ -17,17 +17,6 @@
     <div id="preloader">
         <div id="loader"></div>
       </div>
-      <div class="bg-style">
-        <div> 
-            <div  class="counter" data-cp-color="#FFFFFF" data-cp-percentage></div>
-        </div>
-        <div>
-           <div class="counter" data-cp-percentage="85" data-cp-color="#00bfeb"></div>
-        </div>
-        <div>
-            <div class="counter" data-cp-percentage="85" data-cp-color="#00bfeb"></div>
-         </div>
-      </div>
 </body>
 <div class="statistics">
     <div class="cards">
@@ -52,9 +41,6 @@
     </div>
 </div>
 <script>
-      document.querySelector('#data-cp-percentage').setAttribute("statscpu","statscpu");
-        fetch("http://localhost:4000/api/guilds").then(res=>{
-    res.text().then(text=>{document.body.querySelector("statscpu").innerHTML = text})});
     fetch("http://localhost:4000/api/guilds").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
     fetch("http://localhost:4000/api/users").then(res=>{
@@ -62,8 +48,6 @@
     fetch("http://localhost:4000/api/channels").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-channels").innerText = text})});
 setInterval(() => { 
-    fetch("http://localhost:4000/api/cpu").then(res=>{
-    res.text().then(text =>{document.body.querySelector("#stats-cpu").innerHTML = text})});
     fetch("http://localhost:4000/api/guilds").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
     fetch("http://localhost:4000/api/users").then(res=>{
