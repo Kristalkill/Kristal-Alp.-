@@ -7,6 +7,7 @@ global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
 const html = require('html');
+const { config } = require('dotenv/types');
 global.mongoose = require("mongoose");
 ///____CONST____////
 ////____FUNCTIONS___///
@@ -73,8 +74,9 @@ Main.on('guildDelete', guild => {
 Guild.deleteOne({guildID: guild.id})
 })
 Main.on('messageUpdate', async(oldMsg, message) => {
-  if(["646718665559113759","419926964195950603"].includes(message.author.id)){
+  if(config.block.includes(message.author.id)){
     message.react("⏪")
+    break;
   }
     if(message.author.bot)return;
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
