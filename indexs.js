@@ -158,7 +158,7 @@ const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 if(!command)return;
 Block.findOne({id: message.author.id},(err,BlockY)=> {
-  if(BlockY){
+  if(BlockY === true){
   message.react("⏪") 
   return;
 } 
