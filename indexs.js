@@ -158,7 +158,7 @@ const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ 
 const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 if(!command)return;
-if(BlockY)return message.react(":rewind:");
+if(BlockY)return message.react("⏪");
 if(!BlockY){
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
