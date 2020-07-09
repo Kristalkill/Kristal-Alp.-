@@ -2,7 +2,7 @@ ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'bonus',
   description: 'Бонус',
-  aliases: ["bon"],
+  aliases: ["bon"], 
   public: true,
   async execute(Main, message, args,res){
         User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
@@ -18,5 +18,5 @@ module.exports = {
         message.channel.send(a)
       }
     })
-  }
+  } 
   }
