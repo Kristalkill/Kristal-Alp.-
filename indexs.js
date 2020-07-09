@@ -112,16 +112,15 @@ Data.save()
     .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
     message.channel.send(BotEmbed)
   }
+  if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
   if(!config.owner.includes(message.author.id) && command.public === false) return;
   if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
-  if(!message.guild.me.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`У бота не хватает следуйщих прав:${command.Permission}`))
   command.execute(Main, message, args,res,Data,err);
 }
 })
 })
 })
 Main.on('message', async(message) => {
-  try{
   if(["646718665559113759","419926964195950603"].includes(message.author.id)){
     message.react("⏪")
   }
@@ -168,9 +167,6 @@ Data.save()
 }
 })
 })
-}catch(err){
-  console.log(err);
-}
 })
 Main.on('ready', async () => {
   console.log(`[✅Bot] ${Main.user.tag} Запущен на ${PORT}!`)

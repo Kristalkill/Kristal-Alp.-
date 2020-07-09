@@ -99,7 +99,7 @@ if(Data) {
         .setColor(Guild.colors)
         .setTitle(`**${member.user.username}**`)
         .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**:  ${JoinedData}`)
-        .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**⚔│Клан**:  ${clanName||'Нету'}\n**💑│Партнер**:  ${Main.users.cache.get(Data.partner)? Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
+        .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${Main.users.cache.get(Data.partner)? Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
       let profileembed2 = new Discord.MessageEmbed()
       .setTitle('**🏅 Достижения**')
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
@@ -109,7 +109,7 @@ if(Data) {
       .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
       .setColor('RANDOM')
       if(member.roles.cache.size > 1){
-        for (let i = 0; i < member.roles.cache.size ; i++) {
+        for (let i = 0; i < member.roles.cache.size - 1 ; i++) {
           profileembed3.addField('** **',`${(member.roles.cache.array().filter(r => r.id !== message.guild.id).sort((a,b) => b.position - a.position))[i]}`)
       }
     }

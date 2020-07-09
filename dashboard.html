@@ -53,22 +53,22 @@
 </div>
 <script>
       document.querySelector('#data-cp-percentage').setAttribute("statscpu","statscpu");
-        fetch("http://localhost:4001/api/guilds").then(res=>{
+        fetch("http://localhost:4000/api/guilds").then(res=>{
     res.text().then(text=>{document.body.querySelector("statscpu").innerHTML = text})});
-    fetch("http://localhost:4001/api/guilds").then(res=>{
+    fetch("http://localhost:4000/api/guilds").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
-    fetch("http://localhost:4001/api/users").then(res=>{
+    fetch("http://localhost:4000/api/users").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-users").innerText = text})});
-    fetch("http://localhost:4001/api/channels").then(res=>{
+    fetch("http://localhost:4000/api/channels").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-channels").innerText = text})});
 setInterval(() => { 
-    fetch("http://localhost:4001/api/cpu").then(res=>{
+    fetch("http://localhost:4000/api/cpu").then(res=>{
     res.text().then(text =>{document.body.querySelector("#stats-cpu").innerHTML = text})});
-    fetch("http://localhost:4001/api/guilds").then(res=>{
+    fetch("http://localhost:4000/api/guilds").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
-    fetch("http://localhost:4001/api/users").then(res=>{
+    fetch("http://localhost:4000/api/users").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-users").innerText = text})});
-    fetch("http://localhost:4001/api/channels").then(res=>{
+    fetch("http://localhost:4000/api/channels").then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-channels").innerText = text})});
     },30000)
 </script>
