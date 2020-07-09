@@ -118,6 +118,7 @@ command.execute(Main, message, args,res,Data,err);
 }
 })
 })
+})
 Main.on('message', async(message) => {  
   if(message.author.bot)return;
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
@@ -165,6 +166,7 @@ if(!config.owner.includes(message.author.id) && command.public === false) return
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
 command.execute(Main, message, args,res,Data,err);
 }
+})
 })
 })
 Main.on('ready', async () => {
