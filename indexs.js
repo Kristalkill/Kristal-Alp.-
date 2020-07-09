@@ -22,7 +22,7 @@ global.Main = new Discord.Client();
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(`${process.env.dataURL}`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
