@@ -6,7 +6,6 @@ global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
 const html = require('html');
-const config = require('');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();;
