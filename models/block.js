@@ -1,4 +1,4 @@
-const block = mongoose.Schema({
+const blockShema = mongoose.Schema({
     id: Number,
     reason: String,
     time:Number
