@@ -1,21 +1,18 @@
 ////____MODULES____///
 global.Discord = require('discord.js')
-global.miss  = require('missapi');
 global.moment = require("moment");
 global.typeorm = require("typeorm");
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
 const html = require('html');
-const { config } = require('dotenv/types');
+const config = require('');
 global.mongoose = require("mongoose");
-///____CONST____////
 ////____FUNCTIONS___///
 require("dotenv").config();;
 var app = express();
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
-const invites = {};
 ////____GLOBAL____///
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
@@ -121,50 +118,50 @@ Data.save()
 })
 })
 })
-Main.on('message', async(message) => {
-  if(["646718665559113759","419926964195950603"].includes(message.author.id)){
-    message.react("⏪")
+Main.on('message', async(message) => {  
+  if(config.block.includes(message.author.id)){
+  return message.react("⏪"); 
+ }
+   if(message.author.bot)return;
+   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
+   Guild.findOne({guildID: message.guild.id},(err,res) => {
+  if(err){console.log(err);}
+  if(!Data){
+     let user = new User({guildID:message.guild.id, userID:message.author.id})
+       user.save()
   }
-    if(message.author.bot)return;
-    User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
-    Guild.findOne({guildID: message.guild.id},(err,res) => {
-   if(err){console.log(err);}
-   if(!Data){
-      let user = new User({guildID:message.guild.id, userID:message.author.id})
-        user.save()
-   }
-    if(!res){
-        let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
-        guild.save()
-      }
-  if(Data&&res){
-  Data.xp += res.Economy.xp
-  Data.money += res.Economy.money
-  Data.massages++
-  addAchievement(Data.level >= 5,'3',Data,message)
-  addAchievement(Data.money >= 1000,'2',Data,message)
+   if(!res){
+       let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
+       guild.save()
+     }
+ if(Data&&res){
+ Data.xp += res.Economy.xp
+ Data.money += res.Economy.money
+ Data.massages++
+ addAchievement(Data.level >= 5,'3',Data,message)
+ addAchievement(Data.money >= 1000,'2',Data,message)
 if(Data.xp >= res.Economy.upXP*Data.level){
-  Data.xp -= res.Economy.upXP*Data.level;
-  Data.level+=1
-  let embed = new Discord.MessageEmbed()
-  .setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`);
-  message.channel.send(embed);
+ Data.xp -= res.Economy.upXP*Data.level;
+ Data.level+=1
+ let embed = new Discord.MessageEmbed()
+ .setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`);
+ message.channel.send(embed);
 }
 Data.save()
-  if(!message.content.startsWith(res.Moderation.prefix))return;
-  const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
-  const cmdName = args.shift().toLowerCase();
-  const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-  if(!command)return;
-  if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command ){
-    let BotEmbed = new Discord.MessageEmbed()
-    .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
-    message.channel.send(BotEmbed)
-  }
-  if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
-  if(!config.owner.includes(message.author.id) && command.public === false) return;
-  if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
-  command.execute(Main, message, args,res,Data,err);
+ if(!message.content.startsWith(res.Moderation.prefix))return;
+ const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
+ const cmdName = args.shift().toLowerCase();
+ const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+ if(!command)return;
+ if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command ){
+   let BotEmbed = new Discord.MessageEmbed()
+   .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
+   message.channel.send(BotEmbed)
+ }
+ if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
+ if(!config.owner.includes(message.author.id) && command.public === false) return;
+ if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
+ command.execute(Main, message, args,res,Data,err);
 }
 })
 })
