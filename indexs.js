@@ -108,7 +108,7 @@ const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.alia
 if(!command)return;
 Block.findOne({id: message.author.id},(err,BlockY)=> {
 if(BlockY)return message.react("⏪"); 
-})
+});
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
@@ -156,7 +156,7 @@ if(message.guild.member(message.mentions.users.first()) == message.guild.me && !
  if(!command)return;
  Block.findOne({id: message.author.id},(err,BlockY)=> {
   if(BlockY)return message.react("⏪"); 
-  })
+  });
  if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
  if(!config.owner.includes(message.author.id) && command.public === false) return;
  if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
