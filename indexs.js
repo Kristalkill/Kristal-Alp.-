@@ -75,8 +75,7 @@ Guild.deleteOne({guildID: guild.id})
 })
 Main.on('messageUpdate', async(oldMsg, message) => {
   if(config.block.includes(message.author.id)){
-    message.react("⏪")
-    break;
+   return message.react("⏪"); 
   }
     if(message.author.bot)return;
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
