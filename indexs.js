@@ -71,6 +71,7 @@ Guild.deleteOne({guildID: guild.id})
 })
 Main.on('messageUpdate', async(oldMsg, message) => {
   if(message.author.bot)return;
+  Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
  if(err){console.log(err);}
@@ -106,17 +107,15 @@ const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ 
 const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 if(!command)return;
-Block.findOne({id: message.author.id},(err,BlockY)=> {
-  if(BlockY){
-  message.react("⏪") 
-  return;
-} 
-})
+if(BlockY)return message.react("⏪");
+if(!BlockY){
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
 command.execute(Main, message, args,res,Data,err);
 }
+}
+})
 })
 })
 })
