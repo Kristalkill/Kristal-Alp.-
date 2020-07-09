@@ -2,7 +2,7 @@ module.exports = {
   name: 'eval',
   description: 'eval',
   aliases: ["e"],
-  public: true,
+  public: false,
   async execute(Main, message, args) {
     if (!config.owner.includes(message.author.id))return message.channel.send('Ти не овнер а гавно')
     let argss = args.join(' ')
