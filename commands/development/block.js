@@ -3,7 +3,7 @@ const { config } = require("dotenv/types")
 module.exports = {
     name: 'block',
     description: 'block',
-    aliases: [""],
+    aliases: [],
     public: false,
     async execute(Main, message, args) {
     let member =  message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]))
