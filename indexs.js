@@ -8,7 +8,7 @@ const express = require('express');
 const html = require('html');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
-require("dotenv").config();;
+require("dotenv").config();
 var app = express();
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
@@ -22,7 +22,7 @@ global.Main = new Discord.Client();
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(process.env.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`${process.env.dataURL}`, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
