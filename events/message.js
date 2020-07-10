@@ -4,6 +4,9 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
+  const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
+  const cmdName = args.shift().toLowerCase();
+  const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
   if(!Data){
     let user = new User({guildID:message.guild.id, userID:message.author.id})
@@ -13,7 +16,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(BlockY){ 
+   if(BlockY && command){ 
    message.react("⏪");
    }
    else if(Data && res){
@@ -33,9 +36,6 @@ module.exports = (Main,message) => {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))
     }
-    const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
-    const cmdName = args.shift().toLowerCase();
-    const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
     if(!command)return;
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
