@@ -7,6 +7,7 @@ global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
 const html = require('html');
+const ErrEmbed = require('./embeds/ErrEmbed.js');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
@@ -163,8 +164,8 @@ if(BlockY)return message.react("⏪");
 if(!BlockY){  
 const cooldown = cooldowns.get(message.author.id);
 if (cooldown) {
-  const remaining = humanizeDuration(cooldown - Date.now(),{ round: true });
-  return message.channel.send(`Подождите ${remaining} прежде чем использывть снова`)
+  const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
+  return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))
 }
 else{
 if(!config.owner.includes(message.author.id)){
