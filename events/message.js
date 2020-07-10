@@ -54,7 +54,6 @@ module.exports = (Main,message) => {
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);}
-    managePerms(message, command.PermissionBOT, true)
     command.execute(Main, message, args,res,Data,err);
 }
 }
