@@ -1,5 +1,3 @@
-const ErrEmbed = require("../../embeds/ErrEmbed");
-
 module.exports = {
     name: "ban",
     description: "ban",

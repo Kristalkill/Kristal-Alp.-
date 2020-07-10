@@ -17,7 +17,7 @@ module.exports = {
       if (Data) {
         if (!(args[0] = message.mentions.channels.first()||`undefined`)) return message.reply(ErrEmbed.setDescription('Укажы канал или чтоб офнуть напишы undefined'));
         else{
-            Data.Wсhannel = args[0]||undefined
+            Data.Wсhannel = args[0]
             Data.save()
             ChannelEmbed = new Discord.MessageEmbed()
             .setTitle(`${`Вы успешно изменили канал уходящих участников на`}\n${`<#${Data.Wchannel}>`}`)
