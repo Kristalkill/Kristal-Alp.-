@@ -1,4 +1,6 @@
-module.exports = (Main, oldmessage,message) => {
+let embed = new Discord.MessageEmbed()
+let embed1 = new Discord.MessageEmbed()
+module.exports = (Main,message) => {
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
@@ -17,7 +19,7 @@ module.exports = (Main, oldmessage,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(prefix1 && !command){
+   if(message.guild.member(message.mentions.users.first()) == message.guild.me ?? !prefix && !command){
     message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
