@@ -150,15 +150,15 @@ let embed = new Discord.MessageEmbed()
 message.channel.send(embed);
 }
 Data.save()
-if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command ){
- let BotEmbed = new Discord.MessageEmbed()
- .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
- message.channel.send(BotEmbed)
-}
 if(!message.content.startsWith(res.Moderation.prefix))return;
 const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
 const cmdName = args.shift().toLowerCase();
 const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command){
+  let BotEmbed = new Discord.MessageEmbed()
+  .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
+  message.channel.send(BotEmbed)
+ }
 if(!command)return;
 if(BlockY)return message.react("⏪");
 if(!BlockY){  
