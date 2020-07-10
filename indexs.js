@@ -14,7 +14,7 @@ require("dotenv").config();
 var app = express();
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
-var cooldowns  = new Map();
+global.cooldowns  = new Map();
 ////____GLOBAL____///
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
