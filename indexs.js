@@ -100,11 +100,11 @@ let embed = new Discord.MessageEmbed()
 message.channel.send(embed);
 }
 Data.save()
-if(message.guild.member(message.mentions.users.first()) == message.guild.me && !command ){
- let BotEmbed = new Discord.MessageEmbed()
- .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
- message.channel.send(BotEmbed)
-}
+if(message.guild.member(message.mentions.users.first()) == message.guild.me &&  !message.content.startsWith(res.Moderation.prefix)){
+  let BotEmbed = new Discord.MessageEmbed()
+  .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
+  message.channel.send(BotEmbed)
+ }
 if(!message.content.startsWith(res.Moderation.prefix))return;
 const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
 const cmdName = args.shift().toLowerCase();
@@ -150,7 +150,7 @@ let embed = new Discord.MessageEmbed()
 message.channel.send(embed);
 }
 Data.save()
-if(message.mentions.users.first().id == message.guild.me.id && !message.content.startsWith(res.Moderation.prefix)){
+if(message.guild.member(message.mentions.users.first()) == message.guild.me &&  !message.content.startsWith(res.Moderation.prefix)){
   let BotEmbed = new Discord.MessageEmbed()
   .setTitle(`**Префикс бота:** ${res.Moderation.prefix}`);
   message.channel.send(BotEmbed)
