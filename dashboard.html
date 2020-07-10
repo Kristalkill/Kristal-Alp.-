@@ -41,6 +41,7 @@
     </div>
 </div>
 <script>
+    const PORT = procces.env.PORT||4000
     fetch(`http://localhost:${PORT}}/api/guilds`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
     fetch(`http://localhost:${PORT}}/api/users`).then(res=>{
