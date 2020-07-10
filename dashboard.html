@@ -41,18 +41,18 @@
     </div>
 </div>
 <script>
-    fetch("http://localhost:4000/api/guilds").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/guilds`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
-    fetch("http://localhost:4000/api/users").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/users`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-users").innerText = text})});
-    fetch("http://localhost:4000/api/channels").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/channels`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-channels").innerText = text})});
 setInterval(() => { 
-    fetch("http://localhost:4000/api/guilds").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/guilds`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-guilds").innerText = text})});
-    fetch("http://localhost:4000/api/users").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/users`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-users").innerText = text})});
-    fetch("http://localhost:4000/api/channels").then(res=>{
+    fetch(`http://localhost:${PORT}}/api/channels`).then(res=>{
     res.text().then(text=>{document.body.querySelector("#stats-channels").innerText = text})});
     },30000)
 </script>
