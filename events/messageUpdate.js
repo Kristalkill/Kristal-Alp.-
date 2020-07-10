@@ -1,4 +1,4 @@
-module.exports = (Main, message) => {
+module.exports = (Main, oldmessage,message) => {
     if(message.author.bot)return;
     Block.findOne({id: message.author.id},(err,BlockY)=> {
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
