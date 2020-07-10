@@ -4,7 +4,7 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const prefix  = message.content.startsWith(res.Moderation.prefix)
+  const prefix = message.content.startsWith(res.Moderation.prefix)
   const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
@@ -17,10 +17,10 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix)
+   if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix){
+   message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
-   message.react("⏪");
-   }
+   message.react("⏪");}
    else if(Data && res){
     Data.xp += res.Economy.xp
     Data.money += res.Economy.money
@@ -36,8 +36,7 @@ module.exports = (Main,message) => {
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
-        return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))
-    }
+        return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
     if(!command)return;
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
