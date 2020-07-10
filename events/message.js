@@ -54,7 +54,6 @@ module.exports = (Main,message) => {
     command.execute(Main, message, args,res,Data,err);
 }
 }
-}
 })
 })
 })
