@@ -13,6 +13,7 @@ global.mongoose = require("mongoose");
 require("dotenv").config();
 var app = express();
 PORT = process.env.PORT || 4000
+managePerms = require('./functions/managePerms.js')
 addAchievement = require('./functions/addAchievement.js')
 global.cooldowns  = new Map();
 ////____GLOBAL____///
