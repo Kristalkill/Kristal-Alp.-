@@ -19,8 +19,6 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix && !command){
-    message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
@@ -34,6 +32,8 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
+    if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix && !command){
+        message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
     if(!prefix)return;
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
