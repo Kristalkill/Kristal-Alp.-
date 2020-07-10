@@ -4,9 +4,9 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const prefix1 = message.guild.me;
+  const prefix1 = `<@!704604456313946182>`;
   const prefix = message.content.startsWith(res.Moderation.prefix);
-  const args = message.content.slice(res.Moderation.prefix.length||prefix1.length).trim().split(/ +/g);
+  const args = message.content.slice(res.Moderation.prefix.length||`<@!704604456313946182>`.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
@@ -33,7 +33,7 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
-    if(!prefix && !pre)return;
+    if(!prefix && !prefix1)return;
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
