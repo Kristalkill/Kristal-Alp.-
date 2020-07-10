@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "fs": "0.0.2",
     "html": "^1.0.0",
+    "humanize-duration": "^3.23.1",
     "moment": "^2.25.3",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.9.13",
