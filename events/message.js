@@ -6,7 +6,7 @@ module.exports = (Main,message) => {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
   const prefix1 = message.content.startsWith(`<@!704604456313946182>`) 
   const prefix = message.content.startsWith(res.Moderation.prefix);
-  const args = message.content.slice(prefix||prefix1).trim().split(/ +/g);
+  const args = message.content.slice(prefix).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
@@ -33,7 +33,7 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
-    if(!prefix || !prefix1)return;
+    if(!prefix)return;
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
