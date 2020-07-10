@@ -30,7 +30,7 @@ module.exports = (Main,message) => {
    if(BlockY){ 
    message.react("⏪");
    }
-   else if(res && Data){
+   else{
     Data.xp += res.Economy.xp
     Data.money += res.Economy.money
     Data.massages++
@@ -46,11 +46,6 @@ module.exports = (Main,message) => {
     const cmdName = args.shift().toLowerCase();
     const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
     const cooldown = cooldowns.get(message.author.id);
-    if (cooldown) {
-      const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
-      return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))
-    }
-    else{
     if(!command)return;
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
