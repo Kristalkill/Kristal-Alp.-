@@ -4,9 +4,12 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const prefix1 = `<@!704604456313946182>`;
-  const prefix = message.content.startsWith(res.Moderation.prefix);
-  const args = message.content.slice(res.Moderation.prefix.length||`<@!704604456313946182>`.length).trim().split(/ +/g);
+  var prefixes = ["<@704604456313946182>","<@!704604456313946182>",`${res.Moderation.prefix}`]
+  let prefix = false;
+  for (const thisPrefix of prefixes) {
+    if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
+}
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
@@ -18,7 +21,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.mentions.users.first() == prefix1 && !prefix){
+   if(message.mentions.users.first() == ("<@704604456313946182>"||"<@!704604456313946182>") && !prefix){
     message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
@@ -33,7 +36,7 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
-    if(!prefix && !prefix1)return;
+    if(!prefix)return;
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
