@@ -205,6 +205,9 @@ app.use("/dashboard", function(request, res){
   res.sendFile(__dirname +'/dashboard.html')
 });
 app.use(express.static('public'));
+app.use(function(req, res, next){
+  res.status(404).render('404_error_template', {title: "Простите страница не найдена"});
+});
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
   });
