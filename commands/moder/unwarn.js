@@ -23,7 +23,7 @@ module.exports = {
           data.save()
           let embed = new Discord.MessageEmbed()
           .setColor(config.color)
-          .setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\n\nПредупреждений: ${data.warn}/${config.warn}`)
+          .setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\n\nПредупреждений: ${data.warn}/${Data.warn||0}`)
           message.channel.send(embed)
       })
   }
