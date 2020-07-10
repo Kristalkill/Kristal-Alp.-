@@ -4,8 +4,8 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const prefix = message.content.startsWith(`<@!704604456313946182>`||res.Moderation.prefix);
-  const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
+  const prefix = message.content.startsWith(res.Moderation.prefix||`<@!704604456313946182>`);
+  const args = message.content.slice(prefix).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
@@ -24,7 +24,7 @@ module.exports = (Main,message) => {
    else if(Data && res){
     Data.xp += res.Economy.xp
     Data.money += res.Economy.money
-    Data.massages++
+    Data.messages++
     addAchievement(Data.level >= 5,'3',Data,message)
     addAchievement(Data.money >= 1000,'2',Data,message)
     if(Data.xp >= res.Economy.upXP*Data.level){
