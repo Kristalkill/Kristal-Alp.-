@@ -18,7 +18,7 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  if(err){console.log(err);
+  if(err){console.log(err)};
   if(!Data){
     let user = new User({guildID:message.guild.id, userID:message.author.id})
     user.save()
@@ -55,7 +55,6 @@ module.exports = (Main,message) => {
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);}
     command.execute(Main, message, args,res,Data,err);
-}
 }
 })
 })
