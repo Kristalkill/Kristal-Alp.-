@@ -4,7 +4,8 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const prefix = message.content.startsWith(res.Moderation.prefix)
+  const prefix1 = message.guild.member(message.mentions.users.first()) == message.guild.me
+  const prefix = prefix1||message.content.startsWith(res.Moderation.prefix)
   const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
@@ -17,7 +18,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix){
+   if(prefix1 && !command && !args){
    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
