@@ -2,7 +2,7 @@
 global.Discord = require('discord.js')
 global.moment = require("moment");
 global.typeorm = require("typeorm");
-const humanizeDuration = require('humanize-duration');
+global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
