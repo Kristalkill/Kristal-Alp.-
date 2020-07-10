@@ -12,6 +12,7 @@ require("dotenv").config();
 var app = express();
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
+var cooldowns  = new Map();
 ////____GLOBAL____///
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
@@ -159,6 +160,13 @@ const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.alia
 if(!command)return;
 if(BlockY)return message.react("⏪");
 if(!BlockY){
+cooldowns.set(message.author.id, Date.now() + 5000);
+setTimeout(() => cooldowns.delete(message.author.id), 5000);
+const cooldown = cooldowns.get(message.author.id);
+if (cooldown) {
+  const remaining = humanizeDuration(cooldown - Date.now());
+  return message.channel.send(`Подождите ${remaining} прежде чем использывть снова`)
+}
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
@@ -206,7 +214,7 @@ app.use("/dashboard", function(request, res){
 });
 app.use(express.static('public'));
 app.use(function(req, res, next){
-  res.status(404).sendFile('404_error_template', {title: "Простите страница не найдена"});
+  res.status(404).sendFile(__dirname +`/404_error_template`);
 });
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
