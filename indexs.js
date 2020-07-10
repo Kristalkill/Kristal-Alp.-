@@ -167,8 +167,10 @@ if (cooldown) {
   return message.channel.send(`Подождите ${remaining} прежде чем использывть снова`)
 }
 else{
+if(!config.owner.includes(message.author.id)){
 cooldowns.set(message.author.id, Date.now() + 5000);
 setTimeout(() => cooldowns.delete(message.author.id), 5000);
+}
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
 if(!config.owner.includes(message.author.id) && command.public === false) return;
 if(!config.owner.includes(message.author.id)&&(!message.guild.owner.user)&&(!member.hasPermission(command.Permission)))return message.reply(ErrEmbed.setDescription(`**У вас нету прав** ${command.Permission}`));
