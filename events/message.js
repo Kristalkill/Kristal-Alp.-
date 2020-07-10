@@ -5,7 +5,7 @@ module.exports = (Main,message) => {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
   const prefix1 = message.guild.me;
-  const prefix = prefix1||message.content.startsWith(res.Moderation.prefix);
+  const prefix = message.content.startsWith(prefix1||res.Moderation.prefix);
   const args = message.content.slice(res.Moderation.prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
