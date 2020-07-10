@@ -1,4 +1,3 @@
-
 module.export = 
 function managePerms(message, needPerms, addMore = false) {
   let need = [];
