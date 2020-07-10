@@ -220,7 +220,7 @@ app.use("/dashboard", function(request, res){
 });
 app.use(express.static('public'));
 app.use(function(req, res, next){
-  res.status(404).sendFile(__dirname +`/404_error_template`);
+  res.status(404).sendFile(__dirname +`/404.html`);
 });
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
