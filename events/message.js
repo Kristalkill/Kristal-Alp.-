@@ -30,7 +30,7 @@ module.exports = (Main,message) => {
    if(BlockY){ 
    message.react("⏪");
    }
-   else{
+   else if(Data && res){
     Data.xp += res.Economy.xp
     Data.money += res.Economy.money
     Data.massages++
