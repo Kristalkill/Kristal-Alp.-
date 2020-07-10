@@ -17,7 +17,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(prefix && !command){
+   if(message.content.startsWith(`<@!704604456313946182>`) && !command){
     message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
