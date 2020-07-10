@@ -5,7 +5,6 @@ module.exports = (Main,message) => {
     Block.findOne({id: message.author.id},(err,BlockY)=> {
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
     Guild.findOne({guildID: message.guild.id},(err,res) => {
-    const prefix1 = message.content.startsWith(`<@!704604456313946182>`) 
     const prefix = message.content.startsWith(res.Moderation.prefix);
     const args = message.content.slice(prefix).trim().split(/ +/g);
     const cmdName = args.shift().toLowerCase();
@@ -19,6 +18,8 @@ module.exports = (Main,message) => {
       let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
       guild.save()
      }
+     if(message.guild.member(message.mentions.users.first()) == message.guild.me && !prefix){
+        message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
      if(BlockY && command){ 
      message.react("⏪");}
      else if(Data && res){
