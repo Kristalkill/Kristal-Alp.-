@@ -6,7 +6,6 @@ module.exports = {
   public: true,
   async execute(Main, message, args) {
       let member = message.guild.member(message.mentions.users.first())
-      if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send(`К сожелению у вас нету прав "Кик Участников". Я не могу исполнить вашу команду.`)
       if(!member) return message.reply(`Пользователь не найден. Укажите его, упоменув его.`)
       if(member.user.id == message.author.id) return message.reply(`Не офигел, ли часом ?`)
       if(member.user.bot) return message.reply(`Боты не по моей части`)
