@@ -1,4 +1,5 @@
 let embed = new Discord.MessageEmbed()
+let embed1 = new Discord.MessageEmbed()
 module.exports = (Main,message) => {
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
@@ -19,7 +20,7 @@ module.exports = (Main,message) => {
     guild.save()
    }
    if(prefix1 && !command){
-    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
+    message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
@@ -41,7 +42,9 @@ module.exports = (Main,message) => {
     if(!command)return;
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
-    setTimeout(() => cooldowns.delete(message.author.id), 5000);}
+    setTimeout(() => cooldowns.delete(message.author.id), 5000)
+    if(!message.guild.owner.user != message.author.id && !member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав:` `\`${command.Permission}\` Я не могу исполнить вашу команду.`));}
+    if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${command.PermissionBOT}\` Я не могу исполнить вашу команду.`));
     command.execute(Main, message, args,res,Data,err);
 }
 })
