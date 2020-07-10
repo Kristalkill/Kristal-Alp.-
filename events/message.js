@@ -1,5 +1,5 @@
 let embed = new Discord.MessageEmbed()
-managePerms = require('./../functions/managePerms.js')
+managePerms = require('../../events/managePerms.js')
 module.exports = (Main,message) => {
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
