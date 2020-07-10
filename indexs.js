@@ -2,6 +2,7 @@
 global.Discord = require('discord.js')
 global.moment = require("moment");
 global.typeorm = require("typeorm");
+const humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
@@ -164,7 +165,7 @@ cooldowns.set(message.author.id, Date.now() + 5000);
 setTimeout(() => cooldowns.delete(message.author.id), 5000);
 const cooldown = cooldowns.get(message.author.id);
 if (cooldown) {
-  const remaining = humanizeDuration(cooldown - Date.now());
+  const remaining = humanizeDuration(cooldown - Date.now(),{ units: ["s"] });
   return message.channel.send(`Подождите ${remaining} прежде чем использывть снова`)
 }
 if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`У бота не хватает следуйщих прав: **${command.PermissionBOT}**`))
