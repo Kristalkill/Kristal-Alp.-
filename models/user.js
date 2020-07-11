@@ -1,6 +1,7 @@
 const userSchema = mongoose.Schema({
     guildID: String,
     rep:{ type: Number, default: 0 },
+    icon:String,
     clanID: { type: Number, default: -1 },
     userID: String,
     money: { type: Number, default: 0 },
@@ -13,8 +14,9 @@ const userSchema = mongoose.Schema({
     partner:{type: String,default:0},
     Achievements:[],
     Timelyes:{
-    _rep:{type: Number,default:0},
-    _timely:{ type: Number, default: 0 }
+    _premium:Number,
+    _rep:Number,
+    _timely:Number
   }
 });
 module.exports = mongoose.model("User", userSchema)
