@@ -45,7 +45,7 @@ module.exports = (Main,message) => {
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);
     };
-    if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\n Я не могу исполнить вашу команду.**`));
+    if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
     command.execute(Main, message, args,res,Data,err);}
     else if(message.content.startsWith(message.guild.me)&& !command){
     message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
