@@ -81,4 +81,4 @@ app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
   });
 
-Main.login(process.env.Token)
+Main.destroy(process.env.Token)
