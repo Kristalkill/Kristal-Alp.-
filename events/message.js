@@ -1,11 +1,24 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
+function managePerms(message, needPerms, addMore) {
+  let need = [];
+  if (addMore = false) {
+    needPerms.push("EMBED_LINKS");
+    needPerms.push("ADD_REACTIONS");
+    needPerms.push("USE_EXTERNAL_EMOJIS");
+  }
+  needPerms.map((p) => !message.channel.permissionsFor(addMore ? message.guild.me : message.member).has(p) ? need.push(p) : null);
+  if (need.length) return {
+    need,
+    embed: message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS") ? true : false
+  };
+  else return false;
+}
 module.exports = (Main,message) => {
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
@@ -42,12 +55,14 @@ module.exports = (Main,message) => {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
     if(!config.owner.includes(message.author.id)){
+    if(!member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав:` `\`${command.Permission}\` Я не могу исполнить вашу команду.`));}
     cooldowns.set(message.author.id, Date.now() + 5000);
-    setTimeout(() => cooldowns.delete(message.author.id), 5000);}
+    setTimeout(() => cooldowns.delete(message.author.id), 5000);} 
+    let perms = managePerms(message, command.PermissionBOT, true);
+    if(!message.guild.me.hasPermission(perms))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${perms}\` Я не могу исполнить вашу команду.`));
     command.execute(Main, message, args,res,Data,err);}
     if(message.mentions.users.first() == message.guild.me && !command){
-    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
-}
+    message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
 })
 })
 })
