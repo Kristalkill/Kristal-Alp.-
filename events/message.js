@@ -21,7 +21,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.mentions.users.first() == ("<@704604456313946182>"||"<@!704604456313946182>") && !cmdName){
+   if(message.mentions.users.first() == message.guild.me && !command){
     message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
