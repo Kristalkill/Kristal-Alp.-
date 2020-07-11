@@ -41,11 +41,12 @@ module.exports = (Main,message) => {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
     if(!config.owner.includes(message.author.id)){
-    if(!member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав:` `\`${command.Permission}\` Я не могу исполнить вашу команду.**`))
+    if(!member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав: \`${command.Permission}\` Я не могу исполнить вашу команду.**`));
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);
     };
-    if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${command.PermissionBOT}\` Я не могу исполнить вашу команду.**`));
+
+    if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\` Я не могу исполнить вашу команду.**`));
     command.execute(Main, message, args,res,Data,err);}
     else if(message.content.startsWith(message.guild.me)&& !command){
     message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
