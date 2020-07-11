@@ -21,7 +21,7 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.mentions.users.first() == ("<@704604456313946182>"||"<@!704604456313946182>")){
+   if(message.mentions.users.first() == ("<@704604456313946182>"||"<@!704604456313946182>") && !command){
     message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
    if(BlockY && command){ 
    message.react("⏪");}
@@ -36,16 +36,16 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
-    if(!prefix)return;
+    if(prefix && command){
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
-    if(!command)return;
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);}
     command.execute(Main, message, args,res,Data,err);
+}
 }
 })
 })
