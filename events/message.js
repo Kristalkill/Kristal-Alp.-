@@ -58,7 +58,7 @@ module.exports = (Main,message) => {
     if(!member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав:` `\`${command.Permission}\` Я не могу исполнить вашу команду.`));}
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);} 
-    let perms = managePerms(message, command.PermissionBOT, true);
+    let perms = managePerms(message, command.PermissionBOT, false);
     if(!message.guild.me.hasPermission(perms))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${perms}\` Я не могу исполнить вашу команду.`));
     command.execute(Main, message, args,res,Data,err);}
     if(message.mentions.users.first() == message.guild.me && !command){
