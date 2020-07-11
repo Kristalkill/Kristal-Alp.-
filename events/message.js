@@ -22,8 +22,8 @@ module.exports = (Main,message) => {
     guild.save()
    }
    if(message.mentions.users.first() == message.guild.me && !command){
-    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))};
-   if(BlockY && command){ 
+    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`))}
+   else if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
     Data.xp += res.Economy.xp
