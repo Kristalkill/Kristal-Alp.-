@@ -5,7 +5,7 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  var prefixes = ["<@704604456313946182>","<@!704604456313946182>",`${res.Moderation.prefix}`]
+  var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
@@ -22,8 +22,6 @@ module.exports = (Main,message) => {
     let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
     guild.save()
    }
-   if(message.mentions.users.first() == message.guild.me && !command){
-    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
    else if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
@@ -46,7 +44,8 @@ module.exports = (Main,message) => {
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);}
     command.execute(Main, message, args,res,Data,err);
-}
+}if(message.mentions.users.first() == message.guild.me && !command){
+  message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
 }
 })
 })
