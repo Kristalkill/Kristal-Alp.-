@@ -47,7 +47,7 @@ module.exports = (Main,message) => {
         if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${command.PermissionBOT}\` Я не могу исполнить вашу команду.`));
     command.execute(Main, message, args,res,Data,err);}
     if(message.mentions.users.first() == message.guild.me && !command){
-    message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
+    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
 })
 })
 })
