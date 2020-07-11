@@ -6,7 +6,7 @@ module.exports = {
   aliases: ["r"],
   public: true,
   async execute(Main, message, args) {
-        if (!args[1])return message.channel.send(ErrEmbed.setDescription("Введите числа"))
+        if (!args[1])return num1 = 0,num2 = 100;
         let num1 = toNum(args[0])
         let num2 = toNum(args[1])
         let random = Math.floor(Math.random() * (num2 - num1)) + num1

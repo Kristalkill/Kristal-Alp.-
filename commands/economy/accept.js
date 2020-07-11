@@ -5,7 +5,7 @@ module.exports = {
     aliases: ["accept"],
     public: true,
      async execute (Main, message, args,res) {
-const member = message.mentions.users.first() || message.guild.members.cache.get(args[1])
+const member = message.mentions.users.filter(u=>!u.bot).first()  || message.guild.members.cache.get(args[1])
 const MarryEmbed = new Discord.MessageEmbed()
 .setColor("#F430FF")
 User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {

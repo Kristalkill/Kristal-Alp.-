@@ -4,7 +4,7 @@ module.exports = {
     aliases: [],
     public: false,
     async execute(Main, message, args) {
-    const member =  message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]))
+    const member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first()  || message.guild.members.cache.get(args[0]))
     const reason = args[1]||"Неизвесной"
     const time = args[2]||0
     const timeT = args[2]||"Навсегда"

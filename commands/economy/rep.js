@@ -9,7 +9,7 @@ module.exports = {
       i = i.toString();
       return i[0].toUpperCase() + i.slice(1)
     }
-let member =  message.guild.member(message.mentions.users.first() || message.guild.members.cache.get(args[0]||args[1]))
+let member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first() || message.guild.members.cache.get(args[1]));
 let arguments = capitalize(args[0]);
 User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
 User.findOne({guildID: message.guild.id, userID: member.id},(err,Data1) => {
