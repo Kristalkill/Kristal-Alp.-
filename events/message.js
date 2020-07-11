@@ -1,11 +1,11 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = (Main,message) => {
-  if(!message.author.bot)return;
+  if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
+  var prefixes = ["<@704604456313946182>","<@!704604456313946182>",`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
