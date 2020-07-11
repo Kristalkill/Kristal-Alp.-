@@ -1,6 +1,7 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = (Main,message) => {
+  if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
@@ -14,15 +15,9 @@ module.exports = (Main,message) => {
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(err){console.log(err)};
-  if(!Data){
-    let user = new User({guildID:message.guild.id, userID:message.author.id})
-    user.save()
-     }
-   if(!res){
-    let guild = new Guild({guildID: message.guild.id,ownerID:message.guild.ownerid})
-    guild.save()
-   }
-   else if(BlockY && command){ 
+  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
+  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
+  if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
     Data.xp += res.Economy.xp
