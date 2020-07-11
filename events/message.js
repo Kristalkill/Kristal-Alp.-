@@ -5,7 +5,7 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
+  var prefixes = [`${message.guild.me}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
