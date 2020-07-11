@@ -1,19 +1,5 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
-function managePerms(message, needPerms, addMore) {
-  let need = [];
-  if (addMore = false) {
-    needPerms.push("EMBED_LINKS");
-    needPerms.push("ADD_REACTIONS");
-    needPerms.push("USE_EXTERNAL_EMOJIS");
-  }
-  needPerms.map((p) => !message.channel.permissionsFor(addMore ? message.guild.me : message.member).has(p) ? need.push(p) : null);
-  if (need.length) return {
-    need,
-    embed: message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS") ? true : false
-  };
-  else return false;
-}
 module.exports = (Main,message) => {
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
@@ -58,8 +44,7 @@ module.exports = (Main,message) => {
     if(!member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав:` `\`${command.Permission}\` Я не могу исполнить вашу команду.`));}
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);} 
-    let perms = managePerms(message, command.PermissionBOT, false);
-    if(!message.guild.me.hasPermission(perms))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${perms}\` Я не могу исполнить вашу команду.`));
+        if(!message.guild.me.hasPermission(command.PermissionBOT))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:` `\`${command.PermissionBOT}\` Я не могу исполнить вашу команду.`));
     command.execute(Main, message, args,res,Data,err);}
     if(message.mentions.users.first() == message.guild.me && !command){
     message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
