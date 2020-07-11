@@ -5,11 +5,9 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
-  var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
-  let prefix = false;
-  for (const thisPrefix of prefixes) {
-    if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
-}
+  var prefix = `${res.Moderation.prefix}`
+  const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const prefixRegex = new RegExp(`^(<@!?${Main.user.id}>|${escapeRegex(prefix)})\\s*`);
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
@@ -35,7 +33,7 @@ module.exports = (Main,message) => {
     Data.level+=1
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
-    if(prefix && command){
+    if(prefixRegex && command){
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
@@ -43,9 +41,9 @@ module.exports = (Main,message) => {
     if(!config.owner.includes(message.author.id)){
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);}
-    command.execute(Main, message, args,res,Data,err);
-}if(message.mentions.users.first() == message.guild.me && !command){
-  message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
+    command.execute(Main, message, args,res,Data,err);}
+    else if(message.mentions.users.first() == message.guild.me && !command){
+    message.channel.send(embed.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
 }
 })
 })
