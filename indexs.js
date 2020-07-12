@@ -6,8 +6,6 @@ global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
-const html = require('html');
-const ErrEmbed = require('./embeds/ErrEmbed.js');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
@@ -68,10 +66,10 @@ app.get("/api/storage",(req,res)=>{
 res.send(String((process.cpuUsage().user/1024/1024/100).toFixed(2)))
 });
 app.use("/index", function(request, res){
-  res.sendFile('../scr/index.html', {root: __dirname})
+  res.sendFile('./scr/index.html', {root: __dirname})
 });
 app.use("/dashboard", function(request, res){
-	res.sendFile('../scr/dashboard.html', {root: __dirname})
+	res.sendFile('./scr/dashboard.html', {root: __dirname})
 });
 app.use(express.static('../scr/public'));
 app.use(function(req, res, next){
@@ -83,5 +81,4 @@ app.use(function(req, res, next){
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
   });
-
 Main.login(process.env.Token)
