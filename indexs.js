@@ -71,12 +71,12 @@ app.use("/index", function(request, res){
 app.use("/dashboard", function(request, res){
 	res.sendFile('./scr/dashboard.html', {root: __dirname})
 });
-app.use('/scr', express.static('public'));
+app.use(express.static('./scr/public'));
 app.use(function(req, res, next){
-  res.status(404).sendFile('../scr/404.html')
+  res.status(404).sendFile('./scr/404.html')
 });
 app.use(function(req, res, next){
-  res.status(200).sendFile('../scr/404.html')
+  res.status(200).sendFile('./scr/404.html')
 });
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
