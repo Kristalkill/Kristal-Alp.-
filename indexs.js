@@ -73,10 +73,10 @@ app.use("/dashboard", function(request, res){
 });
 app.use(express.static('./scr/public'));
 app.use(function(req, res, next){
-  res.status(404).sendFile('./scr/404.html')
+  res.status(404).sendFile('./scr/404.html',{root: __dirname})
 });
 app.use(function(req, res, next){
-  res.status(200).sendFile('./scr/404.html')
+  res.status(200).sendFile('./scr/404.html', {root: __dirname})
 });
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
