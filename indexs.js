@@ -71,7 +71,7 @@ app.use("/index", function(request, res){
 app.use("/dashboard", function(request, res){
 	res.sendFile('./scr/dashboard.html', {root: __dirname})
 });
-app.use(express.static('../scr/public'));
+app.use('/scr', express.static('public'));
 app.use(function(req, res, next){
   res.status(404).sendFile('../scr/404.html')
 });
