@@ -68,17 +68,17 @@ app.get("/api/storage",(req,res)=>{
 res.send(String((process.cpuUsage().user/1024/1024/100).toFixed(2)))
 });
 app.use("/index", function(request, res){
-  res.sendFile(__dirname +'/index.html')
+  res.sendFile(__dirname +'./../index.html')
 });
 app.use("/dashboard", function(request, res){
-  res.sendFile(__dirname +'/dashboard.html')
+  res.sendFile(__dirname +'./../dashboard.html')
 });
 app.use(express.static('public'));
 app.use(function(req, res, next){
-  res.status(404).sendFile(__dirname +`/404.html`);
+  res.status(404).sendFile(__dirname +`./../404.html`);
 });
 app.use(function(req, res, next){
-  res.status(200).sendFile(__dirname +`/200.html`);
+  res.status(200).sendFile(__dirname +`./../404.html`);
 });
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
