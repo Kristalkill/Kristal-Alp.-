@@ -1,3 +1,3 @@
 module.exports = (Main,guild) => {
-    Guild.deleteOne({guildID: guild.id})
+Guild.deleteOne({guildID: guild.id})
 }

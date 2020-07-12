@@ -1,4 +1,4 @@
 module.exports = (Main,guild) => {
-let nguild = new Guild({guildID: guild.id,ownerID:guild.owner.user.id})
-  nguild.save()
+if(!guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
+Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
 }

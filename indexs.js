@@ -77,6 +77,9 @@ app.use(express.static('public'));
 app.use(function(req, res, next){
   res.status(404).sendFile(__dirname +`/404.html`);
 });
+app.use(function(req, res, next){
+  res.status(200).sendFile(__dirname +`/200.html`);
+});
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
   });
