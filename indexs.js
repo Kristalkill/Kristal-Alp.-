@@ -66,7 +66,7 @@ app.get("/api/storage",(req,res)=>{
 res.send(String((process.cpuUsage().user/1024/1024/100).toFixed(2)))
 });
 app.use("/index", function(request, res){
-  res.sendFile('./scr/index.html', {root: __dirname})
+  res.sendFile('./scr/index.xhtml', {root: __dirname})
 });
 app.use("/dashboard", function(request, res){
 	res.sendFile('./scr/dashboard.html', {root: __dirname})
