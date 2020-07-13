@@ -6,6 +6,9 @@ module.exports = (Main,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
+  if(err){console.log(err)};
+  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
+  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
   var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
@@ -14,9 +17,6 @@ module.exports = (Main,message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-  if(err){console.log(err)};
-  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
-  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
   if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){

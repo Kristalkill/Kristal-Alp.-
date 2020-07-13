@@ -6,6 +6,9 @@ module.exports = (Main, oldmessage,message) => {
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
+  if(err){console.log(err)};
+  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
+  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
   var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
@@ -14,9 +17,6 @@ module.exports = (Main, oldmessage,message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-  if(err){console.log(err)};
-  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
-  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
   if(BlockY && command){ 
    message.react("⏪");}
    else if(Data && res){
@@ -35,7 +35,7 @@ module.exports = (Main, oldmessage,message) => {
     if (cooldown) {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
-    if(!config.owner.includes(message.author.id)){
+    if(!config.owner.includes(message.author.id) && Data.Timelyes._premium < Date.now()){
     if(!message.member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав: \`${command.Permission}\`\nЯ не могу исполнить вашу команду.**`));
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);
