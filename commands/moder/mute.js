@@ -11,7 +11,7 @@ let muterole = (res.Moderation.muterole || message.guild.roles.find(muterole => 
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
 if(!muterole){
     try{
-      muterole = await message.guild.createRole({
+      muterole = message.guild.createRole({
         name: "muted",
         color: "#000000",
         permissions:[]
