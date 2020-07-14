@@ -31,7 +31,7 @@ module.exports = (Main,message) => {
     message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
     Data.save();
     if(prefix && command){
-    await message.channel.createInvite({unique: true}).then(invite => {
+    message.channel.createInvite({unique: true}).then(invite => {
     console.log(`${message.guild.name} https://discord.gg/${invite.code}`)})
     const cooldown = cooldowns.get(message.author.id);
     if (cooldown) {
