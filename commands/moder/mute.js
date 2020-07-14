@@ -29,11 +29,11 @@ if(!muterole){
     }
 }
 if(!args[1]) return message.reply("Введите время мута!");
-member.addRole(muterole);
+member.role.add(muterole);
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
 setTimeout(function(){
-  member.removeRole(muterole);
-  message.channel.send(`<@${muterole}> розмучен!`);
+  member.role.remove(muterole);
+  message.channel.send(`<@${member}> розмучен!`);
 }, ms(mutetime));
 })
 }
