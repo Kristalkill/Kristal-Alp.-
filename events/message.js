@@ -38,11 +38,11 @@ module.exports = (Main,message) => {
         const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
         return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
     if(!config.owner.includes(message.author.id) && Data.Timelyes._premium < Date.now()){
-    if(command.public === false)return;
     if(!message.member.hasPermission(command.Permission))return message.reply(ErrEmbed.setDescription(`**К сожелению у вас нету прав: \`${command.Permission}\`\nЯ не могу исполнить вашу команду.**`));
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);
     };
+    if(command.public === false && !config.owner.includes(message.author.id))return;
     if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
     command.execute(Main, message, args,res,Data,err);}
     else if(message.content.startsWith(message.guild.me)&& !command){
