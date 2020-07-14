@@ -179,3 +179,8 @@ body {
     transform: rotate(360deg);
   }
 }
+.topgg {
+  background: url("https://top.gg/api/widget/704604456313946182.svgg") no-repeat;
+  height:100%;
+  width:100%;
+  }
