@@ -11,7 +11,7 @@ module.exports = {
     const JoinedData = formatDate(member.joinedAt);
     const CreateData = formatDate(member.user.createdAt);
     const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
-    const devices = {"desktop": "<:monitor:709846096393928754> Компьютер", "web": "<:browser:709846119710064680> Сайт", "mobile": "<:phone:709846108712730724> Смартфон"};
+    const devices = {"desktop": "<Компьютер", "web": "Сайт", "mobile":"Смартфон"};
     let devicesText = " ";
     if(member.user.presence.clientStatus){
     for(let dev in member.user.presence.clientStatus){
@@ -27,6 +27,7 @@ module.exports = {
         devicesText += `${devices[dev]},`
       }
       };
+    
     const flags = {
      DISCORD_EMPLOYEE: '<:Staff:709858516390641745>',
      DISCORD_PARTNER: '<:Partner:709854788463886399>',
