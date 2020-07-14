@@ -33,7 +33,7 @@ await(member.addRole(muterole));
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
 setTimeout(function(){
   tomute.removeRole(muterole);
-  message.channel.send(`<@${muterole}> has been unmuted!`);
+  message.channel.send(`<@${muterole}> розмучен!`);
 }, ms(mutetime));
 })
 }
