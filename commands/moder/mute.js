@@ -29,7 +29,7 @@ if(!muterole){
     }
 }
 if(!parseInt(args[1])) return message.reply("Введите время мута!");
-(member.addRole(muterole));
+member.addRole(muterole);
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
 setTimeout(function(){
   tomute.removeRole(muterole);
