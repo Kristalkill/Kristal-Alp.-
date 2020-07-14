@@ -28,7 +28,7 @@ if(!muterole){
       console.log(e.stack);
     }
 }
-if(parseInt(args[1])) return message.reply("Введите время мута!");
+if(!parseInt(args[1])) return message.reply("Введите время мута!");
 (member.addRole(muterole));
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
 setTimeout(function(){
