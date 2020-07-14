@@ -11,7 +11,7 @@ let muterole = (res.Moderation.muterole ||message.guild.roles.cache.find(x => /(
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
 if(!muterole){
     try{
-      muterole = message.guild.createRole({
+      muterole = message.guild.roles.create({
         name: "muted",
         color: "#000000",
         permissions:[]
@@ -29,10 +29,10 @@ if(!muterole){
     }
 }
 if(!args[1]) return message.reply("Введите время мута!");
-member.role.add(muterole);
+member.roles.add(muterole);
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
 setTimeout(function(){
-  member.role.remove(muterole);
+  member.roles.remove(muterole);
   message.channel.send(`<@${member}> розмучен!`);
 }, ms(mutetime));
 })
