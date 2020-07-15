@@ -115,7 +115,7 @@ if(Data) {
     else {
       profileembed2.setDescription(`**Нету**`)
     }
-  if(Data.Achievements){
+  if(Data.Achievements >= 1){
       for (let i = 0; i < Data.Achievements.length; i++) {
         let getted = Achievements[(Data.Achievements)[i]]
         profileembed2.addField(`**${i + 1}.${getted.name}|${getted.emoji}**`,`\n**${getted.description}**`)
