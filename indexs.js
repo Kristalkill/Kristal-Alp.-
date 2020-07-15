@@ -64,6 +64,7 @@ setInterval(()=>{
       
       }
       else{
+      Mute.deleteOne({guildID:mute.guildID,id:mute.id});
       if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
       if(guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return guild.members.cache.get(mute.id).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
       }
