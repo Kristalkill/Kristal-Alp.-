@@ -6,6 +6,7 @@ global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
+const message = require('./events/message.js');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
@@ -17,6 +18,7 @@ global.cooldowns  = new Map();
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
 global.Block = require('./models/block.js');
+global.Mute = require('./models/Mute.js');
 global.config = require('./config.json');
 global.Main = new Discord.Client();
 //____MAIN____///
@@ -45,6 +47,23 @@ fs.readdir('./events/', (err, files) => {
     Main.on(evtName, event.bind(null, Main));
   });
 });
+setInterval(()=>{
+Mute.find({guildID:message.guild.id}).sort('userID').exec((err,res)=> {
+  res.forEach(async mute => {
+    const guild = Main.guilds.cache.get(mute.guildid)
+    const role = guild.role.cache.get(mute.role);
+    if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildid,id:mute.id});
+    if(!guild.members.cache.get(mute.id))return;
+    if(!role) res.deleteOne({guild: mute.guildid,id:mute.id})
+    if(!guild)return;
+    if(mute.time === null){
+      if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
+
+    }
+    else return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+})
+}
+)},5000)
 ////// HTML //////////
 app.set('view engine', 'html');
 app.get("/api/guilds",(req,res)=>{

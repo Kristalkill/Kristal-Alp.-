@@ -22,22 +22,18 @@ if(!muterole){
           ADD_REACTIONS: false
         });
       });
-      res.Moderation.muterole = muterole;
+      res.Moderation.muterole = muterole.id;
       res.save();
     }catch(e){
       console.log(e.stack);
     }
 }
-if(!ms(args[1])) return message.reply("Введите время мута!");
+if(args[1] && ms(args[2])){
 member.roles.add(muterole);
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(ms(args[1]),{round: true,language: "ru"})}`);
-setTimeout(function(){
-  if(member.roles.cache.includes(muterole)){
-  member.roles.remove(muterole);
-  message.channel.send(`${member} розмучен!`);
-  }
-  else return;
-},ms(args[1]));
+mute.create({guildID:message.guild.id, userID:message.author.id,reason:args[1],time:ms(args[2]),role:muterole})
+}
+else return message.reply(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `);
 })
 }
 }

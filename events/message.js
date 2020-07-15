@@ -7,8 +7,8 @@ module.exports = (Main,message) => {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
   if(err){console.log(err)};
-  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id});
-  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid});
+  if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id})
+  if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
   var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {
