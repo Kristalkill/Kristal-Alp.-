@@ -50,14 +50,14 @@ fs.readdir('./events/', (err, files) => {
 setInterval(()=>{
   Mute.find().exec((err,res)=> {
     res.forEach(async mute => {
-      const guild = Main.guilds.cache.get(`359679602089525250`)
+      const guild = Main.guilds.cache.get(mute.guildID)
       console.log(`Guild - ${guild}`)
       console.log(`mute - ${mute}`)
       if(!guild)return;
       const role = guild.role.cache.get(mute.role);
-      if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildid,id:mute.id});
+      if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
       if(!guild.members.cache.get(mute.id))return;
-      if(!role) res.deleteOne({guild: mute.guildid,id:mute.id})
+      if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
       if(mute.time === null){
         if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
   
