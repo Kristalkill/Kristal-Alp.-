@@ -51,18 +51,22 @@ setInterval(()=>{
   Mute.find().exec((err,res)=> {
     res.forEach(async mute => {
       const guild = Main.guilds.cache.get(mute.guildID)
-      console.log(`Guild - ${guild}`)
-      console.log(`mute - ${mute}`)
       if(!guild)return;
       const role = guild.roles.cache.get(mute.role);
+      
+      console.log(role)
       if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
       if(!guild.members.cache.get(mute.id))return;
       if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
       if(mute.time === null){
         if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
-  
+      }else if(time !== null){
+      
       }
-      else return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+      else{
+      if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+      if(guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return guild.members.cache.get(mute.id).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+      }
   })
   }
   )},5000)
