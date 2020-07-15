@@ -48,7 +48,7 @@ fs.readdir('./events/', (err, files) => {
   });
 });
 setInterval(()=>{
-Mute.find.sort('userID').exec((err,res)=> {
+Mute.find().sort('userID').exec((err,res)=> {
   res.forEach(async mute => {
     const guild = Main.guilds.cache.get(mute.guildid)
     const role = guild.role.cache.get(mute.role);
