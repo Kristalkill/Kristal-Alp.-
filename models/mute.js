@@ -1,8 +1,8 @@
 const muteShema = mongoose.Schema({
-    id: Number,
-    guildid:Number,
+    id: String,
+    guildID:String,
     reason: String,
-    time:Number,
-    role:Number
+    time:String,
+    role:String
 });
 module.exports = mongoose.model("mute", muteShema)
