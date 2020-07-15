@@ -18,7 +18,7 @@ global.cooldowns  = new Map();
 global.User = require('./models/user.js');
 global.Guild = require('./models/guild.js');
 global.Block = require('./models/block.js');
-global.Mute = require('./models/Mute.js');
+global.Mute = require('./models/mute.js');
 global.config = require('./config.json');
 global.Main = new Discord.Client();
 //____MAIN____///
