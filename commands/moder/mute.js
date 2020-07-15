@@ -12,7 +12,7 @@ let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first
 if(!muterole){
     try{
       muterole = message.guild.roles.create({
-        name: "muted",
+        name: "Muted",
         color: "#000000",
         permissions:[]
       })
@@ -32,8 +32,11 @@ if(!ms(args[1])) return message.reply("Введите время мута!");
 member.roles.add(muterole);
 message.reply(`<@${member.id}> замучен на  ${humanizeDuration(ms(args[1]),{round: true,language: "ru"})}`);
 setTimeout(function(){
+  if(member.roles.cache.includes(muterole)){
   member.roles.remove(muterole);
   message.channel.send(`${member} розмучен!`);
+  }
+  else return;
 },ms(args[1]));
 })
 }

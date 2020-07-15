@@ -5,7 +5,7 @@ function addAchievement(param,number,Data,message){
     Data.Achievements.push(number)
     let AchievementEmed = new Discord.MessageEmbed()
     .setColor('RANDOM')
-    .setTitle(`**Поздравим** ${message.author}`)
+    .setTitle(`**Поздравим**`)
     .setImage(`${message.author.avatarURL({dynamic: true})}`)
     .addField(`**${message.author.tag}**`,`**С новым дистижением**\n**Значок: **${Achievements[number].emoji}\n**Название: **${Achievements[number].name}\n**Описание: **${Achievements[number].description}`)
      message.channel.send(AchievementEmed)
