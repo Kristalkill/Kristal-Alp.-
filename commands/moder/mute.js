@@ -30,7 +30,7 @@ if(!muterole){
 }
 if(!args[1]) return message.reply("Введите время мута!");
 member.roles.add(muterole);
-message.reply(`<@${member.id}> замучен на  ${humanizeDuration(mutetime,{round: true,language: "ru"})}`);
+message.reply(`<@${member.id}> замучен на  ${humanizeDuration(parseInt(args[1]),{round: true,language: "ru"})}`);
 setTimeout(function(){
   member.roles.remove(muterole);
   message.channel.send(`<@${member}> розмучен!`);
