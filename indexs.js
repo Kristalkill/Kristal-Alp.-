@@ -51,7 +51,8 @@ setInterval(()=>{
   Mute.find().exec((err,res)=> {
     res.forEach(async mute => {
       const guild = Main.guilds.cache.get(mute.guildid)
-      console.log(guild)
+      console.log(`Guild - ${guild}`)
+      console.log(`mute - ${mute}`)
       if(!guild)return;
       const role = guild.role.cache.get(mute.role);
       if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildid,id:mute.id});
