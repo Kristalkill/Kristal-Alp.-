@@ -3,6 +3,7 @@ const muteShema = mongoose.Schema({
     guildID:String,
     reason: String,
     time:String,
-    role:String
+    role:String,
+    channel:String
 });
 module.exports = mongoose.model("mute", muteShema)
