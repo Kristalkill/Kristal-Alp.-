@@ -54,7 +54,7 @@ setInterval(()=>{
       console.log(`Guild - ${guild}`)
       console.log(`mute - ${mute}`)
       if(!guild)return;
-      const role = Main.guilds.cache.get(mute.guildID).roles.cache.get(mute.role);
+      const role = guild.roles.cache.get(mute.role);
       if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
       if(!guild.members.cache.get(mute.id))return;
       if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
