@@ -60,13 +60,17 @@ setInterval(()=>{
       if(mute.time === null){
         if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
       }else if(mute.time !== null){
-      
+        if(mute.time >= Date.now()){
+        if(!user)return;
+        if(!user.roles.cache.has(mute.role))return user.roles.add(mute.role);
+        }else{
+          Mute.deleteOne({guildID:mute.guildID,id:mute.id});
+          user.roles.remove(mute.role);
+          if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+          if(user && user.roles.cache.has(mute.role))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
+          }
       }
-      else{
-      Mute.deleteOne({guildID:mute.guildID,id:mute.id});
-      if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-      if(user && user.roles.cache.has(mute.role))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
-      }
+     
   })
   }
   )},5000)
