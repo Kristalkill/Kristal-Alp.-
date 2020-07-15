@@ -50,7 +50,7 @@ fs.readdir('./events/', (err, files) => {
 setInterval(()=>{
   Mute.find().exec((err,res)=> {
     res.forEach(async mute => {
-      const guild = Main.guilds.cache.get(mute.guildid)
+      const guild = Main.guilds.cache.get(`359679602089525250`)
       console.log(`Guild - ${guild}`)
       console.log(`mute - ${mute}`)
       if(!guild)return;
