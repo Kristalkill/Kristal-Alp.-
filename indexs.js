@@ -60,7 +60,7 @@ setInterval(()=>{
       if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
       if(mute.time === null){
         if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
-      }else if(time !== null){
+      }else if(mute.time !== null){
       
       }
       else{
