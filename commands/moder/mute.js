@@ -34,7 +34,7 @@ message.reply(`<@${member.id}> замучен на  ${humanizeDuration(parseInt(
 setTimeout(function(){
   member.roles.remove(muterole);
   message.channel.send(`<@${member}> розмучен!`);
-}, ms(mutetime));
+}, ms(parseInt(args[1])));
 })
 }
 }
