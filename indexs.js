@@ -53,8 +53,7 @@ setInterval(()=>{
       const guild = Main.guilds.cache.get(mute.guildID)
       if(!guild)return;
       const role = guild.roles.cache.get(mute.role);
-      
-      console.log(role)
+      const user = guild.members.cache.get(mute.id);
       if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
       if(!guild.members.cache.get(mute.id))return;
       if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
@@ -66,7 +65,7 @@ setInterval(()=>{
       else{
       Mute.deleteOne({guildID:mute.guildID,id:mute.id});
       if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-      if(guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return guild.members.cache.get(mute.id).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+      if(user && user.roles.cache.has(mute.role))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
       }
   })
   }
