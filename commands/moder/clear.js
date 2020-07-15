@@ -8,6 +8,7 @@ module.exports = {
     async execute(Main, message, args,res) {
 const amount = args[0];
 if (isNaN(amount)||1 < amount > 100)return message.reply(ErrEmbed.setDescription(`Введите число от 1 до 100`))
-    message.channel.bulkDelete(amount).then(messages => message.reply(OKEmbed.setDescription(`Удалено ${messages.size} messages`)))
+await message.channel.messages.fetch({ limit: amount }).then(messages => {
+    message.channel.bulkDelete(messages)}).then(messages1 => message.reply(OKEmbed.setDescription(`Удалено ${messages1.size} messages`)))
     }
 }
