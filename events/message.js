@@ -2,6 +2,7 @@ let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = (Main,message) => {
   if(message.author.bot)return;
+  if(Main.GetDMChannelAsync(message.channel.id).result === null)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
   Guild.findOne({guildID: message.guild.id},(err,res) => {
