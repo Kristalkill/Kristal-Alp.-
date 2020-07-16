@@ -14,9 +14,9 @@ const userSchema = mongoose.Schema({
     partner:{type: String,default:0},
     Achievements:[],
     Timelyes:{
-    _premium:Number,
-    _rep:Number,
-    _timely:Number
+    _premium:{type:Number,default:0},
+    _rep:{type:Number,default:0 },
+    _timely:{type:Number,default:0}
   }
 });
 module.exports = mongoose.model("User", userSchema)

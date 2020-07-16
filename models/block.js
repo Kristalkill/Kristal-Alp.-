@@ -1,6 +1,5 @@
 const blockShema = mongoose.Schema({
-    id: Number,
+    id: String,
     reason: String,
-    time:Number
 });
 module.exports = mongoose.model("block", blockShema)
