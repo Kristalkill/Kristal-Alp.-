@@ -44,5 +44,5 @@ if(!res1){
   message.reply(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);
 }
 if(err)return console.log(err);
-else return message.channel.send(`${member} ещё замучен на ${res1.time}`);})}
+else return message.channel.send(`${member} ещё замучен на ${humanizeDuration(ms(res1.time - Date.now()))}`);})}
 else return message.reply(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `)})}}
