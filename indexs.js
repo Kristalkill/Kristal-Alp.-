@@ -6,7 +6,6 @@ global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 const express = require('express');
-const message = require('./events/message.js');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
