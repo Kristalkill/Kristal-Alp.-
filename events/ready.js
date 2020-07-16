@@ -24,10 +24,10 @@ setInterval(()=>{
           if(!user)return;
           if(!user.roles.cache.has(Data.Moderation.muterole))return user.roles.add(Data.Moderation.muterole);
           }else{
+            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+            if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
             Mute.deleteOne({guildID:mute.guildID,id:mute.id});
             user.roles.remove(Data.Moderation.muterole);
-            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-            if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
             }
         }
       })
