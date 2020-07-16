@@ -1,14 +1,6 @@
 const guildchema = mongoose.Schema({
     guildID: String,
-    ownerID:{ type: Array, default: "[359678229096955904]" },
-    Logs:{
-      Invite:String,
-      Ban:String,
-      Message:String,
-      Kick:String,
-      Mute:String,
-      
-    },
+    ownerID:String,
     Moderation:{
      prefix: { type: String, default: "k!" },
    },
