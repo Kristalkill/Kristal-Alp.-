@@ -28,6 +28,7 @@ setInterval(()=>{
             user.roles.remove(Data.Moderation.muterole);
             if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
             if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
+            Mute.save()
             }
         }
       })
