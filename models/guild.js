@@ -3,6 +3,7 @@ const guildchema = mongoose.Schema({
     ownerID:String,
     Moderation:{
      prefix: { type: String, default: "k!" },
+     muterole:String
    },
     Economy:{
       Partner:{

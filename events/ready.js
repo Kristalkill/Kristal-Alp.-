@@ -11,25 +11,26 @@ setInterval(()=>{
       res.forEach(async mute => {
         const guild = Main.guilds.cache.get(mute.guildID)
         if(!guild)return;
-        const role = guild.roles.cache.get(mute.role);
+        Guild.findOne({guildID: mute.guildID},(err,Data) => {
+        const role = guild.roles.cache.get(res.Moderation.muterole);
         const user = guild.members.cache.get(mute.id);
         if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
         if(!guild.members.cache.get(mute.id))return;
         if(!role) res.deleteOne({guild: mute.guildID,id:mute.id})
         if(mute.time === null){
-          if(!guild.members.cache.get(mute.id).roles.cache.has(mute.role)) guild.memebrs.cache.get(mute.id).roles.add(mute.role)
+          if(!guild.members.cache.get(mute.id).roles.cache.has(res.Moderation.muterole)) guild.memebrs.cache.get(mute.id).roles.add(res.Moderation.muterole)
         }else if(mute.time !== null){
           if(mute.time >= Date.now()){
           if(!user)return;
-          if(!user.roles.cache.has(mute.role))return user.roles.add(mute.role);
+          if(!user.roles.cache.has(res.Moderation.muterole))return user.roles.add(res.Moderation.muterole);
           }else{
             Mute.deleteOne({guildID:mute.guildID,id:mute.id});
-            user.roles.remove(mute.role);
-            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(mute.role))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-            if(user && user.roles.cache.has(mute.role))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
+            user.roles.remove(res.Moderation.muterole);
+            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(res.Moderation.muterole))return message.channel.send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+            if(user && user.roles.cache.has(res.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
             }
         }
-       
+      })
     })
     }
     )},3000)
