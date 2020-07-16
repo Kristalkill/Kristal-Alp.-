@@ -33,13 +33,13 @@ else{
 }
 res.Moderation.muterole = muterole.id;
 res.save();
+}
 if(args[1] && parseInt(args[2])){
 member.roles.add(muterole.id);
 message.reply(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);
 Mute.create({guildID:message.guild.id,id:member.id,reason:args[1],time:parseInt(Date.now()) + ms(args[2]),channel:message.channel.id})
 }
 else return message.reply(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `);
-}
 })
 }
 }
