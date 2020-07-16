@@ -2,7 +2,6 @@ let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
-  if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
@@ -42,6 +41,7 @@ module.exports = (Main,message) => {
     cooldowns.set(message.author.id, Date.now() + 5000);
     setTimeout(() => cooldowns.delete(message.author.id), 5000);
     };
+    if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
     if(!message.guild.me.hasPermission(command.PermissionBOT))return message.reply(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
     command.execute(Main, message, args,res,Data,err);}
     if(message.content.startsWith(message.guild.me)&& !command){
