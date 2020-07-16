@@ -8,11 +8,10 @@ module.exports = {
     async execute(Main, message, args) {
 Guild.findOne({guildID: message.guild.id},(err,res) => {
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
-const findMrole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
+let muterole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
 if(!message.guild.roles.cache.get(res.Moderation.muterole)){
-  if(findMrole){
-    res.Moderation.muterole = findMrole.id;
-    res.save();
+  if(muterole){
+    res.Moderation.muterole = muterole.id;
   }
 else{
   try{
@@ -28,15 +27,14 @@ else{
       });
     });
     res.Moderation.muterole = muterole.id;
-    res.save();
   }catch(e){
     console.log(e.stack);
   } 
 }
+res.Moderation.muterole = muterole.id;
+res.save();
 if(args[1] && parseInt(args[2])){
-(async function(){
-await member.roles.add(res.Moderation.muterole);
-})
+member.roles.add(muterole.id);
 message.reply(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);
 Mute.create({guildID:message.guild.id,id:member.id,reason:args[1],time:parseInt(Date.now()) + ms(args[2]),channel:message.channel.id})
 }
