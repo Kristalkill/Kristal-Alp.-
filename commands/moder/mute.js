@@ -33,9 +33,9 @@ else{
     console.log(e.stack);
   } 
 }
-if(args[1] && ms(args[2])){
+if(args[1] && parseInt(args[2])){
 (async function(){
-await member.roles.add(res.Moderation.muterole );
+await member.roles.add(res.Moderation.muterole);
 })
 message.reply(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);
 Mute.create({guildID:message.guild.id,id:member.id,reason:args[1],time:parseInt(Date.now()) + ms(args[2]),channel:message.channel.id})
