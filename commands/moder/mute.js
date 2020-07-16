@@ -9,7 +9,7 @@ module.exports = {
 Guild.findOne({guildID: message.guild.id},(err,res) => {
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
 const findMrole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
-if(!res.Moderation.muterole){
+if(!message.guild.roles.cache.get(res.Moderation.muterole)){
   if(findMrole){
     res.Moderation.muterole = findMrole.id;
     res.save();
