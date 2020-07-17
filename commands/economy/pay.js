@@ -5,10 +5,10 @@ module.exports = {
     public: true,
     async execute(Mine, message, args) {
     let member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first() || message.guild.members.cache.get(args[3]));
-    if(!member) return message.reply(ErrEmbed.setDescription(`Пользователь не был найден.`))
-    if(!args[1]) return message.reply(ErrEmbed.setDescription(`Укажите количество монет которых хотите отдать.`))
-    if(args[1] < 1) return message.reply(ErrEmbed.setDescription(`Нельзя передать такое количество монет`))
-    if(isNaN(args[1])) return message.reply(ErrEmbed.setDescription(`Укажите корректное значение.`))
+    if(!member) return  message.channel.send(ErrEmbed.setDescription(`Пользователь не был найден.`))
+    if(!args[1]) return  message.channel.send(ErrEmbed.setDescription(`Укажите количество монет которых хотите отдать.`))
+    if(args[1] < 1) return  message.channel.send(ErrEmbed.setDescription(`Нельзя передать такое количество монет`))
+    if(isNaN(args[1])) return  message.channel.send(ErrEmbed.setDescription(`Укажите корректное значение.`))
     User.findOne({guildID: message.guild.id, userID: message.author.id},(err,loc) => {
     User.findOne({guildID: message.guild.id, userID: member.id},(err,data) => {
         if(!data){
@@ -18,9 +18,9 @@ module.exports = {
             return message.channel.send(errorMess)
         }else{
 
-            if(loc.money < args[1]) return message.reply(ErrEmbed.setDescription(`У вас нету такого количества монет.`))
-            if(loc.userID == member.id) return message.reply(ErrEmbed.setDescription(`Вы не можете передать монеты самому себе!`))
-            if(member.user.bot) return message.reply(ErrEmbed.setDescription(`Боты не люди.`))
+            if(loc.money < args[1]) return  message.channel.send(ErrEmbed.setDescription(`У вас нету такого количества монет.`))
+            if(loc.userID == member.id) return  message.channel.send(ErrEmbed.setDescription(`Вы не можете передать монеты самому себе!`))
+            if(member.user.bot) return  message.channel.send(ErrEmbed.setDescription(`Боты не люди.`))
 
             let embed = new Discord.MessageEmbed()
             .setColor(config.color)

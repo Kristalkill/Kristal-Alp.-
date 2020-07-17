@@ -9,9 +9,9 @@ module.exports = {
     Block.findOne({id: member.id},(err,Data)=> {
     if(!Data){
     Block.create({id:member.id,reason:reason})
-    message.chhannel.send(`${member} заблокирован по причине **${reason}**`);
+    message.channel.send(ErrEmbed.setDescription(`${member} заблокирован по причине **${reason}**`));
     }
-    else return message.chhannel.send(`${member} уже заблокирован по причине ${Data.reason}`)
+    else return message.channel.send(ErrEmbed.setDescription(`${member} уже заблокирован по причине ${Data.reason}`))
 })
 }
 }

@@ -42,6 +42,6 @@ if(err)return console.log(err);
 if(!res1){ 
   Mute.create({guildID:message.guild.id,id:member.id,reason:args[1],time:parseInt(Date.now()) + ms(args[2]),channel:message.channel.id});
   member.roles.add(muterole.id);
-  message.reply(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);}
+   message.channel.send(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);}
 if(res1)return message.channel.send(`${member} ещё замучен на ${humanizeDuration(ms(res1.time - Date.now()))}`);})}
-else return message.reply(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `)})}}
+else return  message.channel.send(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `)})}}

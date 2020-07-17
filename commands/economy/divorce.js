@@ -7,7 +7,7 @@ module.exports = {
      async execute (Main, message, args,res) {
 User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
 (async function(){
-if ((Data.partner||Data1.partner) == '0')return message.reply('У тебя нету партнера');
+if ((Data.partner||Data1.partner) == '0')return  message.channel.send('У тебя нету партнера');
 let activePartner = User.findOne({ userID:Data.partner });
 activePartner.partner = '0';
 activePartner.save();

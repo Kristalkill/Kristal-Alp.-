@@ -18,10 +18,10 @@ module.exports = {
     
   }
   else if(isNaN(args[1])) {
-    message.reply(`Укажите кол-во монет которое хотите передать`)
+     message.channel.send(`Укажите кол-во монет которое хотите передать`)
   }
   else {
-    message.reply(ErrEmbed.setDescription('rep,money,level'))
+     message.channel.send(ErrEmbed.setDescription('rep,money,level'))
   }
 
 })   

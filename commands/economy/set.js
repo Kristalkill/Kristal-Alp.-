@@ -6,8 +6,8 @@ module.exports = {
   aliases: [],
   public: true,
   async execute(Main, message, args) {
-    if(isNaN(args[1]) || parseInt(args[1])> 10000000 || parseInt(args[1])<1)return message.reply(ErrEmbed.setDescription(`Укажите кол-во монет которое хотите поставить не меньше 1 и не больше 10М`))
-    if(!args[0])return message.reply(ErrEmbed.setDescription("rep,money"))
+    if(isNaN(args[1]) || parseInt(args[1])> 10000000 || parseInt(args[1])<1)return  message.channel.send(ErrEmbed.setDescription(`Укажите кол-во монет которое хотите поставить не меньше 1 и не больше 10М`))
+    if(!args[0])return  message.channel.send(ErrEmbed.setDescription("rep,money"))
     let member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first()  || message.guild.members.cache.get(args[3]) || message.author);
     let a = new Discord.MessageEmbed()
     .setDescription(`Вы успешно поставили **${member.user.username}** ${args[0]} в количестве \`${args[1]}\``)

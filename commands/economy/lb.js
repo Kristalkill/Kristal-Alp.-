@@ -10,7 +10,7 @@ module.exports = {
     async execute(Main, message, args) {
       let embed = new Discord.MessageEmbed()
       .setColor('RANDOM');
-if(!args[0].toLowerCase())return message.reply("level,money,rep,xp")
+if(!args[0].toLowerCase())return  message.channel.send("level,money,rep,xp")
 if (['level', 'money', 'rep', 'xp'].includes(args[0].toLowerCase())){ 
 let text = " "
 let Values = `**${args[0].toLowerCase()}**`

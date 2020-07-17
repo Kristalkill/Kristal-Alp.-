@@ -10,7 +10,7 @@ const MarryEmbed = new Discord.MessageEmbed()
 User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
 if (err){console.log(err)}
 if (Data){
-    if (Data.senders.length <= 2)return message.reply(ErrEmbed.setDescription('Вам никто не отправлял предложение'));
+    if (Data.senders.length <= 2)return  message.channel.send(ErrEmbed.setDescription('Вам никто не отправлял предложение'));
     let usersArr = Data.senders.split(',')
     let txt = '';
     for (let i = 0; i < usersArr.length; i++) {

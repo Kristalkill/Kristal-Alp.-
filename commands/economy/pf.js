@@ -62,7 +62,7 @@ if(a.details) str += "\n  " + a.details + " ";
 if(a.state) str += "  " + a.state + " ";
 if(a.url) str += "  " + a.url;
 return str;}).join("\n");
-     if(member.user.bot) return message.reply(`**Error: Боты не люди**`)
+     if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
     User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
 if(err){
   console.log(err)

@@ -11,9 +11,9 @@ const MarryEmbed = new Discord.MessageEmbed()
 User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
 if (err){console.log(err)}
 if (Data){
-  if (!member)return message.reply('Укажите пользователя');
+  if (!member)return  message.channel.send('Укажите пользователя');
   User.findOne({guildID: message.guild.id, userID:member.id},(err,Data1) => {
-  if (Data.sended == '0')return message.reply('Вы не отправляли предложений');
+  if (Data.sended == '0')return  message.channel.send('Вы не отправляли предложений');
       Data.sended = '0';
       let sendersArray = Data1.senders.split(',');
       sendersArray.splice(sendersArray.indexOf(message.author.id), 1)

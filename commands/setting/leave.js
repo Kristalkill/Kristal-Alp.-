@@ -13,7 +13,7 @@ module.exports = {
         console.log(err)
       }
       if (Data) {
-        if (!(args[0] = message.mentions.channels.first()||`undefined`)) return message.reply(ErrEmbed.setDescription('Укажы канал или чтоб офнуть напишы undefined'));
+        if (!(args[0] = message.mentions.channels.first()||`undefined`)) return  message.channel.send(ErrEmbed.setDescription('Укажы канал или чтоб офнуть напишы undefined'));
         else{
             Data.Lсhannel = args[0]
             Data.save()
