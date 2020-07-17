@@ -10,7 +10,7 @@ Guild.findOne({guildID: message.guild.id},async(err,res) => {
 let muterole = (res.Moderation.muterole.id ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
 if(member.roles.cache.has(muterole)){
-  Mute.deleteOne({guildID:message.guild.id,id:member.id});
+  await Mute.deleteOne({guildID:message.guild.id,id:member.id});
   await member.roles.remove(muterole);
   message.channel.send(OKEmbed.setDescription(`${member} розмучен!`));
 }
