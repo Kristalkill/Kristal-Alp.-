@@ -12,7 +12,7 @@ let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first
 if(member.roles.cache.has(muterole)){
   Mute.deleteOne({guildID:message.guild.id,id:member.id});
   member.roles.remove(muterole);
-  message.channel.send(OKEmbed.setDescriptiom(`${member} розмучен!`));
+  message.channel.send(OKEmbed.setDescription(`${member} розмучен!`));
 }
 })
 }
