@@ -8,6 +8,7 @@ module.exports = {
     async execute(Main, message, args) {
 Guild.findOne({guildID: message.guild.id},(err,res) => {
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
+if(!member)return;
 let muterole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
 if(!message.guild.roles.cache.get(res.Moderation.muterole)){
   if(muterole){

@@ -5,7 +5,7 @@ module.exports = {
     public: false,
     async execute(Main, message, args) {
     const member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first())
-    const reason = args.toLowerCase()||"неизвесной"
+    const reason = args||"неизвесной"
     Block.findOne({id: member.id},(err,Data)=> {
     if(!Data){
     Block.create({id:member.id,reason:reason})
