@@ -18,7 +18,7 @@ module.exports = (Main,message) => {
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(BlockY && command){ 
-   message.react("<:block:733299144311177257>");}
+   message.react("733299144311177257");}
    else if(Data && res){
     Data.xp += res.Economy.xp
     Data.money += res.Economy.money
