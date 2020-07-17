@@ -11,7 +11,7 @@ setInterval(()=>{
       res.forEach(async mute => {
         const guild = Main.guilds.cache.get(mute.guildID)
         if(!guild)return;
-        Guild.findOne({guildID: mute.guildID},(err,Data) => {
+        Guild.findOne({guildID: mute.guildID},async(err,Data) => {
         const role = guild.roles.cache.get(Data.Moderation.muterole);
         const user = guild.members.cache.get(mute.id);
         if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
@@ -24,8 +24,7 @@ setInterval(()=>{
           if(!user)return;
           if(!user.roles.cache.has(Data.Moderation.muterole))return user.roles.add(Data.Moderation.muterole);
           }else{
-            let muser = Mute.deleteOne({guildID:mute.guildID,id:mute.id});
-            muser.save()
+            await Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
             user.roles.remove(Data.Moderation.muterole);
             if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
             if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
@@ -34,5 +33,6 @@ setInterval(()=>{
       })
     })
     }
-    )},3000)
+    )
+  },3000)
 }
