@@ -7,7 +7,7 @@ module.exports = {
     public: true,
     async execute(Main, message, args) {
 Guild.findOne({guildID: message.guild.id},async(err,res) => {
-let muterole = (res.Moderation.muterole ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
+let muterole = (res.Moderation.muterole.id ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
 let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first()||message.guild.members.get(args[0]))
 if(member.roles.cache.has(muterole)){
   Mute.deleteOne({guildID:message.guild.id,id:member.id});
