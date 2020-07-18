@@ -6,7 +6,7 @@ module.exports = {
   public: true,
   async execute(Main, message, args) {
       let reason = args.slice(1).join(` `); if(!reason) reason = 'Отсуствует.'
-      let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first())
+      let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
       if(!member) return  message.channel.send(`Пользователь не найден. Укажите его, упомынув его.`)
       if(member.user.id == message.author.id) return  message.channel.send(`Ой дебиллл!`)
       if(member.user.bot) return  message.channel.send(`Боты не по моей части`)

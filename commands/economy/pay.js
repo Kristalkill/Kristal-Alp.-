@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["give"],
     public: true,
     async execute(Mine, message, args) {
-    let member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first() || message.guild.members.cache.get(args[3]));
+    let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[3]));
     if(!member) return  message.channel.send(ErrEmbed.setDescription(`Пользователь не был найден.`))
     if(!args[1]) return  message.channel.send(ErrEmbed.setDescription(`Укажите количество монет которых хотите отдать.`))
     if(args[1] < 1) return  message.channel.send(ErrEmbed.setDescription(`Нельзя передать такое количество монет`))

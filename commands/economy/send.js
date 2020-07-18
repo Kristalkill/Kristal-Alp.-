@@ -5,7 +5,7 @@ module.exports = {
     public: true,
      async execute (Main, message, args,res) {
         const MarryEmbed = new Discord.MessageEmbed()
-        const member = message.mentions.users.filter(u=>!u.bot).first()  || message.guild.members.cache.get(args[1])
+        const member = message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[1])
         if (!member)return  message.channel.send('Укажите пользователя');
         User.findOne({guildID: message.guild.id, userID:message.author.id},(err,Data) => {
         User.findOne({guildID: message.guild.id, userID:member.id},(err,Data1) => {

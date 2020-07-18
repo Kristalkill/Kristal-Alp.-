@@ -5,7 +5,7 @@ module.exports = {
   aliases: [],
   public: true,
   async execute(Main, message, args) {
-      let member = message.guild.member(message.mentions.users.filter(u=>!u.bot).first())
+      let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
       if(!member) return  message.channel.send(`Пользователь не найден. Укажите его, упоменув его.`)
       if(member.user.id == message.author.id) return  message.channel.send(`Не офигел, ли часом ?`)
       if(member.user.bot) return  message.channel.send(`Боты не по моей части`)

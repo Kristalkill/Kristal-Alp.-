@@ -6,7 +6,7 @@ module.exports = {
   aliases: [],
   public: true,
   async execute(Main, message, args) {
-    let member =  message.guild.member(message.mentions.users.filter(u=>!u.bot).first() || message.guild.members.cache.get(args[3]) || message.author);
+    let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[3]) || message.author);
     let a = new Discord.MessageEmbed()
     .setDescription(`Вы успешно добавили **${member.user.username}** ${args[0]} в количестве \`${args[1]}\``)
     .setColor("RANDOM");
