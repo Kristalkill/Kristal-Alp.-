@@ -11,9 +11,9 @@ User.findOne({guildID:member.guild.id, userID:member.id},async(err,Data) => {
 shop = res.Economy.shop
 role = message.guild.roles(args[2]||message.mentions.roles.first())
 var role = {
-    name = role.name,
-    id  = role.id,
-    cost = parseInt(args[3])
+    name:role.name,
+    id:role.id,
+    cost:parseInt(args[3])
 }
 switch(true){
 case args[1] == `add` && message.author.hasPermission("ADMINISTRATOR"):
