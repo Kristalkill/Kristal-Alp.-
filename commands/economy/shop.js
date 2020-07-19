@@ -9,7 +9,7 @@ module.exports = {
 Guild.findOne({guildID: message.guild.id},async(err,res) => {
 User.findOne({guildID:message.guild.id, userID:message.author.id},async(err,Data) => {
 shop = res.Economy.shop
-role = message.guild.roles(args[2]||message.mentions.roles.first())
+role = message.mentions.roles.first() || message.guild.roles.cache.get(args[2])
 var role = {
     name:role.name,
     id:role.id,
