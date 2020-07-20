@@ -2,7 +2,7 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 var apiai = require('apiai');
-var apiaiApp = apiai("AIzaSyBtkJGYNc9W-pV7FpqjHAxRfjToA3YlYoA");
+var apiaiApp = apiai("6fa7b45e568792242d1e60a32bec942717eddd80");
 process.title = 'botname'
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
