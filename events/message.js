@@ -20,16 +20,27 @@ module.exports = (Main,message) => {
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(message.channel.id === `701883097217499237`){
-    var request = apiaiApp.textRequest(args, {
-        sessionId: 43212321
-    });
-    request.on('response', (response) => {
-        message.reply(response.result.fulfillment.speech);
-    });
-    request.on('error', (error) => {
-        console.log("Какая-то ашибачка :)")
-    });
-    request.end();
+    const request = apiaiApp.textRequest(args, {
+      sessionId: message.author.id
+  });
+  request.on('response', function(response) {
+      console.log(response);
+  });
+
+  request.on('error', function(error) {
+      console.log(error);
+  });
+
+  request.end()
+
+  request.on('response', function(response) {
+      let responseText = response.result.fulfillment.speech;
+      message.channel.send(`${responseText}`);
+  });
+
+  request.on('error', function(error) {
+      console.log(error);
+  });
   }
   if(BlockY && command){ 
    message.react("733299144311177257");}
