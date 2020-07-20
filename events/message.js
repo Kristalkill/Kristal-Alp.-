@@ -1,7 +1,21 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
+var apiaiApp = require('apiai')(process.env.API_AI);
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
+  if(message.channel.id === `701883097217499237`){
+    var text = message.content.substring(1);
+    var request = apiaiApp.textRequest(text, {
+        sessionId: '<any-unique-name>'
+    });
+    request.on('response', (response) => {
+        message.reply(response.result.fulfillment.speech);
+    });
+    request.on('error', (error) => {
+        message.reply("Какая-то ашибачка :)")
+    });
+    request.end();
+  }
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
