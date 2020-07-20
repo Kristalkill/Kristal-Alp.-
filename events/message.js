@@ -1,12 +1,13 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
-var apiaiApp = require('apiai')(process.env.API_AI);
+var apiai = require('apiai');
+var apiaiApp = apiai(process.env.API_AI);
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   if(message.channel.id === `701883097217499237`){
-    var text = message.content.substring(1);
-    var request = apiaiApp.textRequest(text, {
-        sessionId: '<any-unique-name>'
+    var request = apiaiApp.textRequest(args, {
+        sessionId: request.body.sessionId
     });
     request.on('response', (response) => {
         message.reply(response.result.fulfillment.speech);
@@ -28,7 +29,6 @@ module.exports = (Main,message) => {
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
 }
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(BlockY && command){ 
