@@ -21,7 +21,7 @@ module.exports = (Main,message) => {
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
   if(message.channel.id === `701883097217499237`){
     var request = apiaiApp.textRequest(args, {
-        sessionId: request.body.sessionId
+        sessionId: 43212321
     });
     request.on('response', (response) => {
         message.reply(response.result.fulfillment.speech);
