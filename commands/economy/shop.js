@@ -1,4 +1,5 @@
 const ErrEmbed = require("../../embeds/ErrEmbed");
+const { Guild } = require("discord.js");
 module.exports = {
     name: 'shop',
     description: 'shop',
@@ -15,6 +16,7 @@ switch(true){
 case args[1] == `add` && message.author.hasPermission("ADMINISTRATOR"):
 if(parseInt(args[3]) > 0){
 Object.assign(shop,addrole)
+message.channel.send('Роль успешно добавлена в магазин')
 }else{
 message.channel.send(ErrEmbed.setDescription(`Минимальная цена 1$`))
 }
@@ -23,4 +25,6 @@ case args[1] == `delete` && message.author.hasPermission("ADMINISTRATOR"):
 res.Economy.shop.getElementById(role.id).delete()
 break;
 default:
-}})})}}
+}})
+res.save()
+})}}
