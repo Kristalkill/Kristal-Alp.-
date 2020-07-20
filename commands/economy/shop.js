@@ -22,8 +22,5 @@ break;
 case args[1] == `delete` && message.author.hasPermission("ADMINISTRATOR"):
 res.Economy.shop.getElementById(role.id).delete()
 break;
-case shop.entries(element => {elemend.id == args[1] && element.cost < Data.money }):
-await message.author.roles.add(muterole.id);
-break;
 default:
 }})})}}
