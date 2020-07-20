@@ -1,9 +1,7 @@
-"use strict";
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 var apiai = require('apiai');
-var apiaiApp = apiai("6fa7b45e568792242d1e60a32bec942717eddd80");
-process.title = 'botname'
+var apiaiApp = apiai(process.env.API_AI);
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
   if(message.author.bot)return;
@@ -18,31 +16,20 @@ module.exports = (Main,message) => {
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
 }
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-  if(message.channel.id === `701883097217499237`){
-    const request = apiaiApp.textRequest(args, {
-      sessionId: message.author.id
-  });
-  request.on('response', function(response) {
-      console.log(response);
-  });
-
-  request.on('error', function(error) {
-      console.log(error);
-  });
-
-  request.end()
-
-  request.on('response', function(response) {
-      let responseText = response.result.fulfillment.speech;
-      message.channel.send(`${responseText}`);
-  });
-
-  request.on('error', function(error) {
-      console.log(error);
-  });
+    if(message.channel.id === `701883097217499237`){
+    var request = apiaiApp.textRequest(args, {
+        sessionId: request.body.sessionId
+    });
+    request.on('response', (response) => {
+        message.reply(response.result.fulfillment.speech);
+    });
+    request.on('error', (error) => {
+        console.log("Какая-то ашибачка :)")
+    });
+    request.end();
   }
   if(BlockY && command){ 
    message.react("733299144311177257");}
