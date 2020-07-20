@@ -1,7 +1,7 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 var apiai = require('apiai');
-var apiaiApp = apiai("AIzaSyAdNc-_sF9HgCcXBDnRhW-v7zSGigYj7BQ");
+var apiaiApp = apiai("AIzaSyBtkJGYNc9W-pV7FpqjHAxRfjToA3YlYoA");
 module.exports = (Main,message) => {
   if(message.channel.id === null)return;
   if(message.author.bot)return;
