@@ -12,7 +12,7 @@ module.exports = (Main,message) => {
         message.reply(response.result.fulfillment.speech);
     });
     request.on('error', (error) => {
-        message.reply("Какая-то ашибачка :)")
+        console.log("Какая-то ашибачка :)")
     });
     request.end();
   }
