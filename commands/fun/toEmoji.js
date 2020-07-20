@@ -78,6 +78,6 @@ function transfer(symbol){
     if(symbol == "ы" || symbol == "Ы") return "​:regional_indicator_u:";
     if(symbol == "э" || symbol == "Э") return "​:regional_indicator_e:";
 }
-message.channel.send(transfer(args))
+message.channel.send(`123 ${transfer(args)}`)
 }
 }
