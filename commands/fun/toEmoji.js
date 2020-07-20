@@ -78,23 +78,6 @@ function transfer(symbol){
     if(symbol == "ы" || symbol == "Ы") return "​:regional_indicator_u:";
     if(symbol == "э" || symbol == "Э") return "​:regional_indicator_e:";
 }
-if(!args[1]) return message.channel.send(transfer(args[0]));
-if(!args[2]) return message.channel.send(transfer(args[0]) + transfer(args[1]));
-if(!args[3]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]));
-if(!args[4]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]));
-if(!args[5]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]));
-if(!args[6]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]));
-if(!args[7]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]));
-if(!args[8]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]));
-if(!args[9]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]));
-if(!args[10]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]));
-if(!args[11]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]));
-if(!args[12]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]));
-if(!args[13]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]));
-if(!args[14]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]) + transfer(args[13]));
-if(!args[15]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]) + transfer(args[13]) + transfer(args[14]));
-if(!args[16]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]) + transfer(args[13]) + transfer(args[14]) + transfer(args[15]));
-if(!args[17]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]) + transfer(args[13]) + transfer(args[14]) + transfer(args[15]) + transfer(args[16]));
-if(!args[18]) return message.channel.send(transfer(args[0]) + transfer(args[1]) + transfer(args[2]) + transfer(args[3]) + transfer(args[4]) + transfer(args[5]) + transfer(args[6]) + transfer(args[7]) + transfer(args[8]) + transfer(args[9]) + transfer(args[10]) + transfer(args[11]) + transfer(args[12]) + transfer(args[13]) + transfer(args[14]) + transfer(args[15]) + transfer(args[16]) + transfer(args[17]));
+message.channel.send(transfer(args))
 }
 }
