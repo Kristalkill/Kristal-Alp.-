@@ -16,8 +16,8 @@ module.exports = (Main,message) => {
   for (const thisPrefix of prefixes) {
     if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
 }
-  const cmdName = args.shift().toLowerCase();
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
     if(message.channel.id === `701883097217499237`){
     var request = apiaiApp.textRequest(args, {
