@@ -5,5 +5,6 @@ prize:String,
 winners:String,
 messageID:String,
 channel:String,
+users:Array
 });
 module.exports = mongoose.model("giveaway", giveawayShema)

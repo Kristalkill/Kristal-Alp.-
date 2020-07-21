@@ -46,7 +46,7 @@ setInterval(()=>{
             });
         }else {
           let random = [];
-          if(Giveaway.users.length > 1){
+          if(Giveaway.users.length){
           for(let i = 0; i <= Giveaway.users.length; i++){
           random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
           }
