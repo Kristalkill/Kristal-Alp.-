@@ -41,9 +41,7 @@ setInterval(()=>{
         const guild = Main.guilds.cache.get(Giveaway.guildID)
         if(!guild)return;
         if(Giveaway.time >= Date.now()){
-          Giveaway.users = guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => {
-            return Array.from(v.reactions.cache.get("🎉").users.cache.keys());
-            });
+          Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.keys()));
         }else {
           let random = [];
           if(Giveaway.users.length){
@@ -54,6 +52,7 @@ setInterval(()=>{
           await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})
           guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
         }
-          }})})
+          }}
+          )})
   },3000)
 }
