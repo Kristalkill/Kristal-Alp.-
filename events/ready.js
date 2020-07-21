@@ -41,7 +41,7 @@ setInterval(()=>{
         const guild = Main.guilds.cache.get(Giveaway.guildID)
         if(!guild)return;
         if(Giveaway.time >= Date.now()){
-          Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.keys().filter(user => user.id != Main.user.id && !user.bot)
+          Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
           ));
           Giveaway.save();
         }else {
