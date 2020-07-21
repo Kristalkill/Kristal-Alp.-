@@ -1,9 +1,7 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
-var apiai = require('apiai');
-var apiaiApp = apiai(process.env.API_AI);
 module.exports = (Main,message) => {
-  if(message.channel.id === null)return;
+  if(message.channel.type === 'dm')return;
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
   User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
@@ -19,18 +17,6 @@ module.exports = (Main,message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmdName = args.shift().toLowerCase();
   const command = Main.commands.get(cmdName) || Main.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-    if(message.channel.id === `701883097217499237`){
-    var request = apiaiApp.textRequest(args, {
-        sessionId: message.author.id
-    });
-    request.on('response', (response) => {
-        message.reply(response.result.fulfillment.speech);
-    });
-    request.on('error', (error) => {
-        console.log("Какая-то ашибачка :)")
-    });
-    request.end();
-  }
   if(BlockY && command){ 
    message.react("733299144311177257");}
    else if(Data && res){
