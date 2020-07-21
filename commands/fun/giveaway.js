@@ -1,5 +1,4 @@
 const ms = require('ms');
-const { DiscordAPIError } = require('discord.js');
 module.exports = {
     name: 'giveaway',
     description: 'giveaway',
@@ -16,10 +15,8 @@ if(Channel){
             if(Prize){
                 const embed  = new Discord.MessageEmbed()
                 .setTitle("🎉**Giveaway** 🎉")
-                .setDescription(`**${Prize}**`)
+                .setDescription(`**${Prize}**\n\nВремя розыгрыша ${Duration}\nПобедителей:${Winners}`)
                 .setFooter(Main.user.tag)
-                .addField(`Время розыгрыша ${Duration}`)
-                .addField(`Победителей:${Winners}`)
                 message.channel.send(embed).then(message => {
                 Giveaway.create({guildID:message.guild.id,time:Date.now() + ms(Duration),prize:Prize,winners:Winners,messageID:message.id})
                 })
