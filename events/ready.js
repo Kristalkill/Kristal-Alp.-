@@ -47,11 +47,14 @@ setInterval(()=>{
         }else {
             let random = [];
             if(Giveaway.users.length){
-              for(let i = 0; i < Giveaway.winners; i++){
-               random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
-          }
+              function shuffle(array) {
+                array.sort(() => Math.random() - 0.5);
+              }
+              random = Giveaway.users.shuffle().slice(0, Giveaway.winners);
         guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
-        }else return guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
+        }else{
+        guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
+        }
         await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})})
   },3000)
 }
