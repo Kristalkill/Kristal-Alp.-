@@ -47,7 +47,7 @@ setInterval(()=>{
         }else {
           let random = [];
           if(Giveaway.users.length){
-          for(let i = 0; i <= Giveaway.winners.length; i++){
+          for(let i = 1; i <= Giveaway.winners.length; i++){
           random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
           }
           await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})
