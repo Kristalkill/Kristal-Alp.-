@@ -32,16 +32,16 @@ case "end":
 let messageid = args[1];
 Giveaway.findOne({messageID:messageid},async(err,res) => {
     if(res){
-        let users = []
-        let users = await message.guild.channels.cache.get(res.channel).messages.fetch(res.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
+        let userees = []
+        let userees = await message.guild.channels.cache.get(res.channel).messages.fetch(res.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
         ));
-        if(users){
+        if(userees){
         let random = [];
         function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
         }
-        shuffle(users)
-        random = users.slice(0, res.winners);
+        shuffle(userees)
+        random = userees.slice(0, res.winners);
         const GiveAway  = new Discord.MessageEmbed()
         message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`));
     }else{
