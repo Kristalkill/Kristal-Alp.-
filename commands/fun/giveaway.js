@@ -1,8 +1,8 @@
 const ms = require('ms');
 module.exports = {
-    name: 'cat',
-    description: 'Рандомный котик',
-    aliases: ["cat"],
+    name: 'giveaway',
+    description: 'giveaway',
+    aliases: ["giveaway"],
     public: true,
     async execute(Main, message, args) {
 let Duration = args[1];
