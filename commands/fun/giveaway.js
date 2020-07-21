@@ -7,7 +7,7 @@ module.exports = {
     async execute(Main, message, args) {
 switch(args[0]){
 case "add":
-    let Duration = args[1];
+    let Duration = args[2];
     let Prize = args.slice(4).join(' ');
     let Winners = args[3];
     let Channel = message.mentions.channels.first();
@@ -28,7 +28,7 @@ case "add":
         }else return message.channel.send("Укажите время розыгрыша");
     }else return message.channel.send("Укажите канал");
 case "end":
-let messageid = args[1];
+let messageid = args[2];
 Giveaway.findOne({messageID:messageid},async(err,res) => {
     if(res){
         let users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
@@ -50,7 +50,7 @@ Giveaway.findOne({messageID:messageid},async(err,res) => {
 else return message.channel.send(ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`));
 })
 case "delete":
-let messageid2 = args[1];
+let messageid2 = args[2];
 Giveaway.findOne({messageID:messageid2},async(err,res) => {
 if(res){
 await Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})
