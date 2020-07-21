@@ -1,6 +1,10 @@
 const ms = require('ms');
-const message = require('../../events/message');
-
+module.exports = {
+    name: 'cat',
+    description: 'Рандомный котик',
+    aliases: ["cat"],
+    public: true,
+    async execute(Main, message, args) {
 let Duration = args[1];
 let Prize = args.slice(3).join(' ');
 let Winners = args[2];
@@ -14,3 +18,5 @@ if(Channel){
         }else return message.channel.send("Укажите к-л победителей");
     }else return message.channel.send("Укажите время розыгрыша");
 }else return essage.channel.send("Укажите канал");
+    }
+}
