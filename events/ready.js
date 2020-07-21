@@ -1,7 +1,3 @@
-const embed  = new Discord.MessageEmbed()
-.setTitle("🎉**Giveaway** 🎉")
-.setDescription(`**${Prize}**\n\nВремя розыгрыша ${Duration}\nПобедителей:${Winners}`)
-.setFooter(Main.user.tag)
 module.exports = (Main) => {
 console.log(`[✅Bot] ${Main.user.tag} Запущен на ${PORT}!`)
 let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
