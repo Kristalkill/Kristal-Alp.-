@@ -50,8 +50,8 @@ Giveaway.findOne({messageID:messageid},async(err,res) => {
 else return message.channel.send(ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`));
 })
 case "delete":
-let messageid = args[2];
-Giveaway.findOne({messageID:messageid},async(err,res) => {
+let messageid2 = args[2];
+Giveaway.findOne({messageID:messageid2},async(err,res) => {
 if(res){
 await Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})
 message.channel.send(OKEmbed.setDescription(`**Giveaway под номером ${res.messageID} успешно удален**`));
