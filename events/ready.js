@@ -35,4 +35,22 @@ setInterval(()=>{
     }
     )
   },3000)
+setInterval(()=>{
+    Giveaway.find().exec((err,res)=> {
+      res.forEach(async Giveaway => {
+        const guild = Main.guilds.cache.get(Giveaway.guildID)
+        if(!guild)return;
+        if(Giveaway.time >= Date.now()){
+          Giveaway.users = guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => {
+            return Array.from(v.reactions.cache.get(":tada:").users.cache.keys());
+            });
+        }else {
+          let random = [];
+          for(let i = 0; i <= Giveaway.users.length; i++){
+          random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
+          }
+          await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})
+          guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
+          }})})
+  },3000)
 }
