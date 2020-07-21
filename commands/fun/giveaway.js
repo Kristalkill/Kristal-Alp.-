@@ -9,7 +9,7 @@ switch(args[0]){
 case "add":
     let Duration = args[1];
     let Prize = args.slice(4).join(' ');
-    let Winners = args[3];
+    let Winners = args[2];
     let Channel = message.mentions.channels.first();
     if(Channel){
         if(ms(Duration)){
