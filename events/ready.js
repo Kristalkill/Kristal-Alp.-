@@ -42,6 +42,7 @@ setInterval(()=>{
         if(!guild)return;
         if(Giveaway.time >= Date.now()){
           Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.keys()));
+          Giveaway.save();
         }else {
           let random = [];
           if(Giveaway.users.length){
