@@ -45,12 +45,12 @@ setInterval(()=>{
           ));
           Giveaway.save();
         }else {
-          let random = [];
-          if(Giveaway.users.length){
-          for(let i = 0; i < Giveaway.winners; i++){
-          random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
-          guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
+            let random = [];
+            if(Giveaway.users.length){
+              for(let i = 0; i < Giveaway.winners; i++){
+               random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
           }
+        guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
         }else return guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
         await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})})
   },3000)
