@@ -50,7 +50,7 @@ setInterval(()=>{
               function shuffle(array) {
                 array.sort(() => Math.random() - 0.5);
               }
-              random = Giveaway.users.shuffle().slice(0, Giveaway.winners);
+              random = shuffle(Giveaway.users).slice(0, Giveaway.winners);
         guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
         }else{
         guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
