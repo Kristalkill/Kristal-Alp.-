@@ -46,9 +46,11 @@ setInterval(()=>{
             });
         }else {
           let random = [];
+          if(Giveaway.users.length > 1){
           for(let i = 0; i <= Giveaway.users.length; i++){
           random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
           }
+        }
           await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})
           guild.channels.cache.get(Giveaway.channel).send(`Победители ${random}`);
           }})})
