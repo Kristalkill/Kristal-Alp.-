@@ -17,6 +17,6 @@ if(Channel){
             }else return message.channel.send("Укажите приз");
         }else return message.channel.send("Укажите к-л победителей");
     }else return message.channel.send("Укажите время розыгрыша");
-}else return essage.channel.send("Укажите канал");
+}else return message.channel.send("Укажите канал");
     }
 }
