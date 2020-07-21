@@ -52,7 +52,7 @@ setInterval(()=>{
               }
               shuffle(Giveaway.users)
               random = Giveaway.users.slice(0, Giveaway.winners);
-        guild.channels.cache.get(Giveaway.channel).send(`Победители ${random.map(a => message.guild.members.cache.get(a)).join(', ')}`);
+        guild.channels.cache.get(Giveaway.channel).send(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`);
         }else{
         guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
         }
