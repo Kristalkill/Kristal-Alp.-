@@ -1,4 +1,6 @@
 module.exports = (Main) => {
+const GiveAway  = new Discord.MessageEmbed()
+.setTitle("🎉**Giveaway** 🎉")
 console.log(`[✅Bot] ${Main.user.tag} Запущен на ${PORT}!`)
 let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
 let acitvestatus = statuses[Math.floor(Math.random() * statuses.length)];
@@ -52,9 +54,9 @@ setInterval(()=>{
               }
               shuffle(Giveaway.users)
               random = Giveaway.users.slice(0, Giveaway.winners);
-        guild.channels.cache.get(Giveaway.channel).send(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`);
+        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`));
         }else{
-        guild.channels.cache.get(Giveaway.channel).send(`Нету победителей`);
+        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`Нету победителей`));
         }
         await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})})
   },3000)
