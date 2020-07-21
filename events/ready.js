@@ -41,12 +41,13 @@ setInterval(()=>{
         const guild = Main.guilds.cache.get(Giveaway.guildID)
         if(!guild)return;
         if(Giveaway.time >= Date.now()){
-          Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.keys()));
+          Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.keys().filter(user => user.id != Main.user.id && !user.bot)
+          ));
           Giveaway.save();
         }else {
           let random = [];
           if(Giveaway.users.length){
-          for(let i = 1; i <= Giveaway.users.length; i++){
+          for(let i = 0; i <= Giveaway.winners.length; i++){
           random.push(Giveaway.users[Math.floor(Math.random() * Giveaway.users.length)])
           }
           await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})
