@@ -32,7 +32,6 @@ case "end":
 let messageid = args[1];
 Giveaway.findOne({messageID:messageid},async(err,res) => {
     if(res){
-        let userees = []
         let userees = await message.guild.channels.cache.get(res.channel).messages.fetch(res.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
         ));
         if(userees){
