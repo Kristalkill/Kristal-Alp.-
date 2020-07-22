@@ -34,7 +34,7 @@ Giveaway.findOne({messageID:messageid},async(err,res) => {
     if(res){
         let userees = await message.guild.channels.cache.get(res.channel).messages.fetch(res.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
         ));
-        if(userees){
+        if(userees.length){
         let random = [];
         function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
