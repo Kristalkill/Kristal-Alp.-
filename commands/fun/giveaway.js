@@ -43,7 +43,7 @@ Giveaway.findOne({messageID:messageid},async(err,res) => {
         }
         shuffle(userees)
         random = userees.slice(0, res.winners);
-        message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`));
+        message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Победители ${random.map(a => message.guild.members.cache.get(a)).join(', ')}`));
     }else{
         message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Нету победителей`));
     }
