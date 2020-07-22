@@ -8,8 +8,8 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
 .setTitle(`ГОЛОСОВАНИЕ`)
 .setFooter(message.author.tag)
-        if (!args.slice(1)) return message.reply(ErrEmbed.setDescription("Напишите за что голосовать!"))
-        const pollTopic = await message.channel.send(embed.setDescription(args.slice(1)));
+        if (!args) return message.reply(ErrEmbed.setDescription("Напишите за что голосовать!"))
+        const pollTopic = await message.channel.send(embed.setDescription(args));
         await pollTopic.react(`✅`);
         await pollTopic.react(`⛔`);
     }
