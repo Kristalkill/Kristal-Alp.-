@@ -1,6 +1,6 @@
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
-module.exports = (Main,message) => {
+module.exports = (Main,oldmessage,message) => {
   if(message.channel.type === 'dm')return;
   if(message.author.bot)return;
   Block.findOne({id: message.author.id},(err,BlockY)=> {
