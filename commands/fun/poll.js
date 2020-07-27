@@ -1,4 +1,3 @@
-const { DiscordAPIError } = require("discord.js");
 module.exports = {
     name: 'poll',
     description: 'poll',
