@@ -6,7 +6,7 @@ const guildchema = mongoose.Schema({
      muterole:{ type: String, default: "0"},
    },
     Economy:{
-      shop:{type:Object,default:321},
+      shop:{type:Object},
       Partner:{
          price:{type:Number,default:5000},
          level:{type:Number,default:5},
