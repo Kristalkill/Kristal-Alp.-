@@ -7,11 +7,10 @@ module.exports = {
     public: true,
     async execute(Main, message, args) {
 Guild.findOne({guildID: message.guild.id},async(err,res) => {
-    User.findOne({guildID:message.guild.id, userID:message.author.id},async(err,Data) => {
-    shop = res.Economy.shop
-    role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[2]));
-    if(parseInt(args[3]) > 0){
-        if(shop.hasOwnProperty(role.id)){
+    const shop = res.Economy.shop
+    const role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[2]));
+    if(parseInt(args[2]) > 0){
+        if(!shop.hasOwnProperty(role.id)){
             message.channel.send(`Роль уже есть в магазине`)
         }else{
         shop[role.id] = {
@@ -23,7 +22,6 @@ Guild.findOne({guildID: message.guild.id},async(err,res) => {
         message.channel.send(ErrEmbed.setDescription(`Минимальная цена 1$`))
         }
         res.save()
-    })
 })
     }
 }
