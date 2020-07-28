@@ -7,10 +7,9 @@ module.exports = {
     public: true,
     async execute(Main, message, args) {
 Guild.findOne({guildID: message.guild.id},async(err,res) => {
-    const shop = res.Economy.shop
     const role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
     if(parseInt(args[2]) > 0){
-        if(!shop.hasOwnProperty(role.id)){
+        if(res.Economy.shop.hasOwnProperty(role.id)){
             message.channel.send(`Роль уже есть в магазине`)
         }else{
         shop[role.id] = {
