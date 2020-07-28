@@ -15,7 +15,6 @@ Guild.findOne({guildID: message.guild.id},(err,res) => {
            res.Economy.shop[role.id] = {
             price:parseInt(args[2])
         }
-            res.save()
             message.channel.send('Роль успешно добавлена в магазин')
         }
         }else{
@@ -25,3 +24,4 @@ Guild.findOne({guildID: message.guild.id},(err,res) => {
 })
     }
 }
+res.save()
