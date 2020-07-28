@@ -26,7 +26,7 @@ if(args[0] == 'add'){
             if(Object.getOwnPropertyNames(res.Economy.shop).includes(role.id)){
             delete res.Economy.shop[role.id];
             res.save();
-            console.log(res.Economy.shop)
+            console.log(res.Economy.shop[role.id])
             message.channel.send('Роль успешно удалена из магазина')
             }else{
                 message.channel.send('Роли нету в магазине')
