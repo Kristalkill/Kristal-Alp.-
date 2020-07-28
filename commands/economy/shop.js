@@ -6,7 +6,7 @@ module.exports = {
     aliases: [],
     public: true,
     async execute(Main, message, args) {
-Guild.findOne({guildID: message.guild.id},async(err,res) => {
+Guild.findOne({guildID: message.guild.id},(err,res) => {
 const role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
 if(message.member.hasPermission("ADMINISTRATOR")){
 if(role){
@@ -24,10 +24,11 @@ if(args[0] == 'add'){
             }
         }else if(args[0] == 'delete'){
             if(Object.getOwnPropertyNames(res.Economy.shop).includes(role.id)){
-            await delete res.Economy.shop[`${role.id}`];
-            res.save();
+            var roleId = role.id
+            delete res.Economy.shop[roleId];
             console.log(res.Economy.shop[role.id])
             message.channel.send('Роль успешно удалена из магазина')
+            res.save();
             }else{
                 message.channel.send('Роли нету в магазине')
             }
