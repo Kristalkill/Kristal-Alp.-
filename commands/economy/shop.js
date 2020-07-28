@@ -9,14 +9,14 @@ module.exports = {
 Guild.findOne({guildID: message.guild.id},async(err,res) => {
     const role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
     if(parseInt(args[2]) > 0){
-        if(res.Economy.shop.hasOwnProperty(role.id)){
+        if(shop[role.id] == true){
             message.channel.send(`Роль уже есть в магазине`)
         }else{
-        shop[role.id] = {
+            res.Economy.shop[role.id] = {
             price:parseInt(args[2])
+            }
+            message.channel.send('Роль успешно добавлена в магазин')
         }
-        }
-        message.channel.send('Роль успешно добавлена в магазин')
         }else{
         message.channel.send(ErrEmbed.setDescription(`Минимальная цена 1$`))
         }
