@@ -12,10 +12,7 @@ Guild.findOne({guildID: message.guild.id},(err,res) => {
         if(Object.getOwnPropertyNames(res.Economy.shop).includes(role.id)){
             message.channel.send(`Роль уже есть в магазине`)
         }else{
-        let roles ={
-            price:parseInt(223)
-        } 
-           res.Economy.shop[role.id] = roles
+           res.Economy.shop[role.id] = parseInt(args[3])
            res.save();
            message.channel.send('Роль успешно добавлена в магазин')
         }
