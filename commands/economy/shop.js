@@ -26,4 +26,3 @@ Guild.findOne({guildID: message.guild.id},(err,res) => {
 })
     }
 }
-res.save()
