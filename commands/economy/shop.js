@@ -15,7 +15,7 @@ Guild.findOne({guildID: message.guild.id},async(err,res) => {
             let roles ={
             price:parseInt(args[2])
             } 
-            res.Economy.shop[role.id] = new roles;
+            res.Economy.shop[role.id] = roles;
             res.save()
             message.channel.send('Роль успешно добавлена в магазин')
         }
