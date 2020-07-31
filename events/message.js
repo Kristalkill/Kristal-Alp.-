@@ -9,6 +9,7 @@ module.exports = (Main,message) => {
   if(err){console.log(err)};
   if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id})
   if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
+  const language = require(`./../languages/${res.Moderation.language}.json`);
   var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
   let prefix = false;
   for (const thisPrefix of prefixes) {

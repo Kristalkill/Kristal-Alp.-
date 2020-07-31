@@ -4,9 +4,10 @@ const guildchema = mongoose.Schema({
     Moderation:{
      prefix: { type: String, default: "k!" },
      muterole:{ type: String, default: "0"},
+     language:{type:String,default: 'en'}
    },
     Economy:{
-      shop:{type:Object,default:null},
+      shop:{type:Map,default:{}},
       Partner:{
          price:{type:Number,default:5000},
          level:{type:Number,default:5},

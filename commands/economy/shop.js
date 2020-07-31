@@ -6,37 +6,59 @@ module.exports = {
     aliases: [],
     public: true,
     async execute(Main, message, args) {
-Guild.findOne({guildID: message.guild.id},(err,res) => {
-const role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
-if(message.member.hasPermission("ADMINISTRATOR")){
+Guild.findOne({guildID: message.guild.id},async(err,res) => {
+User.findOne({guildID: message.guild.id, userID: message.author.id},async(err,Data)=> {
+let role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
 if(role){
 if(args[0] == 'add'){
+    if(message.member.hasPermission("ADMINISTRATOR")){
         if(parseInt(args[2]) > 0){
-            if(Object.getOwnPropertyNames(res.Economy.shop).includes(role.id)){
-                message.channel.send(`Роль уже есть в магазине`)
+            if(res.Economy.shop.get(role.id)){
+                message.channel.send(`Роль уже есть в магазине`);
             }else{
-               res.Economy.shop[role.id] = parseInt(args[2])
-               res.save();
-               message.channel.send('Роль успешно добавлена в магазин')
-            }
-            }else{
-            message.channel.send(ErrEmbed.setDescription(`Минимальная цена 1$`))
-            }
-        }else if(args[0] == 'delete'){
-            if(Object.getOwnPropertyNames(res.Economy.shop).includes(role.id)){
-            var roleId = role.id
-            delete res.Economy.shop[roleId];
-            console.log(res.Economy.shop[role.id])
-            message.channel.send('Роль успешно удалена из магазина')
+               res.Economy.shop.set(role.id,parseInt(args[2]));
+               message.channel.send('Роль успешно добавлена в магазин');
             res.save();
-            }else{
-                message.channel.send('Роли нету в магазине')
             }
-        }
+            }else{
+            message.channel.send(ErrEmbed.setDescription(`Минимальная цена 1$`));
+            }}else{
+                message.channel.send(`У вас нету права ADMINISTRATOR`)
+            }
+}else if(args[0] == 'delete'){
+    if(message.member.hasPermission("ADMINISTRATOR")){
+    if(res.Economy.shop.get(role.id)){
+        res.Economy.shop.delete(role.id)
+        message.channel.send('Роль успешно удалена из магазина');
+        res.save();
+    }else{
+        message.channel.send('Роли нету в магазине');
+    }
+    }else{
+    message.channel.send(`У вас нету права ADMINISTRATOR`)
+    }
 }else{
-message.channel.send(ErrEmbed.setDescription(`Укажите роль`))
+    if(message.member.roles.cache.has(role.id)){
+        message.channel.send(`У вас уже есть роль`)
+    }else if(res.Economy.shop.get(role.id)){
+        message.author.roles.add(role.id)
+        Data.money += res.Economy.shop.get(role.id).values();
+        message.channel.send(`Роль успешно добавлена`);
+    }else return message.channel.send(`Данной роли нету в магазине`);
 }
+}else if(args[0] == 'list' || !args[0]){
+let embed = new Discord.MessageEmbed()
+.setTitle(`Магазин`)
+if(res.Economy.shop.size > 0){
+var text = " "
+var i = 1
+res.Economy.shop.forEach((value, key) => {text += `**${i++}**.${message.guild.roles.cache.get(key)} - ${value}$\n`})
+}else{
+var text = "Пусто"
 }
+await message.channel.send(embed.setDescription(text))
+}else return message.channel.send(`Укажите роль`)
+})
 })
     }
 }
