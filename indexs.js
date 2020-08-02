@@ -48,7 +48,7 @@ fs.readdir('./events/', (err, files) => {
   });
 });
 ////// HTML //////////
-app.set('view engine', 'html');
+/*app.set('view engine', 'html');
 app.get("/api/guilds",(req,res)=>{
 res.send(String(Main.guilds.cache.size))
 });
@@ -80,6 +80,7 @@ app.use(function(req, res, next){
 app.use(function(req, res, next){
   res.status(200).sendFile('./scr/404.html', {root: __dirname})
 });
+*/
 app.listen(PORT,()=>{
   console.log(`[✅Сайт] запущен на ${PORT}`);
   });
