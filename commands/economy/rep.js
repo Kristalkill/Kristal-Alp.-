@@ -14,16 +14,9 @@ let arguments = capitalize(args[0]);
 User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
 User.findOne({guildID: message.guild.id, userID: member.id},(err,Data1) => {
 if(!Data1)return  message.channel.send(ErrEmbed.setDescription("Этого человека нету в БД"))
-let minute = parseInt((Data.Timelyes._rep -  Date.now())/1000/60%24);
-let hour = parseInt((Data.Timelyes._rep -  Date.now())/1000/60/60%60);
-if (!args[0]) return  message.channel.send(ErrEmbed.setDescription("Потом напишу "))
+if (!args[0]) return  message.channel.send(ErrEmbed.setDescription("Потом напишу"))
 if (Data.Timelyes._rep > Date.now()){
-  if(hour < 60){
-      message.channel.send(ErrEmbed.setDescription(`Время ещо не прошло,осталось **Минут** ${minute}`))
-  }
-  else {
-     message.channel.send(ErrEmbed.setDescription(`Время ещо не прошло,осталось **Часов** ${hour} **Минут** ${minute}`))
-  }
+      message.channel.send(ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
 }
 else if ((args[0] = member)||(args[1] = member && arguments == "Add"||'Plus'||'+')){
   Data.Timelyes._rep = parseInt(Date.now() + 14400000)

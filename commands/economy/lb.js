@@ -1,5 +1,3 @@
-const { LessThan } = require('typeorm');
-
 abbreviateNumber = require('../../functions/abbreviateNumber.js')
 module.exports = {
     name: 'lb',

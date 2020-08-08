@@ -7,6 +7,7 @@ module.exports = {
       let Exitembed = new Discord.MessageEmbed()
       .setTitle('Я успешно офнулся')
       .setDescription(`EMINEM-FRAMED`)
+       await message.channel.send(Exitembed)
        await process.exit()
 }
 }

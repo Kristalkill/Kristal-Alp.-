@@ -4,15 +4,15 @@ module.exports = {
   aliases: ["rps"],
   public: true,
   async execute(Main, message, args,res,Data){
-if(parseInt(args[0])*2 > Data.money)return message.reply(ErrEmbed.setDescription(`Бабла не хватает(Если проиграете то будет -2x)`));
-if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(ErrEmbed.setDescription(`минимальная ставка 1$`))
+if(parseInt(args[0])*2 > Data.money)return message.reply(ErrEmbed.setDescription(`Вам не хватает денег`));
+if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(ErrEmbed.setDescription(`Минимальная ставка 1$`))
 else {
   const chooseArr = ["🗻", "🤚", "✌️"];
 
           const embed = new Discord.MessageEmbed()
               .setColor("#ffffff")
               .setFooter(message.guild.me.displayName, Main.user.displayAvatarURL())
-              .setDescription("Нажмите на емодзи !")
+              .setDescription("Нажмите на емодзи!")
               .setTimestamp();
           const m = await message.channel.send(embed);
           const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
