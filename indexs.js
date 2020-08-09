@@ -30,12 +30,16 @@ mongoose.connection.on('connected',()=>{
   console.log('[✅DataBase] Connected!')
 })
 fs.readdirSync('./commands').forEach(module => {
+  try{
     const commandFiles = fs.readdirSync(`./commands/${module}/`).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
         const command = require(`./commands/${module}/${file}`);
         command.category = module;
         Main.commands.set(command.name, command);
     }
+  }catch(err){
+  console.log(err)
+  }
 })
 fs.readdir('./events/', (err, files) => {
   if (err) return console.error;
