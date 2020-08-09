@@ -47,4 +47,7 @@ fs.readdir('./events/', (err, files) => {
     Main.on(evtName, event.bind(null, Main));
   });
 });
+app.listen(PORT,()=>{
+  console.log(`[✅Сайт] запущен на ${PORT}`);
+  });
 Main.login(process.env.Token)
