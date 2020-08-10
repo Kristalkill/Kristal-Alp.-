@@ -8,13 +8,13 @@ module.exports = {
   async execute(Main, message, args) {
           Guild.findOne({guildID: message.guild.id} , (err,res) => {
         if(!args[0]) return message.channel.send(ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
-        fetch("https://chromechain.herokuapp.com/?url=" + args[0])
+        fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())
           .then(body => {
             if(!body) return;
            let embed = new Discord.MessageEmbed()
            .setTitle('Скриншот')
-           .setDescription("https://" + args[0])
+           .setDescription(args[0])
            .setImage(body.content)
            message.channel.send(embed)
 
