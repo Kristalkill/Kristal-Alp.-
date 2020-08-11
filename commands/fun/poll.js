@@ -4,6 +4,7 @@ module.exports = {
     aliases: ["poll"],
     public: true,
     async execute(Main, message, args) {
+try{
         let embed = new Discord.MessageEmbed()
 .setTitle(`ГОЛОСОВАНИЕ`)
 .setFooter(message.author.tag)
@@ -11,5 +12,8 @@ module.exports = {
         const pollTopic = await message.channel.send(embed.setDescription(args.join(' ')));
         await pollTopic.react(`✅`);
         await pollTopic.react(`⛔`);
+    }catch(err){
+    console.log(err)
     }
+}
 }

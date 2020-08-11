@@ -4,12 +4,13 @@ module.exports = {
   aliases: ["avatar"],
   public: true,
   async execute(Main, message, args) {
-        let user = message.mentions.users.first() ? message.mentions.users.first() : message.author;
-        let AvatarEmbed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setTitle(`Аватар ${user.username}!`)
-            .setImage(user.avatarURL({dynamic: true}))
-        await message.channel.send(AvatarEmbed)
-
-}
-}
+    try {
+      let user = message.mentions.users.first() ? message.mentions.users.first() : message.author;
+      let AvatarEmbed = new Discord.MessageEmbed()
+          .setColor('RANDOM')
+          .setTitle(`Аватар ${user.username}!`)
+          .setImage(user.avatarURL({dynamic: true}))
+      await message.channel.send(AvatarEmbed)
+    } catch (error) {
+      console.log(error)
+    }}}
