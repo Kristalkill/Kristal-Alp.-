@@ -10,7 +10,7 @@ module.exports = (Main,message) => {
     if(err){console.log(err)};
     if(!Data) return User.create({guildID:message.guild.id, userID:message.author.id})
     if(!res) return Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
-    const language = require(`./../languages/${res.Moderation.language}.json`);
+    const language = require(`./../languages/${res.Moderation.language}.js`);
     var prefixes = [`${message.guild.me}`,`${res.Moderation.prefix}`]
     let prefix = false;
     for (const thisPrefix of prefixes) {
@@ -30,7 +30,7 @@ module.exports = (Main,message) => {
       if(Data.xp >= res.Economy.upXP*Data.level){
       Data.xp -= res.Economy.upXP*Data.level;
       Data.level+=1
-      message.channel.send(embed.setDescription(`Поздравим **${message.author.username}** с ${Data.level} уровнем!`))}
+      message.channel.send(embed.setDescription(language.levelup))}
       Data.save();
       if(prefix && command){
       const cooldown = cooldowns.get(message.author.id);

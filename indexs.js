@@ -25,31 +25,35 @@ global.Main = new Discord.Client();
 Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
-mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connection.on('connected',()=>{
-  console.log('[✅DataBase] Connected!')
-})
-fs.readdirSync('./commands').forEach(module => {
-  try{
-    const commandFiles = fs.readdirSync(`./commands/${module}/`).filter(file => file.endsWith('.js'));
-    for (const file of commandFiles) {
-        const command = require(`./commands/${module}/${file}`);
-        command.category = module;
-        Main.commands.set(command.name, command);
+try {
+  mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connection.on('connected',()=>{
+    console.log('[✅DataBase] Connected!')
+  })
+  fs.readdirSync('./commands').forEach(module => {
+    try{
+      const commandFiles = fs.readdirSync(`./commands/${module}/`).filter(file => file.endsWith('.js'));
+      for (const file of commandFiles) {
+          const command = require(`./commands/${module}/${file}`);
+          command.category = module;
+          Main.commands.set(command.name, command);
+      }
+    }catch(err){
+    console.log(err)
     }
-  }catch(err){
-  console.log(err)
-  }
-})
-fs.readdirSync('./events').forEach(file => {
-  try {
-    if (!file.endsWith('.js')) return;
-    const event = require(`./events/${file}`);
-    let evtName = file.split('.')[0];
-    console.log(`Загружен ивент '${evtName}'`);
-    Main.on(evtName, event.bind(null, Main)); 
-  } catch (error) {
-   console.log(error) 
-  }
-});
-Main.login(process.env.Token)
+  })
+  fs.readdirSync('./events').forEach(file => {
+    try {
+      if (!file.endsWith('.js')) return;
+      const event = require(`./events/${file}`);
+      let evtName = file.split('.')[0];
+      console.log(`Загружен ивент '${evtName}'`);
+      Main.on(evtName, event.bind(null, Main)); 
+    } catch (error) {
+     console.log(error) 
+    }
+  });
+  Main.login(process.env.Token) 
+} catch (error) {
+  console.log(error)
+}
