@@ -5,7 +5,8 @@ module.exports = {
   aliases: ["bon"], 
   public: true,
   async execute(Main, message, args,res){
-        User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
+    try {
+      User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
         if(Data.Timelyes._timely > Date.now()){
          message.channel.send(ErrEmbed.setDescription(`Вы уже взяли свой бонус. Приходите через ${ms(Data.Timelyes._timely - Date.now())}`))
         }else{
@@ -17,6 +18,7 @@ module.exports = {
         .setColor('RANDOM')
         message.channel.send(a)
       }
-    })
-  } 
-  }
+    }) 
+    } catch (error) {
+     console.log(error)
+    }}}

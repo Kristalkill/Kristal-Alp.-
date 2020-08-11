@@ -41,14 +41,15 @@ fs.readdirSync('./commands').forEach(module => {
   console.log(err)
   }
 })
-fs.readdir('./events/', (err, files) => {
-  if (err) return console.error;
-  files.forEach(file => {
+fs.readdirSync('./events').forEach(file => {
+  try {
     if (!file.endsWith('.js')) return;
     const event = require(`./events/${file}`);
     let evtName = file.split('.')[0];
     console.log(`Загружен ивент '${evtName}'`);
-    Main.on(evtName, event.bind(null, Main));
-  });
+    Main.on(evtName, event.bind(null, Main)); 
+  } catch (error) {
+   console.log(error) 
+  }
 });
 Main.login(process.env.Token)

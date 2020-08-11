@@ -1,3 +1,7 @@
 module.exports = (Main,guild) => {
-Guild.deleteOne({guildID: guild.id})
+    try {
+        Guild.deleteOne({guildID: guild.id})   
+    } catch (error) {
+        console.log(error)
+    }
 }

@@ -6,6 +6,7 @@ module.exports = {
     aliases: ["boti","botstats","bi"],
     public: true,
     async execute(Main, message, args) {
+      try {
         const duration = moment.duration(Main.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
         const Botinfoembed = new Discord.MessageEmbed()
             .setTitle("**Показатели бота**")
@@ -14,5 +15,6 @@ module.exports = {
             .addField("**👥 | Социальная**", `>>> **:man_artist_tone3:Пользователей**  ${Main.users.cache.size}\n**🌐 | Серверов:**  ${Main.guilds.cache.size}\n**🗨 | Каналов:**  ${Main.channels.cache.size}`, true)
             .setFooter("Автор команды: END#3123");
           message.channel.send(Botinfoembed)
-          }
-        }
+      } catch (error) {
+        console.log(error)
+      }}}

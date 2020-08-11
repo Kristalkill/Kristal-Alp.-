@@ -6,7 +6,8 @@ module.exports = {
     aliases: [],
     public: true,
     async execute(Main, message, args,res) {
-let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[0]))
+        try {
+            let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[0]))
 if(member.bannable === true){
 if(!args[1]||!args[2]||!member)return  message.channel.send(ErrEmbed.setDescription(`Пример использывания ${res.Moderation.prefix}ban @user/userid дней причина`));
 let days = parseInt(args[1])
@@ -17,5 +18,8 @@ message.channel.send(OKEmbed.setDescription(`${member.user.name} забанен 
 else{
      message.channel.send(ErrEmbed.setDescription("Я не могу забанить этого учасника"))
 }
+        } catch (error) {
+            console.log(error)
+        }
 }
 }

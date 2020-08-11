@@ -5,6 +5,7 @@ module.exports = {
   aliases: [],
   public: true,
   async execute(Main, message, args) {
+    try {
       let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
       if(!member) return  message.channel.send(`Пользователь не найден. Укажите его, упоменув его.`)
       if(member.user.id == message.author.id) return  message.channel.send(`Не офигел, ли часом ?`)
@@ -26,5 +27,6 @@ module.exports = {
           .setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\n\nПредупреждений: ${data.warn}/${Data.warn||0}`)
           message.channel.send(embed)
       })
-  }
-};
+    } catch (error) {
+      console.log(error)
+    }}};
