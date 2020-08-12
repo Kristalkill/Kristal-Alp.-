@@ -12,7 +12,7 @@ String.prototype.translate = async function(vars) {
   for(var i in vars){
     this.replace(`%${i}%`,vars[i])
   }
-  return await this;
+  return await this.toString();
 }
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
