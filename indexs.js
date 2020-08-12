@@ -19,11 +19,11 @@ let locate = (fullkey, obj) => {
   }
   return val || null;
 };
-String.prototype.translate = function (options = {}) {
+String.prototype.parse = function (options = {}) {
   if (!this) return this;
   return this.split(" ").map(str => str.replace(/\%(.+)\%/gi, (matched, key) => locate(key, options) || matched)).join(" ");
 };
-String.prototype.parse = function(vars){
+String.prototype.translate = function(vars){
   for (const [KEY, value] of Object.entries(vars)) {
       return this.replace(/\%(.*?+)\%/gi,value)
   }
