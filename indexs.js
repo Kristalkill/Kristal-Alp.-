@@ -12,7 +12,7 @@ String.prototype.translate = function(vars){
   for (const [key, value] of Object.entries(vars)) {
     this.replace(`%${key}%`,value)
   }
-  return this
+  return await this
 }
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
