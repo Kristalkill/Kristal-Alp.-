@@ -8,9 +8,24 @@ global.fs = require("fs");
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
-String.prototype.translate = function(vars){
-  for (const [key, value] of Object.entries(vars)) {
-    return this.replace(/%.%/g,value)
+let locate = (fullkey, obj) => {
+  let keys = fullkey.split(".");
+  let val = obj[keys.shift()];
+  if (!val) return null;
+  for (let key of keys) {
+      if (!val[key]) return val;
+      val = val[key];
+      if (Array.isArray(val)) return val.join("\n");
+  }
+  return val || null;
+};
+String.prototype.translate = function (options = {}) {
+  if (!this) return this;
+  return this.split(" ").map(str => str.replace(/\%(.+)\%/gi, (matched, key) => locate(key, options) || matched)).join(" ");
+};
+String.prototype.parse = function(vars){
+  for (const [KEY, value] of Object.entries(vars)) {
+      return this.replace(`%${KEY}%`,value)
   }
 }
 PORT = process.env.PORT || 4000
