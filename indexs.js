@@ -10,7 +10,7 @@ global.mongoose = require("mongoose");
 require("dotenv").config();
 String.prototype.translate = function(vars) {
   for(var i in vars){
-  return this.replace(`%${i}%/g`,vars[i])
+  return this.replace(`%${i}%`,vars[i])
   }
 }
 PORT = process.env.PORT || 4000
