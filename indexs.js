@@ -12,7 +12,8 @@ String.prototype.translate = function(vars) {
   for(var i in vars){
   return this.replace(`/%${vars[i]}%/g`,i)
   }
-} 
+}
+addAchievement = require('./functions/addAchievement.js')
 global.cooldowns  = new Map();
 ////____GLOBAL____///
 global.User = require('./models/user.js');
