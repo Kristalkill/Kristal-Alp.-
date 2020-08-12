@@ -5,13 +5,14 @@ global.typeorm = require("typeorm");
 global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
-const express = require('express');
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
-var app = express();
-PORT = process.env.PORT || 4000
-addAchievement = require('./functions/addAchievement.js')
+String.prototype.translate = function(vars) {
+  for(var i in vars){
+  return this.replace(`/%${vars[i]}%/g`,i)
+  }
+} 
 global.cooldowns  = new Map();
 ////____GLOBAL____///
 global.User = require('./models/user.js');
