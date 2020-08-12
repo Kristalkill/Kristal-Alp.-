@@ -25,7 +25,7 @@ String.prototype.translate = function (options = {}) {
 };
 String.prototype.parse = function(vars){
   for (const [KEY, value] of Object.entries(vars)) {
-      return this.replace(`%${KEY}%`,value)
+      return this.replace(/\%(.*?+)\%/gi,value)
   }
 }
 PORT = process.env.PORT || 4000
