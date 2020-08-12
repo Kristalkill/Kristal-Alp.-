@@ -30,7 +30,7 @@ module.exports = (Main,message) => {
       if(Data.xp >= res.Economy.upXP*Data.level){
       Data.xp -= res.Economy.upXP*Data.level;
       Data.level+=1
-      message.channel.send(embed.setDescription(language.translate({name:message.author.username,level:Data.level})))}
+      message.channel.send(embed.setDescription(language.levelup.translate({name:message.author.username,level:Data.level})))}
       Data.save();
       if(prefix && command){
       const cooldown = cooldowns.get(message.author.id);
