@@ -8,7 +8,7 @@ global.fs = require("fs");
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 require("dotenv").config();
-String.prototype.translate = async function(vars){
+String.prototype.translate = function(vars){
   for(var i in vars){
     return this.replace(`%${i}%`,vars[i])
   }
