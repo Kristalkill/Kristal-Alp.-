@@ -13,6 +13,7 @@ String.prototype.translate = function(vars) {
   return this.replace(`/%${vars[i]}%/g`,i)
   }
 }
+PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
 global.cooldowns  = new Map();
 ////____GLOBAL____///
