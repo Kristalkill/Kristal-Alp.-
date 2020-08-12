@@ -10,8 +10,8 @@ global.mongoose = require("mongoose");
 require("dotenv").config();
 String.prototype.translate = function(vars){
   let text = this
-  return Object.entries(vars).map(function(key, value){text.replace(`%${key}%`,value)})
-  
+  Object.entries(vars).map(function(key, value){text.replace(`%${key}%`,value)})
+  return this = text
 }
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
