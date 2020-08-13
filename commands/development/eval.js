@@ -15,8 +15,10 @@ module.exports = {
       .addField('Вход',`\`\`\`js\n${argss}\`\`\``)
       .addField('Выход',`\`\`\`js\nType: ${tyype}\nDone for: ${new Date().getTime() - message.createdTimestamp + 'ms'}\`\`\``,true)
       message.channel.send(embed)
-      for(i= 1024;i <= evaled.match(/.{1,1024}/g);i){
-        let evaled = evaled.match(/.{1,i}/g);
+      for(i= 1;i <= evaled.match(/.{1,1024}/g).length;i++){
+        let o = 1024
+        let evaled = evaled.match(/.{1,o}/g);
+        o + 1024;
         embed[i] = new Discord.MessageEmbed();
         message.channel.send(embed[i].setDescription(`\`\`\`${evaled}\`\`\``))
       }
