@@ -6,8 +6,9 @@ module.exports = {
   async execute(Main, message, args) {
     let argss = args.join(' ')
     try {
-      let evaled = await eval(argss)
-      const tyype = typeof evaled[0].toUpperCase() + typeof evaled.slice(1);
+      let evaled = await eval(argss);
+      let eevaled = typeof evaled;
+      const tyype = eevaled[0].toUpperCase() + eevaled.slice(1);
       if(typeof evaled!== 'string') evaled = require('util').inspect(evaled, {depth: 0});
       evaled == (undefined || null) ? evaled = 'Empty response: ' + evaled : evaled;
       let embed = new Discord.MessageEmbed()
