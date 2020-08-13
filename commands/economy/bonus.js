@@ -1,4 +1,3 @@
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'bonus',
   description: 'Бонус',

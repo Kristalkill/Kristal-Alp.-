@@ -14,12 +14,10 @@ module.exports = {
       let embed = new Discord.MessageEmbed()
       .addField('Вход',`\`\`\`js\n${argss}\`\`\``)
       .addField('Выход',`\`\`\`js\nType: ${tyype}\nDone for: ${new Date().getTime() - message.createdTimestamp + 'ms'}\`\`\``,true)
-      message.channel.send(embed)
-      for(i= 1;i <= evaled.match(/.{1,1024}/g).length;i++){
-        embed[i] = new Discord.MessageEmbed();
-        message.channel.send(embed[i].setDescription(`\`\`\`${evaled.match(/.{1,1024}/g)[i]}\`\`\``))
-      }
-      message.react("✅")
+      evaled.chunk(1000).forEach(chunk => {
+        embed.addField(`** **`,`\`\`\`js\n${chunk}\`\`\``)
+      });
+      message.channel.send(embed).then(() => message.react("✅"))
 }catch(err) {
 let embed = new Discord.MessageEmbed()
 .addField('Вход',`${argss}`)

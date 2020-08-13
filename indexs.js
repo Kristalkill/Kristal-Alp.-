@@ -1,19 +1,21 @@
 ////____MODULES____///
 global.Discord = require('discord.js')
 global.moment = require("moment");
-global.typeorm = require("typeorm");
 global.humanizeDuration = require('humanize-duration');
 global.ms = require('ms');
 global.fs = require("fs");
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
-require("dotenv").config();
+global.dotenv = require("dotenv").config();
 String.prototype.translate = function(vars){
   var str = this;
   for (const [KEY, value] of Object.entries(vars)) {
     str = str.replace(new RegExp(`%${KEY}%`, 'g'), value);
   }
   return str;
+}
+String.prototype.chunk = function(length) {
+  return this.match(new RegExp('[\\s\\S]{1,' + +length + '}', 'g'));
 }
 ErrEmbed = require('./embeds/ErrEmbed.js')
 OKEmbed = require('./embeds/OKEmbed.js')

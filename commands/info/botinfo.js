@@ -1,5 +1,4 @@
 const { version } = require("discord.js");
-require("moment-duration-format");
 module.exports = {
     name: "botinfo",
     description: "Команда позволяющая узнать описание других, не круто ли?",

@@ -1,5 +1,4 @@
 const fetch = require("node-fetch")
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'ss',
   description: 'Ссылка',

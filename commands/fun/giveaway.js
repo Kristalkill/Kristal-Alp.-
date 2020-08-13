@@ -1,4 +1,3 @@
-const ms = require('ms');
 module.exports = {
     name: 'giveaway',
     description: 'giveaway',

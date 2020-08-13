@@ -1,5 +1,4 @@
 toNum = require('../../functions/toNum.js')
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'roll',
   description: 'рандомное число',
