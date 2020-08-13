@@ -15,8 +15,8 @@ String.prototype.translate = function(vars){
   }
   return str;
 }
-ErrEmbed = require('../../embeds/ErrEmbed.js')
-OKEmbed = require('../../embeds/OKEmbed.js')
+ErrEmbed = require('./embeds/ErrEmbed.js')
+OKEmbed = require('./embeds/OKEmbed.js')
 PORT = process.env.PORT || 4000
 addAchievement = require('./functions/addAchievement.js')
 global.cooldowns  = new Map();
