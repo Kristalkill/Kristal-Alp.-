@@ -13,9 +13,7 @@ module.exports = {
             if (Data){
                 if (Data.senders.length <= 2)return  message.channel.send(ErrEmbed.setDescription('Вам никто не отправлял предложение'));
                 let usersArr = Data.senders.split(',')
-                let txt = '';
                 for (let i = 0; i < usersArr.length; i++) {
-                                let getted = Main.users.cache.get(usersArr[i])
                                 MarryEmbed.addField(`** **`,`**${i + 1}.${Main.users.cache.get(usersArr[i]).tag}**`);
                             }
                 MarryEmbed.setDescription('Список предложений:');

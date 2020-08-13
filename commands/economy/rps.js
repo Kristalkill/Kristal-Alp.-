@@ -4,7 +4,8 @@ module.exports = {
   aliases: ["rps"],
   public: true,
   async execute(Main, message, args,res,Data){
-if(parseInt(args[0])*2 > Data.money)return message.reply(ErrEmbed.setDescription(`Вам не хватает денег`));
+    try {
+      if(parseInt(args[0])*2 > Data.money)return message.reply(ErrEmbed.setDescription(`Вам не хватает денег`));
 if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(ErrEmbed.setDescription(`Минимальная ставка 1$`))
 else {
   User.findOne({guildID: message.guild.id, userID: message.author.id},async(err,data) => {
@@ -36,12 +37,17 @@ else {
     m.edit(embed)
     data.money -= bet*2
     data.save();
-    }})}}}
-        async function promptMessage (message, author, time, validReactions) {
-        time *= 1000;
-        for (const reaction of validReactions) await message.react(reaction);
-        const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
-        return message
-            .awaitReactions(filter, { max: 1, time: time})
-            .then(collected => collected.first() && collected.first().emoji.name);
+    async function promptMessage (message, author, time, validReactions) {
+      time *= 1000;
+      for (const reaction of validReactions) await message.react(reaction);
+      const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
+      return message
+          .awaitReactions(filter, { max: 1, time: time})
+          .then(collected => collected.first() && collected.first().emoji.name);
+  }
+     }})}
+    } catch (error) {
+      console.log(error)
     }
+  }
+}

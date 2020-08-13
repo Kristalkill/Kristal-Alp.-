@@ -6,9 +6,12 @@ module.exports = (Main) => {
     let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
     let acitvestatus = statuses[Math.floor(Math.random() * statuses.length)];
     setInterval(function () {
+      try {
         Main.user.setPresence({ game: { name: acitvestatus, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
         Main.user.setPresence({ activity: { name: acitvestatus }, status: 'online' });
-    }, 15 * 1000);
+      } catch (error) {
+        console.log(error)
+      }}, 15 * 1000); 
     setInterval(()=>{
       try {
         Mute.find().exec((err,res)=> {
