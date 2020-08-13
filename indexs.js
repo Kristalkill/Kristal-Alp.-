@@ -31,6 +31,18 @@ Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
 try {
+  self.addEventListener('activate', function(event) {
+    event.waitUntil(
+      caches.keys().then(function(cacheNames) {
+        return Promise.all(
+          cacheNames.filter(function(cacheName) {
+          }).map(function(cacheName) {
+            return caches.delete(cacheName);
+          })
+        );
+      })
+    );
+  });
   mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
   mongoose.connection.on('connected',()=>{
     console.log('[✅DataBase] Connected!')
