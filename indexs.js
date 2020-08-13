@@ -31,7 +31,7 @@ Main.commands = new Discord.Collection();
 Main.aliases  = new Discord.Collection();
 ///____Export______///
 try {
-  self.addEventListener('activate', function(event) {
+  Main.addEventListener('activate', function(event) {
     event.waitUntil(
       caches.keys().then(function(cacheNames) {
         return Promise.all(
