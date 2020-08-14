@@ -44,7 +44,7 @@ module.exports = (Main,oldmessage,message) => {
       };
       if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(embeds.ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
       if(!message.guild.me.hasPermission(command.PermissionBOT))return  message.channel.send(embeds.ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
-      command.execute(Main, message, args);}
+      command.execute(Main, message, args,res,Data);}
       if(message.content.startsWith(message.guild.me)&& !command){
       message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
   }
