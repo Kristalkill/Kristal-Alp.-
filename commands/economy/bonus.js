@@ -7,7 +7,7 @@ module.exports = {
     try {
       User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
         if(Data.Timelyes._timely > Date.now()){
-         message.channel.send(ErrEmbed.setDescription(`Вы уже взяли свой бонус. Приходите через ${ms(Data.Timelyes._timely - Date.now())}`))
+         message.channel.send(embeds.ErrEmbed.setDescription(`Вы уже взяли свой бонус. Приходите через ${ms(Data.Timelyes._timely - Date.now())}`))
         }else{
         Data.Timelyes._timely = parseInt(Date.now() + 86400000)
         Data.money += parseInt(res.Economy.bonus)

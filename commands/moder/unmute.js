@@ -13,7 +13,7 @@ module.exports = {
           if(member.roles.cache.has(muterole)){
             await Mute.deleteOne({guildID:message.guild.id,id:member.id});
             await member.roles.remove(muterole);
-            message.channel.send(OKEmbed.setDescription(`${member} розмучен!`));
+            message.channel.send(embeds.OKEmbed.setDescription(`${member} розмучен!`));
           }
           })
       } catch (error) {

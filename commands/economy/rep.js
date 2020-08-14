@@ -14,10 +14,10 @@ module.exports = {
       let arguments = capitalize(args[0]);
       User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
         User.findOne({guildID: message.guild.id, userID: member.id},(err,Data1) => {
-          if(!Data1)return  message.channel.send(ErrEmbed.setDescription("Этого человека нету в БД"))
-          if (!args[0]) return  message.channel.send(ErrEmbed.setDescription("Потом напишу"))
+          if(!Data1)return  message.channel.send(embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
+          if (!args[0]) return  message.channel.send(embeds.ErrEmbed.setDescription("Потом напишу"))
           if (Data.Timelyes._rep > Date.now()){
-            message.channel.send(ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
+            message.channel.send(embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
           }else if ((args[0] = member)||(args[1] = member && arguments == "Add"||'Plus'||'+')){
             Data.Timelyes._rep = parseInt(Date.now() + 14400000)
             Data1.rep++
@@ -33,7 +33,7 @@ module.exports = {
             OK.setTitle(`**Репутация была понижена!**`)
             message.channel.send(OK)
           }else{
-            message.channel.send(ErrEmbed.setDescription('Использивание rep Add/Remove @member или rep @member'))
+            message.channel.send(embeds.ErrEmbed.setDescription('Использивание rep Add/Remove @member или rep @member'))
           }
         })
       })

@@ -7,20 +7,9 @@ global.fs = require("fs");
 global.mongoose = require("mongoose");
 ////____FUNCTIONS___///
 global.dotenv = require("dotenv").config();
-String.prototype.translate = function(vars){
-  var str = this;
-  for (const [KEY, value] of Object.entries(vars)) {
-    str = str.replace(new RegExp(`%${KEY}%`, 'g'), value);
-  }
-  return str;
-}
-String.prototype.chunk = function(length) {
-  return this.match(new RegExp('[\\s\\S]{1,' + +length + '}', 'g'));
-}
-ErrEmbed = require('./embeds/ErrEmbed.js')
-OKEmbed = require('./embeds/OKEmbed.js')
-PORT = process.env.PORT || 4000
-addAchievement = require('./functions/addAchievement.js')
+global.functions = require('./utilites/functions.js')
+global.embeds = require('./utilites/embeds.js')
+global.variables = require('./utilites/variables.js')
 global.cooldowns  = new Map();
 ////____GLOBAL____///
 global.User = require('./models/user.js');

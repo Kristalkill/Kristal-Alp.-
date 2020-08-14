@@ -5,8 +5,8 @@ module.exports = {
   public: true,
   async execute(Main, message, args,res,Data){
     try {
-      if(parseInt(args[0])*2 > Data.money)return message.reply(ErrEmbed.setDescription(`Вам не хватает денег`));
-if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(ErrEmbed.setDescription(`Минимальная ставка 1$`))
+      if(parseInt(args[0])*2 > Data.money)return message.reply(embeds.ErrEmbed.setDescription(`Вам не хватает денег`));
+if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(embeds.ErrEmbed.setDescription(`Минимальная ставка 1$`))
 else {
   User.findOne({guildID: message.guild.id, userID: message.author.id},async(err,data) => {
   const chooseArr = ["🗻", "🤚", "✌️"];

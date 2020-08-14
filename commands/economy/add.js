@@ -21,7 +21,7 @@ module.exports = {
        message.channel.send(`Укажите кол-во монет которое хотите передать`)
     }
     else {
-       message.channel.send(ErrEmbed.setDescription('rep,money,level'))
+       message.channel.send(embeds.ErrEmbed.setDescription('rep,money,level'))
     }
   
   })  

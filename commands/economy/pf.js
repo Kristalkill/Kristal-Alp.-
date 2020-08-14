@@ -1,4 +1,3 @@
-formatDate = require('../../functions/formatDate.js')
 module.exports = {
   name: 'pf',
   description: 'Просмотр своего баланса.',
@@ -9,18 +8,16 @@ module.exports = {
       let reputationtext = ''
       let memberp = message.guild.me.hasPermission('MANAGE_MESSAGES')
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
-      const JoinedData = formatDate(member.joinedAt);
-      const CreateData = formatDate(member.user.createdAt);
+      const JoinedData = functions.formatDate(member.joinedAt);
+      const CreateData = functions.formatDate(member.user.createdAt);
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": "<Компьютер", "web": "Сайт", "mobile":"Смартфон"};
       let devicesText = " ";
       if(member.user.presence.clientStatus){
       for(let dev in member.user.presence.clientStatus){
-        let s = member.user.presence.clientStatus[dev]
         devicesText += `${devices[dev]}`}};
         if(member.user.presence.clientStatus > 1){
       for(let dev in member.user.presence.clientStatus){
-        let s = member.user.presence.clientStatus[dev]
         devicesText += `${devices[dev]},`
       }};
       const flags = {
@@ -94,7 +91,7 @@ module.exports = {
           .setColor(Guild.colors)
           .setTitle(`**${member.user.username}**`)
           .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**:  ${JoinedData}`)
-          .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${Main.users.cache.get(Data.partner)? Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
+          .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${functions.abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${Main.users.cache.get(Data.partner)? Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
         let profileembed2 = new Discord.MessageEmbed()
         .setTitle('**🏅 Достижения**')
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))

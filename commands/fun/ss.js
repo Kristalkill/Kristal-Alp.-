@@ -7,7 +7,7 @@ module.exports = {
   async execute(Main, message, args) {
   try{
           Guild.findOne({guildID: message.guild.id} , (err,res) => {
-        if(!args[0]) return message.channel.send(ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
+        if(!args[0]) return message.channel.send(embeds.ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
         fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())
           .then(body => {

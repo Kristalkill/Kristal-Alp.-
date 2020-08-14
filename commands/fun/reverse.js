@@ -1,4 +1,3 @@
-ErrEmbed = require('../../embeds/ErrEmbed.js')
 module.exports = {
   name: 'reverse',
   description: 'reverse',
@@ -6,7 +5,7 @@ module.exports = {
   public: true,
   async execute(Main, message, args) {
   try{
-      if(!args)return  message.channel.send(ErrEmbed.setDescription('Введите что-то'));
+      if(!args)return  message.channel.send(embeds.ErrEmbed.setDescription('Введите что-то'));
       let aembed = new Discord.MessageEmbed()
       .setTitle("Перевёрнуто успешно")
       .setDescription(args.join(' ').split('').reverse().join(''));

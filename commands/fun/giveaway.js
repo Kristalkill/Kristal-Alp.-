@@ -50,7 +50,7 @@ try {
                     }else{
                     message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Нету победителей`))}
                     await Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel});}
-                else return message.channel.send(ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`));})
+                else return message.channel.send(embeds.ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`));})
                 break;       
         } catch (error) {
             console.log(error)
@@ -61,8 +61,8 @@ try {
                 Giveaway.findOne({messageID:messageid2},async(err,res) => {
                 if(res){
                     await Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})
-                    message.channel.send(OKEmbed.setDescription(`**Giveaway под номером ${res.messageID} успешно удален**`));
-                }else return message.channel.send(ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`)); })
+                    message.channel.send(embeds.OKEmbed.setDescription(`**Giveaway под номером ${res.messageID} успешно удален**`));
+                }else return message.channel.send(embeds.ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`)); })
                 break;
             }catch (error) {
                 console.log(error)   

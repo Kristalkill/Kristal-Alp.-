@@ -1,4 +1,3 @@
-toNum = require('../../functions/toNum.js')
 module.exports = {
     name: 'accept',
     description: 'Напишу потом',
@@ -11,9 +10,9 @@ module.exports = {
         User.findOne({guildID: message.guild.id, userID:message.author.id},async(err,Data) => {
         if (err){console.log(err)}
         if (Data){
-          if (Data.senders.length <= 2)return  message.channel.send(ErrEmbed.setDescription(`У вас нет предложений`));
+          if (Data.senders.length <= 2)return  message.channel.send(embeds.ErrEmbed.setDescription(`У вас нет предложений`));
           if (!args[1])return  message.channel.send(new Discord.MessageEmbed(), `Укажите число от 1 до ${Data.senders.split(',').length}. Чтобы посмотреть список партнеров введите ${res.Moderation.prefix}senders`);
-          let acceptNum = toNum(args[1])
+          let acceptNum = functions.toNum(args[1])
           if (!acceptNum || acceptNum == 0 || acceptNum > Data.senders.split(',').length)return  message.channel.send(`Укажите число от 1 до ${Data.senders.split(',').length}. Чтобы посмотреть список партнеров введите ${res.Moderation.prefix}marry senders`);
           let sendersArr2 = Data.senders.split(',');
           let acceptUser = sendersArr2[acceptNum - 1];

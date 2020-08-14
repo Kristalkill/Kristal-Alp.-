@@ -1,4 +1,3 @@
-toNum = require('../../functions/toNum.js')
 module.exports = {
     name: 'sclear',
     description: 'Напишу потом',
@@ -11,7 +10,7 @@ try {
     User.findOne({guildID: message.guild.id, userID:message.author.id},async(err,Data) => {
     if (err){console.log(err)}
     if (Data){
-        if (Data.senders.length <= 2)return  message.channel.send(Errembed.setDescription('Вам никто не отправлял предложение'));
+        if (Data.senders.length <= 2)return  message.channel.send(embeds.ErrEmbed.setDescription('Вам никто не отправлял предложение'));
         let sendersArr = Data.senders.split(',');
         for (let i = 0; i < sendersArr.length; i++) {
                         let curUser = await User.findOne({userID:sendersArr[i]});

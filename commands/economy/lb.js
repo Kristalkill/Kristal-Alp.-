@@ -1,4 +1,3 @@
-abbreviateNumber = require('../../functions/abbreviateNumber.js')
 module.exports = {
     name: 'lb',
     description: 'Топы пользователей',
@@ -22,16 +21,16 @@ module.exports = {
           else {for(i = 0; i < resL; i++){
               switch (args[0].toLowerCase()) {
                   case "level":
-                  text = `${abbreviateNumber(res[i][args[0].toLowerCase()])}:watermelon:`
+                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:watermelon:`
                   break;
                   case "money":
-                  text = `${abbreviateNumber(res[i][args[0].toLowerCase()])}💸`
+                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}💸`
                   break;
                   case "rep":
-                  text = `${abbreviateNumber(res[i][args[0].toLowerCase()])}:thumbsup:`
+                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:thumbsup:`
                   break;
                   case "xp":
-                  text = `${abbreviateNumber(res[i][args[0].toLowerCase()])}:fork_and_knife:`
+                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:fork_and_knife:`
                   break;
               }
                   embed.addField(`${i + 1}. ${Main.users.cache.get(res[i].userID).tag || "Неизвестно"}`,`${Values}: ${text}`)

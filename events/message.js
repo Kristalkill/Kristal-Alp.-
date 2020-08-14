@@ -25,8 +25,8 @@ module.exports = (Main,message) => {
       Data.xp += res.Economy.xp
       Data.money += res.Economy.money
       Data.massages++
-      addAchievement(Data.level >= 5,'3',Data,message)
-      addAchievement(Data.money >= 1000,'2',Data,message)
+      functions.addAchievement(Data.level >= 5,'3',Data,message)
+      functions.addAchievement(Data.money >= 1000,'2',Data,message)
       if(Data.xp >= res.Economy.upXP*Data.level){
       Data.xp -= res.Economy.upXP*Data.level;
       Data.level+=1
@@ -36,16 +36,16 @@ module.exports = (Main,message) => {
       const cooldown = cooldowns.get(message.author.id);
       if (cooldown) {
           const remaining = humanizeDuration(cooldown - Date.now(),{ round: true,language: "ru"  });
-          return message.channel.send(ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
+          return message.channel.send(embeds.ErrEmbed.setDescription(`Подождите ${remaining} прежде чем использывть снова`))}
       if(!config.owner.includes(message.author.id)){
       if(command.public === false)return; 
-      if(!message.member.hasPermission(command.Permission))return  message.channel.send(ErrEmbed.setDescription(`**К сожелению у вас нету прав: \`${command.Permission}\`\nЯ не могу исполнить вашу команду.**`));
+      if(!message.member.hasPermission(command.Permission))return  message.channel.send(embeds.ErrEmbed.setDescription(`**К сожелению у вас нету прав: \`${command.Permission}\`\nЯ не могу исполнить вашу команду.**`));
       cooldowns.set(message.author.id, Date.now() + 5000);
       setTimeout(() => cooldowns.delete(message.author.id), 5000);
       };
-      if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
-      if(!message.guild.me.hasPermission(command.PermissionBOT))return  message.channel.send(ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
-      command.execute(Main, message, args,res,Data,err);}
+      if(!message.guild.me.hasPermission(["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]))return message.guild.owner.send(embeds.ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${["ADD_REACTIONS","VIEW_CHANNEL","SEND_MESSAGES","USE_EXTERNAL_EMOJIS"]}\`\nЯ не могу исполнить вашу команду.**`));
+      if(!message.guild.me.hasPermission(command.PermissionBOT))return  message.channel.send(embeds.ErrEmbed.setDescription(`**К сожелению у бота нету прав:  \`${command.PermissionBOT}\`\nЯ не могу исполнить вашу команду.**`));
+      command.execute(Main, message, args);}
       if(message.content.startsWith(message.guild.me)&& !command){
       message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));}
   }

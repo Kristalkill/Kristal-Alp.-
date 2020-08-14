@@ -1,4 +1,5 @@
 module.exports = (Main) => {
+const PORT = process.env.PORT || 4000
   try {
     const GiveAway  = new Discord.MessageEmbed()
     .setTitle("🎉**Giveaway** 🎉")
@@ -33,8 +34,8 @@ module.exports = (Main) => {
               }else{
                 await Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
                 user.roles.remove(Data.Moderation.muterole);
-                if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-                if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(OKEmbed.setDescription(`${user} успешно розмучен`));
+                if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(embeds.OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
+                if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(embeds.OKEmbed.setDescription(`${user} успешно розмучен`));
                 }
             }
           })
