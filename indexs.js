@@ -15,7 +15,7 @@ String.prototype.translate = function(vars){
   return str;
 }
 String.prototype.chunk = function(length) {
-  return this.match(new RegExp('{1,' + +length + '}', 'g'));
+  return this.match(new RegExp('[\\s\\S]{1,' + +length + '}', 'g'));
 }
 ErrEmbed = require('./embeds/ErrEmbed.js')
 OKEmbed = require('./embeds/OKEmbed.js')
