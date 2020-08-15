@@ -1,6 +1,9 @@
 {
   "name": "kristalbot",
   "version": "0.5.9",
+  "scripts": {
+    "start": "node index.js"
+  },
   "main": "index.js",
   "author": "END(KrisralkillPlay)",
   "license": "MIT",
