@@ -1,8 +1,8 @@
 {
-  "name": "tutorials",
-  "version": "1.0.0",
-  "main": "src/index",
-  "author": "Connor Moriarty",
+  "name": "kristalbot",
+  "version": "0.5.9",
+  "main": "index.js",
+  "author": "END(KrisralkillPlay)",
   "license": "MIT",
   "engines": {
     "node": "12.x"
