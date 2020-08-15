@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node src/index.js"
   },
-  "main": "index.js",
+  "main": "scr/index.js",
   "author": "END(KrisralkillPlay)",
   "license": "MIT",
   "engines": {
