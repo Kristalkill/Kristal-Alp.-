@@ -1,26 +1,19 @@
 {
-  "name": "kristalbot",
-  "version": "0.5.4",
-  "description": "kristalBot",
-  "main": "indexs.js",
-  "scripts": {
-    "start": "node indexs.js"
-  },
-  "author": "END (kristalkillPlay)",
+  "name": "tutorials",
+  "version": "1.0.0",
+  "main": "src/index",
+  "author": "Connor Moriarty",
   "license": "MIT",
   "engines": {
     "node": "12.x"
   },
-  "dependencies": {
-    "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0",
-    "fs": "0.0.2",
-    "humanize-duration": "^3.23.1",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.29",
-    "ms": "^2.1.2"
-  },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "eslint": "^7.0.0",
+    "eslint-config-tesseract": "^0.0.2"
+  },
+  "dependencies": {
+    "debugImplementation": "com.squareup.leakcanary:leakcanary-android:2.4",
+    "discord.js": "^12.3.0",
+    "mongoose": "^5.9.29"
   }
 }
