@@ -3,7 +3,7 @@ const { promisify } = require('util');
 const glob = promisify(require('glob'));
 const Command = require('./Command.js');
 const Event = require('./Event.js');
-
+const fs = require('fs')
 module.exports = class Util {
 
 	constructor(Main) {
@@ -45,22 +45,23 @@ module.exports = class Util {
 	}
 
 	async loadCommands() {
-		return glob(`${this.directory}commands/**/*.js`).then(commands => {
-			for (const commandFile of commands) {
+		  fs.readdirSync(`${this.directory}Commands/`).forEach(module => {
+			  const commands = fs.readdirSync(`${this.directory}Commands/${module}/`).filter(file => file.endsWith('.js'));
+			  for (const commandFile of commands) {
 				delete require.cache[commandFile];
-				const { name } = path.parse(commandFile);
-				const File = require(commandFile);
-				if (!this.isClass(File)) throw new TypeError(`Команда ${name} не экспортирует класс.`);
-				const command = new File(this.Main, name.toLowerCase());
-				if (!(command instanceof Command)) throw new TypeError(`Команда ${name} не принадлежит командам.`);
-				this.Main.commands.set(command.name, command);
-				if (command.aliases.length) {
+				  const { name } = path.parse(commandFile);
+				  const File = require(`${this.directory}Commands/${module}/${commandFile}`);
+				  const command = new File(this.Main, name.toLowerCase());
+				  if (!(command instanceof Command)) throw new TypeError(`Команда ${name} не принадлежит командам.`);
+				  command.category = module;
+				  this.Main.commands.set(command.name, command);
+				  if (command.aliases.length) {
 					for (const alias of command.aliases) {
 						this.Main.aliases.set(alias, command.name);
 					}
 				}
-			}
-		});
+			  }
+		  })
 	}
     abbreviateNumber(number,digits=2){
 		var expK = Math.floor(Math.log10(Math.abs(number)) / 3);
@@ -121,18 +122,19 @@ module.exports = class Util {
 		return parseInt(text.replace(/[^\d]/g, ""));
 	  };
 	async loadEvents() {
-		return glob(`${this.directory}events/**/*.js`).then(events => {
-			for (const eventFile of events) {
-				delete require.cache[eventFile];
-				const { name } = path.parse(eventFile);
-				const File = require(eventFile);
-				if (!this.isClass(File)) throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
-				const event = new File(this.Main, name);
-				if (!(event instanceof Event)) throw new TypeError(`Ивент ${name} не принадлежит Ивентам`);
-				this.Main.events.set(event.name, event);
-				event.emitter[event.type](name, (...args) => event.run(...args));
-			}
-		});
-	}
+		const events = fs.readdirSync(`${this.directory}Events`).filter(file => file.endsWith('.js'));
+
+		for (const eventFile of events) {
+			delete require.cache[eventFile];
+			const { name } = path.parse(eventFile);
+			const File = require(`${this.directory}Events/${eventFile}`);
+			if (!this.isClass(File)) throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
+			const event = new File(this.Main, name);
+			if (!(event instanceof Event)) throw new TypeError(`Ивент ${name} не принадлежит Ивентам`);
+			this.Main.events.set(event.name, event);
+			event.emitter[event.type](name, (...args) => event.run(...args));
+
+		}
+}
 
 };
