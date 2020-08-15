@@ -1,7 +1,8 @@
 const client = require('./Structures/Main');
 const config = require('../config.json');
 const mongoose = require("mongoose");
-const Main = new client(config);
+const dotenv = require("dotenv").config();
+const Main = new client(process.env);
 try {
 String.prototype.translate = function(vars){
     var str = this;
