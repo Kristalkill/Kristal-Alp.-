@@ -2,7 +2,7 @@
   "name": "kristalbot",
   "version": "0.5.9",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "main": "index.js",
   "author": "END(KrisralkillPlay)",

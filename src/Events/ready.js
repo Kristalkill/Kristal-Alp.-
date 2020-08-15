@@ -2,7 +2,7 @@ const Event = require('../Structures/Event');
 const Discord = require('discord.js')
 module.exports = class extends Event {
 	async run() {
-	const PORT = process.env.PORT || 4000
+	const PORT = 4000
   try {
     const GiveAway  = new Discord.MessageEmbed()
     .setTitle("🎉**Giveaway** 🎉")
