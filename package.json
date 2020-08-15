@@ -7,10 +7,6 @@
   "engines": {
     "node": "12.x"
   },
-  "devDependencies": {
-    "eslint": "^7.0.0",
-    "eslint-config-tesseract": "^0.0.2"
-  },
   "dependencies": {
     "discord.js": "^12.3.0",
     "glob": "^7.1.6",
