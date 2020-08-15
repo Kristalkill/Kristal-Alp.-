@@ -12,7 +12,6 @@
     "eslint-config-tesseract": "^0.0.2"
   },
   "dependencies": {
-    "debugImplementation": "com.squareup.leakcanary:leakcanary-android:2.4",
     "discord.js": "^12.3.0",
     "mongoose": "^5.9.29"
   }
