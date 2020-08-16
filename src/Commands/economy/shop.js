@@ -6,7 +6,8 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['shop'],
 			description: 'shop',
-			category: 'economy'
+            category: 'economy',
+            PermissionBOT:["ADMINISTRATOR"]
 		});
 	}
 	run(message,args) {

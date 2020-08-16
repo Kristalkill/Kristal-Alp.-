@@ -100,20 +100,18 @@ module.exports = class Util {
 		return date.toLocaleString("ru", {day: '2-digit', month: '2-digit', year: '2-digit'});
 	  };
 	  managePerms(message, needPerms, addMore = false) {
+		  if(Array.isArray(needPerms)){
 		  let need = [];
-		  if(needPerms != [])return needPerms = ["SEND_MESSAGE"]
 		  if (addMore) {
 			needPerms.push("EMBED_LINKS");
 			needPerms.push("ADD_REACTIONS");
 			needPerms.push("USE_EXTERNAL_EMOJIS");
 		  }
 		  needPerms.map((p) => !message.channel.permissionsFor(addMore ? message.guild.me : message.member).has(p) ? need.push(p) : null);
-		  if (need.length) return {
-			need,
-			embed: message.channel.permissionsFor(message.guild.me).has("EMBED_LINKS") ? true : false
-		  };
+		  if (need.length) return need;
 		  else return false;
-	  };
+	  }else return false;
+	}
 	  randomize(min, max) {
 		  return Math.floor(Math.random() * (max-min) + min)
 	  };

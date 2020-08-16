@@ -14,9 +14,6 @@ String.prototype.translate = function(vars){
   String.prototype.chunk = function(length) {
     return this.match(new RegExp('[^]{1,' + +length + '}', 'g'));
   }
-  String.prototype.chunk2 =  function(length) {
-    return  this.split(new RegExp('[^]{1,' + +length + '}', 'g'));
-  }
     mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.connection.on('connected',()=>{
       console.log('[✅DataBase] Connected!')

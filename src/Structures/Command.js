@@ -8,6 +8,8 @@ module.exports = class Command {
 		this.category = options.category || 'Тест';
 		this.usage = options.usage || 'Нету.';
 		this.public = null ? true : options.public;
+		this.Permission = options.Permission;
+		this.PermissionBOT = options.PermissionBOT;
 	}
 	async run(message, args) {
 		throw new Error(`Команда ${this.name} не содержин метод запуска!`);

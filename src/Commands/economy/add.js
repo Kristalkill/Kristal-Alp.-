@@ -6,7 +6,8 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['add'],
 			description: 'add',
-			category: 'economy'
+      category: 'economy',
+      Permission:['ADMINISTRATOR']
 		});
 	}
 	run(message,args) {

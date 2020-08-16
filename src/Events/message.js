@@ -41,9 +41,11 @@ module.exports = class extends Event {
         if(command.public === false)return; 
         this.Main.db.cooldowns.set(message.author.id, Date.now() + 5000);
         setTimeout(() => this.Main.db.cooldowns.delete(message.author.id), 5000);
-        this.Main.utils.managePerms(message, command.Permission,false)
+        const Uneed = this.Main.utils.managePerms(message, command.Permission,false)
+        if(Uneed)return message.channel.send(Uneed)
         };
-        this.Main.utils.managePerms(message, command.PermissionBOT,true)
+        const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
+        if(Bneed)return message.channel.send(Bneed)
         command.run(message, args);
         if(message.content.startsWith(message.guild.me)&& !command){
         message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));
