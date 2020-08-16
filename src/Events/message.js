@@ -45,7 +45,7 @@ module.exports = class extends Event {
         if(Uneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у вас недостаточно прав:  \`${Uneed}\`\nЯ не могу исполнить вашу команду.**`));
         };
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
-        if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у бота недостаточно прав:  \`${Uneed}\`\nЯ не могу исполнить вашу команду.**`));
+        if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у бота недостаточно прав:  \`${Bneed}\`\nЯ не могу исполнить вашу команду.**`));
         command.run(message, args);
         if(message.content.startsWith(message.guild.me)&& !command){
         message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));
