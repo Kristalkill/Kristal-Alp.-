@@ -6,7 +6,8 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['sbot'],
 			description: 'StopBot',
-			category: 'development'
+			category: 'development',
+      public: false
 		});
 	}
 	async run(message) {

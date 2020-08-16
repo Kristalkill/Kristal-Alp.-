@@ -1,6 +1,4 @@
 const path = require('path');
-const { promisify } = require('util');
-const glob = promisify(require('glob'));
 const Command = require('./Command.js');
 const Event = require('./Event.js');
 const fs = require('fs')
@@ -51,9 +49,10 @@ module.exports = class Util {
 				delete require.cache[commandFile];
 				  const { name } = path.parse(commandFile);
 				  const File = require(`${this.directory}Commands/${module}/${commandFile}`);
+				  if (!this.isClass(File)) throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
 				  const command = new File(this.Main, name.toLowerCase());
 				  if (!(command instanceof Command)) throw new TypeError(`Команда ${name} не принадлежит командам.`);
-				  command.category = module;
+				  this.Main.commands.set(command.category, module)
 				  this.Main.commands.set(command.name, command);
 				  if (command.aliases.length) {
 					for (const alias of command.aliases) {

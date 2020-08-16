@@ -23,7 +23,7 @@ module.exports = class extends Event {
           res.forEach(async mute => {
             const guild = this.Main.guilds.cache.get(mute.guildID)
             if(!guild)return;
-            Guild.findOne({guildID: mute.guildID},async(err,Data) => {
+            this.Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {
             const role = guild.roles.cache.get(Data.Moderation.muterole);
             const user = guild.members.cache.get(mute.id);
             if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
@@ -51,6 +51,7 @@ module.exports = class extends Event {
     setInterval(()=>{
       try {
         this.Main.db.Giveaway.find().exec((err,res)=> {
+          if(err)return console.log(err);
           res.forEach(async Giveaway => {
             const guild = this.Main.guilds.cache.get(Giveaway.guildID)
             if(!guild)return;

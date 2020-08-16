@@ -1,0 +1,62 @@
+const Command = require('../../Structures/Command');
+const Discord = require('discord.js')
+const fs = require('fs')
+module.exports = class extends Command {
+
+	constructor(...args) {
+		super(...args, {
+			aliases: ['help'],
+			description: 'help',
+			category: 'info'
+		});
+	}
+	async run(message) {
+      try {
+        this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
+        let pages = []; 
+        let page = 1 
+        fs.readdirSync(`src/Commands/`).filter(module => module != 'development').forEach(module => pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${res.Moderation.prefix}${cmd.name}\` - ${cmd.description}`).join(`\n`)}`))
+        const embed = new Discord.MessageEmbed()
+        .setColor(0xffffff)
+        .setFooter(`Page ${page} of ${pages.length}`)
+        .setDescription(pages[page-1])
+      if(message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.delete();
+      message.channel.send(embed).then(async msg => {
+      await msg.react('⏪');
+      await msg.react('⬅');
+      await msg.react('⏹');
+      await msg.react('➡');
+      await msg.react('⏩');
+      const filter = (reaction, user) => reaction.emoji.name === '⏪'||'⬅'||'⏹'||'➡'||'⏩' && user.id === message.author.id;
+      const Reaction = msg.createReactionCollector(filter,{timer:6000})
+      Reaction.on('collect', reaction => {
+        switch(reaction.emoji.name){
+          case '⏪':
+            page = 1;
+            msg.edit(embed.setDescription(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`));
+            break;
+          case '⬅':
+            page == 1 ? page = pages.length : page--
+            msg.edit(embed.setDescription(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`));
+            break;
+          case '⏹':
+            msg.delete();
+            break;
+          case '➡':
+            page == pages.length ? page = 1 : page++
+            msg.edit(embed.setDescription(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`));
+            break;
+          case '⏩':
+            page = pages.length;
+            msg.edit(embed.setDescription(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`));
+            break;
+        }
+        if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return r.users.remove(message.author.id)
+      })
+      })
+    })
+  } catch (error) {
+    console.log(error)
+  }
+  }
+}

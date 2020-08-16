@@ -4,8 +4,9 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['block'],
-			description: 'Displays information about the bot.',
-			category: 'development'
+			description: 'block.',
+            category: 'development',
+            public: false
 		});
 	}
 	run(message,args) {
