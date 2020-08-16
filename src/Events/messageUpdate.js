@@ -36,14 +36,16 @@ module.exports = class extends Event {
         if(prefix && command){
         message.guild.me.hasPermission(["SEND_MESSAGES"]) ? null : message.author.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у бота нету права  \`${["SEND_MESSAGES"]}\`\nПрошу выдать мне это право,иначе бот будет бесполезен**`)).catch()
         const cooldown = this.Main.db.cooldowns.get(message.author.id);
-        if (cooldown) return message.channel.send(this.embeds.ErrEmbed.setDescription(`Подождите ${humanizeDuration(cooldown - Date.now(),{ round: true,language: res.language  })} прежде чем использывть снова`))
+        if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Подождите ${humanizeDuration(cooldown - Date.now(),{ round: true,language: res.language  })} прежде чем использывть снова`))
         if(!config.owner.includes(message.author.id)){
         if(command.public === false)return; 
         this.Main.db.cooldowns.set(message.author.id, Date.now() + 5000);
         setTimeout(() => this.Main.db.cooldowns.delete(message.author.id), 5000);
-        this.Main.utils.managePerms(message, command.Permission,false)
+        const Uneed = this.Main.utils.managePerms(message, command.Permission,false)
+        if(Uneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(Uneed))
         };
-        this.Main.utils.managePerms(message, command.PermissionBOT,true)
+        const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
+        if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(Bneed))
         command.run(message, args);
         if(message.content.startsWith(message.guild.me)&& !command){
         message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));
