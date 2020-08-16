@@ -20,6 +20,7 @@ module.exports = class extends Event {
       try {
         this.Main.db.Mute.find().exec((err,res)=> {
           if(err) return console.log(err);
+          if(res){
           res.forEach(async mute => {
             const guild = this.Main.guilds.cache.get(mute.guildID)
             if(!guild)return;
@@ -44,7 +45,8 @@ module.exports = class extends Event {
             }
           })
         })
-        })
+        }
+      })
       } catch (error) {
         console.log(error)  
       }},3000)
@@ -52,6 +54,7 @@ module.exports = class extends Event {
       try {
         this.Main.db.Giveaway.find().exec((err,res)=> {
           if(err)return console.log(err);
+          if(res){
           res.forEach(async Giveaway => {
             const guild = this.Main.guilds.cache.get(Giveaway.guildID)
             if(!guild)return;
@@ -71,8 +74,8 @@ module.exports = class extends Event {
             }else{
             guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`Нету победителей`));
             }
-            await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})}) 
-      } catch (error) {
+            await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})}}) 
+          } catch (error) {
         console.log(error)
       }},3000) 
   } catch (error) {

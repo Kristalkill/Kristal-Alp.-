@@ -28,6 +28,8 @@ module.exports = class extends Event {
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
         Data.massages++
+        this.Main.utils.addAchievement(Data.level >= 5,'3',Data,message)
+        this.Main.utils.addAchievement(Data.money >= 1000,'2',Data,message)
         if(Data.xp >= res.Economy.upXP*Data.level){
         Data.xp -= res.Economy.upXP*Data.level;
         Data.level+=1

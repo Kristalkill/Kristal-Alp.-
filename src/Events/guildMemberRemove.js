@@ -1,6 +1,6 @@
 const Event = require('../Structures/Event');
 module.exports = class extends Event {
-  async run(member,guild){
+  async run(member){
   try {
     if(member.user.bot)return;
     this.Main.db.User.deleteOne({guildID:member.guild.id, userID:member.id}) 

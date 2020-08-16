@@ -27,7 +27,7 @@ module.exports = class extends Command {
        message.channel.send(`Укажите кол-во монет которое хотите передать`)
     }
     else {
-       message.channel.send(this.embeds.ErrEmbed.setDescription('rep,money,level'))
+       message.channel.send(this.Main.embeds.ErrEmbed.setDescription('rep,money,level,xp'))
     }
   
   })  

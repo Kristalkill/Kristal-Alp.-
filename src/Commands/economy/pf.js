@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const Discord = require('discord.js')
+const Achievements = require('../../utilites/variables.js').Achievements;
 module.exports = class extends Command {
 
 	constructor(...args) {
@@ -12,16 +13,11 @@ module.exports = class extends Command {
 	run(message,args) {
     try {
       let reputationtext = ''
-      let memberp = message.guild.me.hasPermission('MANAGE_MESSAGES')
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
-      const JoinedData = this.Main.utilss.formatDate(member.joinedAt);
-      const CreateData = this.Main.utilss.formatDate(member.user.createdAt);
+      const CreateData = this.Main.utils.formatDate(member.user.createdAt);
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
-      const devices = {"desktop": "<Компьютер", "web": "Сайт", "mobile":"Смартфон"};
+      const devices = {"desktop": "Компьютер", "web": "Сайт", "mobile":"Смартфон"};
       let devicesText = " ";
-      if(member.user.presence.clientStatus){
-      for(let dev in member.user.presence.clientStatus){
-        devicesText += `${devices[dev]}`}};
         if(member.user.presence.clientStatus > 1){
       for(let dev in member.user.presence.clientStatus){
         devicesText += `${devices[dev]},`
@@ -62,10 +58,9 @@ module.exports = class extends Command {
           return str;
         }).join("\n");
        if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
-      User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
-  if(err){
-    console.log(err)
-  }
+      this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
+      this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
+  if(err) return console.log(err);
   if(Data) {
     switch (true) {
       case Data.rep <= -30 :
@@ -94,10 +89,10 @@ module.exports = class extends Command {
       if(member.presence.activities == null){activity = "Нету"}
       let profileembed1 = new Discord.MessageEmbed()
           .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
-          .setColor(Guild.colors)
           .setTitle(`**${member.user.username}**`)
-          .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**:  ${JoinedData}`)
-          .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${this.Main.utilss.abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
+          .setColor('RANDOM')
+          .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**: ${this.Main.utils.formatDate(member.joinedAt)}`)
+          .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${this.Main.utils.abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
         let profileembed2 = new Discord.MessageEmbed()
         .setTitle('**🏅 Достижения**')
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
@@ -106,81 +101,39 @@ module.exports = class extends Command {
         .setTitle('**🏅 Роли**')
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
         .setColor('RANDOM')
-        if(member.roles.cache.size > 1){
-          for (let i = 0; i < member.roles.cache.size - 1 ; i++) {
-            profileembed3.addField('** **',`${(member.roles.cache.array().filter(r => r.id !== message.guild.id).sort((a,b) => b.position - a.position))[i]}`)
-        }
-      }
-      else {
-        profileembed2.setDescription(`**Нету**`)
-      }
-    if(Data.Achievements >= 1){
-        for (let i = 0; i < Data.Achievements.length; i++) {
-          let getted = Achievements[(Data.Achievements)[i]]
-          profileembed2.addField(`**${i + 1}.${getted.name}|${getted.emoji}**`,`\n**${getted.description}**`)
-      }
-    }
-    else {
-      profileembed2.setDescription(`**Нету**`)
-    }
+        let i = 1;
+        member.roles.cache.size > 1 ? member.roles.cache.sort((a,b) => b.position - a.position).filter(role => role.id !== message.guild.id).forEach(role => {profileembed3.addField('** **',`${role}`)}) : profileembed3.setDescription(`**Нету**`)
+        Data.Achievements >= 1 ? Data.Achievements.forEach(Achievement => {profileembed2.addField(`**${i++}.${Achievements[Achievement].name}|${Achievements[Achievement].emoji}**`,`\n**${Achievements[Achievement].description}**`)}) :  profileembed2.setDescription(`**Нету**`)
       const pages = [profileembed1,profileembed2,profileembed3]
-      if(memberp){
-       message.delete();
-      }
-        message.channel.send(profileembed1.setFooter(`Страница ${page} из ${pages.length}`)).then(msg => {
-        msg.react('⬅').then( r => {
-        msg.react('⏹').then( r => {
-        msg.react('➡')
-        const backwardF = (reaction, user) => reaction.emoji.name === '⬅' && user.id === message.author.id;
-        const stopF = (reaction, user) => reaction.emoji.name === '⏹' && user.id === message.author.id;
-        const forwardF = (reaction, user) => reaction.emoji.name === '➡' && user.id === message.author.id;
-        const backward = msg.createReactionCollector(backwardF, {timer: 6000});
-        const stop = msg.createReactionCollector(stopF, {timer: 6000});
-        const forward = msg.createReactionCollector(forwardF, {timer: 6000});
-        backward.on('collect', r => {
-          if (page == 1) {
-            page = pages.length
-            msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
-            if(memberp){
-             r.users.remove(message.author.id)
-           }
+        if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return message.delete();
+        message.channel.send(profileembed1.setFooter(`Страница ${page} из ${pages.length}`)).then(async msg => {
+        await msg.react('⬅')
+        await msg.react('⏹')
+        await msg.react('➡')
+        const filter = (reaction, user) => reaction.emoji.name === '⬅'||'⏹'||'➡' && user.id === message.author.id;
+        const collector =  msg.createReactionCollector(filter, {timer: 6000})
+       
+        collector.on('collect', reaction => {
+          switch(reaction.emoji.name){
+            case '⬅':
+              page == 1 ? page = pages.length : page--
+              msg.edit(pages[page-1].setFooter(`Page ${page} of ${pages.length}`));
+              break;
+            case '⏹':
+              msg.delete();
+              break;
+            case '➡':
+              page == pages.length ? page = 1 : page++
+              msg.edit(pages[page-1].setFooter(`Page ${page} of ${pages.length}`));
+              break;
           }
-          else{
-            page--;
-            msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
-           if(memberp){
-            r.users.remove(message.author.id)
-          }
-        }
-          })
-        forward.on('collect', r => {
-          if (page == pages.length) {
-            page = 1
-            msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
-            if(memberp){
-             r.users.remove(message.author.id)
-           }
-          }
-          else{
-            page++;
-            msg.edit(pages[page-1].setFooter(`Страница ${page} из ${pages.length}`));
-           if(memberp){
-            r.users.remove(message.author.id)
-          }
-        }
-          })
-          stop.on('collect', r => {
-          msg.delete();
-        })
+          if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return r.users.remove(message.author.id)
   })
   })
+  }
+  else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Данного человека нету в базе данных`))
   })
-    }
-    else{
-      let embed = new Discord.MessageEmbed()
-      .setTitle("Чела нету в бд")
-    }
-  }) 
+})
     } catch (error) {
       console.log(error)
     }

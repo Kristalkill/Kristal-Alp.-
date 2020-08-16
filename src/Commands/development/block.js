@@ -15,11 +15,12 @@ module.exports = class extends Command {
             const reason = (args.slice(1).join(" ")||"Неизвесной")
             if(!member)return;
             this.Main.db.Block.findOne({id: member.id},(err,Data)=> {
+            if(err) return console.log(err);
             if(Data){
-                message.channel.send(this.embeds.ErrEmbed.setDescription(`${member} уже заблокирован по причине ${Data.reason}`))
+                message.channel.send(this.embeds.ErrEmbed.setDescription(`${member} уже заблокирован по причине ${Data.reason}`));
             }
             else{
-            this.Main.db.Block.create({id:member.id,reason:reason})
+            this.Main.db.Block.create({id:member.id,reason:reason});
             message.channel.send(this.embeds.OKEmbed.setDescription(`${member} заблокирован по причине **${reason.toLowerCase()}**`));
             }
         })
