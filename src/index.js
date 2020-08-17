@@ -1,6 +1,7 @@
 const client = require('./Structures/Main');
 const config = require('../config.json');
 const mongoose = require("mongoose");
+const Discord = require('discord.js');
 const dotenv = require("dotenv").config();
 const Main = new client(process.env);
 try {
