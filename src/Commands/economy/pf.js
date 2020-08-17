@@ -17,7 +17,7 @@ module.exports = class extends Command {
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": "Компьютер", "web": "Сайт", "mobile":"Смартфон"};
       let devicesText = " ";
-      if(member.user.presence.clientStatus)return member.user.presence.clientStatus.forEach(dev => {devicesText += `${devices[dev]},`});
+      if(member.user.presence.clientStatus >= 1)return member.user.presence.clientStatus.forEach(dev => {devicesText += `${devices[dev]},`});
       const flags = {
        DISCORD_EMPLOYEE: '<:Staff:709858516390641745>',
        DISCORD_PARTNER: '<:Partner:709854788463886399>',
