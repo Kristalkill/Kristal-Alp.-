@@ -88,7 +88,7 @@ module.exports = class extends Command {
           .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
           .setTitle(`**${member.user.username}**`)
           .setColor('RANDOM')
-          .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${CreateData}\n**Присоединился**: ${this.Main.utils.formatDate(member.joinedAt)}`)
+          .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${this.Main.utils.formatDate(member.user.createdAt)}\n**Присоединился**: ${this.Main.utils.formatDate(member.joinedAt)}`)
           .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${this.Main.utils.abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
         let profileembed2 = new Discord.MessageEmbed()
         .setTitle('**🏅 Достижения**')
