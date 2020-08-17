@@ -1,3 +1,5 @@
+const Command = require('../../Structures/Command');
+const Discord = require('discord.js')
 module.exports = class extends Command {
   constructor(...args) {
       super(...args, {

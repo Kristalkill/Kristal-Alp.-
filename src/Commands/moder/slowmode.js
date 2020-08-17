@@ -1,4 +1,5 @@
 const ms = require('ms')
+const Command = require('../../Structures/Command');
 module.exports = class extends Command {
       constructor(...args) {
           super(...args, {
