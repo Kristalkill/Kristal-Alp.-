@@ -14,7 +14,9 @@ module.exports = class extends Command {
     try {
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[1]));
       this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
+        if(err)return console.log(err);
         this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id},async(err,Data1) => {
+          if(err)return console.log(err);
           let OK = new Discord.MessageEmbed()
           if(!Data1)return  message.channel.send(this.embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
           if (!args[0]) return  message.channel.send(this.embeds.ErrEmbed.setDescription("Потом напишу"))

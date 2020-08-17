@@ -8,9 +8,11 @@ module.exports = class extends Event {
     try {
       if(message.channel.type === 'dm' || message.author.bot)return;
       this.Main.db.Block.findOne({id: message.author.id},(err,BlockY)=> {
+        if(err){console.log(err)};
       this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
+        if(err){console.log(err)};
       this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
-      if(err){console.log(err)};
+        if(err){console.log(err)};
       if(!Data) return this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
       if(!res) return this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
       const language = require(`./../languages/${res.Moderation.language}.json`);

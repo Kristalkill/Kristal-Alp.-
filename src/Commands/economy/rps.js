@@ -15,6 +15,7 @@ module.exports = class extends Command {
 if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(this.embeds.ErrEmbed.setDescription(`Минимальная ставка 1$`))
 else {
   this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},async(err,data) => {
+    if(err)return console.log(err);
   const chooseArr = ["🗻", "🤚", "✌️"];
   const embed = new Discord.MessageEmbed()
     .setColor("#ffffff")

@@ -16,7 +16,9 @@ module.exports = class extends Command {
             if(args[1] < 1) return  message.channel.send(this.embeds.ErrEmbed.setDescription(`Нельзя передать такое количество монет`))
             if(isNaN(args[1])) return  message.channel.send(this.embeds.ErrEmbed.setDescription(`Укажите корректное значение.`))
             this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,loc) => {
+                if(err)return console.log(err);
             this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id},(err,data) => {
+                if(err)return console.log(err);
                 if(!data) return message.channel.send(this.embeds.ErrEmbed.setDescription(`К сожелению **${member.user.tag}** нету в базе-данных.`));
                 if(loc.money < args[1]) return  message.channel.send(this.embeds.ErrEmbed.setDescription(`У вас нету такого количества монет.`));
                 if(loc.userID == member.id) return  message.channel.send(this.embeds.ErrEmbed.setDescription(`Вы не можете передать монеты самому себе!`));

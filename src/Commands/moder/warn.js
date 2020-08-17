@@ -17,6 +17,7 @@ module.exports = class extends Command {
       if(member.user.id == message.author.id) return  message.channel.send(`Ой дебиллл!`)
       if(member.user.bot) return  message.channel.send(`Боты не по моей части`)
       this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id}, (err,data) => {
+        if(err)return console.log(err)
         if(!data){
           let errorMess = new Discord.MessageEmbed()
           .setColor('RED')

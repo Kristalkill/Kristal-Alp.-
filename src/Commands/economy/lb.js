@@ -23,18 +23,19 @@ module.exports = class extends Command {
               }
           if(res.length === 0){embed.setDescription('К сожелению таблица данного сервера пуста.') }
           else {for(i = 0; i < resL; i++){
+              let text1 = this.Main.utils.abbreviateNumber(res[i][args[0].toLowerCase()]);
               switch (args[0].toLowerCase()) {
                   case "level":
-                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:watermelon:`
+                  text = `${text1}:watermelon:`
                   break;
                   case "money":
-                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}💸`
+                  text = `${text1}💸`
                   break;
                   case "rep":
-                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:thumbsup:`
+                  text = `${text1}:thumbsup:`
                   break;
                   case "xp":
-                  text = `${functons.abbreviateNumber(res[i][args[0].toLowerCase()])}:fork_and_knife:`
+                  text = `${text1}:fork_and_knife:`
                   break;
               }
                   embed.addField(`${i + 1}. ${this.Main.users.cache.get(res[i].userID).tag || "Неизвестно"}`,`${Values}: ${text}`)

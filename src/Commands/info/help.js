@@ -13,6 +13,7 @@ module.exports = class extends Command {
 	async run(message) {
       try {
         this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
+          if(err)return console.log(err);
         let pages = []; 
         let page = 1 
         fs.readdirSync(`src/Commands/`).filter(module => module != 'development').forEach(module => pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${res.Moderation.prefix}${cmd.name}\` - ${cmd.description}`).join(`\n`)}`))

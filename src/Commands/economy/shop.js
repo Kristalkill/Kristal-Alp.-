@@ -13,7 +13,9 @@ module.exports = class extends Command {
 	run(message,args) {
 try {
     this.Main.db.Guild.findOne({guildID: message.guild.id},async(err,res) => {
+        if(err)return console.log(err);
         this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},async(err,Data)=> {
+            if(err)return console.log(err);
         let role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
         if(role){
             if(args[0] == 'add'){
