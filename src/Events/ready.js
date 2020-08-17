@@ -25,6 +25,7 @@ module.exports = class extends Event {
             const guild = this.Main.guilds.cache.get(mute.guildID)
             if(!guild)return;
             this.Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {
+              if(err) return console.log(err);
             const role = guild.roles.cache.get(Data.Moderation.muterole);
             const user = guild.members.cache.get(mute.id);
             if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
