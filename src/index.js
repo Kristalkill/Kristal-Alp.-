@@ -26,14 +26,14 @@ const GiveAway  = new Discord.MessageEmbed()
 .setTitle("🎉**Giveaway** 🎉")
 let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
 let acitvestatus = statuses[Math.floor(Math.random() * statuses.length)];
-setInterval(()=>{
+Main.setInterval(()=>{
   try {
     Main.user.setPresence({ game: { name: acitvestatus, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
     Main.user.setPresence({ activity: { name: acitvestatus }, status: 'online' });
   } catch (error) {
     console.log(error)
   }}, 15 * 1000); 
-setInterval(()=>{
+Main.setInterval(()=>{
   try {
     Main.db.Mute.find().exec((err,res)=> {
       if(err) return console.log(err);
@@ -68,7 +68,7 @@ setInterval(()=>{
   } catch (error) {
     console.log(error)  
   }},3000)
-setInterval(()=>{
+Main.setInterval(()=>{
   try {
     Main.db.Giveaway.find().exec((err,res)=> {
       if(err)return console.log(err);
@@ -96,5 +96,4 @@ setInterval(()=>{
       } catch (error) {
     console.log(error)
   }},3000) 
-
 Main.start();
