@@ -12,36 +12,36 @@ module.exports = class extends Command {
         try {
             let embed = new Discord.MessageEmbed()
             .setColor('RANDOM');
-      if(!args[0])return  message.channel.send("level,money,rep,xp")
+      if(!args[0])return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Введите то что вы хотите посмотреть!"))
       if (['level', 'money', 'rep', 'xp'].includes(args[0].toLowerCase())){ 
       let text = " "
+      switch (args[0].toLowerCase()) {
+          case "level":
+          text = `:watermelon:`
+          break;
+          case "money":
+          text = `💸`
+          break;
+          case "rep":
+          text = `:thumbsup:`
+          break;
+          case "xp":
+          text = `:fork_and_knife:`
+          break;
+      }
       let Values = `**${args[0].toLowerCase()}**`
       this.Main.db.User.find({guildID:message.guild.id}).sort([[args[0],'descending','guildID']]).exec((err,res)=> {
-              resL = 10
-              if (res.length < 10){
-                  resL = res.length
-              }
+          if(err)return console.log(err)
+              let resL = 10
+            if (res.length < 10)return resL = res.length
           if(res.length === 0){embed.setDescription('К сожелению таблица данного сервера пуста.') }
-          else {for(i = 0; i < resL; i++){
-              let text1 = this.Main.utils.abbreviateNumber(res[i][args[0].toLowerCase()]);
-              switch (args[0].toLowerCase()) {
-                  case "level":
-                  text = `${text1}:watermelon:`
-                  break;
-                  case "money":
-                  text = `${text1}💸`
-                  break;
-                  case "rep":
-                  text = `${text1}:thumbsup:`
-                  break;
-                  case "xp":
-                  text = `${text1}:fork_and_knife:`
-                  break;
-              }
-                  embed.addField(`${i + 1}. ${this.Main.users.cache.get(res[i].userID).tag || "Неизвестно"}`,`${Values}: ${text}`)
+          else {
+              let i = 0;
+              res.slice(0,resL).forEach(res => {
+                embed.addField(`${i + 1}. ${message.guild.members.cache.has(res.userID) ? this.Main.users.cache.get(res.userID).tag : "Неизвестно"}`,`${Values}: ${this.Main.utils.abbreviateNumber(res[args[0].toLowerCase()])}:${text}`)
+              });
+              message.channel.send(embed)
           }
-          }
-          message.channel.send(embed)
       
         })
       }
