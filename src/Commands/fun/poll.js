@@ -6,7 +6,8 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['poll'],
 			description: 'poll',
-			category: 'fun'
+                        category: 'fun',
+                        Permission:["ADMINISTRATOR"]
 		});
 	}
 	async run(message,args) {

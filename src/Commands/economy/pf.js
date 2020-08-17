@@ -14,14 +14,10 @@ module.exports = class extends Command {
     try {
       let reputationtext = ''
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
-      const CreateData = this.Main.utils.formatDate(member.user.createdAt);
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": "Компьютер", "web": "Сайт", "mobile":"Смартфон"};
       let devicesText = " ";
-        if(member.user.presence.clientStatus > 1){
-      for(let dev in member.user.presence.clientStatus){
-        devicesText += `${devices[dev]},`
-      }};
+      if(member.user.presence.clientStatus)return member.user.presence.clientStatus.forEach(dev => {devicesText += `${devices[dev]},`});
       const flags = {
        DISCORD_EMPLOYEE: '<:Staff:709858516390641745>',
        DISCORD_PARTNER: '<:Partner:709854788463886399>',
@@ -59,6 +55,7 @@ module.exports = class extends Command {
         }).join("\n");
        if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
       this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
+  if(err) return console.log(err);
       this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
   if(err) return console.log(err);
   if(Data) {
