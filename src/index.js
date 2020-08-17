@@ -24,24 +24,24 @@ String.prototype.translate = function(vars){
 }
 const GiveAway  = new Discord.MessageEmbed()
 .setTitle("🎉**Giveaway** 🎉")
-let statuses = [`k!help`, `${this.Main.guilds.cache.size} серверов`, `${this.Main.users.cache.size} участников`, `Bot by END`];
+let statuses = [`k!help`, `${Main.guilds.cache.size} серверов`, `${Main.users.cache.size} участников`, `Bot by END`];
 let acitvestatus = statuses[Math.floor(Math.random() * statuses.length)];
 setInterval(()=>{
   try {
-    this.Main.user.setPresence({ game: { name: acitvestatus, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
-    this.Main.user.setPresence({ activity: { name: acitvestatus }, status: 'online' });
+    Main.user.setPresence({ game: { name: acitvestatus, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
+    Main.user.setPresence({ activity: { name: acitvestatus }, status: 'online' });
   } catch (error) {
     console.log(error)
   }}, 15 * 1000); 
 setInterval(()=>{
   try {
-    this.Main.db.Mute.find().exec((err,res)=> {
+    Main.db.Mute.find().exec((err,res)=> {
       if(err) return console.log(err);
       if(res){
       res.forEach(async mute => {
-        const guild = this.Main.guilds.cache.get(mute.guildID)
+        const guild = Main.guilds.cache.get(mute.guildID)
         if(!guild)return;
-        this.Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {
+        Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {
           if(err) return console.log(err);
         const role = guild.roles.cache.get(Data.Moderation.muterole);
         const user = guild.members.cache.get(mute.id);
@@ -70,11 +70,11 @@ setInterval(()=>{
   }},3000)
 setInterval(()=>{
   try {
-    this.Main.db.Giveaway.find().exec((err,res)=> {
+    Main.db.Giveaway.find().exec((err,res)=> {
       if(err)return console.log(err);
       if(res){
       res.forEach(async Giveaway => {
-        const guild = this.Main.guilds.cache.get(Giveaway.guildID)
+        const guild = Main.guilds.cache.get(Giveaway.guildID)
         if(!guild)return;
         if(Giveaway.time >= Date.now()){
           Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != Main.user.id && !user.bot).keys()
