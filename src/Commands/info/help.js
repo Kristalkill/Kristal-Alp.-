@@ -7,7 +7,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['help'],
 			description: 'help',
-			category: 'info'
+			category: 'infa'
 		});
 	}
 	async run(message) {
@@ -16,7 +16,8 @@ module.exports = class extends Command {
           if(err)return console.log(err);
         let pages = []; 
         let page = 1 
-        fs.readdirSync(`src/Commands/`).filter(module => module != 'development').forEach(module => pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${res.Moderation.prefix}${cmd.name}\` - ${cmd.description}`).join(`\n`)}`))
+        fs.readdirSync(`src/Commands/`).filter(module => module != 'development').forEach(module => 
+          {if(this.Main.commands.filter(cmd => cmd.category == module).size >= 1) return pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${res.Moderation.prefix}${cmd.name}\` - ${cmd.description}`).join(`\n`)}`)})
         const embed = new Discord.MessageEmbed()
         .setColor(0xffffff)
         .setFooter(`Page ${page} of ${pages.length}`)

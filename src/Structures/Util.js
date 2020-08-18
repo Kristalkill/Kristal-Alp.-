@@ -54,7 +54,7 @@ module.exports = class Util {
 				  if (!this.isClass(File)) throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
 				  const command = new File(this.Main, name.toLowerCase());
 				  if (!(command instanceof Command)) throw new TypeError(`Команда ${name} не принадлежит командам.`);
-				  this.Main.commands.set(command.category, module)
+				  command.category == undefined ? command.category = module : null;
 				  this.Main.commands.set(command.name, command);
 				  if (command.aliases.length) {
 					for (const alias of command.aliases) {

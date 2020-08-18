@@ -5,9 +5,9 @@ module.exports = class Command {
 		this.name = options.name || name;
 		this.aliases = options.aliases || [];
 		this.description = options.description || 'Нету.';
-		this.category = options.category || 'Тест';
+		this.category = options.category;
 		this.usage = options.usage || 'Нету.';
-		this.public = null ? true : options.public;
+		this.public = options.public;
 		this.Permission = options.Permission;
 		this.PermissionBOT = options.PermissionBOT;
 	}
