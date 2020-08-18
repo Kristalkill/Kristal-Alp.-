@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,args) {
+	async run(message,args) {
       try{
               let user = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
               if (!user) return  message.channel.send(this.embeds.ErrEmbed.setDescription('Укажите пользователя'));

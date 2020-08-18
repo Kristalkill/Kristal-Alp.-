@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message) {
+	async run(message) {
 try {
   const embed = new Discord.MessageEmbed()
   .setColor("#FF30A2")

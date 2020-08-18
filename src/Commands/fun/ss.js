@@ -12,9 +12,10 @@ module.exports = class extends Command {
 	}
 	run(message,args) {
   try{
-        this.Main.db.Guild.findOne({guildID: message.guild.id} , (err,res) => {
+        this.Main.db.Guild.findOne({guildID: message.guild.id} , async(err,res) => {
+          if(err)return console.log(err);
         if(!args[0]) return message.channel.send(this.embeds.ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
-        fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
+        await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())
           .then(body => {
             if(!body) return;

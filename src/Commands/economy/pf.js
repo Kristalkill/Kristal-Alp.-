@@ -17,9 +17,7 @@ module.exports = class extends Command {
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": "Компьютер", "web": "Сайт", "mobile":"Смартфон"};
       let devicesText = " ";
-      if(member.user.presence.clientStatus){
-        for(let dev in  member.user.presence.clientStatus){devicesText += `\n${devices[dev]}` }
-      }
+      Object.keys(member.user.presence.clientStatus).map(dev => devicesText += `\n${devices[dev]}`)
       const flags = {
        DISCORD_EMPLOYEE: '<:Staff:709858516390641745>',
        DISCORD_PARTNER: '<:Partner:709854788463886399>',
@@ -32,11 +30,9 @@ module.exports = class extends Command {
        BUGHUNTER_LEVEL_2: '<:BugHunter2:709854743199219872>',
        VERIFIED_DEVELOPER: '<:coder:709854816725106859>'
       };
-       const flag = member.user.flags.toArray();
         let ftext = " ";
-        if(flag.length != 0){
-          for(const f of flag){ftext += `${flags[f]}`}
-        };
+        let flag = member.user.flags.toArray()
+        flag.length > 0 ? flag.forEach(f => {ftext += `${flags[f]}`}): ftext = `Нету`;
         const activity = member.presence.activities.map(a => {
         let str = "";
         if(a.type === "CUSTOM_STATUS") {
@@ -103,15 +99,13 @@ module.exports = class extends Command {
         let i = 1;
         member.roles.cache.size > 1 ? member.roles.cache.sort((a,b) => b.position - a.position).filter(role => role.id !== message.guild.id).forEach(role => {profileembed3.addField('** **',`${role}`)}) : profileembed3.setDescription(`**Нету**`)
         Data.Achievements >= 1 ? Data.Achievements.forEach(Achievement => {profileembed2.addField(`**${i++}.${Achievements[Achievement].name}|${Achievements[Achievement].emoji}**`,`\n**${Achievements[Achievement].description}**`)}) :  profileembed2.setDescription(`**Нету**`)
-      const pages = [profileembed1,profileembed2,profileembed3]
-        if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return message.delete();
+        const pages = [profileembed1,profileembed2,profileembed3]
         message.channel.send(profileembed1.setFooter(`Страница ${page} из ${pages.length}`)).then(async msg => {
         await msg.react('⬅')
         await msg.react('⏹')
         await msg.react('➡')
-        const filter = (reaction, user) => ('⬅'||'⏹'||'➡').includes(reaction.emoji.name) && user.id === message.author.id;
+        const filter = (reaction, user) => ['⬅','⏹','➡'].includes(reaction.emoji.name) && user.id === message.author.id;
         const collector =  msg.createReactionCollector(filter, {timer: 6000})
-       
         collector.on('collect', reaction => {
           switch(reaction.emoji.name){
             case '⬅':
@@ -126,9 +120,10 @@ module.exports = class extends Command {
               msg.edit(pages[page-1].setFooter(`Page ${page} of ${pages.length}`));
               break;
           }
-          if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return r.users.remove(message.author.id)
+          if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return reaction.users.remove(message.author.id)
   })
   })
+  if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return message.delete();
   }
   else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Данного человека нету в базе данных`))
   })

@@ -17,11 +17,11 @@ module.exports = class extends Command {
             this.Main.db.Block.findOne({id: member.id},(err,Data)=> {
             if(err) return console.log(err);
             if(Data){
-                message.channel.send(this.embeds.ErrEmbed.setDescription(`${member} уже был заблокирован по причине ${Data.reason}`));
+                message.channel.send(this.embeds.Main.ErrEmbed.setDescription(`${member} уже был заблокирован по причине ${Data.reason}`));
             }
             else{
             this.Main.db.Block.create({id:member.id,reason:reason});
-            message.channel.send(this.embeds.OKEmbed.setDescription(`${member} заблокирован по причине **${reason.toLowerCase()}**`));
+            message.channel.send(this.Main.embeds.OKEmbed.setDescription(`${member} заблокирован по причине **${reason.toLowerCase()}**`));
             }
         })
         } catch (error) {

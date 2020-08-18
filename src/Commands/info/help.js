@@ -21,14 +21,13 @@ module.exports = class extends Command {
         .setColor(0xffffff)
         .setFooter(`Page ${page} of ${pages.length}`)
         .setDescription(pages[page-1])
-      if(message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.delete();
       message.channel.send(embed).then(async msg => {
       await msg.react('⏪');
       await msg.react('⬅');
       await msg.react('⏹');
       await msg.react('➡');
       await msg.react('⏩');
-      const filter = (reaction, user) => reaction.emoji.name === '⏪'||'⬅'||'⏹'||'➡'||'⏩' && user.id === message.author.id;
+      const filter = (reaction, user) => ['⏪','⬅','⏹','➡','⏩'].includes(reaction.emoji.name) && user.id === message.author.id;
       const Reaction = msg.createReactionCollector(filter,{timer:6000})
       Reaction.on('collect', reaction => {
         switch(reaction.emoji.name){
@@ -52,9 +51,10 @@ module.exports = class extends Command {
             msg.edit(embed.setDescription(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`));
             break;
         }
-        if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return r.users.remove(message.author.id)
+        if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return reaction.users.remove(message.author.id)
       })
-      })
+      })      
+      if(message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.delete();
     })
   } catch (error) {
     console.log(error)

@@ -1,6 +1,7 @@
 const Event = require('../Structures/Event');
 const Discord = require('discord.js')
 const config = require('../../config.json');
+const humanizeDuration = require('humanize-duration')
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = class extends Event {

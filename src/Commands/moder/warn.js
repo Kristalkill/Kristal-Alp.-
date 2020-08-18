@@ -9,7 +9,7 @@ module.exports = class extends Command {
           Permission:["KICK_MEMBERS"],
       });
   }
-  async run(message,args) {
+  run(message,args) {
     try {
       let reason = args.slice(1).join(` `); 
       let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
@@ -29,5 +29,5 @@ module.exports = class extends Command {
           message.channel.send(this.Main.embeds.OKEmbed.setDescription(`Модератор: ${message.author.tag}\nНарушитель: ${member.user.tag}\nПричина: ${reason||'Отсуствует'}\nПредупреждений: ${data.warn}/${Data.warn||0}`))
       })
     } catch (error) {
-      
+      console.log(error)
     }}};

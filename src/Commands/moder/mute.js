@@ -11,7 +11,7 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS","MANAGE_ROLES"],
           });
       }
-      async run(message,args) {
+      run(message,args) {
       try {
         this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
           if(err) return console.log(err);

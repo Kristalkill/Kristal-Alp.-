@@ -9,7 +9,7 @@ module.exports = class extends Command {
             PermissionBOT:["BAN_MEMBERS"],
 		});
 	}
-	async run(message,args) {
+	run(message,args) {
         try {
             let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[0]))
 if(member.bannable === true){

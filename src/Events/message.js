@@ -1,6 +1,7 @@
 const Event = require('../Structures/Event');
 const Discord = require('discord.js')
 const config = require('../../config.json');
+const humanizeDuration = require('humanize-duration')
 let embed = new Discord.MessageEmbed()
 let embed1 = new Discord.MessageEmbed()
 module.exports = class extends Event {
@@ -23,10 +24,8 @@ module.exports = class extends Event {
     }
     const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
-      if(BlockY && command){ 
-       message.react("733299144311177257");
-      }
-       else if(Data && res){
+      if(BlockY && command)return message.react("733299144311177257");
+      if(Data && res){
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
         Data.massages++

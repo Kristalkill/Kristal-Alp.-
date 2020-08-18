@@ -122,7 +122,6 @@ module.exports = class Util {
 	  };
 	async loadEvents() {
 		const events = fs.readdirSync(`${this.directory}Events`).filter(file => file.endsWith('.js'));
-
 		for (const eventFile of events) {
 			delete require.cache[eventFile];
 			const { name } = path.parse(eventFile);
