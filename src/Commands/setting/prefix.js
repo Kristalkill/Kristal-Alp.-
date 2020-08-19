@@ -3,9 +3,8 @@ const Discord = require('discord.js')
 module.exports = class extends Command {
   constructor(...args) {
       super(...args, {
-          aliases: ['unwarn'],
-          description: 'unwarn',
-          category: 'moder',
+          aliases: ['prefix'],
+          description: 'prefix',
           Permission:["ADMINISTRATOR"],
       });
   }

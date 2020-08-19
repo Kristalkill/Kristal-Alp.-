@@ -13,7 +13,7 @@ module.exports = class extends Event {
       this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data)=> {
         if(err){console.log(err)};
       this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
-      if(err){console.log(err)};
+        if(err){console.log(err)};
       if(!Data) return this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
       if(!res) return this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
       const language = require(`./../languages/${res.Moderation.language}.json`);
@@ -24,8 +24,10 @@ module.exports = class extends Event {
     }
     const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
-      if(BlockY && command)return message.react("733299144311177257");
-      if(Data && res){
+      if(BlockY && command){ 
+       message.react("733299144311177257");
+      }
+       else if(Data && res){
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
         Data.massages++
@@ -49,7 +51,7 @@ module.exports = class extends Event {
         };
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у бота недостаточно прав:  \`${Bneed}\`\nЯ не могу исполнить вашу команду.**`));
-        command.run(message, args);
+        command.run(message, args,language);
         if(message.content.startsWith(message.guild.me)&& !command){
         message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));
       }

@@ -9,20 +9,19 @@ module.exports = class extends Command {
       Permission:['ADMINISTRATOR']
 		});
 	}
-	run(message,args) {
+	run(message,args,language) {
     try {
-      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.author);
+      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first());
       this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id},(err,data) => {
       if(err)return console.log(err);
-      if(!args[0])return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Укажите что вы хотите добавить!`))
-      if(isNaN(args[1]))return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Укажите кол-во ${args[0]} которое хотите добавить`));
-      if (['level', 'money', 'rep', 'xp'].includes(args[0].toLowerCase())){ 
-        message.channel.send(this.Main.embeds.OKEmbed.setDescription(`Вы успешно добавили ${args[0]} пользывателю:**${member.user.username}**  в количестве \`${args[1]}\``))
-        data[args[0].toLowerCase()] += Math.floor(parseInt(args[1]));
+      if (args[2] && args[1] && ['level', 'money', 'rep', 'xp'].includes(args[1].toLowerCase())){ 
+        message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.add.param1.translate({arg1:args[1],arg2:args[2],name:member.user.username})))
+        data[args[1].toLowerCase()] += Math.floor(parseInt(args[2]));
         data.save()
       
-    }
-    else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Укажите что вы хотите добавить: Money,xp,level,rep)!`))
+    }else if(!args[1]){
+      message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.param2))
+    }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.param3.translate({arg0:args[2]})));
   
   })  
     } catch (error) {

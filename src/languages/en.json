@@ -1,3 +1,14 @@
 {
-"levelup":"Congratulations,**%name%** on leveling up: %level%"
+"levelup":"Congratulations,**%name%** on leveling up: %level%",
+"botinfo":{
+    "param1":"Unknown",
+    "param2":"Specify the user you want to block!",
+    "param3":"%member% has already been blocked for a reason %reason%",
+    "param4":"%member% was successfully blocked due to **%reason%**"
+},
+"add":{
+    "param1":"You have successfully added %arg1% user:**%name%** in quantity %arg2%",
+    "param2":"Indicate what you want to add - Money,xp,level,rep!",
+    "param3":"Specify the quantity %arg2% which you want to add"
+}
 }
