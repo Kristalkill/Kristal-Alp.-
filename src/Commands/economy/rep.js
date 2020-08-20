@@ -19,8 +19,8 @@ module.exports = class extends Command {
           if(err)return console.log(err);
           let OK = new Discord.MessageEmbed()
           if(!member)return message.channel.send(`Укажи человека :)`)
-          if(!Data1)return  message.channel.send(this.embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
-          if (!args[0]) return  message.channel.send(this.embeds.ErrEmbed.setDescription("Потом напишу"))
+          if(!Data1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
+          if (!args[0]) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Потом напишу"))
           if (Data.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
           if ((args[0] = member)||(args[1] = member && args[0] == "Add"||'Plus'||'+')){
             Data.Timelyes._rep = parseInt(Date.now() + 14400000)

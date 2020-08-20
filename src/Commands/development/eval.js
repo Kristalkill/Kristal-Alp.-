@@ -21,7 +21,7 @@ module.exports = class extends Command {
       let embed = new Discord.MessageEmbed()
       .addField('Вход',`\`\`\`js\n${argss}\`\`\``)
       .addField('Выход',`\`\`\`js\nType: ${tyype}\nDone for: ${new Date().getTime() - message.createdTimestamp + 'ms'}\`\`\``,true)
-      evaled.chunk(1024).forEach(chunk => {
+      evaled.chunk(999).forEach(chunk => {
         embed.addField(`** **`,`\`\`\`js\n${chunk}\`\`\``)
       });
       message.channel.send(embed).then(() => message.react("✅"))

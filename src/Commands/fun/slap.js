@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	async run(message,args) {
       try{
               let user = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
-              if (!user) return  message.channel.send(this.embeds.ErrEmbed.setDescription('Укажите пользователя'));
+              if (!user) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Укажите пользователя'));
               const embed = new Discord.MessageEmbed()
             .setColor("#FF30A2")
             .setTitle(`${message.author.username} ударил(а) ${message.mentions.users.first().username}`)

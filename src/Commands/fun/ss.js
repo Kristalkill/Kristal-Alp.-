@@ -14,7 +14,7 @@ module.exports = class extends Command {
   try{
         this.Main.db.Guild.findOne({guildID: message.guild.id} , async(err,res) => {
           if(err)return console.log(err);
-        if(!args[0]) return message.channel.send(this.embeds.ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
+        if(!args[0]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
         await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())
           .then(body => {

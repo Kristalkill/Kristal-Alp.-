@@ -11,7 +11,7 @@ module.exports = class extends Command {
 	}
 	run(message,args) {
   try{
-      if(!args)return  message.channel.send(this.embeds.ErrEmbed.setDescription('Введите что-то'));
+      if(!args)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Введите что-то'));
       let aembed = new Discord.MessageEmbed()
       .setTitle("Перевёрнуто успешно")
       .setDescription(args.join(' ').split('').reverse().join(''));
