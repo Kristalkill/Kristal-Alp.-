@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
     try {
       if(parseInt(args[0])*2 > Data.money)return message.reply(this.Main.embeds.ErrEmbed.setDescription(`Вам не хватает денег`));
 if((!parseInt(args[0]))||parseInt(args[0]) < 0)return message.reply(this.Main.embeds.ErrEmbed.setDescription(`Минимальная ставка 1$`))

@@ -9,7 +9,7 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS"],
           });
       }
-       run(message,args) {
+       run(message,language,args) {
         try {
             if(!args[0]||!parseInt(args[0]))return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Веддите время'))
             if(!ms(args[0])/1000 < 21600000)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Максимальное время слоумода 6 часов'))

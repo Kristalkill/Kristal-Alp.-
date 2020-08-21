@@ -9,7 +9,7 @@ module.exports = class extends Command {
                         Permission:["ADMINISTRATOR"]
 		});
 	}
-	async run(message,args) {
+	async run(message,language,args) {
 try{
         let embed = new Discord.MessageEmbed()
 .setTitle(`ГОЛОСОВАНИЕ`)

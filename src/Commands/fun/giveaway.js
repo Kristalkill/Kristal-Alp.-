@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
 try {
     switch(args[0]){
         case "add":

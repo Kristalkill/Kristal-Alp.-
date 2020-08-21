@@ -8,7 +8,7 @@ module.exports = class extends Command {
           Permission:["KICK_MEMBERS"],
       });
   }
-  run(message,args) {
+  run(message,language,args) {
     try {
       let reason = args.slice(1).join(` `); 
       let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())

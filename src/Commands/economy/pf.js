@@ -9,7 +9,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
     try {
       let reputationtext = ''
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)

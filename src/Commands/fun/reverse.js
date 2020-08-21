@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
   try{
       if(!args)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Введите что-то'));
       let aembed = new Discord.MessageEmbed()

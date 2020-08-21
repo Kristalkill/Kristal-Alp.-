@@ -9,7 +9,7 @@ module.exports = class extends Command {
             PermissionBOT:["MANAGE_ROLES"]
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
 try {
     this.Main.db.Guild.findOne({guildID: message.guild.id},async(err,res) => {
         if(err)return console.log(err);

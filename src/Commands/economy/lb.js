@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
         try {
             let embed = new Discord.MessageEmbed()
             .setColor('RANDOM');

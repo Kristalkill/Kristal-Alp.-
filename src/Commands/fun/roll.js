@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
         try{    
             if(args[0] && args[1]){
                 num1 = this.Main.utilss.toNum(args[0])

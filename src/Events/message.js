@@ -51,7 +51,7 @@ module.exports = class extends Event {
         };
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**К сожелению у бота недостаточно прав:  \`${Bneed}\`\nЯ не могу исполнить вашу команду.**`));
-        command.run(message, args,language);
+        command.run(message,language,args);
         if(message.content.startsWith(message.guild.me)&& !command){
         message.channel.send(embed1.setTitle(`**Префикс бота:** ${res.Moderation.prefix}`));
       }

@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
         try {
             let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[3]));
             if(!member) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Пользователь не был найден.`))

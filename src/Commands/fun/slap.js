@@ -8,7 +8,7 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	async run(message,args) {
+	async run(message,language,args) {
       try{
               let user = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
               if (!user) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Укажите пользователя'));

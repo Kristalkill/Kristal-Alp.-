@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,args) {
+	run(message,language,args) {
     try {
       if(isNaN(args[1]) || parseInt(args[1])> 10000000 || parseInt(args[1])<1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Укажите кол-во монет которое хотите поставить не меньше 1 и не больше 10М`))
       if(!args[0])return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("rep,money"))

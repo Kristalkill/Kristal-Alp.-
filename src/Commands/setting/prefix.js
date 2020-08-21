@@ -7,7 +7,7 @@ module.exports = class extends Command {
           Permission:["ADMINISTRATOR"],
       });
   }
-  run(message,args) {
+  run(message,language,args) {
     try {
       this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
         if(err)return console.log(err)
