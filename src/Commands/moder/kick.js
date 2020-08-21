@@ -3,7 +3,6 @@ module.exports = class extends Command {
         constructor(...args) {
             super(...args, {
                 aliases: ['kick'],
-                description: 'kick',
                 category: 'moder',
                 Permission:["KICK_MEMBERS"],
                 PermissionBOT:["KICK_MEMBERS"],

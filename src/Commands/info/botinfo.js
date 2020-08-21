@@ -6,7 +6,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['botinfo'],
-      description: 'botinfo',
 		});
 	}
 	run(message) {

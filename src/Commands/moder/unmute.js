@@ -3,7 +3,6 @@ module.exports = class extends Command {
       constructor(...args) {
           super(...args, {
               aliases: ['unmute'],
-              description: 'unmute',
               category: 'moder',
               Permission:["MANAGE_CHANNELS"],
               PermissionBOT:["MANAGE_CHANNELS","MANAGE_ROLES"],

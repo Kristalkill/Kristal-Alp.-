@@ -3,7 +3,6 @@ module.exports = class extends Command {
         constructor(...args) {
             super(...args, {
                 aliases: ['clear'],
-                description: 'clear',
                 category: 'moder',
                 Permission:["MANAGE_MESSAGES"],
                 PermissionBOT:["MANAGE_MESSAGES"],

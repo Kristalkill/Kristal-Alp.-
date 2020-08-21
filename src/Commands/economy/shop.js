@@ -5,7 +5,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['shop'],
-			description: 'shop',
             category: 'economy',
             PermissionBOT:["MANAGE_ROLES"]
 		});

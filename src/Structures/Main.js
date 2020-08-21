@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const Util = require('./Util.js');
+const { Manager  } = require('lavacord');
 module.exports = class Main extends Discord.Client {
 
 	constructor(options = {}) {
@@ -17,6 +18,11 @@ module.exports = class Main extends Discord.Client {
 		this.utils = new Util(this);
 
 		this.owners = options.owners;
+
+		this.music = new Manager(this,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }], {
+			user: this.user.id,
+			shards: 0
+		});
 
 		this.embeds = {};
 		this.embeds.ErrEmbed = new Discord.MessageEmbed()

@@ -6,7 +6,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['reputation'],
-			description: 'reputation',
 			category: 'economy'
 		});
 	}
@@ -22,14 +21,14 @@ module.exports = class extends Command {
           if(!Data1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
           if (!args[0]) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Потом напишу"))
           if (Data.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
-          if ((args[0] = member)||(args[1] = member && args[0] == "Add"||'Plus'||'+')){
+          if (args[1].toUpperCase() == "Add"||'Plus'||'+'){
             Data.Timelyes._rep = parseInt(Date.now() + 14400000)
             Data1.rep++
             Data.save()
             Data1.save()
             OK.setTitle(`**Репутация была повышена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
             message.channel.send(OK)
-          }else if (args[1] = member && args[0].toUpperCase() == "Remove"||'Minus'||'-'){
+          }else if (args[1].toUpperCase() == "Remove"||'Minus'||'-'){
             Data.Timelyes._rep = parseInt(Date.now() + 14400000)
             Data1.rep--
             Data.save()

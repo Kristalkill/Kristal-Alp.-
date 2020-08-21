@@ -5,7 +5,6 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			aliases: ['giveaway'],
-			description: 'giveaway',
 			category: 'fun'
 		});
 	}
@@ -14,11 +13,9 @@ try {
     switch(args[0]){
         case "add":
             try {
-                let Duration = args[2];
-                let Prize = args.slice(4).join(' ');
-                let Winners = args[3];
-                let Channel = message.mentions.channels.first();
-                if(Channel){
+                let Duration = args[1];
+                let Prize = args.slice(3).join(' ');
+                let Winners = args[2];
                     if(ms(Duration)){
                         if(parseInt(Winners)){
                             if(Prize){
@@ -33,14 +30,13 @@ try {
                             }else return message.channel.send("Укажите приз");
                         }else return message.channel.send("Укажите к-л победителей");
                     }else return message.channel.send("Укажите время розыгрыша");
-                }else return message.channel.send("Укажите канал");
                 break;
             }catch (error) {
                 console.log(error)  
             }
         case "end":
              try {
-                let messageid = args[1];
+                let messageid = args[0];
                 this.this.Main.db.Giveaway.findOne({messageID:messageid},async(err,res) => {
                     const GiveAway  = new Discord.MessageEmbed()
                     .setTitle(`**🎉Giveaway Endet🎉**`)
@@ -63,7 +59,7 @@ try {
         }
         case "delete":
             try {
-                let messageid2 = args[1];
+                let messageid2 = args[0];
                 this.this.Main.db.Giveaway.findOne({messageID:messageid2},async(err,res) => {
                 if(res){
                     await this.this.Main.db.Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})

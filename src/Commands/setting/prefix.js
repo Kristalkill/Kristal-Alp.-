@@ -4,7 +4,6 @@ module.exports = class extends Command {
   constructor(...args) {
       super(...args, {
           aliases: ['prefix'],
-          description: 'prefix',
           Permission:["ADMINISTRATOR"],
       });
   }

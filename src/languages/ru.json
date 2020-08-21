@@ -1,104 +1,297 @@
 {
 "levelup":"Поздравим,**%name%** с повишением уровня: %level%",
 "block":{
-    "param1":"Неизвестной",
-    "param2":"Укажите пользователя которого вы хотите заблокировать!",
-    "param3":"%member% уже был заблокирован по причине %reason%",
-    "param4":"%member% был успешно заблокирован по причине **%reason%**"
+    "command":{
+        "usage":"block <Пользыватель/ID> [Причина])",
+        "description":"Дает бонус каждые 24 часа"
+    },
+    "params":{
+        "param1":"Неизвестной",
+        "param2":"Укажите пользователя которого вы хотите заблокировать!",
+        "param3":"%member% уже был заблокирован по причине %reason%",
+        "param4":"%member% был успешно заблокирован по причине **%reason%**"
+    }
 },
 "add":{
-    "param1":"Вы успешно добавили %arg1% пользывателю:**%name%**  в количестве %arg2%",
-    "param2":"Укажите что вы хотите добавить: Money,xp,level,rep!",
-    "param3":"Укажите кол-во %arg1% которое хотите добавить"
+    "command":{
+        "usage":"add <Пользыватель/ID> <Money/Xp/Level/Rep> <к-лв>",
+        "description":"Добавить Money/Xp/Level/Rep пользывателю"
+    },
+    "params":{
+        "param1":"Вы успешно добавили %arg1% пользывателю:**%name%**  в количестве %arg2%",
+        "param2":"Укажите что вы хотите добавить: Money,xp,level,rep!",
+        "param3":"Укажите кол-во %arg1% которое хотите добавить"
+    }
 },
 "bonus":{
-
+    "command":{
+        "usage":"bonus",
+        "description":"Дает бонус каждые 24 часа"
+    },
+    "params":{
+        "param1":"Вы уже брали сегодня свой бонус. Приходите через %time%",
+        "param2":"Вы забрали ваш сегодняшний бонус в розмере `%bonus%` $"
+    }
 },
 "lb":{
-
+    "command":{
+        "usage":"lb <Money/Xp/Level/Rep>",
+        "description":"Покажет таблицу лидеров по определенному параметру"
+    },
+    "params":{
+    
+    }
 },
 "pay":{
-
+    "command":{
+        "usage":"pay <Пользыватель/ID> <к-л>",
+        "description":"Команда позволит вам передать деньги другому юзеру"
+    },
+    "params":{
+    
+    }
 },
 "pf":{
-
+    "command":{
+        "usage":"pf [Пользыватель/ID]",
+        "description":"Покажет профиль"
+    },
+    "params":{
+    
+    }
 },
 "rep":{
-
+    "command":{
+        "usage":"rep [+/-] <Пользыватель/ID>",
+        "description":"Добавить/отнять репутацию"
+    },
+    "params":{
+    
+    }
 },
 "rps":{
-
+    "command":{
+        "usage":"rps <Ставка>",
+        "description":"Камень,Ножницы,Бумага"
+    },
+    "params":{
+    
+    }
 },
 "set":{
-
+    "command":{
+        "usage":"set <Пользыватель/ID> <Money/Xp/Level/Rep> <к-лв>",
+        "description":"Поставить Money/Xp/Level/Rep пользывателю"
+    },
+    "params":{
+    
+    }
 },
 "shop":{
-
+    "command":{
+        "usage":"shop [Buy/Add/Remove] [Role]",
+        "description":"Магазин ролей"
+    },
+    "params":{
+    
+    }
 },
 "avatar":{
-
+    "command":{
+        "usage":"avatar [Пользыватель/ID]",
+        "description":"Показать аватар"
+    },
+    "params":{
+    
+    }
 },
 "cat":{
-
+    "command":{
+        "usage":"cat",
+        "description":"Показать рандомную картинку кота!"
+    },
+    "params":{
+    
+    }
 },
 "fox":{
-
+    "command":{
+        "usage":"fox",
+        "description":"Показать рандомную картинку лисицы!"
+    },
+    "params":{
+    
+    }
 },
 "giveaway":{
-
+    "command":{
+        "usage":"giveaway <add/Delete/End> <Времмя/ID сообщения с розыгрышем> <кл-победителей> <приз>",
+        "description":"Позволяет создать/удалить/закончить розыгрыш"
+    },
+    "params":{
+    
+    }
 },
 "kiss":{
-
+    "command":{
+        "usage":"kiss <Пользыватель/ID>",
+        "description":"Поцеловать пользывателя"
+    },
+    "params":{
+    
+    }
 },
 "pat":{
-
+    "command":{
+        "usage":"pat [Пользыватель/ID]",
+        "description":"Погладить пользывателя или себя"
+    },
+    "params":{
+    
+    }
 },
 "poll":{
-
+    "command":{
+        "usage":"poll <текст>",
+        "description":"Позволяет создать мини голосование"
+    },
+    "params":{
+    
+    }
 },
 "reverse":{
-
+    "command":{
+        "usage":"reverse <Текст>",
+        "description":"Позволяет перевернуть текст наоборот"
+    },
+    "params":{
+    
+    }
 },
 "roll":{
-
+    "command":{
+        "usage":"roll [Минимальное число] [Максимальное число]",
+        "description":"Позволяет \"заролить\" рандомное число"
+    },
+    "params":{
+    
+    }
 },
 "slap":{
-
+    "command":{
+        "usage":"slap [Пользыватель/ID]",
+        "description":"Позволяет ударить себя или пользывателя"
+    },
+    "params":{
+    
+    }
 },
 "ss":{
-
+    "command":{
+        "usage":"ss <url>",
+        "description":"Позволяет посмотреть сайт через бота"
+    },
+    "params":{
+    
+    }
 },
 "botinfo":{
-
+    "command":{
+        "usage":"botinfo",
+        "description":"Информация о боте"
+    },
+    "params":{
+    
+    }
 },
 "help":{
-
+    "command":{
+        "usage":"help [Команда]",
+        "description":"Позволяет посомтреть список команд или подробнкю информацию о определённой команде"
+    },
+    "params":{
+    
+    }
 },
 "ban":{
-
+    "command":{
+        "usage":"ban <Пользыватель/ID> [время]",
+        "description":"Позволяет забанить пользывателя"
+    },
+    "params":{
+    
+    }
 },
 "clear":{
-
+    "command":{
+        "usage":"clear <кл-во>",
+        "description":"Позволяет удалить сообщения в этом канале"
+    },
+    "params":{
+    
+    }
 },
 "kick":{
-
+    "command":{
+        "usage":"kick <Пользыватель/ID>",
+        "description":"Позволяет кикнуть пользывателя"
+    },
+    "params":{
+    
+    }
 },
 "mute":{
-
+    "command":{
+        "usage":"mute <Пользыватель/ID> [время] [причина]",
+        "description":"Позволяет замутить пользывателя навсегда либо на время"
+    },
+    "params":{
+    
+    }
 },
 "slowmode":{
-
+    "command":{
+        "usage":"slowmode <Время>",
+        "description":"Позволяет включить медленный режим в текущем канале"
+    },
+    "params":{
+    
+    }
 },
 "unmute":{
-
+    "command":{
+        "usage":"unmute <Пользыватель/ID>",
+        "description":"Позволяет розмутить пользывателя"
+    },
+    "params":{
+    
+    }
 },
 "unwarn":{
-
+    "command":{
+        "usage":"warn <Пользыватель/ID> [Причина]",
+        "description":"Позволяет выдать варн пользывателю"
+    },
+    "params":{
+    
+    }
 },
 "warn":{
-
+    "command":{
+        "usage":"unwarn <Пользыватель/ID>",
+        "description":"Позволяет забрать варн пользывателю"
+    },
+    "params":{
+    
+    }
 },
 "prefix":{
-
+    "command":{
+        "usage":"prefix [новый префикс]",
+        "description":"Позволяет поставить префикс"
+    },
+    "params":{
+    
+    }
 }
 }

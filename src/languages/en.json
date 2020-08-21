@@ -12,93 +12,273 @@
     "param3":"Specify the quantity %arg2% which you want to add"
 },
 "bonus":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "lb":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "pay":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "pf":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "rep":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "rps":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "set":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "shop":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "avatar":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "cat":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "fox":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "giveaway":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "kiss":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "pat":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "poll":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "reverse":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "roll":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "slap":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "ss":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "botinfo":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "help":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "ban":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "clear":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "kick":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "mute":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "slowmode":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "unmute":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "unwarn":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "warn":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 },
 "prefix":{
-
+    "command":{
+        "usage":"",
+        "description":""
+    },
+    "params":{
+    
+    }
 }
 }

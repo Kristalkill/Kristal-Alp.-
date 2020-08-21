@@ -7,7 +7,7 @@ module.exports = class extends Command {
 		super(...args, {
 			aliases: ['help'],
 			description: 'help',
-			category: 'infa'
+			category: 'info'
 		});
 	}
 	async run(message) {

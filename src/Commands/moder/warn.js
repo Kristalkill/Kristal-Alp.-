@@ -4,7 +4,6 @@ module.exports = class extends Command {
   constructor(...args) {
       super(...args, {
           aliases: ['unwarn'],
-          description: 'unwarn',
           category: 'moder',
           Permission:["KICK_MEMBERS"],
       });

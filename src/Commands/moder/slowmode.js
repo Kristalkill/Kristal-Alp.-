@@ -4,7 +4,6 @@ module.exports = class extends Command {
       constructor(...args) {
           super(...args, {
               aliases: ['slowmode'],
-              description: 'slowmode',
               category: 'moder',
               Permission:["MANAGE_CHANNELS"],
               PermissionBOT:["MANAGE_CHANNELS"],
