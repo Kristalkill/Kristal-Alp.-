@@ -9,9 +9,8 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
     try {
-      let reputationtext = ''
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": language.pf.devices.pc, "web": language.pf.devices.web, "mobile":language.pf.devices.mobile};
@@ -31,8 +30,8 @@ module.exports = class extends Command {
       };
         let ftext = " ";
         let flag = member.user.flags.toArray()
-        flag.length > 0 ? flag.forEach(f => {ftext += `${flags[f]}`}): ftext = `Нету`;
-        const activity = member.presence.activities.map(a => {
+        flag.length > 0 ? flag.forEach(f => {ftext += `${flags[f]}`}): ftext = language.pf.type.null;
+        const activity = member.presence.activities.length > 0 ? member.presence.activities.length.map(a => {
         let str = "";
         if(a.type === "CUSTOM_STATUS" && a.state) return str += a.state + " "
           switch (a.type) {
@@ -50,7 +49,7 @@ module.exports = class extends Command {
           if(a.state) str += "  " + a.state + " ";
           if(a.url) str += "  " + a.url;
           return str;
-        }).join("\n");
+        }).join("\n") : language.pf.type.null;
        if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
        let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id })
         let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
@@ -84,16 +83,8 @@ module.exports = class extends Command {
           .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
           .setTitle(`**${member.user.username}**`)
           .setColor('RANDOM')
-          .addField(language.pf.embed.about, `${language.pf.embed.status}${activity || language.pf.type.null}
-          ${language.pf.embed.badges}${ftext||language.pf.type.null}
-          ${language.pf.embed.device}${statuses[member.user.presence.status]} ${devicesText}
-          ${language.pf.embed.created}${this.Main.utils.formatDate(member.user.createdAt)}
-          ${language.pf.embed.joined}${this.Main.utils.formatDate(member.joinedAt)}`)
-          .addField(language.pf.embed.account,`>>> **💰│${language.pf.embed.balance}**:  ${this.Main.utils.abbreviateNumber(Data.money)}$
-          **🔰│${language.pf.embed.level}**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  ${language.pf.embed.level}**${language.pf.embed.left}:**  ${res.Economy.upXP*Data.level - Data.xp} XP 
-          **🚩│${language.pf.embed.warns}**:  ${Data.warn}
-          **:thumbsup_tone3:│${language.pf.embed.reputation}:** ${reputationtext}
-          **💑│${language.pf.embed.partner}**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :language.pf.type.null}`, true)
+          .addField(language.pf.embed.about, language.pf.embed.about1.translate({activity:activity,ftext:ftext,statuses:statuses[member.user.presence.status],devicesText:devicesText,createdAt:this.Main.utils.formatDate(member.user.createdAt),joinedAt:this.Main.utils.formatDate(member.joinedAt)}))
+          .addField(language.pf.embed.account,language.pf.embed.account1.translate({money:this.Main.utils.abbreviateNumber(Data.money),level:Data.level,xp:`${Data.xp}/${res.Economy.upXP*Data.level}`,leftxp:res.Economy.upXP*Data.level - Data.xp,warn:Data.warn,reputation:Data.rep,partner:this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :language.pf.type.null}),true)
         let profileembed2 = new Discord.MessageEmbed()
         .setTitle(`**🏅 ${language.pf.embed.achievements}**`)
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
