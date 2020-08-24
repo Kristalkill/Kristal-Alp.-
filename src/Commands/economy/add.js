@@ -8,7 +8,7 @@ module.exports = class extends Command {
       Permission:['ADMINISTRATOR']
 		});
 	}
-	run(message,args,language) {
+	run(message,language,args) {
     try {
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first());
       this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id},(err,data) => {

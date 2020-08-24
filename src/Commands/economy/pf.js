@@ -14,7 +14,7 @@ module.exports = class extends Command {
       let reputationtext = ''
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
-      const devices = {"desktop": "Компьютер", "web": "Сайт", "mobile":"Смартфон"};
+      const devices = {"desktop": language.pf.devices.pc, "web": language.pf.devices.web, "mobile":language.pf.devices.mobile};
       let devicesText = " ";
       Object.keys(member.user.presence.clientStatus).map(dev => devicesText += `\n${devices[dev]}`)
       const flags = {
@@ -34,15 +34,16 @@ module.exports = class extends Command {
         flag.length > 0 ? flag.forEach(f => {ftext += `${flags[f]}`}): ftext = `Нету`;
         const activity = member.presence.activities.map(a => {
         let str = "";
-        if(a.type === "CUSTOM_STATUS") {
-          if(a.emoji) str += ` `;
-          if(a.state) str += a.state + " ";
-          return str;}
+        if(a.type === "CUSTOM_STATUS" && a.state) return str += a.state + " "
           switch (a.type) {
-            case "PLAYING": str = "**Играет в** ";break;
-            case "STREAMING": str = "**Стримит** ";break;
-            case "LISTENING": str = "**Слушает** ";break;
-            case "WATCHING": str = "**Смотрит** ";break;
+            case "PLAYING": str = language.pf.type.play;
+            break;
+            case "STREAMING": str = language.pf.type.stream;
+            break;
+            case "LISTENING": str = language.pf.type.listen;
+            break;
+            case "WATCHING": str = language.pf.type.looks;
+            break;
           }
           if(a.name) str += `${a.name} `;
           if(a.details) str += "\n  " + a.details + " ";
@@ -51,55 +52,61 @@ module.exports = class extends Command {
           return str;
         }).join("\n");
        if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
-      this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id},(err,Data) => {
-  if(err) return console.log(err);
-      this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
-  if(err) return console.log(err);
+       let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id })
+        let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
   if(Data) {
+    let reputationtext = `${Data.rep}|`
     switch (true) {
       case Data.rep <= -30 :
-        reputationtext = `${Data.rep}|Сатана`
+          reputationtext += language.pf.reputation.satan
          break;
       case Data.rep >=-10 && Data.rep <= -5:
-        reputationtext = `${Data.rep}|Чорт`
+        reputationtext += language.pf.reputation.devil
          break;
       case Data.rep >= -4 && Data.rep <= 0:
-        reputationtext = `${Data.rep}|Лицемер`
+        reputationtext += language.pf.reputation.hypocrite
          break;
       case Data.rep >= 0 && Data.rep <= 2:
-         reputationtext = `${Data.rep}|Нейтральная`
+         reputationtext = language.pf.reputation.neutral
           break;
        case Data.rep >= 3 && Data.rep <= 9:
-         reputationtext = `${Data.rep}|Добрый человек`
+         reputationtext = language.pf.reputation.kind
            break;
        case Data.rep >= 10 && Data.rep <= 30:
-          reputationtext = `${Data.rep}|Слуга Народа`
+          reputationtext =  language.pf.reputation.servant 
            break;
        case Data.rep >= 30:
-          reputationtext = `${Data.rep}|Ангел`
+          reputationtext = language.pf.reputation.angel 
            break;
   }
       let page = 1;
-      if(member.presence.activities == null){activity = "Нету"}
       let profileembed1 = new Discord.MessageEmbed()
           .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
           .setTitle(`**${member.user.username}**`)
           .setColor('RANDOM')
-          .addField(`**О пользователе**`, `>>> **Статус**:  ${activity || 'Нету'}\n**Значки:  **${ftext||"Нету"}\n**Устройство:**${statuses[member.user.presence.status]} ${devicesText}\n**Акаунт создан**:  ${this.Main.utils.formatDate(member.user.createdAt)}\n**Присоединился**: ${this.Main.utils.formatDate(member.joinedAt)}`)
-          .addField(`**Акаунт**`,`>>> **💰│Баланс**:  ${this.Main.utils.abbreviateNumber(Data.money)}$\n**🔰│Уровень**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  **Осталось:**  ${res.Economy.upXP*Data.level - Data.xp} XP \n**🚩│Варны**:  ${Data.warn}\n**:thumbsup_tone3:│Репутация:** ${reputationtext}\n**💑│Партнер**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :'Нету'}`, true)
+          .addField(language.pf.embed.about, `${language.pf.embed.status}${activity || language.pf.type.null}
+          ${language.pf.embed.badges}${ftext||language.pf.type.null}
+          ${language.pf.embed.device}${statuses[member.user.presence.status]} ${devicesText}
+          ${language.pf.embed.created}${this.Main.utils.formatDate(member.user.createdAt)}
+          ${language.pf.embed.joined}${this.Main.utils.formatDate(member.joinedAt)}`)
+          .addField(language.pf.embed.account,`>>> **💰│${language.pf.embed.balance}**:  ${this.Main.utils.abbreviateNumber(Data.money)}$
+          **🔰│${language.pf.embed.level}**:  ${Data.level}  **XP:**  (${Data.xp}/${res.Economy.upXP*Data.level})  ${language.pf.embed.level}**${language.pf.embed.left}:**  ${res.Economy.upXP*Data.level - Data.xp} XP 
+          **🚩│${language.pf.embed.warns}**:  ${Data.warn}
+          **:thumbsup_tone3:│${language.pf.embed.reputation}:** ${reputationtext}
+          **💑│${language.pf.embed.partner}**:  ${this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :language.pf.type.null}`, true)
         let profileembed2 = new Discord.MessageEmbed()
-        .setTitle('**🏅 Достижения**')
+        .setTitle(`**🏅 ${language.pf.embed.achievements}**`)
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
         .setColor('RANDOM')
         let profileembed3 = new Discord.MessageEmbed()
-        .setTitle('**🏅 Роли**')
+        .setTitle(`**🏅 ${language.pf.embed.roles}**`)
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))
         .setColor('RANDOM')
         let i = 1;
         member.roles.cache.size > 1 ? member.roles.cache.sort((a,b) => b.position - a.position).filter(role => role.id !== message.guild.id).forEach(role => {profileembed3.addField('** **',`${role}`)}) : profileembed3.setDescription(`**Нету**`)
         Data.Achievements >= 1 ? Data.Achievements.forEach(Achievement => {profileembed2.addField(`**${i++}.${Achievements[Achievement].name}|${Achievements[Achievement].emoji}**`,`\n**${Achievements[Achievement].description}**`)}) :  profileembed2.setDescription(`**Нету**`)
         const pages = [profileembed1,profileembed2,profileembed3]
-        message.channel.send(profileembed1.setFooter(`Страница ${page} из ${pages.length}`)).then(async msg => {
+        message.channel.send(profileembed1.setFooter(language.pages.translate({page:page,pages:pages.length}))).then(async msg => {
         await msg.react('⬅')
         await msg.react('⏹')
         await msg.react('➡')
@@ -109,14 +116,14 @@ module.exports = class extends Command {
           switch(reaction.emoji.name){
             case '⬅':
               page == 1 ? page = pages.length : page--
-              msg.edit(pages[page-1].setFooter(`Page ${page} of ${pages.length}`));
+              msg.edit(pages[page-1].setFooter(language.pages.translate({page:page,pages:pages.length})));
               break;
             case '⏹':
               msg.delete();
               break;
             case '➡':
               page == pages.length ? page = 1 : page++
-              msg.edit(pages[page-1].setFooter(`Page ${page} of ${pages.length}`));
+              msg.edit(pages[page-1].setFooter(language.pages.translate({page:page,pages:pages.length})));
               break;
           }
           if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return reaction.users.remove(message.author.id)
@@ -125,8 +132,6 @@ module.exports = class extends Command {
   if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return message.delete();
   }
   else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Данного человека нету в базе данных`))
-  })
-})
     } catch (error) {
       console.log(error)
     }

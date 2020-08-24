@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language,args) {
+	run(message,language) {
     try {
       this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
         if(err)return console.log(err);
