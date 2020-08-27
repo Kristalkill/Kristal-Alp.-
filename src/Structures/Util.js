@@ -11,6 +11,12 @@ module.exports = class Util {
 		this.Main = Main;
 		this.music = new Manager(Main,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
 	}
+	async promptMessage (message, author, time, validReactions,max = 10000,promise = false) {
+		validReactions.forEach(e => {message.react(e)});;
+		const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
+		if(promise) return message.awaitReactions(filter, { max: max , time: time})
+		else return  message.createReactionCollector(filter,{max: max ,time: time})
+	}
 	isClass(input) {
 		return typeof input === 'function' &&
         typeof input.prototype === 'object' &&

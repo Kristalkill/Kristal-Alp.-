@@ -8,10 +8,11 @@ module.exports = class extends Command {
       Permission:['ADMINISTRATOR']
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
     try {
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first());
-      this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id},(err,data) => {
+      if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
+      let data =  await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id})
       if(err)return console.log(err);
       if (args[2] && args[1] && ['level', 'money', 'rep', 'xp'].includes(args[1].toLowerCase())){ 
         message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.add.param1.translate({arg1:args[1],arg2:args[2],name:member.user.username})))
@@ -21,8 +22,6 @@ module.exports = class extends Command {
     }else if(!args[1]){
       message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.param2))
     }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.param3.translate({arg0:args[2]})));
-  
-  })  
     } catch (error) {
       console.log(error)
     } 

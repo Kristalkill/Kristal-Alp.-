@@ -31,7 +31,7 @@ module.exports = class extends Command {
         let ftext = " ";
         let flag = member.user.flags.toArray()
         flag.length > 0 ? flag.forEach(f => {ftext += `${flags[f]}`}): ftext = language.pf.type.null;
-        const activity = member.presence.activities.length > 0 ? member.presence.activities.length.map(a => {
+        const activity = member.presence.activities.length > 0 ? member.presence.activities.map(a => {
         let str = "";
         if(a.type === "CUSTOM_STATUS" && a.state) return str += a.state + " "
           switch (a.type) {
@@ -50,7 +50,7 @@ module.exports = class extends Command {
           if(a.url) str += "  " + a.url;
           return str;
         }).join("\n") : language.pf.type.null;
-       if(member.user.bot) return  message.channel.send(`**Error: Боты не люди**`)
+       if(member.user.bot) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bot))
        let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id })
         let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
   if(Data) {
@@ -122,7 +122,7 @@ module.exports = class extends Command {
   })
   if(message.guild.me.hasPermission('MANAGE_MESSAGES'))return message.delete();
   }
-  else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Данного человека нету в базе данных`))
+  else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.noData))
     } catch (error) {
       console.log(error)
     }

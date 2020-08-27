@@ -9,37 +9,26 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
     try {
-      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[1]));
-      this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
-        if(err)return console.log(err);
-        this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id},async(err,Data1) => {
-          if(err)return console.log(err);
-          let OK = new Discord.MessageEmbed()
-          if(!member)return message.channel.send(`Укажи человека :)`)
-          if(!Data1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Этого человека нету в БД"))
-          if (!args[0]) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Потом напишу"))
-          if (Data.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
-          if (args[1].toUpperCase() == "Add"||'Plus'||'+'){
-            Data.Timelyes._rep = parseInt(Date.now() + 14400000)
-            Data1.rep++
-            Data.save()
-            Data1.save()
-            OK.setTitle(`**Репутация была повышена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
-            message.channel.send(OK)
-          }else if (args[1].toUpperCase() == "Remove"||'Minus'||'-'){
-            Data.Timelyes._rep = parseInt(Date.now() + 14400000)
-            Data1.rep--
-            Data.save()
-            Data1.save()
-            OK.setTitle(`**Репутация была понижена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
-            message.channel.send(OK)
-          }else{
-            message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Использивание rep Add/Remove @member или rep @member'))
-          }
-        })
-      })
+      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
+      let Data =  await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
+      let Data1 =  await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id})
+      let OK = new Discord.MessageEmbed()
+      if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
+      if(!Data1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.noData))
+      if (Data.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
+      if (["Remove",'Minus','-'].includes(args[1] ? args[1].toUpperCase(): "add")){
+        Data1.rep--
+        OK.setTitle(`**Репутация была понижена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
+      }else{
+        Data1.rep++
+        OK.setTitle(`**Репутация была повышена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
+      }
+      Data.Timelyes._rep = parseInt(Date.now() + 14400000)
+      Data.save()
+      Data1.save()
+      message.channel.send(OK)
 }catch (error) {
   console.log(error.stack)
 }

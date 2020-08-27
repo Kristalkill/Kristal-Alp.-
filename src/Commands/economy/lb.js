@@ -7,7 +7,7 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
         try {
             let embed = new Discord.MessageEmbed()
             .setColor('RANDOM');
@@ -29,20 +29,17 @@ module.exports = class extends Command {
           break;
       }
       let Values = `**${args[0].toLowerCase()}**`
-      this.Main.db.User.find({guildID:message.guild.id}).sort([[args[0],'descending','guildID']]).exec((err,res)=> {
-          if(err)return console.log(err)
-              let resL = 10
-            if (res.length < 10)return resL = res.length
-          if(res.length === 0){embed.setDescription(language.lb.params.param2)}
-          else {
-              let i = 0;
-              res.slice(0,resL).forEach(res => {
-                embed.addField(`${i + 1}. ${message.guild.members.cache.has(res.userID) ? this.Main.users.cache.get(res.userID).tag : language.lb.params.param3}`,`${Values}: ${this.Main.utils.abbreviateNumber(res[args[0].toLowerCase()])}:${text}`)
-              });
-              message.channel.send(embed)
-          }
-      
-        })
+      let res = await this.Main.db.User.find({guildID:message.guild.id}).sort([[args[0],'descending','guildID']])
+      let resL = 10
+      if (res.length < 10)return resL = res.length
+      if(res.length === 0){embed.setDescription(language.lb.params.param2)
+      }else{
+        let i = 0;
+        res.slice(0,resL).forEach(res => {
+          embed.addField(`${i + 1}. ${message.guild.members.cache.has(res.userID) ? this.Main.users.cache.get(res.userID).tag : language.lb.params.param3}`,`${Values}: ${this.Main.utils.abbreviateNumber(res[args[0].toLowerCase()])}:${text}`)
+        });
+        message.channel.send(embed)
+      }
       }
         } catch (error) {
             console.log(error)

@@ -7,12 +7,10 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language) {
+	async run(message,language) {
     try {
-      this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id},(err,Data) => {
-        if(err)return console.log(err);
-        this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
-        if(err)return console.log(err);
+      let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
+      let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
         if(Data.Timelyes._timely > Date.now()){
          message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bonus.params.param1.translate({time:ms(Data.Timelyes._timely - Date.now())})))
         }else{
@@ -21,8 +19,6 @@ module.exports = class extends Command {
         Data.save()
         message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.bonus.params.param2.translate({bonus:res.Economy.bonus})))
       }
-    }) 
-  })
     } catch (error) {
      console.log(error)
     }}}
