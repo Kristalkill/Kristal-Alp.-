@@ -10,8 +10,11 @@ module.exports = class extends Command {
 	}
 	async run(message) {
   try {
+    let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
+    if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
     const embed = new Discord.MessageEmbed()
     .setColor("#FF30A2")
+    .setTitle(language.kiss.param.translate({member1:message.author.username,member2:member.user.username}))
     .setImage(await(require(`node-fetch`)(`https://nekos.life/api/v2/img/kiss`)).then(r => r.json()).then(r => r.url))
     .setFooter(message.author.tag, message.author.displayAvatarURL({dynamic: true}))
   message.channel.send(embed)

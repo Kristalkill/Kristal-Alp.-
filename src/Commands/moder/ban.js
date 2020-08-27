@@ -12,15 +12,13 @@ module.exports = class extends Command {
         try {
             let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[0]))
 if(member.bannable === true){
-if(!args[1]||!args[2]||!member)return  message.channel.send(embeds.ErrEmbed.setDescription(`Пример использывания ${res.Moderation.prefix}ban @user/userid дней причина`));
-let days = parseInt(args[1])
-let reason = args[2]
+if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
+let days = parseInt(args[2])||Infinity
+let reason = args[1]||language.undefined
 member.ban({ days: days, reason: reason })
-message.channel.send(this.Main.embeds.OKEmbed.setDescription(`${member.user.name} забанен на **${days}** день по причине **${reason}**`))
+message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.ban.params.param1.translate({name:member.user.name,days:days,reason:reason})))
 }
-else{
-     message.channel.send(this.Main.embeds.ErrEmbed.setDescription("Я не могу забанить этого учасника"))
-}
+else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.ban.params.param2))
         } catch (error) {
             console.log(error)
         }

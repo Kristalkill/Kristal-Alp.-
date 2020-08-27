@@ -10,11 +10,8 @@ module.exports = class extends Command {
 	}
 	run(message,language,args) {
   try{
-      if(!args)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Введите что-то'));
-      let aembed = new Discord.MessageEmbed()
-      .setTitle("Перевёрнуто успешно")
-      .setDescription(args.join(' ').split('').reverse().join(''));
-      message.channel.send(aembed);
+      if(!args)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.reverse.param));
+      message.channel.send(this.Main.embeds.OKEmbed.setDescription(args.join(' ').split('').reverse().join('')));
 }catch(error){
   console.log(error)
 }

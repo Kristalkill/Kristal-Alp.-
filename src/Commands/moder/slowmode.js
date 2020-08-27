@@ -9,13 +9,14 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS"],
           });
       }
-       run(message,language,args) {
+       async run(message,language,args) {
         try {
-            if(!args[0]||!parseInt(args[0]))return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Веддите время'))
-            if(!ms(args[0])/1000 < 21600000)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription('Максимальное время слоумода 6 часов'))
+            let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+            if(!args[0]||!parseInt(args[0]))return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param1))
+            if(!ms(args[0])/1000 < 21600000)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param2))
             else{
                 message.channel.setRateLimitPerUser(ms(args[0])/1000)
-                message.channel.send(this.Main.embeds.OKEmbed.setDescription(`Slowmode в ${message.channel} установлен на ${`\`${args[0]}\``}`))
+                message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.slowmode.params.param2.translate({channel:message.channel,args:humanizeDuration(ms(args[0]),{round: true,language: res.Moderation.language})})))
             }
         } catch (error) {
             console.log(error)

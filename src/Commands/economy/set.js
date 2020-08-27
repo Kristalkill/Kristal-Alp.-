@@ -7,19 +7,19 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
     try {
-      if(isNaN(args[1]) || parseInt(args[1])> 10000000 || parseInt(args[1])<1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Укажите кол-во монет которое хотите поставить не меньше 1 и не больше 10М`))
-      if(!args[0])return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription("rep,money"))
-      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()  || message.guild.members.cache.get(args[3]) || message.author);
-      this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id},(err,data) => {
-        if(err) return console.log(err);
-      if (['level', 'money', 'rep', 'xp'].includes(args[0].toLowerCase())){ 
-        message.channel.send(this.Main.embeds.OKEmbed.setDescription(`Вы успешно поставили **${member.user.username}** ${args[0]} в количестве \`${args[1]}\``))
-        data[args[0].toLowerCase()] = parseInt(args[1]);
+      let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
+      if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
+      let data =  await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id})
+      if (args[2] && args[1] && ['level', 'money', 'rep', 'xp'].includes(args[1].toLowerCase())){ 
+        message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.set.params.param1.translate({arg1:args[1],arg2:args[2],name:member.user.username})))
+        data[args[1].toLowerCase()] = parseInt(args[2]);
         data.save()
-     }
-    }) 
+      
+    }else if(!args[1]){
+      message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.set.params.param2))
+    }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.set.params.param3.translate({arg0:args[2]})));
     } catch (error) {
       console.log(error.stack)
     }  

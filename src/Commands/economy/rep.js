@@ -20,11 +20,12 @@ module.exports = class extends Command {
       if (Data.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(Data.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
       if (["Remove",'Minus','-'].includes(args[1] ? args[1].toUpperCase(): "add")){
         Data1.rep--
-        OK.setTitle(`**Репутация была понижена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
+        OK.setTitle(language.rep.params.up)
       }else{
         Data1.rep++
-        OK.setTitle(`**Репутация была повышена!**`).setDescription(`${member.user.username} имеет ${Data1.rep} репутаций`);
+        OK.setTitle(language.rep.params.down)
       }
+      OK.setDescription(language.rep.params.have.translate({name:member.user.username,rep:Data1.rep}))
       Data.Timelyes._rep = parseInt(Date.now() + 14400000)
       Data.save()
       Data1.save()

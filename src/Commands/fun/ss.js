@@ -9,21 +9,18 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,language,args) {
+	async run(message,language,args) {
   try{
-        this.Main.db.Guild.findOne({guildID: message.guild.id} , async(err,res) => {
-          if(err)return console.log(err);
-        if(!args[0]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`А ссылку забув :?\nПример использования **${res.Moderation.prefix}ss google.com**`))
+        if(!args[0]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.ss.params.param1))
         await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())
           .then(body => {
-            if(!body) return;
+          if(!body) return;
            let embed = new Discord.MessageEmbed()
-           .setTitle('Скриншот')
+           .setTitle(language.ss.params.param2)
            .setDescription(args[0])
            .setImage(body.content)
            message.channel.send(embed)
-})
 })
 }catch(error){
   console.log(error)

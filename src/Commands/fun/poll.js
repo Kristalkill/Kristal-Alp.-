@@ -12,9 +12,9 @@ module.exports = class extends Command {
 	async run(message,language,args) {
 try{
         let embed = new Discord.MessageEmbed()
-.setTitle(`ГОЛОСОВАНИЕ`)
-.setFooter(message.author.tag)
-        if (!args) return message.reply(this.Main.embeds.ErrEmbed.setDescription("Напишите за что голосовать!"))
+        .setTitle(language.poll.params.param1)
+        .setFooter(message.author.tag)
+        if (!args) return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.poll.params.param2))
         const pollTopic = await message.channel.send(embed.setDescription(args.join(' ')));
         await pollTopic.react(`✅`);
         await pollTopic.react(`⛔`);

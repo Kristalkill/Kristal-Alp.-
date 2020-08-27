@@ -10,18 +10,16 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS","MANAGE_ROLES"],
           });
       }
-      run(message,language,args) {
+      async run(message,language,args) {
       try {
-        this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
-          if(err) return console.log(err);
+          let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
           let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()||message.guild.members.get(args[0]))
-          if(!member)return;
+          if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember));
           let muterole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
           if(!message.guild.roles.cache.get(res.Moderation.muterole)){
             if(muterole){
               res.Moderation.muterole = muterole.id;
-            }
-          else{
+            }else{
             try{
               muterole = message.guild.roles.create({
                 name: "Muted",
@@ -41,16 +39,15 @@ module.exports = class extends Command {
           }
           res.Moderation.muterole = muterole.id;
           res.save();
-          }
-          if(args[1] && parseInt(args[2])){
-          this.Main.db.Mute.findOne({guildID:message.guild.id,id:member.id},async(err,res1) => {
-          if(err)return console.log(err);
-          if(!res1){ 
-            this.Main.db.Mute.create({guildID:message.guild.id,id:member.id,reason:args[1],time:parseInt(Date.now()) + ms(args[2]),channel:message.channel.id});
-            await member.roles.add(muterole.id);
-             message.channel.send(`${member} замучен на  ${humanizeDuration(ms(args[2]),{round: true,language: "ru"})}`);}
-          if(res1)return message.channel.send(`${member} ещё замучен на ${humanizeDuration(ms(res1.time - Date.now()))}`);})}
-          else return  message.channel.send(`Использывание команды ${res.Moderation.prefix}mute @user/userid причина время `)}) 
-      } catch (error) {
-        console.log(error)
+        }
+          let reason = args[1]||language.undefined
+          let time = ms(args[2]);
+          if(!time) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.mute.params.param3))
+          let res1 = await this.Main.db.Mute.findOne({guildID:message.guild.id,id:member.id})
+          if(res1) return message.channel.send(language.mute.params.param1.translate({member:member,time:humanizeDuration(ms(res1.time - Date.now()),{round: true,language: res.Moderation.language})}));
+          this.Main.db.Mute.create({guildID:message.guild.id,id:member.id,reason:reason,time:time ? time += parseInt(Date.now()) : time = false,channel:message.channel.id});
+          await member.roles.add(muterole.id);
+          message.channel.send(language.mute.params.param1.translate({member:member,reason:reason,time: time == false ? language.mute.params.param2 : humanizeDuration(ms(args[2]),{round: true,language: res.Moderation.language})}))
+        } catch (error) {
+          console.log(error)
       }}}

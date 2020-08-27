@@ -14,6 +14,11 @@ String.prototype.translate = function(vars){
   String.prototype.chunk = function(length) {
     return this.trim().replace(/\s*\n\s*/g,"\n").match(new RegExp('[^]{1,' + +length + '}', 'g'));
   }
+  String.prototype.capitalize = function () {
+    return this.replace(/^./, function (match) {
+      return match.toUpperCase();
+    });
+  };
     mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.connection.on('connected',()=>{
       console.log('[✅DataBase] Connected!')

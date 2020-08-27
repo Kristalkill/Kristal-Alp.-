@@ -15,7 +15,7 @@ module.exports = class Util {
 		validReactions.forEach(e => {message.react(e)});;
 		const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id;
 		if(promise) return message.awaitReactions(filter, { max: max , time: time})
-		else return  message.createReactionCollector(filter,{max: max ,time: time})
+		else return  message.createReactionCollector(filter,{max: max ,timer: time})
 	}
 	isClass(input) {
 		return typeof input === 'function' &&
@@ -45,10 +45,6 @@ module.exports = class Util {
 
 	removeDuplicates(arr) {
 		return [...new Set(arr)];
-	}
-
-	capitalise(string) {
-		return string.split(' ').map(str => str.slice(0, 1).toUpperCase() + str.slice(1)).join(' ');
 	}
 
 	async loadCommands() {

@@ -23,6 +23,7 @@ setInterval(()=>{
       if(err) return console.log(err);
       if(res){
       res.forEach(async mute => {
+        if(mute.time == false)return;
         const guild = this.Main.guilds.cache.get(mute.guildID)
         if(!guild)return;
         Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {

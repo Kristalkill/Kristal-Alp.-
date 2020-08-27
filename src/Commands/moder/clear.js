@@ -11,9 +11,9 @@ module.exports = class extends Command {
         async run(message,language,args) {
         try {
             const amount = args[0];
-            if (isNaN(amount)||1 < amount > 100)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Введите число от 1 до 100`))
+            if (isNaN(amount)||1 < amount > 100)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.clear.params.param1))
             await message.channel.messages.fetch({ limit: amount }).then(messages => {
-                message.channel.bulkDelete(messages)}).then(messages1 =>  message.channel.send(this.Main.embeds.OKEmbed.setDescription(`Удалено ${messages1.size} messages`)))   
+                message.channel.bulkDelete(messages)}).then(messages1 =>  message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.clear.params.param2.translate({size:messages1.size}))))   
         } catch (error) {
             console.log(error)
         }
