@@ -40,10 +40,11 @@ setInterval(()=>{
           if(!user)return;
           if(!user.roles.cache.has(Data.Moderation.muterole))return user.roles.add(Data.Moderation.muterole);
           }else{
+            const language = require(`./../languages/${Data.Moderation.language}.json`);
             await Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
             user.roles.remove(Data.Moderation.muterole);
-            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(this.Main.embeds.OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} успешно розмучен`));
-            if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(this.Main.embeds.OKEmbed.setDescription(`${user} успешно розмучен`));
+            if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(this.Main.embeds.OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} ${language.ready.unmute}`));
+            if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(this.Main.embeds.OKEmbed.setDescription(`${user} ${language.ready.unmute}`));
             }
         }
       })
@@ -65,7 +66,9 @@ setInterval(()=>{
           Giveaway.users = await guild.channels.cache.get(Giveaway.channel).messages.fetch(Giveaway.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != this.Main.user.id && !user.bot).keys()
           ));
           Giveaway.save();
-        }else {
+        }else{
+          let Data = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+          const language = require(`./../languages/${Data.Moderation.language}.json`);
             let random = [];
             if(Giveaway.users.length){
               function shuffle(array) {
@@ -73,9 +76,9 @@ setInterval(()=>{
               }
               shuffle(Giveaway.users)
               random = Giveaway.users.slice(0, Giveaway.winners);
-        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`Победители ${random.map(a => guild.members.cache.get(a)).join(', ')}`));
+        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`${language.ready.winners} ${random.map(a => guild.members.cache.get(a)).join(', ')}`));
         }else{
-        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(`Нету победителей`));
+        guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(language.ready.nowinners));
         }
         await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})}}) 
       } catch (error) {
