@@ -19,6 +19,9 @@ String.prototype.translate = function(vars){
       return match.toUpperCase();
     });
   };
+  Array.prototype.shuffle = function () {
+    return this.sort(() => Math.random() - 0.5);
+  }
     mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.connection.on('connected',()=>{
       console.log('[✅DataBase] Connected!')

@@ -7,25 +7,19 @@ module.exports = class extends Command {
           Permission:["ADMINISTRATOR"],
       });
   }
-  run(message,language,args) {
+  async run(message,language,args) {
     try {
-      this.Main.db.Guild.findOne({guildID: message.guild.id},(err,res) => {
+      let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
         if(err)return console.log(err)
         let member =  message.guild.member(message.author);
          if(args[0]){
           res.Moderation.prefix = args[0]
           res.save()
           let embed = new Discord.MessageEmbed()
-          .setTitle('Префикс успешно изменен')
-          .setDescription(`Префикс успешно был изменен на \`${args[0]}\`,его изменил ${member.user.username}`)
+          .setTitle(language.prefix.params.param1)
+          .setDescription(language.prefix.params.param2.translate({member:member.user.username,args:args[0]}))
           message.channel.send(embed)
-        }
-        else{
-          let embed = new Discord.MessageEmbed()
-          .setDescription(`Ваш префикс ${res.Moderation.prefix}\nЧтобы установить префикс вводите \`${res.Moderation.prefix}prefix знак\` `)
-          message.channel.send(embed)
-        }
-      })
+        }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.prefix.params.param3))
     } catch (error) {
       console.log(error)
     }

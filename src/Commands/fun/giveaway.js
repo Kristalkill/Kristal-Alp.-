@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const Discord = require('discord.js')
+const ms = require('ms')
 module.exports = class extends Command {
 
 	constructor(...args) {
@@ -8,63 +9,58 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,language,args) {
-try {
-    switch(args[0]){
+	async run(message,language,args) {
+try {   
+    let messageid = args[1];
+    let res = await this.Main.db.Giveaway.findOne({messageID:messageid})
+    if(!args[0])return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param1))
+    switch(args[0].toLowerCase()){
         case "add":
             try {
                 let Duration = args[1];
                 let Prize = args.slice(3).join(' ');
                 let Winners = args[2];
-                    if(ms(Duration)){
-                        if(parseInt(Winners)){
-                            if(Prize){
-                                const embed  = new Discord.MessageEmbed()
-                                .setTitle("🎉**Giveaway** 🎉")
-                                .setDescription(`**${Prize}**\n\nВремя розыгрыша ${Duration}\nПобедителей:${Winners}`)
-                                .setFooter(this.Main.user.tag)
-                                message.channel.send(embed).then(message => {
-                                message.react('🎉');
-                                this.this.Main.db.Giveaway.create({guildID:message.guild.id,time:Date.now() + ms(Duration),prize:Prize,winners:Winners,messageID:message.id,channel:message.channel.id})
-                             })
-                            }else return message.channel.send("Укажите приз");
-                        }else return message.channel.send("Укажите к-л победителей");
-                    }else return message.channel.send("Укажите время розыгрыша");
+                if(!Duration)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param2));
+                if(!parseInt(Winners))return message.channel.send(language.giveaway.params.param3);
+                if(!Prize)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param3));
+                const embed  = new Discord.MessageEmbed()
+                    .setTitle(`🎉**${language.giveaway.params.param4}** 🎉`)
+                    .setDescription(language.giveaway.params.param5.translate({Prize:Prize,Duration:Duration,Winners:Winners}))
+                    .setFooter(this.Main.user.tag)
+                message.channel.send(embed).then(message => {
+                    message.react('🎉');
+                    this.Main.db.Giveaway.create({guildID:message.guild.id,time:Date.now() + ms(Duration),prize:Prize,winners:Winners,messageID:message.id,channel:message.channel.id})
+                })
                 break;
             }catch (error) {
                 console.log(error)  
             }
         case "end":
              try {
-                let messageid = args[0];
-                this.this.Main.db.Giveaway.findOne({messageID:messageid},async(err,res) => {
                     const GiveAway  = new Discord.MessageEmbed()
-                    .setTitle(`**🎉Giveaway Endet🎉**`)
+                    .setTitle(`**🎉${language.giveaway.params.param7}🎉**`)
                     if(res){
                         let userees = await message.guild.channels.cache.get(res.channel).messages.fetch(res.messageID).then((v) => Array.from(v.reactions.cache.get("🎉").users.cache.filter(user => user.id != this.Main.user.id && !user.bot).keys()));
                         if(userees.length){
                         let random = [];
-                        function shuffle(array) {
-                        array.sort(() => Math.random() - 0.5);}
-                        shuffle(userees)
-                        random = userees.slice(0, res.winners);
-                        message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Победители ${random.map(a => message.guild.members.cache.get(a)).join(', ')}`));
+                        random = userees.shuffle().slice(0, res.winners);
+                        message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`${language.giveaway.params.param8} ${random.map(a => message.guild.members.cache.get(a)).join(', ')}`));
                     }else{
-                    message.guild.channels.cache.get(res.channel).send(GiveAway.setDescription(`Нету победителей`))}
-                    await Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel});}
-                else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`));})
-                break;       
-        } catch (error) {
-            console.log(error)
-        }
+                        GiveAway.setDescription(language.giveaway.params.param9)
+                    }
+                    message.guild.channels.cache.get(res.channel).send(GiveAway)
+                    await this.Main.db.Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel});
+                    }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param10));       
+            } catch (error) {
+                console.log(error)
+            }
+        break;
         case "delete":
             try {
-                let messageid2 = args[0];
-                this.this.Main.db.Giveaway.findOne({messageID:messageid2},async(err,res) => {
                 if(res){
-                    await this.this.Main.db.Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})
-                    message.channel.send(this.Main.embeds.OKEmbed.setDescription(`**Giveaway под номером ${res.messageID} успешно удален**`));
-                }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`**Веддите коректное айди сообщения или данного Giveaway нету в БД**`)); })
+                    await this.Main.db.Giveaway.deleteOne({guildID:res.guildID,time:res.time,prize:res.prize,winners:res.winners,messageID:res.messageID,channel:res.channel})
+                    message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.giveaway.params.param11.translate({id:res.messageID})));
+                }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param10));
                 break;
             }catch (error) {
                 console.log(error)   
