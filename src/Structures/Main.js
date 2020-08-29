@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const Util = require('./Util.js');
+const { Manager } = require("@lavacord/discord.js");
 module.exports = class Main extends Discord.Client {
 
 	constructor(options = {}) {
@@ -43,10 +44,10 @@ module.exports = class Main extends Discord.Client {
 	}
 
 	async start(token = this.token) {
-		this.utils.music.connect();
 		this.utils.loadCommands();
 		this.utils.loadEvents();
 		super.login(token);
+		this.music = new Manager(this,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
 	}
 
 };

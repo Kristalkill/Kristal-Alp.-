@@ -4,12 +4,10 @@ const variables = require('../utilites/variables.js');
 const Discord = require('discord.js')
 const Event = require('./Event.js');
 const fs = require('fs')
-const { Manager } = require("@lavacord/discord.js");
 module.exports = class Util {
 
 	constructor(Main) {
 		this.Main = Main;
-		this.music = new Manager(Main,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
 	}
 	async promptMessage (message, author, time, validReactions,max = 10000,promise = false) {
 		validReactions.forEach(e => {message.react(e)});;
