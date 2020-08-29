@@ -40,7 +40,7 @@ setInterval(()=>{
           if(!user)return;
           if(!user.roles.cache.has(Data.Moderation.muterole))return user.roles.add(Data.Moderation.muterole);
           }else{
-            const language = require(`./../languages/${Data.Moderation.language}.json`);
+            const language = require(`./../languages/${Data.Moderation.language||"en"}.json`);
             await Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
             user.roles.remove(Data.Moderation.muterole);
             if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(this.Main.embeds.OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} ${language.ready.unmute}`));
@@ -68,7 +68,7 @@ setInterval(()=>{
           Giveaway.save();
         }else{
           let Data = await this.Main.db.Guild.findOne({guildID: message.guild.id})
-          const language = require(`./../languages/${Data.Moderation.language}.json`);
+          const language = require(`./../languages/${Data.Moderation.language||"en"}.json`);
             let random = [];
             if(Giveaway.users.length){
               function shuffle(array) {
