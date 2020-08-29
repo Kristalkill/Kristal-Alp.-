@@ -13,15 +13,15 @@ module.exports = class extends Event {
       let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
       if(!Data) await this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
       if(!res)  await this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
-      var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${res.Moderation.prefix}`]
-      let prefix = false;
-      for (const thisPrefix of prefixes) {
-        if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
-    }
     const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
     const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
       if(BlockY && command)return message.react("733299144311177257");
       if(Data && res){
+        var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${res.Moderation.prefix}`]
+        let prefix = false;
+        for (const thisPrefix of prefixes) {
+          if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
+      }
         const language = await require(`./../languages/${res.Moderation.language ||"en"}.json`);
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
@@ -48,7 +48,7 @@ module.exports = class extends Event {
         if(Uneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms2.translate({need:Uneed})));
         };
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
-        if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms2.translate({need:Bneed})));
+        if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms3.translate({need:Bneed})));
         command.run(message,language,args);
     }
   }
