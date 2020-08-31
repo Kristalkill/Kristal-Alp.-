@@ -12,8 +12,13 @@ String.prototype.translate = function(vars){
     return str;
   }
   String.prototype.chunk = function(length) {
-    return this.trim().replace(/\s*\n\s*/g,"\n").match(new RegExp('[^]{1,' + +length + '}', 'g'));
-  }
+    let result = []
+    let lines = this.trim().match(new RegExp('[^]{1,' + +length+ '}', 'g')).filter(x => x);
+      for (let line of lines){
+      result.push(line)
+      }
+    return result
+    }
   String.prototype.capitalize = function () {
     return this.replace(/^./, function (match) {
       return match.toUpperCase();
