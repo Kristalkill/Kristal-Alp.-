@@ -1,5 +1,5 @@
 const Event = require('../Structures/Event');
-const Discord = require('discord.js')
+const Discord = require("discord.js-light");
 const config = require('../../config.json');
 const humanizeDuration = require('humanize-duration')
 let embed = new Discord.MessageEmbed()

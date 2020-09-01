@@ -1,5 +1,5 @@
 const Event = require('../Structures/Event');
-const Discord = require('discord.js')
+const Discord = require("discord.js-light");
 module.exports = class extends Event {
   constructor(...args) {
 		super(...args, {

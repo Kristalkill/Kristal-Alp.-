@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const Discord = require("discord.js-light");
 const Command = require('../../Structures/Command');
 const fetch = require("node-fetch")
 module.exports = class extends Command {
