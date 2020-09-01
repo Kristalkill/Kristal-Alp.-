@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const humanizeDuration = require('humanize-duration')
-const Discord = require('discord.js');
+const Discord = require("discord.js-light");
 module.exports = class extends Command {
 
 	constructor(...args) {

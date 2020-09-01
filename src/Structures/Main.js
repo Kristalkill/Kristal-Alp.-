@@ -1,11 +1,17 @@
 const Util = require('./Util.js');
 const { Manager } = require("@lavacord/discord.js");
-const Discord = require('discord.js');
+const Discord = require("discord.js-light");
 module.exports = class Main extends Discord.Client {
 
 	constructor(options = {}) {
 		super({
 			disableMentions: 'everyone',
+			cacheGuilds: true,
+			cacheChannels: true,
+			cacheOverwrites: true,
+			cacheRoles: true,
+			cacheEmojis: true,
+			cachePresences: true
 		});
 		this.validate(options);
 
