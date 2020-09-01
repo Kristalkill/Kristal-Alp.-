@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js-light");
 const Util = require('./Util.js');
 const { Manager } = require("@lavacord/discord.js");
 module.exports = class Main extends Discord.Client {
