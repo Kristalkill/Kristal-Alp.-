@@ -11,14 +11,9 @@ String.prototype.translate = function(vars){
     }
     return str;
   }
-  String.prototype.chunk = function(length) {
-    let result = []
-    let lines = this.trim().match(new RegExp('[^]{1,' + +length+ '}', 'g')).filter(x => x);
-      for (let line of lines){
-      result.push(line)
-      }
-    return result
-    }
+  String.prototype.chunk = function(len){ 
+    return this.match(new RegExp("(?: *[^\\n]){0," + (len-1) + "}\\n|(?: *.){1," + len + "}", "g")).map(c=>c.replace(/^ +| +$/g, ''))
+}
   String.prototype.capitalize = function () {
     return this.replace(/^./, function (match) {
       return match.toUpperCase();
