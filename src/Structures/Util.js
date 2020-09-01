@@ -1,7 +1,7 @@
 const path = require('path');
 const Command = require('./Command.js');
 const variables = require('../utilites/variables.js');
-const Discord = require("discord.js-light");
+const Discord = require('discord.js');
 const Event = require('./Event.js');
 const fs = require('fs')
 module.exports = class Util {

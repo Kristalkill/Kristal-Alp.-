@@ -1,4 +1,4 @@
-const Discord = require("discord.js-light");
+const Discord = require('discord.js');
 const Command = require('../../Structures/Command');
 module.exports = class extends Command {
 
