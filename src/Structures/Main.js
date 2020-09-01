@@ -7,10 +7,10 @@ module.exports = class Main extends Discord.Client {
 		super({
 			cacheGuilds: true,
     		cacheChannels: true,
-    		cacheOverwrites: false,
-    		cacheRoles: false,
-    		cacheEmojis: false,
-    		cachePresences: false,
+    		cacheOverwrites: true,
+    		cacheRoles: true,
+    		cacheEmojis: true,
+    		cachePresences: true,
 			disableMentions: 'everyone'
 		});
 		this.validate(options);
