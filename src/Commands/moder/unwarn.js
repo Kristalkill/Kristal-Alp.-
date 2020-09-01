@@ -14,7 +14,6 @@ module.exports = class extends Command {
       if(member.user.id == message.author.id) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.unwarn.params.para1))
       if(member.user.bot) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bot))
       let data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id})
-        if(err)return console.log(err);
         if(!data)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.noData));
           if(data.warn <= 0) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.unwarn.params.param2))
           data.warn -= 1

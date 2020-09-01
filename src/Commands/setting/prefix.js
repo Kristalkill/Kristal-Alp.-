@@ -10,7 +10,6 @@ module.exports = class extends Command {
   async run(message,language,args) {
     try {
       let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
-        if(err)return console.log(err)
         let member =  message.guild.member(message.author);
          if(args[0]){
           res.Moderation.prefix = args[0]
