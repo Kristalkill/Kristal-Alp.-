@@ -40,9 +40,9 @@ module.exports = class extends Command {
           res.Moderation.muterole = muterole.id;
           res.save();
         }
-          let reason = args[1]||language.undefined
-          if(!args[2]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.mute.params.param3))
-          let time = ms(args[2]);
+          let reason = args[2]||language.undefined
+          if(!args[1]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.mute.params.param3))
+          let time = ms(args[1]);
           let res1 = await this.Main.db.Mute.findOne({guildID:message.guild.id,id:member.id})
           if(res1) return message.channel.send(language.mute.params.param1.translate({member:member,time:humanizeDuration(ms(res1.time - Date.now()),{round: true,language: res.Moderation.language})}));
           this.Main.db.Mute.create({guildID:message.guild.id,id:member.id,reason:reason,time:time ? time += parseInt(Date.now()) : time = false,channel:message.channel.id});
