@@ -13,7 +13,7 @@ module.exports = class extends Command {
       async run(message,language,args) {
       try {
           let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
-          let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()||message.guild.members.get(args[0]))
+          let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()||message.guild.members.cache.get(args[0]))
           if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember));
           let muterole = message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)) 
           if(!message.guild.roles.cache.get(res.Moderation.muterole)){
