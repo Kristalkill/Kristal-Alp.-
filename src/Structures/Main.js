@@ -6,10 +6,8 @@ module.exports = class Main extends Discord.Client {
 	constructor(options = {}) {
 		super({
 			disableMentions: 'everyone',
-			messageCacheMaxSize: 100,
-			messageCacheLifetime: 600,
+			messageCacheMaxSize: 50,
 			shards: 'auto',
-			messageSweepInterval: 600,
 			fetchAllMembers: true
 		});
 		this.validate(options);
