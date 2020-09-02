@@ -11,37 +11,7 @@ String.prototype.translate = function(vars){
     }
     return str;
   }
-String.prototype.chunk = function(len) {
-  let result = [], curr_chunk = "", counter = 0;
-
-  for (let char of this) {
-    switch (char) {
-      case " ": // Пробел? Добавляет в текущую строку, ничего больше не делая
-        curr_chunk += " ";
-        break;
-
-      case "\n": // Перенос строки? Считает как отдельный chunk + сбрасывает счетчики
-        push_n_reset(curr_chunk + "\n");
-        break;
-
-      default: // Любой другой символ
-        curr_chunk += char; // +символ к текущей строке, увеличивает счетчик
-        if (++counter == len) push_n_reset(curr_chunk); // Дошел до len? push!
-    }
-  }
-  
-  if (curr_chunk) result.push(curr_chunk); // Остался кусок строки после перебора.
-  
-  return result;
-
-  /***/
-  function push_n_reset(chunk) {
-    result.push(chunk);
-    curr_chunk = "";
-    counter = 0;
-  }
-};
-  String.prototype.chunk2 = function(len){ 
+  String.prototype.chunk = function(len){ 
      return this.match(new RegExp("(?: *[^\\n]){0," + (len-1) + "}\\n|(?: *.){1," + len + "}", "g")).map(c=>c.replace(/^ +| +$/g, ''))
 }
   String.prototype.capitalize = function () {

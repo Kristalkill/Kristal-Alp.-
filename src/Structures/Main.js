@@ -6,10 +6,9 @@ module.exports = class Main extends Discord.Client {
 	constructor(options = {}) {
 		super({
 			disableMentions: 'everyone',
-			shardId: process.argv[1],
-			shardCount: process.argv[2],
 			messageCacheMaxSize: 100,
 			messageCacheLifetime: 600,
+			shards: 'auto',
 			messageSweepInterval: 600,
 			fetchAllMembers: true
 		});
@@ -52,13 +51,7 @@ module.exports = class Main extends Discord.Client {
 	async start(token = this.token) {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
-		super.login(token);
-		this.shard = new Discord.ShardingManager('./Main.js', {
-			token: token,
-			autoSpawn: true
-		});
-		this.shard.spawn(2);
-		this.shard.on('launch', shard => console.log(`[SHARD] Шард ${shard.id}/${shard.totalShards}`));
+		this.login(token)
 		this.music = new Manager(this,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
 	}
 
