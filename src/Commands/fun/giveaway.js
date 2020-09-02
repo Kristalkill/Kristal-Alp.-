@@ -25,7 +25,7 @@ try {
                 if(!Prize)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.giveaway.params.param3));
                 const embed  = new Discord.MessageEmbed()
                     .setTitle(`🎉**${language.giveaway.params.param4}** 🎉`)
-                    .setDescription(language.giveaway.params.param5.translate({Prize:Prize,Duration:Duration,Winners:Winners}))
+                    .setDescription(language.giveaway.params.param6.translate({Prize:Prize,Duration:Duration,Winners:Winners}))
                     .setFooter(this.Main.user.tag)
                 message.channel.send(embed).then(message => {
                     message.react('🎉');
