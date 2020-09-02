@@ -6,7 +6,7 @@ module.exports = class extends Event {
 			once: true
 		});
 	}
-	async run() {
+	run() {
 	console.log(`[✅Bot] ${this.Main.user.tag} Запущен!`)
 	const GiveAway  = new Discord.MessageEmbed()
 .setTitle("🎉**Giveaway** 🎉")
