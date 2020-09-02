@@ -11,17 +11,17 @@ module.exports = class extends Event {
       let BlockY = await this.Main.db.Block.findOne({id: message.author.id})
       let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
       let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
-      if(!Data) await this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
-      if(!res)  await this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
-      if(BlockY && command)return message.react("733299144311177257");
-      if(Data && res){
-        var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${res.Moderation.prefix}`]
-        let prefix = false;
-        for (const thisPrefix of prefixes) {
-          if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
+      if(!Data) this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
+      if(!res)  this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
+      var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${res.Moderation.prefix}`]
+      let prefix = false;
+      for (const thisPrefix of prefixes) {
+        if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
       }
       const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
       const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
+      if(BlockY && command)return message.react("733299144311177257");
+      if(Data && res){
         const language = await require(`./../languages/${res.Moderation.language ||"en"}.json`);
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
@@ -33,11 +33,9 @@ module.exports = class extends Event {
         Data.level+=1
         message.channel.send(embed.setDescription(language.message.levelup.translate({name:message.author.username,level:Data.level})))}
         Data.save();
-        if(message.content.startsWith("<@704604456313946182>"||"<@!704604456313946182>") && !command){
-          message.channel.send(embed1.setTitle(`${language.message.param2} ${res.Moderation.prefix}`));
-        }
+        if(message.content.startsWith("<@704604456313946182>"||"<@!704604456313946182>") && !command) return message.channel.send(embed1.setTitle(`${language.message.param2} ${res.Moderation.prefix}`));
         else if(prefix && command){
-        if(!message.guild.me.hasPermission(["SEND_MESSAGES"])){message.guild.owner.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()}
+        if(!message.guild.me.hasPermission(["SEND_MESSAGES"])) return message.guild.owner.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()
         const cooldown = this.Main.db.cooldowns.get(message.author.id);
         if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: res.Moderation.language})})))
         if(!config.owner.includes(message.author.id)){
