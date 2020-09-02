@@ -8,7 +8,8 @@ module.exports = class Main extends Discord.Client {
 			disableMentions: 'everyone',
 			messageCacheMaxSize: 100,
 			messageCacheLifetime: 600,
-			messageSweepInterval: 600
+			messageSweepInterval: 600,
+			fetchAllMembers: true
 		});
 		this.validate(options);
 
