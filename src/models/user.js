@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
     guildID: String,
     rep:{ type: Number, default: 0 },
-    icon:String,
-    clanID: { type: Number, default: -1 },
     userID: String,
     money: { type: Number, default: 0 },
     level: { type: Number, default: 1 },

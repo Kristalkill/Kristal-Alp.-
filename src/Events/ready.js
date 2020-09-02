@@ -16,18 +16,16 @@ setInterval(()=>{
     this.Main.user.setPresence({ activity: { name: `k!help` }, status: 'online' });
   } catch (error) {
     console.log(error)
-  }}, 15 * 1000); 
-setInterval(()=>{
+  }},15000); 
+setInterval(async()=>{
   try {
-    this.Main.db.Mute.find().exec((err,res)=> {
-      if(err) return console.log(err);
+    let res = await this.Main.db.Mute.find()
       if(res){
       res.forEach(async mute => {
         if(mute.time == false)return;
         const guild = this.Main.guilds.cache.get(mute.guildID)
         if(!guild)return;
-        Main.db.Guild.findOne({guildID: mute.guildID},async(err,Data) => {
-          if(err) return console.log(err);
+       let Data = await this.Main.db.Guild.findOne({guildID: mute.guildID})
         const role = guild.roles.cache.get(Data.Moderation.muterole);
         const user = guild.members.cache.get(mute.id);
         if(!guild.members.cache.get(mute.id) && mute.time !== null && mute.time <= Date.now()) res.deleteOne({guild: mute.guildID,id:mute.id});
@@ -48,16 +46,13 @@ setInterval(()=>{
             }
         }
       })
-    })
     }
-  })
   } catch (error) {
     console.log(error)  
   }},3000)
-setInterval(()=>{
+setInterval(async()=>{
   try {
-    this.Main.db.Giveaway.find().exec((err,res)=> {
-      if(err)return console.log(err);
+    let res = await this.Main.db.Giveaway.find()
       if(res){
       res.forEach(async Giveaway => {
         const guild = this.Main.guilds.cache.get(Giveaway.guildID)
@@ -80,7 +75,7 @@ setInterval(()=>{
         }else{
         guild.channels.cache.get(Giveaway.channel).send(GiveAway.setDescription(language.ready.nowinners));
         }
-        await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})}}) 
+        await Giveaway.deleteOne({guildID:Giveaway.guildID,time:Giveaway.time,prize:Giveaway.prize,winners:Giveaway.winners,messageID:Giveaway.messageID,channel:Giveaway.channel})}})}
       } catch (error) {
     console.log(error)
   }},3000) 

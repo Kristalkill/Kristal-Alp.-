@@ -37,7 +37,7 @@ module.exports = class extends Event {
           message.channel.send(embed1.setTitle(`${language.message.param2} ${res.Moderation.prefix}`));
         }
         else if(prefix && command){
-        message.guild.me.hasPermission(["SEND_MESSAGES"]) ? null : message.author.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()
+        if(!message.guild.me.hasPermission(["SEND_MESSAGES"])){message.guild.owner.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()}
         const cooldown = this.Main.db.cooldowns.get(message.author.id);
         if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: res.Moderation.language})})))
         if(!config.owner.includes(message.author.id)){
