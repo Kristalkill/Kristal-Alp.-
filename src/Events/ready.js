@@ -39,7 +39,7 @@ setInterval(async()=>{
           if(!user.roles.cache.has(Data.Moderation.muterole))return user.roles.add(Data.Moderation.muterole);
           }else{
             const language = require(`./../languages/${Data.Moderation.language||"en"}.json`);
-            await Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
+            await this.Main.db.Mute.deleteOne({guildID:mute.guildID,id:mute.id,reason:mute.reason,time:mute.time,channel:mute.channel});
             user.roles.remove(Data.Moderation.muterole);
             if(guild.channels.cache.get(mute.channel) && guild.members.cache.get(mute.id) && guild.members.cache.get(mute.id).roles.cache.has(Data.Moderation.muterole))return guild.channels.cache.get(mute.channel).send(this.Main.embeds.OKEmbed.setDescription(`${guild.members.cache.get(mute.id)} ${language.ready.unmute}`));
             if(user && user.roles.cache.has(Data.Moderation.muterole))return user.send(this.Main.embeds.OKEmbed.setDescription(`${user} ${language.ready.unmute}`));
