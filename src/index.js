@@ -11,23 +11,6 @@ String.prototype.translate = function(vars){
     }
     return str;
   }
-  Была бы задача - просто разбить на "чанки" в размере до min(length, "до первого \n"), подошла бы такая регулярка: /[^\n]{0,9}\n|[^]{1,10}/g — т.е. всё что угодно, кроме переноса строки, от 0 до 9 штук и до первого переноса строки. ИЛИ | всё что угодно от 1 до 10 шт:
-
-let str = "Я Енд,или же Kristalkill\n\nМне 14 лет";
-
-String.prototype.chunk = function(len) {
-  let reg = new RegExp("[^\\n]{0," + (len-1) + "}\\n|[^]{1," + len + "}", "g");
-  
-  let lines = this.trim().match(reg);
-  
-  return lines
-};
-
-console.log( str.chunk(10) );
- Выполнить кодСкрыть результаты
-На всю страницу
-Но необходимость "не учитывать пробелы" делает невозможным решить это одной регуляркой. Решил бы таким циклом:
-
 String.prototype.chunk = function(len) {
   let result = [], curr_chunk = "", counter = 0;
 
