@@ -62,7 +62,7 @@ setInterval(async()=>{
           ));
           Giveaway.save();
         }else{
-          let Data = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+          let Data = await this.Main.db.Guild.findOne({guildID: Giveaway.guildID})
           const language = require(`./../languages/${Data.Moderation.language||"en"}.json`);
             let random = [];
             if(Giveaway.users.length){
