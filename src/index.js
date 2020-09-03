@@ -12,7 +12,15 @@ String.prototype.translate = function(vars){
     return str;
   }
   String.prototype.chunk = function(len){ 
-     return this.match(new RegExp("(?: *[^\\n]){0," + (len-1) + "}\\n|(?: *.){1," + len + "}", "g")).map(c=>c.replace(/^ +| +$/g, ''))
+     let arr = this.match(new RegExp("(?: *[^\\n]){0," + (len-1) + "}\\n|(?: *.){1," + len + "}", "g")).map(c=>c.replace(/^ +| +$/g, ''))
+     let result = []
+     for (let line of arr)
+      result.length == 0
+      ? result.push(line)
+      : (result[result.length -1].length + line.length <  len
+      ? result[result.length-1] += line
+      : result.push(line)
+  )
 }
   String.prototype.capitalize = function () {
     return this.replace(/^./, function (match) {
