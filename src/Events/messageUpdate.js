@@ -22,7 +22,7 @@ module.exports = class extends Event {
       const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
       if(BlockY && command)return message.react("733299144311177257");
       if(Data && res){
-        const language = await require(`./../languages/${res.Moderation.language ||"en"}.json`);
+        const language = require(`./../languages/${res.Moderation.language ||"en"}.json`);
         Data.xp += res.Economy.xp
         Data.money += res.Economy.money
         Data.massages++
