@@ -20,7 +20,16 @@ module.exports = class extends Command {
       let embed = new Discord.MessageEmbed()
       .addField('Вход',`\`\`\`js\n${argss}\`\`\``)
       .addField('Выход',`\`\`\`js\nType: ${tyype}\nDone for: ${new Date().getTime() - message.createdTimestamp + 'ms'}\`\`\``,true)
-      evaled.chunk(999).sort((a, b) => a.firstname.localeCompare(b.firstname)).forEach(chunk => {embed.addField(`** **`,`\`\`\`js\n${chunk}\`\`\``)});
+      evaled.chunk(999).sort(function(a, b)
+      {
+        var nA = a.firstname.toLowerCase();
+        var nB = b.firstname.toLowerCase();
+        if(nA < nB)
+          return -1;
+        else if(nA > nB)
+          return 1;
+       return 0;
+      }).forEach(chunk => {embed.addField(`** **`,`\`\`\`js\n${chunk}\`\`\``)});
       message.channel.send(embed).then(() => message.react("✅"))
 }catch(err) {
 let embed = new Discord.MessageEmbed()
