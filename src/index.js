@@ -20,7 +20,8 @@ String.prototype.translate = function(vars){
       : (result[result.length -1].length + line.length <  len
       ? result[result.length-1] += line
       : result.push(line)
-  )
+      )
+      return result;
 }
   String.prototype.capitalize = function () {
     return this.replace(/^./, function (match) {
