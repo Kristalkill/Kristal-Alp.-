@@ -2,6 +2,7 @@ module.exports = class Command {
 
 	constructor(Main, name, options = {}) {
 		this.Main = Main;
+		this.nsfw = options.nsfw || false
 		this.name = options.name || name;
 		this.aliases = options.aliases || [];
 		this.category = options.category;

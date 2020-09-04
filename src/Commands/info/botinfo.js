@@ -19,18 +19,18 @@ module.exports = class extends Command {
           this.Main.shard.fetchClientValues('users.cache.size'),
 
       ];
-      return Promise.all(promises).then(results => { 
+       Promise.all(promises).then(async results => { 
         let Botinfoembed = new Discord.MessageEmbed()
-        const CPU = results[0].reduce((var1, var2) => var1 + var2, 0);
-        const RAM = results[1].reduce((var1, var2) => var1 + var2, 0);
-        const Channels = results[2].reduce((var1, var2) => var1 + var2, 0);
-        const Servers = results[3].reduce((var1, var2) => var1 + var2, 0);
-        const Emojis = results[4].reduce((var1, var2) => var1 + var2, 0);
-        const Users = results[5].reduce((var1, var2) => var1 + var2, 0);
-        message.channel.send(Botinfoembed
+        const CPU = await results[0].reduce((var1, var2) => var1 + var2, 0);
+        const RAM = await results[1].reduce((var1, var2) => var1 + var2, 0);
+        const Channels = await results[2].reduce((var1, var2) => var1 + var2, 0);
+        const Servers = await results[3].reduce((var1, var2) => var1 + var2, 0);
+        const Emojis = await results[4].reduce((var1, var2) => var1 + var2, 0);
+        const Users = await results[5].reduce((var1, var2) => var1 + var2, 0);
+        await message.channel.send(Botinfoembed
           .setTitle("**Показатели бота**")
           .setColor("RANDOM")
-          .setThumbnail(message.guild.iconURL())
+          .setThumbnail(await message.guild.iconURL())
           .addField(
             `**Техническая**`, `>>> **<:cpu:709750871692542142> | CPU:** ${CPU.toFixed(2)}%
             **<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(RAM)} 

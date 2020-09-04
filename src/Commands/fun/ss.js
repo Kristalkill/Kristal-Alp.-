@@ -5,7 +5,8 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['ss'],
+      aliases: ['ss'],
+      nsfw:true,
 			category: 'fun'
 		});
 	}

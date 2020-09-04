@@ -39,6 +39,7 @@ module.exports = class extends Event {
         const cooldown = this.Main.db.cooldowns.get(message.author.id);
         if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: res.Moderation.language})})))
         if(!config.owner.includes(message.author.id)){
+        if(command.nsfw == true && message.channel.nsfw == false)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param3))
         if(command.public === false)return; 
         this.Main.db.cooldowns.set(message.author.id, Date.now() + 5000);
         setTimeout(() => this.Main.db.cooldowns.delete(message.author.id), 5000);
