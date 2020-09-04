@@ -7,7 +7,8 @@ module.exports = class Main extends Discord.Client {
 		super({
 			disableMentions: 'everyone',
 			messageCacheMaxSize: 50,
-			shards: 'auto',
+			shardId: process.argv[1],
+			shardCount: process.argv[2],
 			fetchAllMembers: true
 		});
 		this.validate(options);
