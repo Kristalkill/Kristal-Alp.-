@@ -11,7 +11,7 @@ module.exports = class extends Command {
 	async run(message) {
       try{
         const promises = [
-          this.Main.shard.broadcastEval('(process.cpuUsage().user/1024/1024/100).toFixed(2)'),
+          this.Main.shard.broadcastEval('(process.cpuUsage().user/1024/1024/100)'),
           this.Main.shard.broadcastEval('process.memoryUsage().rss'),
           this.Main.shard.fetchClientValues('channels.cache.size'),
           this.Main.shard.fetchClientValues('guilds.cache.size'),
@@ -32,9 +32,9 @@ module.exports = class extends Command {
           .setColor("RANDOM")
           .setThumbnail(message.guild.iconURL())
           .addField(
-            `**Техническая**`, `>>> **<:cpu:709750871692542142> | CPU:** ${CPU}%
+            `**Техническая**`, `>>> **<:cpu:709750871692542142> | CPU:** ${CPU.toFixed(2)}%
             **<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(RAM)} 
-            **🕑 | Uptime:**  ${humanizeDuration(this.uptime,{ round: true,language: "ru"})}
+            **🕑 | Uptime:**  ${humanizeDuration(this.Main.uptime,{ round: true,language: "ru"})}
             **⚙ | Кол-во команд:**  ${this.Main.commands.size}
             **💡 | Discord.js:**  v${Discord.version}
             **Discord API:** ${new Date().getTime() - message.createdTimestamp}ms
