@@ -49,6 +49,7 @@ module.exports = class Main extends Discord.Client {
 	async start(token = this.token) {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
+		this.login(token)
 		this.music = new Manager(this,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
 	}
 
