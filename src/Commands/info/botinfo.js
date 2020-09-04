@@ -20,15 +20,14 @@ module.exports = class extends Command {
 
       ];
       return Promise.all(promises).then(results => { 
+        let Botinfoembed = new Discord.MessageEmbed()
         const CPU = results[0].reduce((var1, var2) => var1 + var2, 0);
         const RAM = results[1].reduce((var1, var2) => var1 + var2, 0);
         const Channels = results[2].reduce((var1, var2) => var1 + var2, 0);
         const Servers = results[3].reduce((var1, var2) => var1 + var2, 0);
         const Emojis = results[4].reduce((var1, var2) => var1 + var2, 0);
         const Users = results[5].reduce((var1, var2) => var1 + var2, 0);
-      });
-        let Botinfoembed = new Discord.MessageEmbed()
-         await message.channel.send(Botinfoembed
+        await message.channel.send(Botinfoembed
           .setTitle("**Показатели бота**")
           .setColor("RANDOM")
           .setThumbnail(message.guild.iconURL())
@@ -45,6 +44,7 @@ module.exports = class extends Command {
           **🌐 | Серверов:**  ${Servers}
           **🗨 | Каналов:**  ${Channels}
           **🤣 | Емодзи:**  ${Emojis}`, true))
+      });
       } catch (error) {
         console.log(error)
       }}}
