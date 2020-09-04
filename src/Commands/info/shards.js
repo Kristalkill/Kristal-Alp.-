@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const humanizeDuration = require('humanize-duration')
+const humanizeDuration = require('humanize-duration');
 module.exports = class extends Command {
 
 	constructor(...args) {
@@ -11,6 +11,7 @@ module.exports = class extends Command {
 		});
 	}
 	async run(message,language) {
+        let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
         let embed = new MessageEmbed().setTitle(`ШАРДЫ`)
 	    const uptime = await this.Main.shard.broadcastEval('this.uptime');
         const ping = await this.Main.shard.broadcastEval('Math.round(this.ws.ping)');
