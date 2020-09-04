@@ -28,7 +28,7 @@ module.exports = class extends Command {
             **⚙ | Кол-во команд:**  ${this.Main.commands.size}
             **💡 | Discord.js:**  v${Discord.version}
             **Discord API:** ${new Date().getTime() - message.createdTimestamp}ms
-            **Bot Ping:** ${Math.round(this.ws.ping)}ms.`, true)
+            **Bot Ping:** ${Math.round(this.Main.ws.ping)}ms.`, true)
           .addField(
           `**👥 | Социальная**`, `>>> **:man_artist_tone3:Пользователей**  ${Users}
           **🌐 | Серверов:**  ${Servers}
