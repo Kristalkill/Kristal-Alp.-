@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const humanizeDuration = require('humanize-Duration')
+const humanizeDuration = require('humanize-duration')
 module.exports = class extends Command {
 
 	constructor(...args) {
