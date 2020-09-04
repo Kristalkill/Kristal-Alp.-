@@ -12,9 +12,6 @@ module.exports = class extends Command {
       try{
         let CPU = await this.Main.shard.broadcastEval('(process.cpuUsage().user/1024/1024/100).toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let RAM = await this.Main.shard.broadcastEval('process.memoryUsage().rss').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Uptime = await this.Main.shard.broadcastEval('this.uptime')
-        let DiscordApi = await this.Main.shard.broadcastEval('new Date().getTime() - message.createdTimestamp')
-        let Ping = await this.Main.shard.broadcastEval('Math.round(this.ws.ping)')
         let Users = await this.Main.shard.fetchClientValues('users.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Servers = await this.Main.shard.fetchClientValues('guilds.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Channels = await this.Main.shard.fetchClientValues('channels.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
@@ -27,11 +24,11 @@ module.exports = class extends Command {
           .addField(
             `**Техническая**`, `>>> **<:cpu:709750871692542142> | CPU:** ${CPU}%
             **<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(RAM)} 
-            **🕑 | Uptime:**  ${humanizeDuration(Uptime,{ round: true,language: "ru"})}
+            **🕑 | Uptime:**  ${humanizeDuration(this.uptime,{ round: true,language: "ru"})}
             **⚙ | Кол-во команд:**  ${this.Main.commands.size}
             **💡 | Discord.js:**  v${Discord.version}
-            **Discord API:** ${DiscordApi}'ms'
-            **Bot Ping:** ${Ping}ms.`, true)
+            **Discord API:** ${new Date().getTime() - message.createdTimestamp}ms
+            **Bot Ping:** ${Math.round(this.ws.ping)}ms.`, true)
           .addField(
           `**👥 | Социальная**`, `>>> **:man_artist_tone3:Пользователей**  ${Users}
           **🌐 | Серверов:**  ${Servers}
