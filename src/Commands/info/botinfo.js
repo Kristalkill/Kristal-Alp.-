@@ -10,15 +10,15 @@ module.exports = class extends Command {
 	}
 	async run(message) {
       try{
-        let CPU = this.Main.shard.fetchClientValues('(process.cpuUsage().user/1024/1024/100).toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let RAM = this.Main.shard.fetchClientValues('process.memoryUsage().rss').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Uptime = this.Main.shard.fetchClientValues('this.uptime')
-        let DiscordApi = this.Main.shard.fetchClientValues('new Date().getTime() - message.createdTimestamp')
-        let Ping = this.Main.shard.fetchClientValues('Math.round(this.ws.ping)')
-        let Users = this.Main.shard.fetchClientValues('users.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Servers = this.Main.shard.fetchClientValues('guilds.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Channels = this.Main.shard.fetchClientValues('channels.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Emojis = this.Main.shard.fetchClientValues('emojis.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let CPU = await this.Main.shard.fetchClientValues('(process.cpuUsage().user/1024/1024/100).toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let RAM = await this.Main.shard.fetchClientValues('process.memoryUsage().rss').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let Uptime = await this.Main.shard.fetchClientValues('this.uptime')
+        let DiscordApi = await this.Main.shard.fetchClientValues('new Date().getTime() - message.createdTimestamp')
+        let Ping = await this.Main.shard.fetchClientValues('Math.round(this.ws.ping)')
+        let Users = await this.Main.shard.fetchClientValues('users.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let Servers = await this.Main.shard.fetchClientValues('guilds.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let Channels = await this.Main.shard.fetchClientValues('channels.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let Emojis = await this.Main.shard.fetchClientValues('emojis.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Botinfoembed = new Discord.MessageEmbed()
          await message.channel.send(Botinfoembed
           .setTitle("**Показатели бота**")
