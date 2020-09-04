@@ -18,7 +18,7 @@ module.exports = class extends Command {
 		const guilds = await this.Main.shard.fetchClientValues('guilds.cache.size');
 		const users = await this.Main.shard.fetchClientValues('users.cache.size')
         for (let i = 0; i < this.Main.options.shardCount; i++) {
-            embed.addField(`${i}:${humanizeDuration(uptime[i])}~${Math.round(ping[i])}ms,${this.Main.utils.formatBytes(ram[i])} ${guilds[i]}, ${users[i]}`)
+            embed.addField(`* *`,`Шард:${i + 1}:\nUptime:${humanizeDuration(uptime[i])}\nPing:${Math.round(ping[i])}ms\nMemory use: ${this.Main.utils.formatBytes(ram[i])}\n Guilds:${guilds[i]}\n Users:${users[i]}`)
         }
         message.channel.send(embed)
     }
