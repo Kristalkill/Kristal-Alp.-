@@ -10,7 +10,7 @@ module.exports = class extends Command {
 	}
 	async run(message) {
       try{
-        let CPU = await this.Main.shard.fetchClientValues('(process.cpuUsage().user/1024/1024/100).toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        let CPU = await this.Main.shard.fetchClientValues('process.cpuUsage().user/1024/1024/100.toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let RAM = await this.Main.shard.fetchClientValues('process.memoryUsage().rss').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Uptime = await this.Main.shard.fetchClientValues('this.uptime')
         let DiscordApi = await this.Main.shard.fetchClientValues('new Date().getTime() - message.createdTimestamp')
