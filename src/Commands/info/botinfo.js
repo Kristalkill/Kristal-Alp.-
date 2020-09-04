@@ -20,7 +20,7 @@ module.exports = class extends Command {
         let Channels = this.Main.shard.fetchClientValues('channels.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Emojis = this.Main.shard.fetchClientValues('emojis.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
         let Botinfoembed = new Discord.MessageEmbed()
-          message.channel.send(Botinfoembed
+         await message.channel.send(Botinfoembed
           .setTitle("**Показатели бота**")
           .setColor("RANDOM")
           .setThumbnail(message.guild.iconURL())
