@@ -294,6 +294,13 @@
         
         }
     },
+    "shards":{
+        "command":{
+            "usage":"shards",
+            "description":"Позволяет посмотреть список Шардов и их параметры"
+        },
+        "param":"Шард: %i%:\nАптайм: %uptime%\nПинг: %ping%ms\nИспользовано памяти: %memory%\nГильдий: %guilds%\nПользователей: %user%\nКаналов: %channels%\nЕмодзи: %emojis%"
+    },
     "ban":{
         "command":{
             "usage":"ban <Пользыватель/ID> [время]",

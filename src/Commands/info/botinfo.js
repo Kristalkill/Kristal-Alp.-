@@ -10,12 +10,23 @@ module.exports = class extends Command {
 	}
 	async run(message) {
       try{
-        let CPU = await this.Main.shard.broadcastEval('(process.cpuUsage().user/1024/1024/100).toFixed(2)').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let RAM = await this.Main.shard.broadcastEval('process.memoryUsage().rss').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Users = await this.Main.shard.fetchClientValues('users.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Servers = await this.Main.shard.fetchClientValues('guilds.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Channels = await this.Main.shard.fetchClientValues('channels.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
-        let Emojis = await this.Main.shard.fetchClientValues('emojis.cache.size').then(results => {results.reduce((acc, guildCount) => acc + guildCount, 0)})
+        const promises = [
+          this.Main.shard.broadcastEval('(process.cpuUsage().user/1024/1024/100).toFixed(2)'),
+          this.Main.shard.broadcastEval('process.memoryUsage().rss'),
+          this.Main.shard.fetchClientValues('channels.cache.size'),
+          this.Main.shard.fetchClientValues('guilds.cache.size'),
+          this.Main.shard.fetchClientValues('emojis.cache.size'),
+          this.Main.shard.fetchClientValues('users.cache.size'),
+
+      ];
+      return Promise.all(promises).then(results => { 
+        const CPU = results[0].reduce((var1, var2) => var1 + var2, 0);
+        const RAM = results[1].reduce((var1, var2) => var1 + var2, 0);
+        const Channels = results[2].reduce((var1, var2) => var1 + var2, 0);
+        const Servers = results[3].reduce((var1, var2) => var1 + var2, 0);
+        const Emojis = results[4].reduce((var1, var2) => var1 + var2, 0);
+        const Users = results[5].reduce((var1, var2) => var1 + var2, 0);
+      });
         let Botinfoembed = new Discord.MessageEmbed()
          await message.channel.send(Botinfoembed
           .setTitle("**Показатели бота**")
