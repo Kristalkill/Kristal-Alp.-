@@ -10,7 +10,7 @@ module.exports = class extends Command {
 			category: 'info'
 		});
 	}
-	async run(message,language) {
+	async run(message,language,args) {
       try {
         const command = this.Main.commands.get(args[0].toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(args[0].toLowerCase()));
         if(command.public === false ||!command){
