@@ -291,9 +291,7 @@
             "usage":"help [Команда]",
             "description":"Позволяет посомтреть список команд или подробнкю информацию о определённой команде"
         },
-        "params":{
-        
-        }
+        "param":"NSFW:%nsfw%\nКатегория:%category%\nПсевдонимы:%aliases%\nИспользование:%usage%\nОписание:%description%"
     },
     "shards":{
         "command":{
