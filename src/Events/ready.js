@@ -6,10 +6,11 @@ module.exports = class extends Event {
 			once: true
 		});
 	}
-	run() {
+	async run() {
 	console.log(`[✅Bot] ${this.Main.user.tag} Запущен!`)
 	const GiveAway  = new Discord.MessageEmbed()
 .setTitle("🎉**Giveaway** 🎉")
+await this.Main.music.connect()
 setInterval(()=>{
   try {
     this.Main.user.setPresence({ game: { name: `k!help`, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });

@@ -1,6 +1,6 @@
 const Util = require('./Util.js');
-const { Manager } = require("@lavacord/discord.js");
 const Discord = require('discord.js');
+const { Manager } = require("@lavacord/discord.js");
 module.exports = class Main extends Discord.Client {
 
 	constructor(options = {}) {
@@ -38,6 +38,11 @@ module.exports = class Main extends Discord.Client {
 		this.db.Guild = require('../models/guild');
 		this.db.Mute = require('../models/mute');
 		this.db.User = require('../models/user');
+
+		this.nodes = [
+			{ id: "1", host: "localhost", port: 3000, password: "enderman" }
+		  ];
+		this.music =  new Manager(this,this.nodes)
 	}
 
 	validate(options) {
@@ -50,8 +55,6 @@ module.exports = class Main extends Discord.Client {
 	async start(token = this.token) {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
-		this.login(token)
-		this.music = new Manager(this,[{ "host": "localhost", "port": 2333, "password": "youshallnotpass" }]);
+		await super.login(token)
+		}
 	}
-
-};
