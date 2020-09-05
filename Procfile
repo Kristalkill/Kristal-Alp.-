@@ -1,2 +1,2 @@
 worker: node src/Structures/Shards
-worker1: node java -jar lavalink/Lavalink.jar
+worker1: java -classpath lavalink/Lavalink.jar
