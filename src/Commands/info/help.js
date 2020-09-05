@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	}
 	async run(message,language,args) {
       try {
-        const cmd = args[0] ? args.toLowerCase() : 'null'
+        const cmd = args[0] ? args[0].toLowerCase() : 'null'
         const command = this.Main.commands.get(cmd) || this.Main.commands.get(this.Main.aliases.get(cmd));
         if(!command ||command.public === false){
           let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
