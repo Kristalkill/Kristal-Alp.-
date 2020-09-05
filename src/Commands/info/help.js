@@ -12,7 +12,8 @@ module.exports = class extends Command {
 	}
 	async run(message,language,args) {
       try {
-        const command = this.Main.commands.get(args[0].toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(args[0].toLowerCase()));
+        const cmd = args[0] ? args.toLowerCase() : 'null'
+        const command = this.Main.commands.get(cmd) || this.Main.commands.get(this.Main.aliases.get(cmd));
         if(command.public === false ||!command){
           let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
           let pages1 = [];
