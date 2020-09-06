@@ -1,5 +1,6 @@
 const Event = require('../Structures/Event');
 const Discord = require('discord.js');
+const guild = require('../models/guild');
 module.exports = class extends Event {
   constructor(...args) {
 		super(...args, {
@@ -11,6 +12,18 @@ module.exports = class extends Event {
 	const GiveAway  = new Discord.MessageEmbed()
 .setTitle("🎉**Giveaway** 🎉")
 await this.Main.music.connect()
+setInterval(()=>{
+  this.Main.guilds.cache.forEach(async guild =>{
+    let res = await this.Main.db.Guild.findOne({guildID: guild.id})
+    if(res){
+      if(guild.settings != res){
+        guild.settings = res;
+      }
+    }else{
+      this.Main.db.Guild.create({guildID: guild.id,ownerID:guild.ownerid})
+    }
+  })
+},20000)
 setInterval(()=>{
   try {
     this.Main.user.setPresence({ game: { name: `k!help`, status: 'online', type: "STREAMING", url: "https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw" } });
