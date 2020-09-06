@@ -4,11 +4,6 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const Main = new client(process.env);
 try {
-  Object.prototype.bind = function(var2,res) {
-    this = var2;
-    res = this;
-    res.save();
-  }
 String.prototype.translate = function(vars){
     var str = this;
     for (const [KEY, value] of Object.entries(vars)) {
