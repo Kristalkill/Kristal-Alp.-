@@ -13,4 +13,11 @@
             </plugin>
         </plugins>
     </build>
+<includeTarget>false</includeTarget>
+<includes>
+  <include>target/my-app-1.0.jar</include>
+</includes>
+<processTypes>
+  <web>java -jar target/my-app-1.0.jar</web>
+</processTypes>
 </project>
