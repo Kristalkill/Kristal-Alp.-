@@ -12,12 +12,12 @@
                 <version>2.8</version>
             </plugin>
         </plugins>
+        <includeTarget>false</includeTarget>
+        <includes>
+        <include>java -jar  lavalink/Lavalink.jar</include> 
+        </includes>
+        <processTypes>
+         <web>java -jar  lavalink/Lavalink.jar</web>
+        </processTypes>
     </build>
-<includeTarget>false</includeTarget>
-<includes>
-  <include>java -jar  lavalink/Lavalink.jar</include>
-</includes>
-<processTypes>
-  <web>java -jar  lavalink/Lavalink.jar</web>
-</processTypes>
 </project>
