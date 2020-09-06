@@ -22,14 +22,15 @@ module.exports = class extends Event {
       const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
       if(BlockY && command)return message.react("733299144311177257");
       if(Data && res){
-        const language = require(`./../languages/${res.Moderation.language ||"en"}.json`);
-        Data.xp += res.Economy.xp
-        Data.money += res.Economy.money
+        message.guild.settings = res
+        const language = require(`./../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+        Data.xp += message.guild.settings.Economy.xp
+        Data.money += message.guild.settings.Economy.money
         Data.massages++
         this.Main.utils.addAchievement(Data.level >= 5,'3',Data,message)
         this.Main.utils.addAchievement(Data.money >= 1000,'2',Data,message)
-        if(Data.xp >= res.Economy.upXP*Data.level){
-        Data.xp -= res.Economy.upXP*Data.level;
+        if(Data.xp >= message.guild.settings.Economy.upXP*Data.level){
+        Data.xp -= message.guild.settings.Economy.upXP*Data.level;
         Data.level+=1
         message.channel.send(embed.setDescription(language.message.levelup.translate({name:message.author.username,level:Data.level})))}
         Data.save();
