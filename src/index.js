@@ -4,6 +4,16 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const Main = new client(process.env);
 try {
+  let application = fs.readFileSync('./application.yml', 'utf8')
+
+if (process.env.PORT) {
+    application = application.replace('DYNAMICPORT', process.env.PORT)
+}
+
+if (process.env.PASS) {
+    application = application.replace('youshallnotpass', process.env.PASS)
+}
+fs.writeFileSync('./application.yml', application)
 String.prototype.translate = function(vars){
     var str = this;
     for (const [KEY, value] of Object.entries(vars)) {

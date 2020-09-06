@@ -40,7 +40,7 @@ module.exports = class Main extends Discord.Client {
 		this.db.User = require('../models/user');
 
 		this.nodes = [
-			{ id: "1", host: "localhost", port: 3000, password: "enderman" }
+			{ id: "1", host: "localhost", port: process.env.PORT, password: process.env.PASS}
 		  ];
 		this.music =  new Manager(this,this.nodes)
 	}
