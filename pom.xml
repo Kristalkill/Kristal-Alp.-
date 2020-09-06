@@ -15,9 +15,9 @@
     </build>
 <includeTarget>false</includeTarget>
 <includes>
-  <include>target/my-app-1.0.jar</include>
+  <include>java -jar  lavalink/Lavalink.jar</include>
 </includes>
 <processTypes>
-  <web>java -jar target/my-app-1.0.jar</web>
+  <web>java -jar  lavalink/Lavalink.jar</web>
 </processTypes>
 </project>
