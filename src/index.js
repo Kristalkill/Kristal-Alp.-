@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const Main = new client(process.env);
 try {
-  Object.prototype.bind = function(var1,var2,res) {
-    this[var1] = var2;
+  Object.prototype.bind = function(var2,res) {
+    this = var2;
     res = this;
     res.save();
   }
