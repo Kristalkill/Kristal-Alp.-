@@ -1,6 +1,5 @@
 const Util = require('./Util.js');
 const Discord = require('discord.js');
-const { Manager } = require("@lavacord/discord.js");
 module.exports = class Main extends Discord.Client {
 
 	constructor(options = {}) {
@@ -39,10 +38,7 @@ module.exports = class Main extends Discord.Client {
 		this.db.Mute = require('../models/mute');
 		this.db.User = require('../models/user');
 
-		this.nodes = [
-			{ id: "1", host: "localhost", port: process.env.PORT, password: "enderman"}
-		  ];
-		this.music =  new Manager(this,this.nodes)
+		this.music =  new Music(this)
 	}
 
 	validate(options) {

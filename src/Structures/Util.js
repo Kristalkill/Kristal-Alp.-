@@ -122,12 +122,6 @@ module.exports = class Util {
 	  toNum(text) {
 		return parseInt(text.replace(/[^\d]/g, ""));
 	  };
-	  async getSongs(search) {
-		const {host,port,password} = this.Main.music.idealNodes[0];
-		return await(
-			await fetch(`http://${host}:${port}/loadtracks?identifier=${search}`,{ headers: { Authorization: password}})
-		).json()
-	}
 	async loadEvents() {
 		const events = fs.readdirSync(`${this.directory}Events`).filter(file => file.endsWith('.js'));
 		for (const eventFile of events) {

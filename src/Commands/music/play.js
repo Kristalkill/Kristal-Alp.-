@@ -6,7 +6,7 @@ module.exports = class extends Command {
 	}
 	async run(message,language,args) {
         if(!args.length) return message.reply("Дурачок,а название")
-        const {tracks} = await this.Main.utils.getSongs(args.join(" ").includes('https') ? encodeURI(args.join(" ")): `ytsearch:${encodeURIComponent(args.join(" "))}`)
+        const {tracks} = await this.Main.utils.search(args.join(" ").includes('https') ? encodeURI(args.join(" ")): `ytsearch:${encodeURIComponent(args.join(" "))}`)
         if(!tracks.length)return message.reply('Ничего не нашол по твоему запросу!') 
         const channel = message.member.voice 
         if(!channel.channelID)return message.reply('Я не могу подключится туда')
