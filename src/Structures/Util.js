@@ -123,14 +123,14 @@ module.exports = class Util {
 	  toNum(text) {
 		return parseInt(text.replace(/[^\d]/g, ""));
 	  };
-	async search(track) {
+	  async search(track) {
 		return await(
 			await fetch(`http://${host}:${port}/loadtracks?identifier=${track}`,{ headers: { Authorization: password}})
 		).json()
     }
     async decode(track){
         return await(
-			await fetch(`http://${host}:${port}/decodetracks?track=${track}`,{ headers: { Authorization: password}})
+			await fetch(`http://${host}:${port}/decodetrack?track=${track}`,{ headers: { Authorization: password}})
 		).json()
     }
 	async loadEvents() {

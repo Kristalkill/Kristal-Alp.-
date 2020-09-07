@@ -6,11 +6,15 @@ module.exports = class Queue {
         this.loop = "nothing";
         this.current = undefined;
         this.message = undefined;
-        player.on("end",async (evt) =>{
-            if(evt && ["REPLACED","STOPPED"].includes(evt.reason))return;
+        this.player.on("end",async (evt) =>{
+            if(evt && ["REPLACED"].includes(evt.reason))return;
 
-            if(this.loop === "song") this.tracks.unshift(this.current.track);
-            else if(this.loop === "queue") this.tracks.push(this.current.track);
+            if(this.loop === "song") {
+                this.tracks.unshift(this.current.track)
+            }
+            else if(this.loop === "queue") {
+                this.tracks.push(this.current.track)
+            }
 
             this.next();
 
@@ -31,10 +35,10 @@ module.exports = class Queue {
         return this.tracks.push({song,id})
     }
     next(){
-        return (this.current = this.tracks.shift())
+        return this.current = this.tracks.shift()
     }
     async destroy(){
-        return this.player.leave(this.message.guild.id)
+        return this.player.destroy(this.message.guild.id)
     }
     loop(type){
         if(typeof type !== "string" || !["song","queue"].includes(type.toLowerCase())) return this.loop;
@@ -60,7 +64,9 @@ module.exports = class Queue {
     }
     async start(message){
         this.message = message;
-        if(!this.current) this.next()
+        if(!this.current){
+        this.next()
+        }
         await this.player.play(this.current.song)
     }
 }

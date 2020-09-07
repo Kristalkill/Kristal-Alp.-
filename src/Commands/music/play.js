@@ -23,19 +23,21 @@ module.exports = class extends Command {
         
         if(!tracks.length)return message.reply('Ничего не нашол по твоему запросу!')
 
-        if(!player.queue) player.queue = new Queue(player,this.Main)
+        if(!player.queue){
+            player.queue = new Queue(player,this.Main)
+        }
 
         switch(loadType){
             case "TRACK_LOADED":
             case "SEARCH_RESULT":
 
-                player.queue.add(tracks[0].track, message.author.id)
+                await player.queue.add(tracks[0].track, message.author.id)
     
                 if(!player.connected) await player.connect(channel.id)
                 if(!player.playing && !player.paused) await player.queue.start(message);
                 return message.channel.send(`Сейчас играет **${tracks[0].info.title}**`);
             case "PLAYLIST_LOAD":
-                tracks.map(c => player.queue.add(c.track))
+                tracks.map(async c => await player.queue.add(c.track))
                 if(!player.connected) await player.connect(channel.id)
                 if(!player.playing && !player.paused) await player.queue.start(message);
                 return message.channel.send(`Сейчас играет **${playlistInfo.name}** | [Плейлист - \`${tracks.length}\`]`);
