@@ -34,7 +34,7 @@ module.exports = class Queue {
         return (this.current = this.tracks.shift())
     }
     async destroy(){
-        return this.player.destroy(this.message.guild.id)
+        return this.player.leave(this.message.guild.id)
     }
     loop(type){
         if(typeof type !== "string" || !["song","queue"].includes(type.toLowerCase())) return this.loop;
@@ -47,7 +47,6 @@ module.exports = class Queue {
 
             case "empty":
                 await this.destroy()
-
                 return this.message.channel.send('Очередь пустая')
 
             case "emptyVC":
