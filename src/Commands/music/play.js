@@ -1,4 +1,5 @@
 const Command = require('../../Structures/Command');
+const Queue = require('../../Structures/Queue');
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
@@ -6,25 +7,38 @@ module.exports = class extends Command {
 	}
 	async run(message,language,args) {
         if(!args.length) return message.reply("Дурачок,а название")
-        const {tracks} = await this.Main.utils.search(args.join(" ").includes('https') ? encodeURI(args.join(" ")): `ytsearch:${encodeURIComponent(args.join(" "))}`)
-        if(!tracks.length)return message.reply('Ничего не нашол по твоему запросу!') 
-        const channel = message.member.voice 
-        if(!channel.channelID)return message.reply('Я не могу подключится туда')
-        const player = await this.Main.music.join({
+
+        const {channel} = message.member.voice 
+        if(!channel.id || channel.joinable === false)return message.reply('Я не могу подключится туда')
+
+        const player = this.Main.music.players.get(message.guild.id)|| (await this.Main.music.join({
             guild: message.guild.id,
-            channel: channel.channelID,
+            channel: channel.id,
             node:'1'
-        });
-        await player.play(tracks[0].track)
-        if(player.playing){
-        message.channel.send(`Сейчас играет ${tracks[0].info.title}`)
-        }
-        if(!player.playing && !player.paused) await player.play(tracks[0].track)
-        player.on("error", error => console.error(error));
-        player.on("end", async data => {
-            if(data.reason == "REPLACED") return
-            console.log(data)
-            if(data.reason == "CLEANUP") await this.Main.music.leave(message.guild.id); 
-        });
-    }
+        }))
+
+        const {tracks , loadType, playlistInfo} = await this.Main.utils.search(args.join(" ").includes('https') 
+        ? encodeURI(args.join(" "))
+        : `ytsearch:${encodeURIComponent(args.join(" "))}`)
+        
+        if(!tracks.length)return message.reply('Ничего не нашол по твоему запросу!')
+
+        if(!player.queue) player.queue = new Queue(player,this.Main)
+
+        switch(loadType){
+            case "TRACK_LOADED":
+            case "SEARCH_RESULT":
+
+                player.queue.add(tracks[0].track, message.author.id)
+    
+                if(!player.connected) await player.connect(channel.id)
+                if(!player.playing && !player.paused) await player.queue.start(message);
+                return message.channel.send(`Сейчас играет **${tracks[0].info.title}**`);
+            case "PLAYLIST_LOAD":
+                tracks.map(c => player.queue.add(c.track))
+                if(!player.connected) await player.connect(channel.id)
+                if(!player.playing && !player.paused) await player.queue.start(message);
+                return message.channel.send(`Сейчас играет **${playlistInfo.name}** | [Плейлист - \`${tracks.length}\`]`);
+        }  
+}
 }
