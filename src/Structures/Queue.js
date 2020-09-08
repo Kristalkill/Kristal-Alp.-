@@ -10,19 +10,19 @@ module.exports = class Queue {
             if(evt && ["REPLACED"].includes(evt.reason))return;
 
             if(this.loop === "song") {
-                this.tracks.unshift(this.current.track)
+                await this.tracks.unshift(this.current.track)
             }
             else if(this.loop === "queue") {
-                this.tracks.push(this.current.track)
+                await this.tracks.push(this.current.track)
             }
 
-            this.next();
+            await this.next();
 
-            if(!this.message.guild || !this.message.guild.me.voice.channel) return this.end("?")
+            if(!this.message.guild || !this.message.guild.me.voice.channel) return await this.end("?")
 
-            if(this.message.guild.me.voice.channel.members.size === 1)return this.end("emptyVC")
+            if(this.message.guild.me.voice.channel.members.size === 1)return await this.end("emptyVC")
 
-            if(!this.current) return this.end("empty")
+            if(!this.current) return await this.end("empty")
             await player.play(this.current.song)
         }).on("start", async() => {
             const {title} = await this.Main.utils.decode(this.current.song)
@@ -38,7 +38,7 @@ module.exports = class Queue {
         return this.current = this.tracks.shift()
     }
     async destroy(){
-        return this.player.destroy(this.message.guild.id)
+        return await this.player.manager.leave(this.message.guild.id)
     }
     loop(type){
         if(typeof type !== "string" || !["song","queue"].includes(type.toLowerCase())) return this.loop;
@@ -65,7 +65,7 @@ module.exports = class Queue {
     async start(message){
         this.message = message;
         if(!this.current){
-        this.next()
+        await this.next()
         }
         await this.player.play(this.current.song)
     }

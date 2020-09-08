@@ -11,11 +11,14 @@ module.exports = class extends Command {
         const {channel} = message.member.voice 
         if(!channel.id || channel.joinable === false)return message.reply('Я не могу подключится туда')
 
-        const player = this.Main.music.players.get(message.guild.id)|| (await this.Main.music.join({
+        const player = this.Main.music.players.get(message.guild.id)|| (await this.Main.music.join(
+            {
             guild: message.guild.id,
             channel: channel.id,
             node:'1'
-        }))
+            },
+            {selfdeaf: true }
+            ))
 
         const {tracks , loadType, playlistInfo} = await this.Main.utils.search(args.join(" ").includes('https') 
         ? encodeURI(args.join(" "))
@@ -35,12 +38,12 @@ module.exports = class extends Command {
     
                 if(!player.connected) await player.connect(channel.id)
                 if(!player.playing && !player.paused) await player.queue.start(message);
-                return message.channel.send(`Сейчас играет **${tracks[0].info.title}**`);
+                return message.channel.send(`В очередь добавлено **${tracks[0].info.title}**`);
             case "PLAYLIST_LOAD":
                 tracks.map(async c => await player.queue.add(c.track))
                 if(!player.connected) await player.connect(channel.id)
                 if(!player.playing && !player.paused) await player.queue.start(message);
-                return message.channel.send(`Сейчас играет **${playlistInfo.name}** | [Плейлист - \`${tracks.length}\`]`);
+                return message.channel.send(`Загружен плейлист **${playlistInfo.name}** | [Плейлист - \`${tracks.length}\`]`);
         }  
 }
 }

@@ -384,6 +384,41 @@
             "param2":"Модератор: %moder%$\nНарушитель: %member%\nПричина: %reason%\nПредупреждений: %warns%"
         }
     },
+    "leave":{
+        "command":{
+            "usage":"leave",
+            "description":"Бот престанет играть музыку"
+        },
+        "param":""
+    },
+    "pause":{
+        "command":{
+            "usage":"pause",
+            "description":"Поставить на паузу музыку"
+        },
+        "param":""
+    },
+    "play":{
+        "command":{
+            "usage":"play <URL/Название>",
+            "description":"Позволяет играть песню :)"
+        },
+        "param":""
+    },
+    "resume":{
+        "command":{
+            "usage":"resume",
+            "description":"Снять с паузы музыку"
+        },
+        "param":""
+    },
+    "skip":{
+        "command":{
+            "usage":"skip",
+            "description":"Пропустить трек"
+        },
+        "param":""
+    },
     "prefix":{
         "command":{
             "usage":"prefix <новый префикс>",
