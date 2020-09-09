@@ -9,7 +9,7 @@ module.exports = class extends Command {
         let data = ''
         let i = 1
         const tracks = await this.Main.music.players.get(message.guild.id).queue.tracks
-        const track  = await this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current)
+        const track  = await this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current.song)
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks){
         tracks.forEach(async e => {
