@@ -14,10 +14,10 @@ module.exports = class extends Command {
         if(tracks){
         tracks.forEach(async e => {
             const { title, length, uri } = await this.Main.utils.decode(e.song)
-            data += `[${i + 1}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
+            data += `[${i + 1}] [${title}](${uri}\'${title}\') - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         });
         }
-        message.channel.send(data)
+        message.channel.send(new Discord.MessageEmbed().setDescription(data))
 
     }
 }
