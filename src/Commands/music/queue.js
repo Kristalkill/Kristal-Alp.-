@@ -8,8 +8,8 @@ module.exports = class extends Command {
 	async run(message,language,args) {
         let data = ''
         let i = 1
-        const {tracks} = this.Main.music.players.get(message.guild.id).queue
-        const track  = this.Main.utils.decode(this.Main.music.players.get(message.guild.id).track)
+        const tracks = this.Main.music.players.get(message.guild.id).queue.tracks
+        const track  = this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current)
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks){
         tracks.forEach(e => {
