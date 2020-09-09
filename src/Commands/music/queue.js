@@ -8,12 +8,12 @@ module.exports = class extends Command {
 	async run(message,language,args) {
         let data = ''
         let i = 1
-        const tracks = this.Main.music.players.get(message.guild.id).queue.tracks
-        const track  = this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current)
+        const tracks = await this.Main.music.players.get(message.guild.id).queue.tracks
+        const track  = await this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current)
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks){
-        tracks.forEach(e => {
-            const { title, length, uri } = this.Main.utils.decode(e.song)
+        tracks.forEach(async e => {
+            const { title, length, uri } = await this.Main.utils.decode(e.song)
             data += `[${i + 1}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         });
         }
