@@ -26,9 +26,7 @@ module.exports = class extends Command {
         
         if(!tracks.length)return message.reply('Ничего не нашол по твоему запросу!')
 
-        if(!player.queue){
-            player.queue = new Queue(player,this.Main)
-        }
+        if(!player.queue) player.queue = new Queue(player,this.Main)
 
         switch(loadType){
             case "TRACK_LOADED":

@@ -9,24 +9,19 @@ module.exports = class Queue {
         this.player.on("end",async (evt) =>{
             if(evt && ["REPLACED"].includes(evt.reason))return;
 
-            if(this.loop === "song") {
-                await this.tracks.unshift(this.current.track)
-            }
-            else if(this.loop === "queue") {
-                await this.tracks.push(this.current.track)
-            }
+            if(this.loop === "song") await this.tracks.unshift(this.current.track)
+            else if(this.loop === "queue") await this.tracks.push(this.current.track)
 
             await this.next();
 
-            if(!this.message.guild || !this.message.guild.me.voice.channel) return await this.end("?")
+            if(!this.message.guild || !this.message.guild.me.voice.channel) return this.end("?")
 
-            if(this.message.guild.me.voice.channel.members.size === 1)return await this.end("emptyVC")
+            if(this.message.guild.me.voice.channel.members.size === 1)return this.end("emptyVC")
 
-            if(!this.current) return await this.end("empty")
+            if(!this.current) return this.end("empty")
             await player.play(this.current.song)
         }).on("start", async() => {
             const {title} = await this.Main.utils.decode(this.current.song)
-
             this.message.channel.send(`Щяс качает ${title}`)
         })
     }
