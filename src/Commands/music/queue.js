@@ -1,5 +1,6 @@
 const Command = require('../../Structures/Command');
 const humanizeDuration = require('humanize-duration')
+const MessageEmbed = require('discord.js')
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
@@ -17,7 +18,7 @@ module.exports = class extends Command {
             data += `[${i + 1}] [${title}](${uri}\'${title}\') - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         });
         }
-        message.channel.send(new Discord.MessageEmbed().setDescription(data))
+        message.channel.send(new MessageEmbed().setDescription(data))
 
     }
 }
