@@ -8,7 +8,7 @@ module.exports = class extends Command {
 	async run(message,language,args) {
         let data = ''
         let i = 0
-        this.Main.music.players.get('564403545273663489').queue.tracks.forEach(e => {
+        this.Main.music.players.get(message.guild.id).queue.tracks.forEach(e => {
             const { title, length, uri } = this.Main.utils.decode(e.song)
             data += `[${i + 1}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.language})}\n`;
         });
