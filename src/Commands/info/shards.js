@@ -11,7 +11,7 @@ module.exports = class extends Command {
 		});
 	}
 	async run(message,language) {
-        let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+        
         let embed = new MessageEmbed().setTitle(`ШАРДЫ`)
 	    const uptime = await this.Main.shard.broadcastEval('this.uptime');
         const ping = await this.Main.shard.broadcastEval('Math.round(this.ws.ping)');
@@ -21,7 +21,7 @@ module.exports = class extends Command {
 		const guilds = await this.Main.shard.fetchClientValues('guilds.cache.size');
 		const users = await this.Main.shard.fetchClientValues('users.cache.size')
         for (let i = 0; i < this.Main.options.shardCount; i++) {
-            embed.addField(`** **`,language.shards.param.translate({i:i+1,uptime:humanizeDuration(uptime[i],{ round: true,language: res.Moderation.language}),ping:Math.round(ping[i]),memory:this.Main.utils.formatBytes(ram[i]),guilds:guilds[i],user:users[i],channels:channels[i],emojis:emojis[i]}),true)
+            embed.addField(`** **`,language.shards.param.translate({i:i+1,uptime:humanizeDuration(uptime[i],{ round: true,language: message.guild.settings.Moderation.language}),ping:Math.round(ping[i]),memory:this.Main.utils.formatBytes(ram[i]),guilds:guilds[i],user:users[i],channels:channels[i],emojis:emojis[i]}),true)
         }
         message.channel.send(embed)
     }

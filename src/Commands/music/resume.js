@@ -8,7 +8,7 @@ module.exports = class extends Command {
         const player = this.Main.music.players.get(message.guild.id);
         if (!player) return message.reply("ДА МУЗЛО ЗАКАЖИ,ЧМО ЕБАНОЙ,ГАВНО САБАЧОЕ,ПЁС ВОНЮЧИЙ");
         await player.resume();
-        return message.reply("Resumed the music");
+        return message.reply("Продолжаем!");
 
     }
 }

@@ -10,8 +10,8 @@ module.exports = class extends Command {
       }
       async run(message,language,args) {
       try {
-          let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
-          let muterole = (res.Moderation.muterole.id ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
+          
+          let muterole = (message.guild.settings.Moderation.muterole.id ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
           let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()||message.guild.members.cache.get(args[0]))
           if(member.roles.cache.has(muterole)){
             let data = await this.Main.db.Mute.findOne({guildID:message.guild.id,id:member.id})

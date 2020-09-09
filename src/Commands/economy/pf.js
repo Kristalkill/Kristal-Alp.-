@@ -52,7 +52,7 @@ module.exports = class extends Command {
         }).join("\n") : language.pf.type.null;
        if(member.user.bot) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bot))
        let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id })
-        let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+        
   if(Data) {
     let reputationtext = `${Data.rep}|`
     switch (true) {
@@ -84,7 +84,7 @@ module.exports = class extends Command {
           .setTitle(`**${member.user.username}**`)
           .setColor('RANDOM')
           .addField(language.pf.embed.about, language.pf.embed.about1.translate({activity:activity,ftext:ftext,statuses:statuses[member.user.presence.status],devicesText:devicesText,createdAt:this.Main.utils.formatDate(member.user.createdAt),joinedAt:this.Main.utils.formatDate(member.joinedAt)}))
-          .addField(language.pf.embed.account,language.pf.embed.account1.translate({money:this.Main.utils.abbreviateNumber(Data.money),level:Data.level,xp:`${Data.xp}/${res.Economy.upXP*Data.level}`,leftxp:res.Economy.upXP*Data.level - Data.xp,warn:Data.warn,reputation:Data.rep,partner:this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :language.pf.type.null}),true)
+          .addField(language.pf.embed.account,language.pf.embed.account1.translate({money:this.Main.utils.abbreviateNumber(Data.money),level:Data.level,xp:`${Data.xp}/${message.guild.settings.Economy.upXP*Data.level}`,leftxp:message.guild.settings.Economy.upXP*Data.level - Data.xp,warn:Data.warn,reputation:Data.rep,partner:this.Main.users.cache.get(Data.partner)? this.Main.users.cache.get(Data.partner).tag :language.pf.type.null}),true)
         let profileembed2 = new Discord.MessageEmbed()
         .setTitle(`**🏅 ${language.pf.embed.achievements}**`)
         .setThumbnail(member.user.displayAvatarURL({dynamic: true}))

@@ -9,11 +9,11 @@ module.exports = class extends Command {
   }
   async run(message,language,args) {
     try {
-      let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+      
         let member =  message.guild.member(message.author);
          if(args[0]){
-          res.Moderation.prefix = args[0]
-          res.save()
+          message.guild.settings.Moderation.prefix = args[0]
+          message.guild.settings.save()
           let embed = new Discord.MessageEmbed()
           .setTitle(language.prefix.params.param1)
           .setDescription(language.prefix.params.param2.translate({member:member.user.username,args:args[0]}))

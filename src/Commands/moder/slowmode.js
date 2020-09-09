@@ -11,12 +11,12 @@ module.exports = class extends Command {
       }
        async run(message,language,args) {
         try {
-            let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+            
             if(!args[0]||!parseInt(args[0]))return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param1))
             if(!ms(args[0])/1000 < 21600000)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param2))
             else{
                 message.channel.setRateLimitPerUser(ms(args[0])/1000)
-                message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.slowmode.params.param2.translate({channel:message.channel,args:humanizeDuration(ms(args[0]),{round: true,language: res.Moderation.language})})))
+                message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.slowmode.params.param2.translate({channel:message.channel,args:humanizeDuration(ms(args[0]),{round: true,language: message.guild.settings.Moderation.language})})))
             }
         } catch (error) {
             console.log(error)

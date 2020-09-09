@@ -15,12 +15,9 @@ const guildchema = mongoose.Schema({
       },
       upXP:{type:Number,default:100},
       bonus:{type:Number,default:50},
-      clanPrice:{type: Number, default: 15000 },
       money:{type: Number, default:3},
       xp:{type: Number, default:5},
-    },
-    Wchannel:{type:String},
-    Lchannel:{type:String},
+    }
 })
 
 module.exports = mongoose.model("Guild", guildchema)

@@ -15,13 +15,13 @@ module.exports = class extends Command {
         const cmd = args[0] ? args[0].toLowerCase() : 'null'
         const command = this.Main.commands.get(cmd) || this.Main.commands.get(this.Main.aliases.get(cmd));
         if(!command ||command.public === false){
-          let res = await this.Main.db.Guild.findOne({guildID: message.guild.id})
+          
           let pages1 = [];
           let pages = []; 
           let page = 1 
           fs.readdirSync(`src/Commands/`).filter(module => module != 'development').forEach(module => {
           pages1.push(module.capitalize());
-          if(this.Main.commands.filter(cmd => cmd.category == module).size >= 1) return pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${res.Moderation.prefix}${cmd.name}\` - ${language[cmd.name].command.description}`).join(`\n`)}`)
+          if(this.Main.commands.filter(cmd => cmd.category == module).size >= 1) return pages.push(`${this.Main.commands.filter(cmd => cmd.category == module).map(cmd => `\`${message.guild.settings.Moderation.prefix}${cmd.name}\` - ${language[cmd.name].command.description}`).join(`\n`)}`)
           })
           const embed = new Discord.MessageEmbed()
           .setColor(0xffffff)

@@ -7,6 +7,8 @@ module.exports = class extends Command {
 		});
 	}
 	async run(message,language,args) {
+        const player = this.Main.music.players.get(message.guild.id);
+        if (!player) return message.reply("ДА МУЗЛО ЗАКАЖИ,ЧМО ЕБАНОЙ,ГАВНО САБАЧОЕ,ПЁС ВОНЮЧИЙ");
         let data = ''
         let i = 1
         const tracks = await this.Main.music.players.get(message.guild.id).queue.tracks
