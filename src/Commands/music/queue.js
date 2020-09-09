@@ -13,7 +13,7 @@ module.exports = class extends Command {
         const track  = await this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current.song)
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks.length > 0){
-            for(e of tracks){
+            for(let e of tracks){
                 const { title, length, uri } = await this.Main.utils.decode(e.song)
                 data += `[${i + 1}] [${title}](${uri}\'${title}\') - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
             }
