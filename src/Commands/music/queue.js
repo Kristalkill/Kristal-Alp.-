@@ -12,7 +12,7 @@ module.exports = class extends Command {
         if(!tracks)return message.reply('Пустая очередь')
         tracks.forEach(e => {
             const { title, length, uri } = this.Main.utils.decode(e.song)
-            data += `[${i + 1}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.language})}\n`;
+            data += `[${i + 1}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         });
         message.channel.send(data)
 
