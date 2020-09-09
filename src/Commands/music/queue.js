@@ -14,7 +14,7 @@ module.exports = class extends Command {
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks.length > 0){
         await tracks.forEach(async e => {
-            const { title, length, uri } = this.Main.utils.decode(e.song)
+            const { title, length, uri } = await this.Main.utils.decode(e.song)
             data += `[${i + 1}] [${title}](${uri}\'${title}\') - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         });
         }
