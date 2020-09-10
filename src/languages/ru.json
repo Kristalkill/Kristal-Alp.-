@@ -412,6 +412,13 @@
         },
         "param":""
     },
+    "queue":{
+        "command":{
+            "usage":"queue",
+            "description":"Посмотреть очередь"
+        },
+        "param":""
+    },
     "skip":{
         "command":{
             "usage":"skip",
