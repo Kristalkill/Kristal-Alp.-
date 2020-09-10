@@ -62,8 +62,8 @@ module.exports = class extends Event {
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms3.translate({need:Bneed})));
 
         command.run(message,language,args);
-        message.member.options.save();
     }
+    message.member.options.save();
   }
 }catch (error) {
   console.log(error)
