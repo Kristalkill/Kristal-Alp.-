@@ -1,9 +1,6 @@
 const Event = require('../Structures/Event');
-const Discord = require('discord.js');
-const config = require('../../config.json');
+const {MessageEmbed} = require('discord.js');
 const humanizeDuration = require('humanize-duration')
-let embed = new Discord.MessageEmbed()
-let embed1 = new Discord.MessageEmbed()
 module.exports = class extends Event {
 	async run(oldmessage,message) {
     try {
@@ -38,12 +35,11 @@ module.exports = class extends Event {
         if(message.member.options.xp >= message.guild.settings.Economy.upXP*message.member.options.level){
           message.member.options.xp -= message.guild.settings.Economy.upXP*message.member.options.level;
           message.member.options.level+=1
-          message.channel.send(embed.setDescription(language.message.levelup.translate({name:message.author.username,level:message.member.options.level})))
+          message.channel.send(new MessageEmbed().setDescription(language.message.levelup.translate({name:message.author.username,level:message.member.options.level})))
         }
-        message.member.options.save();
 
         if(message.content.startsWith("<@704604456313946182>"||"<@!704604456313946182>") && !command) 
-          return message.channel.send(embed1.setTitle(`${language.message.param2} ${message.member.options.Moderation.prefix}`));
+          return message.channel.send(new MessageEmbed().setTitle(`${language.message.param2} ${message.member.options.Moderation.prefix}`));
 
         else if(prefix && command){
 
@@ -52,7 +48,7 @@ module.exports = class extends Event {
           const cooldown = this.Main.db.cooldowns.get(message.author.id);
           if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: message.member.options.Moderation.language})})))
 
-          if(!config.owner.includes(message.author.id)){
+          if(!this.Main.owners.includes(message.author.id)){
             if(command.nsfw == true && message.channel.nsfw == false)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param3))
             if(command.public === false)return; 
 
@@ -66,6 +62,7 @@ module.exports = class extends Event {
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms3.translate({need:Bneed})));
 
         command.run(message,language,args);
+        message.member.options.save();
     }
   }
 }catch (error) {

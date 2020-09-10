@@ -21,7 +21,7 @@ module.exports = class Queue {
             if(!this.current) return this.end("empty")
             await player.play(this.current.song)
         }).on("start", async() => {
-            const {title} = await this.Main.utils.decode(this.current.song)
+            const {title} = await this.Main.music.decode(this.current.song)
             this.message.channel.send(`Щяс качает ${title}`)
         })
     }

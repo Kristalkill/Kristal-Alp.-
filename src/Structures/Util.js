@@ -4,8 +4,6 @@ const variables = require('../utilites/variables.js');
 const Discord = require('discord.js');
 const Event = require('./Event.js');
 const fs = require('fs')
-const fetch = require("node-fetch");
-const {host,port,password} = { id: "1", host: "localhost", port: 3000, password: "enderman"}
 module.exports = class Util {
 
 	constructor(Main) {
@@ -31,7 +29,7 @@ module.exports = class Util {
 		if (arr.length > maxLen) {
 			const len = arr.length - maxLen;
 			arr = arr.slice(0, maxLen);
-			arr.push(`${len} more...`);
+			arr.push(`${len} больше...`);
 		}
 		return arr;
 	}
@@ -123,16 +121,6 @@ module.exports = class Util {
 	  toNum(text) {
 		return parseInt(text.replace(/[^\d]/g, ""));
 	  };
-	  async search(track) {
-		return await(
-			await fetch(`http://${host}:${port}/loadtracks?identifier=${track}`,{ headers: { Authorization: password}})
-		).json()
-    }
-    async decode(track){
-        return await(
-			await fetch(`http://${host}:${port}/decodetrack?track=${track}`,{ headers: { Authorization: password}})
-		).json()
-    }
 	async loadEvents() {
 		const events = fs.readdirSync(`${this.directory}Events`).filter(file => file.endsWith('.js'));
 		for (const eventFile of events) {

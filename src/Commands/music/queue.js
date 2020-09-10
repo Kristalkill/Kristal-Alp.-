@@ -12,12 +12,12 @@ module.exports = class extends Command {
         let data = ''
         let i = 1
         const tracks = await this.Main.music.players.get(message.guild.id).queue.tracks
-        const track  = await this.Main.utils.decode(this.Main.music.players.get(message.guild.id).queue.current.song)
+        const track  = await this.Main.music.decode(this.Main.music.players.get(message.guild.id).queue.current.song)
         data += `[${i}] [${track.title}](${track.uri}) - ${humanizeDuration(track.length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
         if(tracks.length > 0){
             for(let e of tracks){
                 i++
-                const { title, length, uri } = await this.Main.utils.decode(e.song)
+                const { title, length, uri } = await this.Main.music.decode(e.song)
                 data += `[${i}] [${title}](${uri}) - ${humanizeDuration(length,{round: true,language: message.guild.settings.Moderation.language})}\n`;
             }
         }

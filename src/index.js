@@ -1,5 +1,4 @@
 const client = require('./Structures/Main');
-const config = require('../config.json');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const Main = new client(process.env);
@@ -31,7 +30,7 @@ String.prototype.translate = function(vars){
   Array.prototype.shuffle = function () {
     return this.sort(() => Math.random() - 0.5);
   }
-    mongoose.connect(config.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(process.env.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
     mongoose.connection.on('connected',()=>{
       console.log('[✅DataBase] Connected!')
 })

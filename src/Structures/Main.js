@@ -1,7 +1,7 @@
 const Util = require('./Util.js');
-const Discord = require('discord.js');
-const { Manager } = require("@lavacord/discord.js");
-module.exports = class Main extends Discord.Client {
+const Music = require('./Music.js');
+const {MessageEmbed,Collection,Client} = require('discord.js');
+module.exports = class Main extends Client {
 
 	constructor(options = {}) {
 		super({
@@ -13,21 +13,21 @@ module.exports = class Main extends Discord.Client {
 		});
 		this.validate(options);
 
-		this.commands = new Discord.Collection();
+		this.commands = new Collection();
 
-		this.aliases = new Discord.Collection();
+		this.aliases = new Collection();
 
-		this.events = new Discord.Collection();
+		this.events = new Collection();
 
 		this.utils = new Util(this);
 
-		this.owners = options.owners;
+		this.owners = ["359678229096955904"];
 
 		this.embeds = {};
-		this.embeds.ErrEmbed = new Discord.MessageEmbed()
+		this.embeds.ErrEmbed = new MessageEmbed()
 		.setTitle('Error')
 		.setColor('RED');
-		this.embeds.OKEmbed = new Discord.MessageEmbed()
+		this.embeds.OKEmbed = new MessageEmbed()
 		.setTitle('OK')
 		.setColor('RANDOM');
 
@@ -39,11 +39,11 @@ module.exports = class Main extends Discord.Client {
 		this.db.Mute = require('../models/mute');
 		this.db.User = require('../models/user');
 
-		this.music =  new Manager(this,[{ id: "1", host: "localhost", port: 3000, password: "enderman"}])
+		this.music =  new Music(this,[{ id: "1", host: "localhost", port: 3000, password: "enderman"}])
 	}
 
 	validate(options) {
-		if (typeof options !== 'object') throw new TypeError('Options should be a type of Object.');
+		if (typeof options !== 'object') throw new TypeError('Настройки не обьект.');
 
 		if (!options.token) throw new Error('You must pass the token for the Main.');
 		this.token = options.token;

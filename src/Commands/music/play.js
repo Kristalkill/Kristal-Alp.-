@@ -20,7 +20,7 @@ module.exports = class extends Command {
             {selfdeaf: true }
             ))
 
-        const {tracks , loadType, playlistInfo} = await this.Main.utils.search(args.join(" ").includes('https') 
+        const {tracks , loadType, playlistInfo} = await this.Main.music.search(args.join(" ").includes('https') 
         ? encodeURI(args.join(" "))
         : `ytsearch:${encodeURIComponent(args.join(" "))}`)
         
