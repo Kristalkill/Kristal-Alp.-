@@ -61,7 +61,7 @@ module.exports = class extends Event {
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms3.translate({need:Bneed})));
 
-        command.run(message,language,args);
+        command.run(message,args);
     }
     message.member.options.save();
   }

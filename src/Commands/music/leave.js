@@ -4,7 +4,7 @@ module.exports = class extends Command {
 		super(...args, {
 		});
 	}
-	async run(message,language,args) {      
+	async run(message) {      
 		const player = this.Main.music.players.get(message.guild.id);
         if (!player) return message.reply("Музло закажи сначала,даун как ты родился блять?");
         await this.Main.music.leave(message.guild.id);

@@ -8,8 +8,11 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	run(message,language,args) {
+	run(message,args) {
         try{    
+                 const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+                 let num1 = 0
+                 let num2 = 100
             if(args[0] && args[1]){
                 num1 = this.Main.utilss.toNum(args[0])
                 num2 = this.Main.utilss.toNum(args[1])

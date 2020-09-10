@@ -1,5 +1,5 @@
 const Command = require('../../Structures/Command');
-const Discord = require('discord.js');
+const {MessageEmbed} = require('discord.js');
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
@@ -7,10 +7,13 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
         try {
-            let embed = new Discord.MessageEmbed()
-            .setColor('RANDOM');
+          let embed = new MessageEmbed().setColor('RANDOM');
+
+               const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
+
       if(!args[0])return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.lb.params.param1))
       if (['level', 'money', 'rep', 'xp'].includes(args[0].toLowerCase())){ 
       let text = " "

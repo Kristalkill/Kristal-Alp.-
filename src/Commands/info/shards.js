@@ -10,8 +10,8 @@ module.exports = class extends Command {
 			category: 'info'
 		});
 	}
-	async run(message,language) {
-        
+	async run(message) {
+		const language = require(`./../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
         let embed = new MessageEmbed().setTitle(`ШАРДЫ`)
 	    const uptime = await this.Main.shard.broadcastEval('this.uptime');
         const ping = await this.Main.shard.broadcastEval('Math.round(this.ws.ping)');

@@ -8,9 +8,11 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
     try {
-      let data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
+           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
+      let data = message.member.options
       if(!args[0])return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))
       let bet = this.Main.utils.toNum(args[0]);
       if(bet < 1)return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))

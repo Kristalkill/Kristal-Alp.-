@@ -7,8 +7,10 @@ module.exports = class extends Command {
           Permission:["KICK_MEMBERS"],
       });
   }
-  async run(message,language,args) {
+  async run(message,args) {
     try {
+           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
       let reason = args.slice(1).join(` `)||language.undefined; 
       let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
       if(!member) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))

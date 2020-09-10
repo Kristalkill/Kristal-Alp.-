@@ -9,7 +9,7 @@ module.exports = class extends Command {
       public: false
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
     let argss = args.join(' ')
     try {
       let evaled = await eval(argss);

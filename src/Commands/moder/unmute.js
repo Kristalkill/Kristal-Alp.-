@@ -8,9 +8,10 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS","MANAGE_ROLES"],
           });
       }
-      async run(message,language,args) {
+      async run(message,args) {
       try {
-          
+             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
           let muterole = (message.guild.settings.Moderation.muterole.id ||message.guild.roles.cache.find(x => /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)).id);
           let member = message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first()||message.guild.members.cache.get(args[0]))
           if(member.roles.cache.has(muterole)){

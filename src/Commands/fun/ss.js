@@ -10,8 +10,10 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	async run(message,language,args) {
-  try{
+	async run(message,args) {
+  try{  
+             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
         if(!args[0]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.ss.params.param1))
         await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
           .then(res => res.json())

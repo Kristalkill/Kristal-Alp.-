@@ -8,8 +8,10 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
   try {
+         const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
     let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]));
     if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
     const embed = new Discord.MessageEmbed()

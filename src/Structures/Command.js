@@ -10,7 +10,7 @@ module.exports = class Command {
 		this.Permission = options.Permission;
 		this.PermissionBOT = options.PermissionBOT;
 	}
-	async run(message,language,args) {
+	async run(message,args) {
 		throw new Error(`Команда ${this.name} не содержин метод запуска!`);
 	}
 

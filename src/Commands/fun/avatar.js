@@ -8,8 +8,9 @@ module.exports = class extends Command {
 			category: 'fun'
 		});
 	}
-	async run(message,language) {
+	async run(message) {
     try {
+      const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
       let user = message.mentions.users.first() ? message.mentions.users.first() : message.author;
       let AvatarEmbed = new Discord.MessageEmbed()
           .setColor('RANDOM')

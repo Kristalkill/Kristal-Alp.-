@@ -9,9 +9,11 @@ module.exports = class extends Command {
             PermissionBOT:["MANAGE_ROLES"]
 		});
 	}
-	async run(message,language,args) {
-try {
-        let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
+	async run(message,args) {
+try {   
+             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
+        let Data = message.member.options
         let role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
         if(role){
             if(args[0].toLowerCase() == 'add'){

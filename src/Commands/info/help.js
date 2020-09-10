@@ -10,8 +10,10 @@ module.exports = class extends Command {
 			category: 'info'
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
       try {
+             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
         const cmd = args[0] ? args[0].toLowerCase() : 'null'
         const command = this.Main.commands.get(cmd) || this.Main.commands.get(this.Main.aliases.get(cmd));
         if(!command ||command.public === false){

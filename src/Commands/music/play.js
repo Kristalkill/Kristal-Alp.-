@@ -5,7 +5,7 @@ module.exports = class extends Command {
 		super(...args, {
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
         if(!args.length) return message.reply("Дурачок,а название")
 
         const {channel} = message.member.voice 

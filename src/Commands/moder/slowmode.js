@@ -9,9 +9,10 @@ module.exports = class extends Command {
               PermissionBOT:["MANAGE_CHANNELS"],
           });
       }
-       async run(message,language,args) {
+       async run(message,args) {
         try {
-            
+                 const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
             if(!args[0]||!parseInt(args[0]))return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param1))
             if(!ms(args[0])/1000 < 21600000)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.slowmode.params.param2))
             else{

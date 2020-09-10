@@ -9,8 +9,10 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	async run(message,language,args) {
+	async run(message,args) {
     try {
+      const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
       let member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first() || message.guild.members.cache.get(args[0]) || message.author)
       const statuses = {"online": "<a:online:709844735119851610>", "dnd": "<a:dnd:709844760491196576>","idle":"<a:snow:709844747145052321>","offline":"<a:offline:709844724311392296> Оффлайн"}
       const devices = {"desktop": language.pf.devices.pc, "web": language.pf.devices.web, "mobile":language.pf.devices.mobile};

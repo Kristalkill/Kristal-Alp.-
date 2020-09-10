@@ -7,9 +7,10 @@ module.exports = class extends Command {
           Permission:["ADMINISTRATOR"],
       });
   }
-  async run(message,language,args) {
+  async run(message,args) {
     try {
-      
+           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
         let member =  message.guild.member(message.author);
          if(args[0]){
           message.guild.settings.Moderation.prefix = args[0]

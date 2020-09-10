@@ -8,7 +8,7 @@ module.exports = class extends Command {
             public: false
 		});
 	}
-	run(message,language,args) {
+	run(message,args) {
         try {
             const member =  message.guild.member(message.mentions.users.filter(u=>u.id != message.guild.me.id).first())
             const reason = (args.slice(1).join(" ") || language.block.param1)

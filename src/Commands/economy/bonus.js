@@ -7,10 +7,11 @@ module.exports = class extends Command {
 			category: 'economy'
 		});
 	}
-	async run(message,language) {
+	async run(message) {
     try {
-      let Data = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
-      
+           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
+        let Data = message.member.options
         if(Data.Timelyes._timely > Date.now()){
          message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bonus.params.param1.translate({time:ms(Data.Timelyes._timely - Date.now())})))
         }else{

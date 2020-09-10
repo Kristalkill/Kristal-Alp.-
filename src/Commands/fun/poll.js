@@ -9,8 +9,10 @@ module.exports = class extends Command {
                         Permission:["ADMINISTRATOR"]
 		});
 	}
-	async run(message,language,args) {
-try{
+	async run(message,args) {
+try{    
+             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+
         let embed = new Discord.MessageEmbed()
         .setTitle(language.poll.params.param1)
         .setFooter(message.author.tag)
