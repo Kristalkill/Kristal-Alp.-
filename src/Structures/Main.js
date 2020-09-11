@@ -1,5 +1,6 @@
 const Util = require('./Util.js');
 const Music = require('./Music.js');
+const MongoDB = require('./MongoDB.js');
 const {MessageEmbed,Collection,Client} = require('discord.js');
 module.exports = class Main extends Client {
 
@@ -31,13 +32,7 @@ module.exports = class Main extends Client {
 		.setTitle('OK')
 		.setColor('RANDOM');
 
-		this.db = {};
-		this.db.cooldowns = new Map(); 
-		this.db.Block = require('../models/block');
-		this.db.Giveaway = require('../models/giveaway');
-		this.db.Guild = require('../models/guild');
-		this.db.Mute = require('../models/mute');
-		this.db.User = require('../models/user');
+		this.db = new MongoDB(this)
 
 		this.music =  new Music(this,[{ id: "1", host: "localhost", port: 3000, password: "enderman"}])
 	}
@@ -52,6 +47,7 @@ module.exports = class Main extends Client {
 	async start(token = this.token) {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
+		this.db.connect()
 		await super.login(token)
 		}
 	}

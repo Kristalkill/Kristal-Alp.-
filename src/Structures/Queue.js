@@ -1,6 +1,6 @@
 module.exports = class Queue {
     constructor(player,Main){
-        this.Main = Main
+        this.Main = Main;
         this.player = player;
         this.tracks = [];
         this.loop = "nothing";
