@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const {model,Schema,connect,connection} = require("mongoose");
   module.exports = class MongoDB{
     constructor(Main){
         this.Main = Main;
-        this.Guild = mongoose.model("Guild", mongoose.Schema({
+        this.Guild = model("Guild", Schema({
           guildID: String,
           ownerID: String,
           Moderation: {
@@ -22,11 +22,11 @@ const mongoose = require("mongoose");
             xp: { type: Number, default: 5 },
           }
       }));
-        this.Block = mongoose.model("Block", mongoose.Schema({
+        this.Block = model("Block", Schema({
           id: String,
           reason: String,
         }));
-        this.User = mongoose.model("User", mongoose.Schema({
+        this.User = model("User", Schema({
           guildID: String,
           rep:{ type: Number, default: 0 },
           userID: String,
@@ -42,7 +42,7 @@ const mongoose = require("mongoose");
           _timely:{type:Number,default:0}
         }
       }));
-        this.Mute = mongoose.model("mute",mongoose.Schema({
+        this.Mute = model("mute",Schema({
           id: String,
           guildID:String,
           reason: String,
@@ -50,7 +50,7 @@ const mongoose = require("mongoose");
           role:String,
           channel:String
         }));
-        this.Giveaway = mongoose.model("giveaway",mongoose.Schema({
+        this.Giveaway = model("giveaway",Schema({
           guildID:String,
           time:String,
           prize:String,
@@ -62,8 +62,8 @@ const mongoose = require("mongoose");
         this.cooldowns = new Map(); 
     }
     async connect(){
-      mongoose.connect(process.env.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
-      mongoose.connection.on('connected',()=>{
+      connect(process.env.dataURL, { useNewUrlParser: true, useUnifiedTopology: true });
+      connection.on('connected',()=>{
         console.log('[✅DataBase] Connected!')
       })
     }

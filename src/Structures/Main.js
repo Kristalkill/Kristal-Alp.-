@@ -39,15 +39,12 @@ module.exports = class Main extends Client {
 
 	validate(options) {
 		if (typeof options !== 'object') throw new TypeError('Настройки не обьект.');
-
-		if (!options.token) throw new Error('You must pass the token for the Main.');
-		this.token = options.token;
 	}
 
-	async start(token = this.token) {
+	async start() {
 		this.utils.loadCommands();
 		this.utils.loadEvents();
 		this.db.connect()
-		await super.login(token)
+		await super.login(process.env.token)
 		}
 	}

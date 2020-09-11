@@ -1,6 +1,5 @@
-const client = require('./Structures/Main');
+const Main = new(require('./Structures/Main'))
 const dotenv = require("dotenv").config();
-const Main = new client(process.env);
 try {
 String.prototype.translate = function(vars){
     var str = this;
@@ -29,7 +28,10 @@ String.prototype.translate = function(vars){
   Array.prototype.shuffle = function () {
     return this.sort(() => Math.random() - 0.5);
   }
+  String.prototype.clear = function() { 
+    return this.normalize("NFD").replace(/\P{Letter}/gu, '').capitalize();
+  }
 }catch(err){
     console.log(err)
 }
-Main.start();
+Main.start()

@@ -9,8 +9,8 @@ module.exports = class extends Event {
       message.member.options = await this.Main.db.User.findOne({guildID: message.guild.id, userID: message.author.id})
       message.guild.settings = await this.Main.db.Guild.findOne({guildID: message.guild.id})
 
-      if(!message.member.options) this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
-      if(!message.guild.settings)  this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
+      if(!message.member.options) await this.Main.db.User.create({guildID:message.guild.id, userID:message.author.id})
+      if(!message.guild.settings) await this.Main.db.Guild.create({guildID: message.guild.id,ownerID:message.guild.ownerid})
 
       if(message.member.options && message.guild.settings){
         var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${message.guild.settings.Moderation.prefix}`]
