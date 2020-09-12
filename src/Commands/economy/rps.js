@@ -10,9 +10,7 @@ module.exports = class extends Command {
 	}
 	async run(message,args) {
     try {
-           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
-
-      let data = message.member.options
+      const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
       if(!args[0])return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))
       let bet = this.Main.utils.toNum(args[0]);
       if(bet < 1)return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))
@@ -30,8 +28,7 @@ module.exports = class extends Command {
       embed.setTitle(language.rps.params.win)
       embed.setDescription(language.rps.params.wintext.translate({emojis:`${reacted}/${botChoice}`,win:bet * 2}))
       m.edit(embed)
-      data.money += bet*2
-      data.save();
+      message.member.options.money += bet*2
     }
     else if (reacted === botChoice){
       embed.setTitle(language.rps.params.draw)
@@ -42,8 +39,7 @@ module.exports = class extends Command {
     embed.setTitle(language.rps.params.lose)
     embed.setDescription(language.rps.params.losetext.translate({emojis:`${reacted}/${botChoice}`,lose:bet * 2}))
     m.edit(embed)
-    data.money -= bet*2
-    data.save();
+    message.member.options.money -= bet*2
      }
     } catch (error) {
       console.log(error)
