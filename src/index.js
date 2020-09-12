@@ -29,7 +29,7 @@ String.prototype.translate = function(vars){
     return this.sort(() => Math.random() - 0.5);
   }
   String.prototype.clear = function() { 
-    return this.normalize("NFD").replace(/[^\p{Letter}\p{Number}\p{Emoji_Modifier_Base}\p{Emoji_Modifier}\p{Emoji_Presentation}\p{Emoji}\uFE0F]/gu, '').capitalize();
+    return this.normalize("NFD").replace(/[^\p{Letter}\p{Number}\p{Emoji_Modifier_Base}\p{Emoji_Modifier}\p{Emoji_Presentation}\p{Emoji}\uFE0F <>:]/gu, '').capitalize();
   }
 }catch(err){
     console.log(err)
