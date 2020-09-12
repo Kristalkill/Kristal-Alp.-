@@ -58,7 +58,7 @@ module.exports = class extends Command {
         })
         })      
         if(message.guild.me.hasPermission('MANAGE_MESSAGES')) return message.delete();
-      }else return message.channel.send(new Discord.MessageEmbed().setTitle(command.name).setDescription(language[command.name].param.translate({nsfw:command.nsfw,category:command.category,aliases:command.aliases,usage:language[command.name].command.usage,description:language[command.name].command.description})))
+      }else return message.channel.send(new Discord.MessageEmbed().setTitle(command.name).setDescription(language.help.param.translate({nsfw:command.nsfw,category:command.category,aliases:command.aliases,usage:language[command.name].command.usage,description:language[command.name].command.description})))
   } catch (error) {
     console.log(error)
   }
