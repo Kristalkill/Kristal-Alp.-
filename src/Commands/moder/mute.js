@@ -39,7 +39,7 @@ module.exports = class extends Command {
             } 
           }
           message.guild.settings.Moderation.muterole = muterole.id;
-          message.guild.settings.save();
+          ;
         }
           let reason = args[2]||language.undefined
           if(!args[1]) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.mute.params.param3))

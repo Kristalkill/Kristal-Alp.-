@@ -22,7 +22,7 @@ try {
                     }else{
                        message.guild.settings.Economy.shop.set(role.id,parseInt(args[2]));
                        message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.shop.params.param2));
-                    message.guild.settings.save();
+                    ;
                     }
                     }else{
                     message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.shop.params.param3));
@@ -34,7 +34,7 @@ try {
                     if(message.guild.settings.Economy.shop.get(role.id)){
                         message.guild.settings.Economy.shop.delete(role.id)
                         message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.shop.params.param4));
-                        message.guild.settings.save();
+                        ;
                     }else{
                         message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.shop.params.param5));
                     }

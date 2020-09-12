@@ -19,7 +19,7 @@ module.exports = class extends Event {
           if (message.content.toLowerCase().startsWith(thisPrefix.toLowerCase())) prefix = thisPrefix;
         }
         const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
-        const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
+        const command = await (this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase())));
 
         if(BlockY && command)return message.react("733299144311177257");
 
@@ -38,9 +38,9 @@ module.exports = class extends Event {
           message.channel.send(new MessageEmbed().setDescription(language.message.levelup.translate({name:message.author.username,level:message.member.options.level})))
         }
 
-        if(message.content.startsWith("<@704604456313946182>"||"<@!704604456313946182>") && !command) 
-          return message.channel.send(new MessageEmbed().setTitle(`${language.message.param2} ${message.guild.settings.Moderation.prefix}`));
-
+        if(message.mentions.users.has('704604456313946182') && !command) {
+          message.channel.send(new MessageEmbed().setTitle(`${language.message.param2} ${message.guild.settings.Moderation.prefix}`));
+        }
         else if(prefix && command){
 
           if(!message.guild.me.hasPermission(["SEND_MESSAGES"])) return message.guild.owner.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()
