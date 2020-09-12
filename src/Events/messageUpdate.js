@@ -39,14 +39,14 @@ module.exports = class extends Event {
         }
 
         if(message.content.startsWith("<@704604456313946182>"||"<@!704604456313946182>") && !command) 
-          return message.channel.send(new MessageEmbed().setTitle(`${language.message.param2} ${message.member.options.Moderation.prefix}`));
+          return message.channel.send(new MessageEmbed().setTitle(`${language.message.param2} ${message.guild.settings.Moderation.prefix}`));
 
         else if(prefix && command){
 
           if(!message.guild.me.hasPermission(["SEND_MESSAGES"])) return message.guild.owner.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)).catch()
 
           const cooldown = this.Main.db.cooldowns.get(message.author.id);
-          if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: message.member.options.Moderation.language})})))
+          if (cooldown) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param1.translate({time:humanizeDuration(cooldown - Date.now(),{ round: true,language: message.guild.settings.Moderation.language})})))
 
           if(!this.Main.owners.includes(message.author.id)){
             if(command.nsfw == true && message.channel.nsfw == false)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.param3))
@@ -64,6 +64,7 @@ module.exports = class extends Event {
         command.run(message,args);
     }
     message.member.options.save();
+    message.guild.settings.save();
   }
 }catch (error) {
   console.log(error)
