@@ -1,6 +1,6 @@
 {
   "name": "kristalbot",
-  "version": "0.5.9",
+  "version": "0.6.7",
   "scripts": {
     "start": "node src/index.js"
   },
