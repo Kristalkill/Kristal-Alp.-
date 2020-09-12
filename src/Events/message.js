@@ -16,7 +16,7 @@ module.exports = class extends Event {
         var prefixes = ["<@704604456313946182>", "<@!704604456313946182>",`${message.guild.settings.Moderation.prefix}`]
         let prefix = false;
         for (const thisPrefix of prefixes) {
-          if (message.content.toLowerCase().startsWith(thisPrefix)) prefix = thisPrefix;
+          if (message.content.toLowerCase().startsWith(thisPrefix.toLowerCase())) prefix = thisPrefix;
         }
         const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
         const command = this.Main.commands.get(cmd.toLowerCase()) || this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase()));
@@ -61,7 +61,7 @@ module.exports = class extends Event {
         const Bneed = this.Main.utils.managePerms(message, command.PermissionBOT,true)
         if(Bneed)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.message.perms3.translate({need:Bneed})));
 
-        command.run(message,args);
+        await command.run(message,args);
     }
     message.member.options.save();
     message.guild.settings.save();

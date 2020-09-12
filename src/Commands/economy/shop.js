@@ -11,9 +11,7 @@ module.exports = class extends Command {
 	}
 	async run(message,args) {
 try {   
-             const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
-
-        let Data = message.member.options
+        const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
         let role = (message.mentions.roles.first() || message.guild.roles.cache.get(args[1]));
         if(role){
             if(args[0].toLowerCase() == 'add'){
@@ -47,10 +45,9 @@ try {
                 if(message.member.roles.cache.has(role.id)){
                     message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.shop.params.param6))
                 }else if(message.guild.settings.Economy.shop.has(role.id)){
-                    if(message.guild.settings.Economy.shop.get(role.id) > Data.money)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomoney));
+                    if(message.guild.settings.Economy.shop.get(role.id) > message.member.options.money)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomoney));
                     message.guild.member(message.author).roles.add(role.id)
-                    Data.money -= message.guild.settings.Economy.shop.get(role.id);
-                    Data.save()
+                    message.member.options.money -= message.guild.settings.Economy.shop.get(role.id);
                     message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.shop.params.param7));
                 }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.shop.params.param8));
         }

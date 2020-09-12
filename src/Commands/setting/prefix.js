@@ -11,10 +11,9 @@ module.exports = class extends Command {
     try {
            const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
 
-        let member =  message.guild.member(message.author);
+          let member =  message.guild.member(message.author);
          if(args[0]){
-          message.guild.settings.Moderation.prefix = args[0]
-          message.guild.settings.save()
+          message.guild.settings.Moderation.prefix = args[0].toLowerCase()
           let embed = new Discord.MessageEmbed()
           .setTitle(language.prefix.params.param1)
           .setDescription(language.prefix.params.param2.translate({member:member.user.username,args:args[0]}))

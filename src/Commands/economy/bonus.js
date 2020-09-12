@@ -9,15 +9,12 @@ module.exports = class extends Command {
 	}
 	async run(message) {
     try {
-           const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
-
-        let Data = message.member.options
-        if(Data.Timelyes._timely > Date.now()){
-         message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bonus.params.param1.translate({time:ms(Data.Timelyes._timely - Date.now())})))
+        const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
+        if(message.member.options.Timelyes._timely > Date.now()){
+         message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.bonus.params.param1.translate({time:ms(message.member.options.Timelyes._timely - Date.now())})))
         }else{
-        Data.Timelyes._timely = parseInt(Date.now() + 86400000)
-        Data.money += parseInt(message.guild.settings.Economy.bonus)
-        Data.save()
+        message.member.options.Timelyes._timely = parseInt(Date.now() + 86400000)
+        message.member.options.money += parseInt(message.guild.settings.Economy.bonus)
         message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.bonus.params.param2.translate({bonus:message.guild.settings.Economy.bonus})))
       }
     } catch (error) {
