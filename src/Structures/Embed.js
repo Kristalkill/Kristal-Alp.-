@@ -2,9 +2,8 @@ const {MessageEmbed} = require ('discord.js');
 const space = "\u200b"
 
 module.exports = class Embed extends MessageEmbed {
-    constructor(){
-        super()
-    }
+
+
     async chunk(title,content){
         content.toString()
         if(content.length < 1024){
