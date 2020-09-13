@@ -92,6 +92,19 @@ module.exports = class Util {
 		   message.channel.send(AchievementEmed)
 	  }
 	  };
+		generate_example(lvl) {
+		function rn() {
+		  return Math.floor(Math.random() * 100);
+		}
+		const operator = {
+		  1: Math.random() > 0.5 ? '+' : '-',
+		  2: '*',
+		  3: '/',
+		  4: '%'
+		};
+		const result = `${rn()} ${operator[lvl]} ${rn()}`
+		return [eval(result),result];
+	  }
 	  formatDate(date) {
 		if (typeof date == 'number') {
 		  date = new Date(date * 1000);

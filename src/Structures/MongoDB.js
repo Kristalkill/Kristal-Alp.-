@@ -28,6 +28,13 @@ const {model,Schema,connect,connection} = require("mongoose");
         }));
         this.User = model("User", Schema({
           guildID: String,
+          box:{
+            С:{ type: Number, default: 0 },
+            U:{ type: Number, default: 0 },
+            R:{ type: Number, default: 0 },
+            E:{ type: Number, default: 0 },
+            L:{ type: Number, default: 0 },
+          },
           rep:{ type: Number, default: 0 },
           userID: String,
           money: { type: Number, default: 0 },
