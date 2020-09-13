@@ -9,7 +9,7 @@ module.exports = class Embed extends MessageEmbed {
         if(content.length < 1024){
         this.fields.push({name:title,value:content,inline:false})
         }
-        if (1024 < content.length  && content.length < 2048) 
+        else if (1024 < content.length  && content.length < 2048) 
         {
         this.description = content;
         }
