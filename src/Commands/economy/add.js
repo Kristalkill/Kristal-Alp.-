@@ -18,7 +18,6 @@ module.exports = class extends Command {
         message.channel.send(this.Main.embeds.OKEmbed.setDescription(language.add.params.param1.translate({arg1:args[1],arg2:args[2],name:member.user.username})))
         data[args[1].toLowerCase()] += Math.floor(parseInt(args[2]));
         message.author.id  === member.id ? null : data.save()
-      
     }else if(!args[1]){
       message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.params.param2))
     }else return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.add.params.param3.translate({arg0:args[2]})));

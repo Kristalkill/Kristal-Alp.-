@@ -17,6 +17,7 @@ module.exports = class extends Command {
       let Data1 =  await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.user.id})
       let OK = new MessageEmbed()
       if(!member)return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.nomember))
+      if(member.user.id == message.author.id) return  message.channel.send(language.warn.param1)
       if(!Data1)return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.noData))
       if (message.member.options.Timelyes._rep > Date.now())return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(`Время ещё не пришло,осталось ${humanizeDuration(message.member.options.Timelyes._rep -  Date.now(),{ round: true,language: "ru"})}`))
       if (["Remove",'Minus','-'].includes(args[1] ? args[1].toUpperCase(): "add")){

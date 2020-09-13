@@ -19,7 +19,7 @@ module.exports = class extends Command {
             let data  = await this.Main.db.User.findOne({guildID: message.guild.id, userID: member.id})
             if(!data) return message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param5.translate({member:member.user.tag})));
             if(message.member.options.money < args[1]) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param6));
-            if(message.member.options.userID == member.id) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param7));
+            if(message.author.id == member.id) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param7));
             if(member.user.bot) return  message.channel.send(this.Main.embeds.ErrEmbed.setDescription(language.pay.params8));
             message.member.options.money -= Math.floor(parseInt(args[1]));
             data.money += Math.floor(parseInt(args[1]));
