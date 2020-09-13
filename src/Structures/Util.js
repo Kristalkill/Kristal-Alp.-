@@ -1,4 +1,5 @@
 const path = require('path');
+const Boxes = require('./Systems/Boxes.js');
 const Command = require('./Command.js');
 const variables = require('../utilites/variables.js');
 const Discord = require('discord.js');
@@ -8,6 +9,8 @@ module.exports = class Util {
 
 	constructor(Main) {
 		this.Main = Main;
+		this.Systems = {}
+		this.Systems.Boxes = new Boxes(this)
 	}
 	async promptMessage (message, author, time, validReactions,max = 10000,promise = false) {
 		validReactions.forEach(e => {message.react(e)});;
@@ -92,19 +95,6 @@ module.exports = class Util {
 		   message.channel.send(AchievementEmed)
 	  }
 	  };
-		generate_example(lvl) {
-		function rn() {
-		  return Math.floor(Math.random() * 100);
-		}
-		const operator = {
-		  1: Math.random() > 0.5 ? '+' : '-',
-		  2: '*',
-		  3: '/',
-		  4: '%'
-		};
-		const result = `${rn()} ${operator[lvl]} ${rn()}`
-		return [eval(result),result];
-	  }
 	  formatDate(date) {
 		if (typeof date == 'number') {
 		  date = new Date(date * 1000);
