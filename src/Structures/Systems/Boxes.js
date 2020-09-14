@@ -34,7 +34,9 @@ module.exports = class Boxes {
 
   randombox(messages) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const chanche = this.utils.randomize(0, messages ? messages / 100 : 100);
+    const chanche = this.utils
+      .randomize(0, messages ? messages / 100 : 100)
+      .toFixed(0);
     let win;
     switch (true) {
       case chanche <= 10 && chanche > 5:
