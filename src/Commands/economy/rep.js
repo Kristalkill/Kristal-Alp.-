@@ -30,7 +30,7 @@ module.exports = class extends Command {
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.nomember)
         );
-      if (member.user.id == message.author.id)
+      if (member.id == message.author.id)
         return message.channel.send(language.warn.param1);
       if (!Data1)
         return message.channel.send(

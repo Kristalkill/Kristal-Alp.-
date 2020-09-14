@@ -29,6 +29,9 @@ module.exports = class extends Event {
         });
 
       if (message.member.options && message.guild.settings) {
+        if (!this.Main.db.boxescoldown.has(message.guild.id)) {
+          this.Main.utils.Systems.Boxes.spawnrandombox(message);
+        }
         const prefixes = [
           '<@704604456313946182>',
           '<@!704604456313946182>',

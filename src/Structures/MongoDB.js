@@ -83,6 +83,7 @@ module.exports = class MongoDB {
       })
     );
     this.cooldowns = new Map();
+    this.boxescoldown = new Set();
   }
 
   async connect() {

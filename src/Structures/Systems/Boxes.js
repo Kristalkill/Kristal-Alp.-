@@ -34,24 +34,24 @@ module.exports = class Boxes {
 
   randombox(messages) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const chanche = this.utils
-      .randomize(0, messages ? messages / 100 : 100)
-      .toFixed(0);
+    const chanche = (Math.random() * (messages ? messages / 100 : 100)).toFixed(
+      1
+    );
     let win;
     switch (true) {
-      case chanche >= 15 && chanche < 10:
+      case chanche >= 80 && chanche < 90:
         win = boxes[0];
         break;
-      case chanche >= 10 && chanche < 6:
+      case chanche >= 90 && chanche < 95:
         win = boxes[1];
         break;
-      case chanche >= 6 && chanche < 3:
+      case chanche >= 95 && chanche < 98:
         win = boxes[2];
         break;
-      case chanche >= 3 && chanche < 1:
+      case chanche >= 98 && chanche <= 99:
         win = boxes[3];
         break;
-      case chanche >= 1:
+      case chanche > 99:
         win = boxes[4];
         break;
       default:
@@ -78,6 +78,7 @@ module.exports = class Boxes {
           .setTimestamp()
       )
       .then((message) => {
+        this.Main.db.boxescoldown.add(message.guild.id);
         const collector = message.channel.createMessageCollector(
           (m) => !m.author.bot,
           { time: 15000 }
@@ -102,13 +103,15 @@ module.exports = class Boxes {
               `[Коробка]: Коробка \`${win}\` досталась участнику ${message.author}!`
             );
             msg.guild.member(message.author).options.box[win]++;
-            msg.guild.member(message.author).options.save();
             collector.stop();
             i = 1;
           }
         });
       });
     setTimeout(() => {
+      setTimeout(() => {
+        this.Main.db.boxescoldown.delete(message.guild.id);
+      }, 405000);
       if (i == 1) return;
       message.channel.send(
         new MessageEmbed()
