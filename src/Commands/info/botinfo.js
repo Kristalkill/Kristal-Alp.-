@@ -32,19 +32,17 @@ module.exports = class extends Command {
               `>>> **<:cpu:709750871692542142> | CPU:** ${results[0]
                 .reduce((var1, var2) => var1 + var2, 0)
                 .toFixed(2)}%
-            **<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(
-              results[1].reduce((var1, var2) => var1 + var2, 0)
-            )} 
-            **🕑 | Uptime:**  ${humanizeDuration(this.Main.uptime, {
-              round: true,
-              language: 'ru',
-            })}
-            **⚙ | Кол-во команд:**  ${this.Main.commands.size}
-            **💡 | Discord.js:**  v${Discord.version}
-            **Discord API:** ${
-              new Date().getTime() - message.createdTimestamp
-            }ms
-            **Bot Ping:** ${Math.round(this.Main.ws.ping)}ms.`,
+**<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(
+                results[1].reduce((var1, var2) => var1 + var2, 0)
+              )} 
+**🕑 | Uptime:**  ${humanizeDuration(this.Main.uptime, {
+                round: true,
+                language: 'ru',
+              })}
+**⚙ | Кол-во команд:**  ${this.Main.commands.size}
+**💡 | Discord.js:**  v${Discord.version}
+**Discord API:** ${new Date().getTime() - message.createdTimestamp}ms
+**Bot Ping:** ${Math.round(this.Main.ws.ping)}ms.`,
               true
             )
             .addField(
@@ -53,15 +51,9 @@ module.exports = class extends Command {
                 (var1, var2) => var1 + var2,
                 0
               )}
-          **🌐 | Серверов:**  ${results[3].reduce(
-            (var1, var2) => var1 + var2,
-            0
-          )}
-          **🗨 | Каналов:**  ${results[2].reduce((var1, var2) => var1 + var2, 0)}
-          **🤣 | Емодзи:**  ${results[4].reduce(
-            (var1, var2) => var1 + var2,
-            0
-          )}`,
+**🌐 | Серверов:**  ${results[3].reduce((var1, var2) => var1 + var2, 0)}
+**🗨 | Каналов:**  ${results[2].reduce((var1, var2) => var1 + var2, 0)}
+**🤣 | Емодзи:**  ${results[4].reduce((var1, var2) => var1 + var2, 0)}`,
               true
             )
         );
