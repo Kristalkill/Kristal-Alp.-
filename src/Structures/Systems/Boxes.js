@@ -27,21 +27,21 @@ module.exports = class Boxes {
 		randombox(messages) {
 		const boxes = ["C","U","R","E","L"]
         const chanche = this.utils.randomize(0,messages ? messages / 100 : 100)
-        let win;
+		let win;
 		switch(true){
-			case chanche >= 60 && chanche < 80 :
+			case chanche <= 10 && chanche > 5 :
 				win = boxes[0]
 			break;
-			case chanche >= 80 && chanche < 85 :
+			case chanche <= 5 && chanche > 8 :
 				win = boxes[1]
 			break;
-			case chanche >= 85 && chanche < 90:
+			case chanche <= 8 && chanche > 3:
 				win = boxes[2]
 			break;
-			case chanche >= 90 && chanche < 95 :
+			case chanche <= 3 && chanche > 1 :
 				win = boxes[3]
 			break;
-			case chanche >= 95:
+			case chanche <= 1:
 				win = boxes[4]
             break;
             default: return;
