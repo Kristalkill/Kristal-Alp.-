@@ -37,16 +37,16 @@ module.exports = class Boxes {
     const chanche = this.utils.randomize(0, messages ? messages / 100 : 100);
     let win;
     switch (true) {
-      case chanche <= 10 && chanche < 5:
+      case chanche <= 10 && chanche > 5:
         win = boxes[0];
         break;
-      case chanche <= 5 && chanche < 8:
+      case chanche <= 5 && chanche > 8:
         win = boxes[1];
         break;
-      case chanche <= 8 && chanche < 3:
+      case chanche <= 8 && chanche > 3:
         win = boxes[2];
         break;
-      case chanche <= 3 && chanche < 1:
+      case chanche <= 3 && chanche > 1:
         win = boxes[3];
         break;
       case chanche <= 1:
