@@ -14,7 +14,7 @@ module.exports = class extends Command {
       if(!args[0])return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))
       let bet = this.Main.utils.toNum(args[0]);
       if(bet < 1)return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.minmalbet))
-      if(bet*2 > data.money)return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.nohavemoney));
+      if(bet*2 > message.member.options.money.money)return message.reply(this.Main.embeds.ErrEmbed.setDescription(language.rps.params.nohavemoney));
   const chooseArr = ["🗻", "🤚", "✌️"];
   const embed = new Discord.MessageEmbed()
     .setColor("#ffffff")
