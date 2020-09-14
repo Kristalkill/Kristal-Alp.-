@@ -1,31 +1,47 @@
-const Command = require('../../Structures/Command');
 const Discord = require('discord.js');
-module.exports = class extends Command {
+const Command = require('../../Structures/Command');
 
-	constructor(...args) {
-		super(...args, {
-			aliases: ['e'],
+module.exports = class extends Command {
+  constructor(...args) {
+    super(...args, {
+      aliases: ['e'],
       category: 'development',
-      public: false
-		});
-	}
-	async run(message,args) {
-    let argss = args.join(' ')
+      public: false,
+    });
+  }
+
+  async run(message, args) {
+    const argss = args.join(' ');
     try {
       let evaled = await eval(argss);
-      let eevaled = typeof evaled;
+      const eevaled = typeof evaled;
       const tyype = eevaled[0].toUpperCase() + eevaled.slice(1);
-      if(typeof evaled!== 'string') evaled = require('util').inspect(evaled, {depth: 0});
-      evaled == (undefined || null) ? evaled = 'Empty response: ' + evaled : evaled;
-      let embed = new Discord.MessageEmbed()
-      .addField('Вход',`\`\`\`js\n${argss}\`\`\``)
-      .addField('Выход',`\`\`\`js\nType: ${tyype}\nDone for: ${new Date().getTime() - message.createdTimestamp + 'ms'}\`\`\``,true)
-      evaled.chunk(999).sort().forEach(chunk => {embed.addField(`** **`,`\`\`\`js\n${chunk}\`\`\``)});
-      await message.channel.send(embed).then(() => message.react("✅"))
-}catch(err) {
-let embed = new Discord.MessageEmbed()
-.addField('Вход',`${argss}`)
-.addField('Выход',`\`\`\`js\nError ❎\n${err}\`\`\``,true);
-message.channel.send(embed).then(() => message.react("❎"))}
-}
+      if (typeof evaled !== 'string')
+        evaled = require('util').inspect(evaled, { depth: 0 });
+      evaled == (undefined || null)
+        ? (evaled = `Empty response: ${evaled}`)
+        : evaled;
+      const embed = new Discord.MessageEmbed()
+        .addField('Вход', `\`\`\`js\n${argss}\`\`\``)
+        .addField(
+          'Выход',
+          `\`\`\`js\nType: ${tyype}\nDone for: ${`${
+            new Date().getTime() - message.createdTimestamp
+          }ms`}\`\`\``,
+          true
+        );
+      evaled
+        .chunk(999)
+        .sort()
+        .forEach((chunk) => {
+          embed.addField('** **', `\`\`\`js\n${chunk}\`\`\``);
+        });
+      await message.channel.send(embed).then(() => message.react('✅'));
+    } catch (err) {
+      const embed = new Discord.MessageEmbed()
+        .addField('Вход', `${argss}`)
+        .addField('Выход', `\`\`\`js\nError ❎\n${err}\`\`\``, true);
+      message.channel.send(embed).then(() => message.react('❎'));
+    }
+  }
 };

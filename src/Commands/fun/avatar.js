@@ -1,22 +1,29 @@
-const Command = require('../../Structures/Command');
 const Discord = require('discord.js');
-module.exports = class extends Command {
+const Command = require('../../Structures/Command');
 
-	constructor(...args) {
-		super(...args, {
-			aliases: ['avatar'],
-			category: 'fun'
-		});
-	}
-	async run(message) {
+module.exports = class extends Command {
+  constructor(...args) {
+    super(...args, {
+      aliases: ['avatar'],
+      category: 'fun',
+    });
+  }
+
+  async run(message) {
     try {
-      const language = require(`../../languages/${message.guild.settings.Moderation.language ||"en"}.json`);
-      let user = message.mentions.users.first() ? message.mentions.users.first() : message.author;
-      let AvatarEmbed = new Discord.MessageEmbed()
-          .setColor('RANDOM')
-          .setTitle(`${language.avatar.params.param1} ${user.username}!`)
-          .setImage(user.avatarURL({dynamic: true}))
-      await message.channel.send(AvatarEmbed)
+      const language = require(`../../languages/${
+        message.guild.settings.Moderation.language || 'en'
+      }.json`);
+      const user = message.mentions.users.first()
+        ? message.mentions.users.first()
+        : message.author;
+      const AvatarEmbed = new Discord.MessageEmbed()
+        .setColor('RANDOM')
+        .setTitle(`${language.avatar.params.param1} ${user.username}!`)
+        .setImage(user.avatarURL({ dynamic: true }));
+      await message.channel.send(AvatarEmbed);
     } catch (error) {
-      console.log(error)
-    }}}
+      console.log(error);
+    }
+  }
+};
