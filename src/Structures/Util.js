@@ -43,12 +43,13 @@ module.exports = class Util {
   }
 
   trimArray(arr, maxLen = 10) {
+    let array;
     if (arr.length > maxLen) {
       const len = arr.length - maxLen;
-      arr = arr.slice(0, maxLen);
-      arr.push(`${len} больше...`);
+      array = arr.slice(0, maxLen);
+      array.push(`${len} больше...`);
     }
-    return arr;
+    return array;
   }
 
   formatBytes(bytes) {
@@ -122,14 +123,15 @@ module.exports = class Util {
   }
 
   formatDate(date) {
+    let rdata;
     if (typeof date === 'number') {
-      date = new Date(date * 1000);
+      rdata = new Date(date * 1000);
     } else if (typeof date === 'string') {
-      date = new Date(date);
+      rdata = new Date(date);
     } else if (Array.isArray(date)) {
-      date = new Date(date[2], date[1], date[0]);
+      rdata = new Date(date[2], date[1], date[0]);
     }
-    return date.toLocaleString('ru', {
+    return rdata.toLocaleString('ru', {
       day: '2-digit',
       month: '2-digit',
       year: '2-digit',

@@ -1,13 +1,23 @@
 {
-    "env": {
-        "commonjs": true,
-        "es2021": true,
-        "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 12
-    },
-    "rules": {
-    }
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "rules": {
+    "linebreak-style": ["off"],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-restricted-syntax": ["off", "ForOfStatement"],
+    "no-console": ["off"],
+    "import/no-dynamic-require": ["off"],
+    "global-require": ["off"],
+    "no-irregular-whitespace": [
+      "error",
+      { "skipTemplates": true, "skipStrings": true }
+    ]
+  }
 }

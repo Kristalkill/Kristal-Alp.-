@@ -7,9 +7,7 @@ module.exports = class Main extends Client {
   constructor(options = {}) {
     super({
       disableMentions: 'everyone',
-      messageCacheMaxSize: 50,
-      shardId: process.argv[1],
-      shardCount: process.argv[2],
+      messageCacheMaxSize: 200,
       fetchAllMembers: true,
     });
     this.validate(options);
