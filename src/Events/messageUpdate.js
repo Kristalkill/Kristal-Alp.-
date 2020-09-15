@@ -36,8 +36,11 @@ module.exports = class extends Event {
               this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)
             )
             .catch();
-        if (!this.Main.db.boxescoldown.has(message.guild.id)) {
-          this.Main.utils.Systems.Boxes.spawnrandombox(message);
+        if (
+          !this.Main.db.boxescoldown.has(message.guild.id) &&
+          message.guild.settings.options.boxes === true
+        ) {
+          await this.Main.utils.Systems.Boxes.spawnrandombox(message);
         }
         const prefixes = [
           '<@704604456313946182>',

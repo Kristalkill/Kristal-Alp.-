@@ -114,6 +114,20 @@ module.exports = class extends Event {
           res.forEach(async (Giveaway) => {
             const guild = this.Main.guilds.cache.get(Giveaway.guildID);
             if (!guild) return;
+            if (
+              (await !guild.channels.cache.get(Giveaway.channel)) ||
+              (await !guild.channels.cache
+                .get(Giveaway.channel)
+                .messages.fetch(Giveaway.messageID))
+            )
+              return await Giveaway.deleteOne({
+                guildID: Giveaway.guildID,
+                time: Giveaway.time,
+                prize: Giveaway.prize,
+                winners: Giveaway.winners,
+                messageID: Giveaway.messageID,
+                channel: Giveaway.channel,
+              });
             if (Giveaway.time >= Date.now()) {
               Giveaway.users = await guild.channels.cache
                 .get(Giveaway.channel)

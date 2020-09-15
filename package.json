@@ -2,7 +2,7 @@
   "name": "kristalbot",
   "version": "0.6.7",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/Structures/Shards.js"
   },
   "main": "scr/index.js",
   "author": "END(KrisralkillPlay)",

@@ -6,8 +6,15 @@ module.exports = class Boxes {
     this.utils = Utils;
   }
 
-  rn() {
-    return Math.floor(Math.random() * 100);
+  rn(lvl = this.utils.randomize(0, 4)) {
+    const oper = {
+      0: 100,
+      1: 10,
+      2: 10,
+      3: 4,
+      4: 4,
+    };
+    return Math.floor(Math.random() * oper[lvl]);
   }
 
   example_generator(level) {
@@ -16,13 +23,19 @@ module.exports = class Boxes {
       1: '*',
       2: '/',
       3: '%',
-      4: `% ${this.rn()} ${
+      4: `% ${this.rn(3)} ${
         [Math.random() > 0.5 ? '+' : '-', '*', '/'][
-          Math.floor(Math.random() * 4)
+          Math.floor(Math.random() * 3)
         ]
       }`,
     };
-    return `${this.rn()} ${operator[level]} ${this.rn()}`;
+
+    let exp = `${this.rn(level)} ${operator[level]} ${this.rn(level)}`;
+    var r = eval(exp);
+    if (r < 0 || r > 100 || r.toFixed(0) != r) {
+      return example_generator(level);
+    }
+    return [r, exp];
   }
 
   randombox(messages) {
@@ -53,14 +66,15 @@ module.exports = class Boxes {
     return win;
   }
 
-  spawnrandombox(messag) {
+  async spawnrandombox(messag, wine) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const win = this.randombox();
+    const win = wine ? wine.clear() : this.randombox();
     if (!win) return;
     let i;
-    const example = this.example_generator(boxes.indexOf(win));
-    const result = eval(example);
-    messag.channel
+    const generated = this.example_generator(boxes.indexOf(win));
+    const example = generated[1];
+    const result = generated[0];
+    await messag.channel
       .send(
         new MessageEmbed()
           .setTitle(`Появилась ${win} коробка!`)
@@ -70,9 +84,9 @@ module.exports = class Boxes {
           .setColor('GREEN')
           .setTimestamp()
       )
-      .then((message) => {
+      .then(async (message) => {
         this.Main.db.boxescoldown.add(messag.guild.id);
-        const collector = messag.channel.createMessageCollector(
+        const collector = message.channel.createMessageCollector(
           (m) => !m.author.bot,
           { time: 15000 }
         );
@@ -81,16 +95,19 @@ module.exports = class Boxes {
             msg.content.toLowerCase() ===
             `${messag.guild.settings.Moderation.prefix}pick ${result}`
           ) {
-            message.edit(
-              new MessageEmbed()
-                .setTitle(`Коробка \`${win}\` собрана!`)
-                .setDescription(
-                  `Коробка \`${win}\` была собрана участником ${msg.author}.`
-                )
-                .setColor('BLURPLE')
-                .setTimestamp()
-            );
-            message.delete({ timeout: 10000 });
+            message
+              .edit(
+                new MessageEmbed()
+                  .setTitle(`Коробка \`${win}\` собрана!`)
+                  .setDescription(
+                    `Коробка \`${win}\` была собрана участником ${msg.author}.`
+                  )
+                  .setColor('BLURPLE')
+                  .setTimestamp()
+              )
+              .then(async (m) => {
+                m.delete({ timeout: 10000 });
+              });
             message.channel.send(
               `[Коробка]: Коробка \`${win}\` досталась участнику ${msg.author}!`
             );

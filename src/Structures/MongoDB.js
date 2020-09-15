@@ -15,14 +15,13 @@ module.exports = class MongoDB {
         },
         Economy: {
           shop: { type: Map, default: {} },
-          Partner: {
-            price: { type: Number, default: 5000 },
-            level: { type: Number, default: 5 },
-          },
           upXP: { type: Number, default: 100 },
           bonus: { type: Number, default: 50 },
           money: { type: Number, default: 3 },
           xp: { type: Number, default: 5 },
+        },
+        options: {
+          boxes: false,
         },
       })
     );
