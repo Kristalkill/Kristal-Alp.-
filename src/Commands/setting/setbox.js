@@ -14,8 +14,12 @@ module.exports = class extends Command {
     switch (true) {
       case arg == 'on' && message.guild.settings.options.boxes != true:
         message.guild.settings.options.boxes = true;
+        message.channel.send(`Успешно поставлено on`);
+        break;
       case arg == 'off' && message.guild.settings.options.boxes != false:
         message.guild.settings.options.boxes = false;
+        message.channel.send(`Успешно поставлено off`);
+        break;
       default:
         message.channel.send(
           `Уже и так ${message.guild.settings.options.boxes}`
