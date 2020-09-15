@@ -5,6 +5,7 @@ const Event = require('../Structures/Event');
 module.exports = class extends Event {
   async run(oldmessage, message) {
     try {
+      if (!message) return;
       if (message.channel.type === 'dm' || message.author.bot) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
@@ -29,6 +30,12 @@ module.exports = class extends Event {
         });
 
       if (message.member.options && message.guild.settings) {
+        if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
+          return message.guild.owner
+            .send(
+              this.Main.embeds.ErrEmbed.setDescription(language.message.perms1)
+            )
+            .catch();
         if (!this.Main.db.boxescoldown.has(message.guild.id)) {
           this.Main.utils.Systems.Boxes.spawnrandombox(message);
         }

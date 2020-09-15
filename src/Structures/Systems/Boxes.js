@@ -6,15 +6,8 @@ module.exports = class Boxes {
     this.utils = Utils;
   }
 
-  rn(lvl = this.utils.randomize(0, 4)) {
-    const oper = {
-      0: 100,
-      1: 10,
-      2: 10,
-      3: 4,
-      4: 4,
-    };
-    return Math.floor(Math.random() * oper[lvl]);
+  rn() {
+    return Math.floor(Math.random() * 100);
   }
 
   example_generator(level) {
@@ -23,7 +16,7 @@ module.exports = class Boxes {
       1: '*',
       2: '/',
       3: '%',
-      4: `% ${this.rn(3)} ${
+      4: `% ${this.rn()} ${
         [Math.random() > 0.5 ? '+' : '-', '*', '/'][
           Math.floor(Math.random() * 4)
         ]
@@ -35,7 +28,7 @@ module.exports = class Boxes {
   randombox(messages) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
     const chanche = (Math.random() * (messages ? messages / 100 : 100)).toFixed(
-      1
+      0
     );
     let win;
     switch (true) {
@@ -60,68 +53,67 @@ module.exports = class Boxes {
     return win;
   }
 
-  spawnrandombox(message) {
+  spawnrandombox(messag) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
     const win = this.randombox();
     if (!win) return;
     let i;
     const example = this.example_generator(boxes.indexOf(win));
     const result = eval(example);
-    message.channel
+    messag.channel
       .send(
         new MessageEmbed()
           .setTitle(`Появилась ${win} коробка!`)
           .setDescription(
-            `Напишите ответ **${message.guild.settings.Moderation.prefix}pick ${example}**!`
+            `Напишите ответ **${messag.guild.settings.Moderation.prefix}pick ${example}**!`
           )
           .setColor('GREEN')
           .setTimestamp()
       )
       .then((message) => {
-        this.Main.db.boxescoldown.add(message.guild.id);
-        const collector = message.channel.createMessageCollector(
+        this.Main.db.boxescoldown.add(messag.guild.id);
+        const collector = messag.channel.createMessageCollector(
           (m) => !m.author.bot,
           { time: 15000 }
         );
         collector.on('collect', (msg) => {
           if (
             msg.content.toLowerCase() ===
-            `${message.guild.settings.Moderation.prefix}pick ${result}`
+            `${messag.guild.settings.Moderation.prefix}pick ${result}`
           ) {
-            message
-              .edit(
-                new MessageEmbed()
-                  .setTitle(`Коробка \`${win}\` собрана!`)
-                  .setDescription(
-                    `Коробка \`${win}\` была собрана участником ${message.author}.`
-                  )
-                  .setColor('BLURPLE')
-                  .setTimestamp()
-              )
-              .then((msg) => msg.delete(10000));
-            msg.channel.send(
-              `[Коробка]: Коробка \`${win}\` досталась участнику ${message.author}!`
+            message.edit(
+              new MessageEmbed()
+                .setTitle(`Коробка \`${win}\` собрана!`)
+                .setDescription(
+                  `Коробка \`${win}\` была собрана участником ${msg.author}.`
+                )
+                .setColor('BLURPLE')
+                .setTimestamp()
             );
-            msg.guild.member(message.author).options.box[win]++;
-            collector.stop();
+            message.delete({ timeout: 10000 });
+            message.channel.send(
+              `[Коробка]: Коробка \`${win}\` досталась участнику ${msg.author}!`
+            );
+            message.guild.member(msg.author).options.box[win]++;
             i = 1;
+            collector.stop();
           }
         });
+        collector.on('end', () => {
+          setTimeout(() => {
+            this.Main.db.boxescoldown.delete(message.guild.id);
+          }, 405000);
+          if (i == 1) return;
+          message.channel.send(
+            new MessageEmbed()
+              .setTitle('Время вышло.')
+              .setDescription(
+                `Коробка редкостью \`${win}\` не была никем собрана.\nОтвет на пример: **${result}**`
+              )
+              .setColor('RED')
+              .setTimestamp()
+          );
+        });
       });
-    setTimeout(() => {
-      setTimeout(() => {
-        this.Main.db.boxescoldown.delete(message.guild.id);
-      }, 405000);
-      if (i == 1) return;
-      message.channel.send(
-        new MessageEmbed()
-          .setTitle('Время вышло.')
-          .setDescription(
-            `Коробка редкостью \`${win}\` не была никем собрана.\nОтвет на пример: **${result}**`
-          )
-          .setColor('RED')
-          .setTimestamp()
-      );
-    }, 15000);
   }
 };
