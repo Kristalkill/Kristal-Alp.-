@@ -17,7 +17,7 @@ module.exports = class Boxes {
     return Math.floor(Math.random() * oper[lvl]);
   }
 
-  example_generator(level) {
+  generator(level) {
     const operator = {
       0: Math.random() > 0.5 ? '+' : '-',
       1: '*',
@@ -33,7 +33,7 @@ module.exports = class Boxes {
     let exp = `${this.rn(level)} ${operator[level]} ${this.rn(level)}`;
     var r = eval(exp);
     if (r < 0 || r > 100 || r.toFixed(0) != r) {
-      return example_generator(level);
+      return this.generator(level);
     }
     return [r, exp];
   }
@@ -66,12 +66,12 @@ module.exports = class Boxes {
     return win;
   }
 
-  async spawnrandombox(messag, wine) {
+  async spawnrandombox(messag) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const win = wine ? wine.clear() : this.randombox();
+    const win = this.randombox();
     if (!win) return;
     let i;
-    const generated = this.example_generator(boxes.indexOf(win));
+    const generated = this.generator(boxes.indexOf(win));
     const example = generated[1];
     const result = generated[0];
     await messag.channel
@@ -84,7 +84,7 @@ module.exports = class Boxes {
           .setColor('GREEN')
           .setTimestamp()
       )
-      .then(async (message) => {
+      .then((message) => {
         this.Main.db.boxescoldown.add(messag.guild.id);
         const collector = message.channel.createMessageCollector(
           (m) => !m.author.bot,
@@ -105,7 +105,7 @@ module.exports = class Boxes {
                   .setColor('BLURPLE')
                   .setTimestamp()
               )
-              .then(async (m) => {
+              .then((m) => {
                 m.delete({ timeout: 10000 });
               });
             message.channel.send(

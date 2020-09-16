@@ -30,6 +30,9 @@ module.exports = class extends Event {
         });
 
       if (message.member.options && message.guild.settings) {
+        const language = require(`./../languages/${
+          message.guild.settings.Moderation.language || 'en'
+        }.json`);
         if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
           return message.guild.owner
             .send(
@@ -62,10 +65,6 @@ module.exports = class extends Event {
           this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase())));
 
         if (BlockY && command) return message.react('733299144311177257');
-
-        const language = require(`./../languages/${
-          message.guild.settings.Moderation.language || 'en'
-        }.json`);
 
         message.member.options.xp += message.guild.settings.Economy.xp;
         message.member.options.money += message.guild.settings.Economy.money;
@@ -108,15 +107,6 @@ module.exports = class extends Event {
             )
           );
         } else if (prefix && command) {
-          if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
-            return message.guild.owner
-              .send(
-                this.Main.embeds.ErrEmbed.setDescription(
-                  language.message.perms1
-                )
-              )
-              .catch();
-
           const cooldown = this.Main.db.cooldowns.get(message.author.id);
           if (cooldown)
             return message.channel.send(
