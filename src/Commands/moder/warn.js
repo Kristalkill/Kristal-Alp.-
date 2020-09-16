@@ -26,7 +26,7 @@ module.exports = class extends Command {
           this.Main.embeds.ErrEmbed.setDescription(language.nomember)
         );
       if (member.user.id == message.author.id)
-        return message.channel.send(language.warn.param1);
+        return message.channel.send(language.warn.params.param1);
       if (member.user.bot)
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.bot)
