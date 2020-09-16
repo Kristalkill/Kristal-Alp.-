@@ -65,6 +65,7 @@ module.exports = class extends Event {
           this.Main.commands.get(this.Main.aliases.get(cmd.toLowerCase())));
 
         if (BlockY && command) return message.react('733299144311177257');
+
         message.member.options.xp += message.guild.settings.Economy.xp;
         message.member.options.money += message.guild.settings.Economy.money;
         message.member.options.massages++;
@@ -160,8 +161,23 @@ module.exports = class extends Event {
 
           await command.run(message, args);
         }
-        message.member.options.save();
-        message.guild.settings.save();
+        if (
+          message.member.options !=
+          (await this.Main.db.User.findOne({
+            guildID: message.guild.id,
+            userID: message.author.id,
+          }))
+        ) {
+          message.member.options.save();
+        }
+        if (
+          message.member.options !=
+          (await this.Main.db.Guild.findOne({
+            guildID: message.guild.id,
+          }))
+        ) {
+          message.guild.settings.save();
+        }
       }
     } catch (error) {
       console.log(error);

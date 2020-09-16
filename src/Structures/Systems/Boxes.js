@@ -1,43 +1,104 @@
 const { MessageEmbed } = require('discord.js');
+var lim = 100;
+var ops = {
+  '+': [],
+  '-': [],
+  '*': [],
+  '/': [],
+  '%': [],
+};
 
+var byRes = {
+  '+': Array(lim + 1),
+  '-': Array(lim + 1),
+  '*': Array(lim + 1),
+  '/': Array(lim + 1),
+  '%': Array(lim + 1),
+};
+
+var fs = {
+  '+'(x, y) {
+    return x + y;
+  },
+  '-'(x, y) {
+    return x - y;
+  },
+  '*'(x, y) {
+    return x * y;
+  },
+  '/'(x, y) {
+    return x / y;
+  },
+  '%'(x, y) {
+    return x % y;
+  },
+};
+function randof(...arrs) {
+  var len = arrs.reduce((r, a) => r + a.length, 0);
+  var i = (Math.random() * len) | 0;
+  return arrs.find((a) => i < a.length || ((i -= a.length), false))[i];
+}
+~(function prepare() {
+  for (var x = 1; x <= lim; ++x) {
+    for (var y = 1; y <= lim; ++y) {
+      for (var op of Object.keys(fs)) {
+        var res = fs[op](x, y);
+        if (res >= 1 && res <= lim && res === ~~res) {
+          ops[op].push([op, x, y]);
+          void (byRes[op][res] = byRes[op][res] || []).push([op, x, y]);
+        }
+      }
+    }
+  }
+
+  var missing = 0;
+
+  for (var res = 1; res <= lim; ++res) {
+    for (var op of Object.keys(byRes)) {
+      if (!(res in byRes[op])) {
+        console.log(`Unable to get ${res} using '${op}'`);
+        ++missing;
+      }
+    }
+  }
+
+  if (missing > 3) {
+    // +1, -100, %100
+    throw new Error('The map is incomlete, consider reworking algorithm');
+  }
+})();
 module.exports = class Boxes {
   constructor(Utils) {
     this.Main = Utils.Main;
     this.utils = Utils;
   }
-
-  rn(lvl = this.utils.randomize(0, 4)) {
-    const oper = {
-      0: 100,
-      1: 10,
-      2: 10,
-      3: 4,
-      4: 4,
-    };
-    return Math.floor(Math.random() * oper[lvl]);
-  }
-
-  generator(level) {
-    const operator = {
-      0: Math.random() > 0.5 ? '+' : '-',
-      1: '*',
-      2: '/',
-      3: '%',
-      4: `% ${this.rn(3)} ${
-        [Math.random() > 0.5 ? '+' : '-', '*', '/'][
-          Math.floor(Math.random() * 3)
-        ]
-      }`,
-    };
-
-    let exp = `${this.rn(level)} ${operator[level]} ${this.rn(level)}`;
-    var r = eval(exp);
-    if (r < 0 || r > 100 || r.toFixed(0) != r) {
-      return this.generator(level);
+  generate(lev) {
+    var simpleLevels = [
+      [ops['+'], ops['-']],
+      [ops['*']],
+      [ops['/']],
+      [ops['%']],
+    ];
+    if (lev < simpleLevels.length) {
+      var [op, x, y] = randof(...simpleLevels[lev]);
+      return [fs[op](x, y), `${x} ${op} ${y}`];
     }
-    return [r, exp];
-  }
 
+    var lev2 = 0;
+    var levOp1 = '*/%'[lev - simpleLevels.length];
+
+    while (1) {
+      var [op2, l, z] = randof(...simpleLevels[lev2]);
+
+      if (!byRes[levOp1][l]) {
+        console.log(`Попитка на уровне ${lev}`); // Очень редко
+        continue;
+      }
+
+      var [op1, x, y] = randof(byRes[levOp1][l]);
+      return [fs[op2](fs[op1](x, y), z), `${x} ${op1} ${y} ${op2} ${z}`];
+    }
+  }
   randombox(messages) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
     const chanche = (Math.random() * (messages ? messages / 100 : 100)).toFixed(
@@ -71,9 +132,7 @@ module.exports = class Boxes {
     const win = this.randombox();
     if (!win) return;
     let i;
-    const generated = this.generator(boxes.indexOf(win));
-    const example = generated[1];
-    const result = generated[0];
+    const [result, example] = this.generate(boxes.indexOf(win));
     await messag.channel
       .send(
         new MessageEmbed()
