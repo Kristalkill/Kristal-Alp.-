@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const Command = require('../../Structures/Command');
 const weather = require('weather-js');
 module.exports = class extends Command {
@@ -21,7 +21,7 @@ module.exports = class extends Command {
           var current = result[0].current;
           var location = result[0].location;
 
-          const embed = new Discord.RichEmbed()
+          const embed = new MessageEmbed()
             .setTitle(`Погода в ${current.observationpoint}`)
             .setColor('#da7bd4')
             .setDescription(`**${current.skytext}**`)
