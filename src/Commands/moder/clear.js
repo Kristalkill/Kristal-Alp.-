@@ -17,15 +17,20 @@ module.exports = class extends Command {
       }.json`);
 
       const amount = args[0];
-      if (isNaN(amount) || amount > 1 > 100)
+      if (isNaN(amount) || 1 < amount > 100)
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.clear.params.param1)
         );
-      const messages = await message.channel.messages.fetch({ limit: amount });
-      message.channel.bulkDelete(messages);
-      message.channel.send(
-        this.Main.embeds.OKEmbed.setDescription(
-          language.clear.params.param2.translate({ size: messages.size })
+      message.channel.messages.fetch({ limit: amount }).then(
+        function (list) {
+          message.channel.bulkDelete(list);
+          message.channel.send(
+            this.Main.embeds.OKEmbed.setDescription(
+              language.clear.params.param2.translate({ size: list.size })
+            )
+          );
+        }.catch((error) =>
+          message.reply(`Произошла ошибка очистки сообщений: ${error}`)
         )
       );
     } catch (error) {

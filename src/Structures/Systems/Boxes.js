@@ -15,7 +15,6 @@ var byRes = {
   '/': Array(lim + 1),
   '%': Array(lim + 1),
 };
-
 var fs = {
   '+'(x, y) {
     return x + y;
