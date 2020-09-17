@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const Command = require('../../Structures/Command');
 const weather = require('weather-js');
 module.exports = class extends Command {
   constructor(...args) {
