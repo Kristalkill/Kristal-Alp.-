@@ -11,38 +11,33 @@ module.exports = class extends Command {
 
   async run(message, args) {
     try {
+      if (!args[0]) return message.channel.send('Укажите местоположение.');
       weather.find(
         { search: args.join(''), degreeType: 'C', lang: 'ru-RU' },
         function (error, result) {
-          if (!args[0]) return message.channel.send('Укажите местоположение.');
           if (result === undefined || result.length === 0) {
             return message.channel.send('Местоположение не найдено.');
           }
-          var current = result[0].current;
-          var location = result[0].location;
+          const { current, location } = result[0];
 
           const embed = new MessageEmbed()
             .setTitle(`Погода в ${current.observationpoint}`)
             .setColor('#da7bd4')
             .setDescription(`**${current.skytext}**`)
             .setThumbnail(current.imageUrl)
-            .addField('Временная зона:', `UTC${location.timezone}`, true)
-            .addField('Тип температуры:', `C`, true)
             .addField(
-              'Температура:',
-              `${current.temperature} градус(а, ов)`,
-              true
+              `Температура`,
+              `Температура:  \`${current.temperature}\`°C\nОщущается как:  \`${current.feelslike}\`°C`
             )
             .addField(
-              'Ощущается как:',
-              `${current.feelslike} градус(а, ов)`,
-              true
+              `Дата`,
+              `Дата:  \`${current.date}\`\nДень:  \`${current.day}\`\nUTC: \`${location.timezone}:00\``
             )
-            .addField('Ветер:', current.winddisplay, true)
-            .addField('Влажность:', `${current.humidity}%`, true)
-            .addField(`День:`, `${current.day}`, true)
-            .addField(`Дата:`, `${current.date}`, true)
-            .setFooter('Baxter, 2019.', client.user.avatarURL)
+            .addField(
+              `Другое`,
+              `Ветер: \`${current.winddisplay}\`\nВлажность: \`${current.humidity}%\``
+            )
+            .setFooter(`Спиженно у @MrVaDiM4iK#0232`)
             .setTimestamp();
           message.channel.send(embed);
         }
