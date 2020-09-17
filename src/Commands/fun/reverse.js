@@ -10,7 +10,7 @@ module.exports = class extends Command {
 
   run(message, args) {
     try {
-      const language = require(`./../languages/${
+      const language = require(`../../languages/${
         message.guild.settings.Moderation.language || 'en'
       }.json`);
       if (!args)
