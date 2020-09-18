@@ -276,6 +276,12 @@
       "param2": "Скриншот"
     }
   },
+  "weather": {
+    "command": {
+      "usage": "weather <Город>",
+      "description": "Узнать погоду"
+    }
+  },
   "botinfo": {
     "command": {
       "usage": "botinfo",

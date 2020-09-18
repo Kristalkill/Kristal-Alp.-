@@ -40,7 +40,10 @@ module.exports = class extends Command {
                     (cmd) =>
                       `\`${message.guild.settings.Moderation.prefix}${
                         cmd.name
-                      }\` - ${language[cmd.name].command.description}`
+                      }\` - ${
+                        language[cmd.name].command.description ||
+                        language.undefined
+                      }`
                   )
                   .join(`\n`)}`
               );
@@ -112,8 +115,10 @@ module.exports = class extends Command {
               nsfw: command.nsfw,
               category: command.category,
               aliases: command.aliases,
-              usage: language[command.name].command.usage,
-              description: language[command.name].command.description,
+              usage: language[command.name].command.usage || language.undefined,
+              description:
+                language[command.name].command.description ||
+                language.undefined,
             })
           )
         );
