@@ -49,7 +49,7 @@ module.exports = class extends Command {
               );
           });
         const embed = new Discord.MessageEmbed()
-          .setColor(0xffffff)
+          .setColor(0xff5500)
           .setDescription(pages[page - 1])
           .setTitle(pages1[page - 1])
           .setFooter(`Page ${page} of ${pages.length}`);
@@ -58,47 +58,61 @@ module.exports = class extends Command {
             msg,
             message.author,
             60000,
-            ['⏪', '⬅', '⏹', '➡', '⏩']
+            [
+              'rewind:756545499238236272',
+              'arrow_left:756545499586101288',
+              'smart_button:756545499460272311',
+              'arrow_right:756545499393294368',
+              'fast_forward:756545499539964144',
+            ]
           );
           reacted.on('collect', (reaction) => {
             switch (reaction.emoji.name) {
-              case '⏪':
+              case 'rewind':
                 page = 1;
                 msg.edit(
                   embed
                     .setDescription(pages[page - 1])
                     .setTitle(pages1[page - 1])
-                    .setFooter(`Page ${page} of ${pages.length}`)
+                    .setFooter(
+                      language.pages.translate({ page, pages: pages.length })
+                    )
                 );
                 break;
-              case '⬅':
+              case 'arrow_left':
                 page == 1 ? (page = pages.length) : page--;
                 msg.edit(
                   embed
                     .setDescription(pages[page - 1])
                     .setTitle(pages1[page - 1])
-                    .setFooter(`Page ${page} of ${pages.length}`)
+                    .setFooter(
+                      language.pages.translate({ page, pages: pages.length })
+                    )
                 );
                 break;
-              case '⏹':
+              case 'smart_button':
                 msg.delete();
                 break;
-              case '➡':
+              case 'arrow_right':
                 page == pages.length ? (page = 1) : page++;
                 msg.edit(
                   embed
                     .setDescription(pages[page - 1])
                     .setTitle(pages1[page - 1])
-                    .setFooter(`Page ${page} of ${pages.length}`)
+                    .setFooter(
+                      language.pages.translate({ page, pages: pages.length })
+                    )
                 );
                 break;
-              case '⏩':
+              case 'fast_forward':
                 page = pages.length;
                 msg.edit(
                   embed
                     .setDescription(pages[page - 1])
                     .setTitle(pages1[page - 1])
-                    .setFooter(`Page ${page} of ${pages.length}`)
+                    .setFooter(
+                      language.pages.translate({ page, pages: pages.length })
+                    )
                 );
                 break;
             }

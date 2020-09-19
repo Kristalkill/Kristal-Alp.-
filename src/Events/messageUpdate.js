@@ -161,23 +161,8 @@ module.exports = class extends Event {
 
           await command.run(message, args);
         }
-        if (
-          message.member.options !=
-          (await this.Main.db.User.findOne({
-            guildID: message.guild.id,
-            userID: message.author.id,
-          }))
-        ) {
-          message.member.options.save();
-        }
-        if (
-          message.member.options !=
-          (await this.Main.db.Guild.findOne({
-            guildID: message.guild.id,
-          }))
-        ) {
-          message.guild.settings.save();
-        }
+        message.member.options.save().catch();
+        message.guild.settings.save().catch();
       }
     } catch (error) {
       console.log(error);

@@ -3,7 +3,7 @@ const Command = require('../../Structures/Command');
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ['e'],
+      aliases: ['shel'],
       category: 'development',
       public: false,
     });

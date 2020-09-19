@@ -21,11 +21,13 @@ module.exports = class Util {
     max = 10000,
     promise = false
   ) {
-    validReactions.forEach((e) => {
-      message.react(e);
-    });
+    let validetReactions = [];
+    for (let e of validReactions) {
+      validetReactions.push(e.split(':')[0]);
+      await message.react(e);
+    }
     const filter = (reaction, user) =>
-      validReactions.includes(reaction.emoji.name) && user.id === author.id;
+      validetReactions.includes(reaction.emoji.name) && user.id === author.id;
     if (promise) return message.awaitReactions(filter, { max, time });
     return message.createReactionCollector(filter, { timer: time });
   }
@@ -58,7 +60,6 @@ module.exports = class Util {
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`;
   }
-
   removeDuplicates(arr) {
     return [...new Set(arr)];
   }
@@ -123,21 +124,19 @@ module.exports = class Util {
   }
 
   formatDate(date) {
-    let rdata;
     if (typeof date === 'number') {
-      rdata = new Date(date * 1000);
+      date = new Date(date * 1000);
     } else if (typeof date === 'string') {
-      rdata = new Date(date);
+      date = new Date(date);
     } else if (Array.isArray(date)) {
-      rdata = new Date(date[2], date[1], date[0]);
+      date = new Date(date[2], date[1], date[0]);
     }
-    return rdata.toLocaleString('ru', {
+    return date.toLocaleString('ru', {
       day: '2-digit',
       month: '2-digit',
       year: '2-digit',
     });
   }
-
   managePerms(message, needPerms, addMore = false) {
     if (Array.isArray(needPerms)) {
       const need = [];

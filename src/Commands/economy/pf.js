@@ -98,13 +98,13 @@ module.exports = class extends Command {
         let reputationtext;
         switch (true) {
           case Data.rep <= -30:
-            reputationtext += language.pf.reputation.satan;
+            reputationtext = language.pf.reputation.satan;
             break;
           case Data.rep >= -10 && Data.rep <= -5:
-            reputationtext += language.pf.reputation.devil;
+            reputationtext = language.pf.reputation.devil;
             break;
-          case Data.rep >= -4 && Data.rep <= 0:
-            reputationtext += language.pf.reputation.hypocrite;
+          case Data.rep >= -4 && Data.rep < 0:
+            reputationtext = language.pf.reputation.hypocrite;
             break;
           case Data.rep >= 0 && Data.rep <= 2:
             reputationtext = language.pf.reputation.neutral;
@@ -188,29 +188,30 @@ module.exports = class extends Command {
             )
           )
           .then(async (msg) => {
-            await msg.react('⬅');
-            await msg.react('⏹');
-            await msg.react('➡');
-            const filter = (reaction, user) =>
-              ['⬅', '⏹', '➡'].includes(reaction.emoji.name) &&
-              user.id === message.author.id;
-            const collector = msg.createReactionCollector(filter, {
-              timer: 6000,
-            });
-            collector.on('collect', (reaction) => {
+            const reacted = await this.Main.utils.promptMessage(
+              msg,
+              message.author,
+              60000,
+              [
+                'arrow_left:756545499586101288',
+                'smart_button:756545499460272311',
+                'arrow_right:756545499393294368',
+              ]
+            );
+            reacted.on('collect', (reaction) => {
               switch (reaction.emoji.name) {
-                case '⬅':
-                  page == 1 ? (page = pages.length) : page--;
+                case 'rewind':
+                  page = 1;
                   msg.edit(
                     pages[page - 1].setFooter(
                       language.pages.translate({ page, pages: pages.length })
                     )
                   );
                   break;
-                case '⏹':
+                case 'smart_button':
                   msg.delete();
                   break;
-                case '➡':
+                case 'arrow_right':
                   page == pages.length ? (page = 1) : page++;
                   msg.edit(
                     pages[page - 1].setFooter(
