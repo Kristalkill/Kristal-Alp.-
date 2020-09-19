@@ -13,6 +13,14 @@ module.exports = class extends Command {
 
   async run(message, args) {
     try {
+      const emojis = {
+        economy: '<a:Coin:756933210864353471>',
+        fun: '<a:Tada:756936421763448935>',
+        info: ':bookmark_tabs:',
+        moder: '<a:Judge_hammer:756940860616081569>',
+        music: '<a:Music_Note:756941238405562370>',
+        settings: '<a:Gears:756941869325352962>',
+      };
       const language = require(`../../languages/${
         message.guild.settings.Moderation.language || 'en'
       }.json`);
@@ -28,7 +36,7 @@ module.exports = class extends Command {
         fs.readdirSync(`src/Commands/`)
           .filter((module) => module != 'development')
           .forEach((module) => {
-            pages1.push(module.capitalize());
+            pages1.push(`≫ ${emojis[module]} | ${module.capitalize()} ≪`);
             if (
               this.Main.commands.filter((cmd) => cmd.category == module).size >=
               1
@@ -38,9 +46,9 @@ module.exports = class extends Command {
                   .filter((cmd) => cmd.category == module)
                   .map(
                     (cmd) =>
-                      `\`${message.guild.settings.Moderation.prefix}${
+                      `**\`${message.guild.settings.Moderation.prefix}${
                         cmd.name
-                      }\` - ${
+                      }\`** - ${
                         language[cmd.name].command.description ||
                         language.undefined
                       }`
