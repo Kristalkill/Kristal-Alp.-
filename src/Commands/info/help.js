@@ -19,7 +19,7 @@ module.exports = class extends Command {
         info: ':bookmark_tabs:',
         moder: '<a:Judge_hammer:756940860616081569>',
         music: '<a:Music_Note:756941238405562370>',
-        setting: '<a:Gears:756941869325352962>',
+        setting: '<a:Gears:757211002826784841>',
       };
       const language = require(`../../languages/${
         message.guild.settings.Moderation.language || 'en'

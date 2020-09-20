@@ -1,449 +1,449 @@
 {
-  "pages": "Страница %page% из %pages%",
-  "bot": "**Error: Боты не люди**",
-  "nomember": "Пользователь не найден. Укажите его, упоменув его.",
-  "nomoney": "У вас недостаточно средств!",
-  "noData": "Этого пользователя нету в базе-данных.!",
-  "noargs": "Укажите параметры!",
-  "noarg": "Укажите %param%!",
-  "noperms": "У вас нету права `%perms%`",
-  "undefined": "Неизвестно",
+  "pages": "Page %page% of %pages%",
+  "bot": "**Error: Bots are not humans**",
+  "nomember": "User is not found. Indicate it by mentioning it.",
+  "nomoney": "You do not have enough money!",
+  "noData": "This user is not in the database.!",
+  "noargs": "Provide parameters!",
+  "noarg": "Provide %param%!",
+  "noperms": "You do not have the right `%perms%`",
+  "undefined": "Unknown",
   "ready": {
-    "unmute": "успешно розмучен",
-    "winners": "Победители",
-    "nowinners": "Победителей нету"
+    "unmute": "Successfully unmuted",
+    "winners": "Winners",
+    "nowinners": "There are no winners"
   },
   "message": {
-    "levelup": "Поздравим,**%name%** с повишением уровня: %level%",
-    "perms1": "**К сожелению у меня нету права  `SEND_MESSAGES`\nПрошу выдать мне это право,иначе я будь бесполезен**",
-    "perms2": "**К сожелению у вас недостаточно прав:  `%need%`\nЯ не могу исполнить вашу команду.**",
-    "perms3": "**К сожелению у бота недостаточно прав:  `%need%`\nЯ не могу исполнить вашу команду.**",
-    "param1": "Подождите %time% прежде чем использывть снова",
-    "param2": "**Префикс бота:**",
-    "param3": "Использовать ету команду можно лишь в каналах с меткой NSFW"
+    "levelup": "Congratulations **%name% ** on leveling up:%level%",
+    "perms1": "** Unfortunately I do not have the right to `SEND MESSAGES`\nPlease give me this right, otherwise I'll be useless **",
+    "perms2": "** Sorry, you don't have enough rights: `%need%`\nI cannot obey your command. **",
+    "perms3": "** Sorry, bot don't have enough rights: `%need%`\nI cannot obey your command. **",
+    "param1": "Wait %time% before using again",
+    "param2": "** Bot prefix: **",
+    "param3": "This command can only be used on channels with a NSFW tag"
   },
   "block": {
     "command": {
-      "usage": "block <Пользыватель/ID> [Причина])",
-      "description": "Дает бонус каждые 24 часа"
+      "usage": "block <User/ID> [Reason]",
+      "description": "Gives a bonus every 24 hours"
     },
     "params": {
-      "param1": "Неизвестной",
-      "param2": "Укажите пользователя которого вы хотите заблокировать!",
-      "param3": "%member% уже был заблокирован по причине %reason%",
-      "param4": "%member% был успешно заблокирован по причине **%reason%**"
+      "param1": "Unknown",
+      "param2": "Provide the user you want to block!",
+      "param3": "%member% has already been blocked for %reason%",
+      "param4": "%member% was successfully blocked for **%reason% **"
     }
   },
   "add": {
     "command": {
-      "usage": "add <Пользыватель/ID> <Money/Xp/Level/Rep> <к-лв>",
-      "description": "Добавить Money/Xp/Level/Rep пользывателю"
+      "usage": "add <User / ID> <Money / Xp / Level / Rep> <amount>",
+      "description": "Add Money / Xp / Level / Rep to user"
     },
     "params": {
-      "param1": "Вы успешно поставили %arg1% пользывателю:**%name%**  в количестве %arg2%",
-      "param2": "Укажите что вы хотите поставить!",
-      "param3": "Укажите кол-во которое хотите поставить не меньше 1 и не больше 10М"
+      "param1": "You have successfully delivered %arg1% to the user: **%name% ** in the amount of %arg2%",
+      "param2": "Indicate what you want to deliver!",
+      "param3": "Specify the amount you want to bet at least 1 and no more than 10M"
     }
   },
   "bonus": {
     "command": {
       "usage": "bonus",
-      "description": "Дает бонус каждые 24 часа"
+      "description": "Gives a bonus every 24 hours"
     },
     "params": {
-      "param1": "Вы уже брали сегодня свой бонус. Приходите через %time%",
-      "param2": "Вы забрали ваш сегодняшний бонус в розмере `%bonus%` $"
+      "param1": "You have already taken your bonus today. Come in %time%",
+      "param2": "You have taken away your today's bonus `%bonus%` $"
     }
   },
   "lb": {
     "command": {
       "usage": "lb <Money/Xp/Level/Rep>",
-      "description": "Покажет таблицу лидеров по определенному параметру"
+      "description": "Show leader-board for a specific parameter"
     },
     "params": {
-      "param1": "Введите то что вы хотите посмотреть!",
-      "param2": "К сожелению таблица данного сервера пуста.",
-      "param3": "Неизвестно"
+      "param1": "Enter what you want to watch!",
+      "param2": "Unfortunately the table for this server is empty.",
+      "param3": "Unknown"
     }
   },
   "pay": {
     "command": {
-      "usage": "pay <Пользыватель/ID> <к-л>",
-      "description": "Команда позволит вам передать деньги другому юзеру"
+      "usage": "pay <User / ID> <amount>",
+      "description": "The team will allow you to transfer money to another user"
     },
     "params": {
-      "param1": "Пользователь не был найден.",
-      "param2": "Укажите количество монет которых хотите отдать.",
-      "param3": "Нельзя передать такое количество монет.",
-      "param4": "Укажите корректное значение.",
-      "param5": "К сожелению **%member%** нету в базе-данных.",
-      "param6": "У вас нету такого количества монет.",
-      "param7": "Вы не можете передать монеты самому себе!",
-      "param8": "Боты не люди.",
-      "param9": "**%author%** успешно передал **%member%** монетки в количестве %args1%"
+      "param1": "That user can't be found.",
+      "param2": "Indicate the number of coins you want to give away.",
+      "param3": "You cannot transfer so many coins.",
+      "param4": "Please enter a valid value.",
+      "param5": "Unfortunately **%member%** is not present in the database.",
+      "param6": "You don't have that many coins.",
+      "param7": "You cannot transfer money to yourself!",
+      "param8": "Bots are not humans.",
+      "param9": "**%author% ** successfully transferred **%member% ** coins of %args1%"
     }
   },
   "pf": {
     "command": {
-      "usage": "pf [Пользыватель/ID]",
-      "description": "Покажет профиль"
+      "usage": "pf [User / ID]",
+      "description": "View Profile"
     },
     "params": {},
     "devices": {
-      "pc": "Компьютер",
-      "web": "Сайт",
-      "mobile": "Смартфон"
+      "pc": "Computer",
+      "web": "Website",
+      "mobile": "Smartphone"
     },
     "type": {
-      "play": "**Играет в** ",
-      "stream": "**Стримит** ",
-      "listen": "**Слушает** ",
-      "looks": "**Смотрит** ",
-      "null": "Нету"
+      "play": "**Play in** ",
+      "stream": "**Streaming** ",
+      "listen": "**Listens** ",
+      "looks": "**Looks** ",
+      "null": "None"
     },
     "reputation": {
-      "satan": "Сатана",
-      "devil": "Чорт",
-      "hypocrite": "Лицемер",
-      "neutral": "Нейтральная",
-      "kind": "Добрый человек",
-      "servant": "Слуга Народа",
-      "angel": "Ангел"
+      "satan": "Satan",
+      "devil": "Devil",
+      "hypocrite": "Hypocrites",
+      "neutral": "Neutral",
+      "kind": "Kind person",
+      "servant": "Servant of the People",
+      "angel": "Angel"
     },
     "embed": {
-      "about": ">>> **О пользователе**",
-      "about1": ">>> **Статус**: %activity%\n**Значки:** %ftext%\n**Устройство:** %statuses% %devicesText%\n**Акаунт создан**: %createdAt%\n**Присоединился**: %joinedAt%",
-      "account": ">>> **Акаунт**",
-      "account1": ">>> **💰│Баланс**:  %money%\n**🔰│Уровень**: %level%  **ОПЫТ:**  (%xp%)  **Осталось:**  %leftxp% XP\n**🚩│Варны**:  %warn%\n**:thumbsup_tone3:│Репутация:** %reputation%\n**💑│Партнёр**:%partner%",
-      "achievements": "Достижения",
-      "roles": "Роли"
+      "about": ">>> **About user**",
+      "about1": ">>> ** Status **:%activity%\n** Icons: **%ftext%\n** Device: **%statuses% %devicesText%\n** Account created **: %createdAt%\n** Joined **:%joinedAt%",
+      "account": ">>> **Account**",
+      "account1": ">>> ** 💰│Balance **:%money%\n** 🔰│Level **: %level% ** XP: ** (%xp%) ** Remaining: **%leftxp% XP\n** 🚩│Warns**: %warn%\n**:thumbsup_tone3: │Reputation: **%reputation%\n** 💑│Partner **: %partner%",
+      "achievements": "Achievements",
+      "roles": "Roles"
     }
   },
   "rep": {
     "command": {
-      "usage": "rep [+/-] <Пользыватель/ID>",
-      "description": "Добавить/отнять репутацию"
+      "usage": "rep [+/-] <User / ID>",
+      "description": "Add / subtract reputation"
     },
     "params": {
-      "param1": "**Самому себе низя :)**",
-      "up": "**Репутация была понижена!**",
-      "down": "**Репутация была повышена!**",
-      "have": "%name% имеет %rep% репутаций"
+      "param1": "** You can't do it yourself :) **",
+      "up": "** Reputation has been downgraded! **",
+      "down": "** Reputation has been increased! **",
+      "have": "%name% has %rep% reputations"
     }
   },
   "rps": {
     "command": {
-      "usage": "rps <Ставка>",
-      "description": "Камень,Ножницы,Бумага"
+      "usage": "rps <Bet>",
+      "description": "Rock, Paper, Scissors"
     },
     "params": {
-      "minmalbet": "Минимальная ставка `1$`",
-      "nohavemoney": "Вам не хватает денег",
-      "emoji": "Нажмите на емодзи!",
-      "win": "Вы выйграли",
-      "wintext": "Емодзи:%emojis%\nВыйграли денег %win%",
-      "draw": "Ничья",
-      "dreawtext": "Емодзи:%emojis%",
-      "lose": "Вы проиграли",
-      "losetext": "Емодзи:%emojis%\nПроиграли денег %lose%"
+      "minmalbet": "Minimal bet `1$`",
+      "nohavemoney": "You don't have enough money!",
+      "emoji": "Click on emoji!",
+      "win": "You won! ",
+      "wintext": "Emoji: %emojis%\nYou won **%win% $ **",
+      "draw": "Draw",
+      "dreawtext": "Emoji: %emojis%",
+      "lose": "You lose",
+      "losetext": "Emoji: %emojis%\nYou lose **%lose% $ **"
     }
   },
   "set": {
     "command": {
-      "usage": "set <Пользыватель/ID> <Money/Xp/Level/Rep> <к-лв>",
-      "description": "Поставить Money/Xp/Level/Rep пользывателю"
+      "usage": "set <User / ID> <Money / Xp / Level / Rep> <quantity>",
+      "description": "Set Money / Xp / Level / Rep to user"
     },
     "params": {
-      "param1": "Вы успешно поставили %arg1% пользывателю:**%name%**  в количестве %arg2%",
-      "param2": "Укажите что вы хотите поставить!",
-      "param3": "Укажите кол-во которое хотите поставить не меньше 1 и не больше 10М"
+      "param1": "You have successfully delivered %arg1% to the user: **%name% ** in the amount of %arg2%",
+      "param2": "Indicate what you want to deliver!",
+      "param3": "Specify the quantity you want to bet at least 1 and no more than 10M"
     }
   },
   "shop": {
     "command": {
-      "usage": "shop [Buy/Add/Remove] [Role]",
-      "description": "Магазин ролей"
+      "usage": "shop [Buy / Add / Remove] [Role]",
+      "description": "Role Store"
     },
     "params": {
-      "param1": "Роль уже есть в магазине",
-      "param2": "Роль успешно добавлена в магазин",
-      "param3": "Минимальная цена 1$",
-      "param4": "Роль успешно удалена из магазина",
-      "param5": "Роли нету в магазине",
-      "param6": "У вас уже есть данная роль",
-      "param7": "Роль успешно добавлена вам!",
-      "param8": "Данной роли нету в магазине",
-      "param9": "Магазин",
-      "param10": "Пусто",
-      "param11": "Укажите роль"
+      "param1": "The role is already in the store",
+      "param2": "The role was successfully added to the store",
+      "param3": "Minimum price 1$",
+      "param4": "Role successfully removed from the store",
+      "param5": "Roles are not in the store",
+      "param6": "You have this role",
+      "param7": "Role successfully added you!",
+      "param8": "This role is not available in the store",
+      "param9": "Store",
+      "param10": "None",
+      "param11": "Provide role"
     }
   },
   "avatar": {
     "command": {
-      "usage": "avatar [Пользыватель/ID]",
-      "description": "Показать аватар"
+      "usage": "avatar [User/ID]",
+      "description": "Show Avatar"
     },
     "params": {
-      "param1": "Аватар"
+      "param1": "Avatar"
     }
   },
   "cat": {
     "command": {
       "usage": "cat",
-      "description": "Показать рандомную картинку кота!"
+      "description": "Show a random picture of a cat!"
     }
   },
   "fox": {
     "command": {
       "usage": "fox",
-      "description": "Показать рандомную картинку лисицы!"
+      "description": "Show a random picture of a fox!"
     }
   },
   "giveaway": {
     "command": {
-      "usage": "giveaway <add/Delete/End> <Времмя/ID сообщения с розыгрышем> <кл-победителей> <приз>",
-      "description": "Позволяет создать/удалить/закончить розыгрыш"
+      "usage": "giveaway <add/Delete/End> <Time/ID of the message with the drawing> <winners> <prize>",
+      "description": "Allows to create / delete / end a giveaway"
     },
     "params": {
-      "param1": "Приведите аргумент: <add/delete/end>!",
-      "param2": "Укажите время розыгрыша!",
-      "param3": "Укажите к-л победителей!",
-      "param4": "Розыгрыш",
-      "param5": "Укажите приз!",
-      "param6": "**%Prize%**\n\nВремя розыгрыша %Duration%\nПобедителей:%Winners%",
-      "param7": "Розыгрыш окончен!",
-      "param8": "Победители",
-      "param9": "Нету победителей",
-      "param10": "**Данного Giveaway нету в БД**",
-      "param11": "**Giveaway под номером %id% успешно удален**"
+      "param1": "Give an argument: <add / delete / end>!",
+      "param2": "Enter the giveaway time!",
+      "param3": "Enter the number of winners!",
+      "param4": "Giveaway",
+      "param5": "Provide prize!",
+      "param6": "**%Prize% **\n\nDraw time %Duration%\nWinners: %Winners%",
+      "param7": "The giveaway is over!",
+      "param8": "Winners",
+      "param9": "No winner",
+      "param10": "** This giveaway is not in the database **",
+      "param11": "** Giveaway with number %id% successfully deleted **"
     }
   },
   "kiss": {
     "command": {
-      "usage": "kiss <Пользыватель/ID>",
-      "description": "Поцеловать пользывателя"
+      "usage": "kiss <User / ID>",
+      "description": "Kiss the user"
     },
-    "param": "%member1% поцеловал %member2%"
+    "param": "%member1% kissed %member2%"
   },
   "pat": {
     "command": {
-      "usage": "pat [Пользыватель/ID]",
-      "description": "Погладить пользывателя или себя"
+      "usage": "pat [User / ID]",
+      "description": "Pet the user or yourself"
     },
-    "param": "%member1% гладит %member2%"
+    "param": "%member1% pats %member2%"
   },
   "poll": {
     "command": {
-      "usage": "poll <текст>",
-      "description": "Позволяет создать мини голосование"
+      "usage": "poll <text>",
+      "description": "Allows you to create a mini vote"
     },
     "params": {
-      "param1": "ГОЛОСОВАНИЕ",
-      "param2": "Напишите за что голосовать!"
+      "param1": "VOTE",
+      "param2": "Write what to vote for!"
     }
   },
   "reverse": {
     "command": {
-      "usage": "reverse <Текст>",
-      "description": "Позволяет перевернуть текст наоборот"
+      "usage": "reverse <Text>",
+      "description": "Allows you to flip text"
     },
-    "param": "Введите что нужно перевернуть"
+    "param": "Enter what you want to reflect"
   },
   "roll": {
     "command": {
-      "usage": "roll [Минимальное число] [Максимальное число]",
-      "description": "Позволяет \"заролить\" рандомное число"
+      "usage": "roll [Minimal number] [Maximum number]",
+      "description": "Allows to \"make\" a random number"
     },
     "params": {
-      "param1": "Введите числа поменьше",
-      "param2": "Из чисел от `%num1%` до `%num2%`,вам выпало : %random%"
+      "param1": "Please enter smaller numbers",
+      "param2": "For numbers from `%num1%` to `%num2%`, you get: %random%"
     }
   },
   "slap": {
     "command": {
-      "usage": "slap [Пользыватель/ID]",
-      "description": "Позволяет ударить себя или пользывателя"
+      "usage": "slap [User / ID]",
+      "description": "Lets hit yourself or the user"
     },
-    "param": "%member1% ударил %member2%"
+    "param": "%member1% punch %member2%"
   },
   "ss": {
     "command": {
       "usage": "ss <url>",
-      "description": "Позволяет посмотреть сайт через бота"
+      "description": "Allows you to send a screenshot of the site"
     },
     "params": {
-      "param1": "А ссылку забыл :?",
-      "param2": "Скриншот"
+      "param1": "Did you forget the link :?",
+      "param2": "Screenshot"
     }
   },
   "weather": {
     "command": {
-      "usage": "weather <Город>",
-      "description": "Узнать погоду"
+      "usage": "weather <City>",
+      "description": "Find out the weather"
     }
   },
   "botinfo": {
     "command": {
       "usage": "botinfo",
-      "description": "Информация о боте"
+      "description": "BotInfo"
     },
     "params": {}
   },
   "help": {
     "command": {
-      "usage": "help [Команда]",
-      "description": "Позволяет посомтреть список команд или подробнкю информацию о определённой команде"
+      "usage": "help [command]",
+      "description": "Allows you to view a list of commands or detailed information about a command"
     },
-    "param": "NSFW:%nsfw%\nКатегория:%category%\nПсевдонимы:%aliases%\nИспользование:%usage%\nОписание:%description%"
+    "param": "NSFW: %nsfw%\nCategory: %category%\nAliases: %aliases%\nUsage: %usage%\nDescription: %description%"
   },
   "shards": {
     "command": {
       "usage": "shards",
-      "description": "Позволяет посмотреть список Шардов и их параметры"
+      "description": "Allows you to view a list of Shards and their parameters"
     },
-    "param": "Шард: %i%:\nАптайм: %uptime%\nПинг: %ping%ms\nИспользовано памяти: %memory%\nГильдий: %guilds%\nПользователей: %user%\nКаналов: %channels%\nЕмодзи: %emojis%"
+    "param": "Shard: %i%:\nUptime:%uptime%\nPing: %ping% ms\nMemory used: %memory%\nServers: %guilds%\nUsers: %user%\nChannels: %channels%\nEmoji: %emojis%"
   },
   "ban": {
     "command": {
-      "usage": "ban <Пользыватель/ID> [время]",
-      "description": "Позволяет забанить пользывателя"
+      "usage": "ban <User / ID> [time]",
+      "description": "Allows you to ban a user"
     },
     "params": {
-      "param1": "%user% успешно забанен на **%days%** день по причине **%reason%**",
-      "param2": "Я не могу забанить этого учасника"
+      "param1": "%user% successfully banned for **%days% ** day for **%reason% **",
+      "param2": "I can't ban this member"
     }
   },
   "clear": {
     "command": {
-      "usage": "clear <кл-во>",
-      "description": "Позволяет удалить сообщения в этом канале"
+      "usage": "clear <amount>",
+      "description": "Allows you to delete posts in this channel"
     },
     "params": {
-      "param1": "Введите число от 1 до 100",
-      "param2": "Удалено %size% messages"
+      "param1": "Enter a number between 1 and 100",
+      "param2": "%size% messages removed"
     }
   },
   "kick": {
     "command": {
-      "usage": "kick <Пользыватель/ID>",
-      "description": "Позволяет кикнуть пользывателя"
+      "usage": "kick <User / ID>",
+      "description": "Allows you to kick a user"
     },
     "params": {
-      "param1": "%user% успешно кикнут по причине по причине **%reason%**",
-      "param2": "Я не могу кикнуть этого учасника"
+      "param1": "%user% successfully kicked for **%reason% **",
+      "param2": "I can't kick this member"
     }
   },
   "mute": {
     "command": {
-      "usage": "mute <Пользыватель/ID> [время] [причина]",
-      "description": "Позволяет замутить пользывателя навсегда либо на время"
+      "usage": "mute <User / ID> [time] [reason]",
+      "description": "Allows you to muddy the user forever or for a while"
     },
     "params": {
-      "param1": "%member% замучен на %time% по причине %reason%",
-      "param2": "навсегда",
-      "param3": "Укажите время мута",
-      "param4": "%member% ещё замучен на %time%"
+      "param1": "%member% muted by %time% for %reason%",
+      "param2": "Forever",
+      "param3": "Specify mute time",
+      "param4": "%member% still muted by %time%"
     }
   },
   "slowmode": {
     "command": {
-      "usage": "slowmode <Время>",
-      "description": "Позволяет включить медленный режим в текущем канале"
+      "usage": "slowmode <time>",
+      "description": "Allows you to enable slow mode in the current channel"
     },
     "params": {
-      "param1": "Введите время",
-      "param2": "Максимальное время слоумода 6 часов",
-      "param3": "Время медленного режима в %channel% установлен на `%args%`"
+      "param1": "Enter time",
+      "param2": "The maximum slow mode time is 6 hours",
+      "param3": "Slow time in %channel% is set to `%args%`"
     }
   },
   "unmute": {
     "command": {
-      "usage": "unmute <Пользыватель/ID>",
-      "description": "Позволяет розмутить пользывателя"
+      "usage": "unmute <User / ID>",
+      "description": "Allows you to unmute a user"
     },
     "params": {
-      "param1": "розмучен!",
-      "param2": "не замучен!"
+      "param1": "Unmuted!",
+      "param2": "Not muted!"
     }
   },
   "unwarn": {
     "command": {
-      "usage": "warn <Пользыватель/ID> [Причина]",
-      "description": "Позволяет выдать варн пользывателю"
+      "usage": "unwarn <User / ID>",
+      "description": "Allows you to take warn from the user"
     },
     "params": {
-      "param1": "Не офигел, ли часом ?",
-      "param2": "У данного пользователя и так 0 предупреждений, куда меньше?",
-      "param3": "Модератор: %moder%$\nНарушитель: %member%\n\nПредупреждений: %warns%"
+      "param1": "Didn't you go nuts, was it an hour?",
+      "param2": "This user already has 0 warnings, much less?",
+      "param3": "Moderator: %moder% $\nIntruder: %member%\n\nWarnings: %warns%"
     }
   },
   "warn": {
     "command": {
-      "usage": "unwarn <Пользыватель/ID>",
-      "description": "Позволяет забрать варн пользывателю"
+      "usage": "warn <User/ID> [Reason]",
+      "description": "Allows to issue warn to the user"
     },
     "params": {
-      "param1": "Ты в курсе что себя заварнить хочешь...",
-      "param2": "Модератор: %moder%$\nНарушитель: %member%\nПричина: %reason%\nПредупреждений: %warns%"
+      "param1": "You know that you want to brew yourself...",
+      "param2": "Moderator: %moder%\nIntruder: %member%\nReason: %reason%\nWarnings: %warns%"
     }
   },
   "leave": {
     "command": {
       "usage": "leave",
-      "description": "Бот престанет играть музыку"
+      "description": "Bot stops playing music"
     },
     "param": ""
   },
   "pause": {
     "command": {
       "usage": "pause",
-      "description": "Поставить на паузу музыку"
+      "description": "Pause music"
     },
     "param": ""
   },
   "play": {
     "command": {
-      "usage": "play <URL/Название>",
-      "description": "Позволяет играть песню :)"
+      "usage": "play <URL/Name>",
+      "description": "Lets play the song :)"
     },
     "param": ""
   },
   "resume": {
     "command": {
       "usage": "resume",
-      "description": "Снять с паузы музыку"
+      "description": "Unpause music"
     },
     "param": ""
   },
   "queue": {
     "command": {
       "usage": "queue",
-      "description": "Посмотреть очередь"
+      "description": "View queue"
     },
     "param": ""
   },
   "skip": {
     "command": {
       "usage": "skip",
-      "description": "Пропустить трек"
+      "description": "Skip song"
     },
     "param": ""
   },
   "prefix": {
     "command": {
-      "usage": "prefix <новый префикс>",
-      "description": "Позволяет поставить префикс"
+      "usage": "prefix <new prefix>",
+      "description": "Allows you to prefix"
     },
     "params": {
-      "param1": "Префикс успешно изменен",
-      "param2": "Префикс успешно был изменен администратором %member% на `%args%`",
-      "param3": "Укажите новый префикс"
+      "param1": "Prefix changed successfully",
+      "param2": "The prefix was successfully changed by the %member% admin to `%args%`",
+      "param3": "Enter a new prefix"
     }
   },
   "setbox": {
     "command": {
       "usage": "setbox <on/off>",
-      "description": "Позволяет настроить боксы"
+      "description": "Allows to customize boxes"
     }
   }
 }
