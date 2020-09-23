@@ -1,5 +1,5 @@
 const fs = require('fs');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const Command = require('../../Structures/Command');
 
 module.exports = class extends Command {
@@ -56,23 +56,27 @@ module.exports = class extends Command {
                   .join(`\n`)}`
               );
           });
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
           .setColor(0xff5500)
           .setDescription(pages[page - 1])
           .setTitle(pages1[page - 1])
           .setFooter(`Page ${page} of ${pages.length}`);
         message.channel.send(embed).then(async (msg) => {
-          const reacted = await this.Main.utils.promptMessage(
+          const reacted = await this.Main.utils.Rcollector(
+            await this.Main.utils.reaction(
+              [
+                'rewind:756545499238236272',
+                'arrow_left:756545499586101288',
+                'smart_button:756545499460272311',
+                'arrow_right:756545499393294368',
+                'fast_forward:756545499539964144',
+              ],
+              msg,
+              true
+            ),
             msg,
             message.author,
-            60000,
-            [
-              'rewind:756545499238236272',
-              'arrow_left:756545499586101288',
-              'smart_button:756545499460272311',
-              'arrow_right:756545499393294368',
-              'fast_forward:756545499539964144',
-            ]
+            60000
           );
           reacted.on('collect', (reaction) => {
             switch (reaction.emoji.name) {
@@ -132,7 +136,7 @@ module.exports = class extends Command {
           return message.delete();
       } else
         return message.channel.send(
-          new Discord.MessageEmbed().setTitle(command.name).setDescription(
+          new MessageEmbed().setTitle(command.name).setDescription(
             language.help.param.translate({
               nsfw: command.nsfw,
               category: command.category,

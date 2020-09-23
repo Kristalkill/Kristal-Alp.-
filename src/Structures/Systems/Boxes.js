@@ -55,15 +55,14 @@ function randof(...arrs) {
   for (var res = 1; res <= lim; ++res) {
     for (var op of Object.keys(byRes)) {
       if (!(res in byRes[op])) {
-        console.log(`Unable to get ${res} using '${op}'`);
+        console.log(`Низя получить ${res} используя '${op}'`);
         ++missing;
       }
     }
   }
 
   if (missing > 3) {
-    // +1, -100, %100
-    throw new Error('The map is incomlete, consider reworking algorithm');
+    throw new Error('Что-то не так нужно переделать алгоритм');
   }
 })();
 module.exports = class Boxes {

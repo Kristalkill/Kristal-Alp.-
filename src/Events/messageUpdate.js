@@ -161,8 +161,8 @@ module.exports = class extends Event {
 
           await command.run(message, args);
         }
-        message.member.options.save().catch();
-        message.guild.settings.save().catch();
+        message.member.options.save().catch(() => null);
+        message.guild.settings.save().catch(() => null);
       }
     } catch (error) {
       console.log(error);

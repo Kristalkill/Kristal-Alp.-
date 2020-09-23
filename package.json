@@ -1,22 +1,22 @@
 {
   "name": "kristalbot",
-  "version": "0.1.19",
+  "version": "0.2.29",
   "scripts": {
     "start": "node src/Structures/Shards.js"
   },
-  "main": "node src/Structures/Shards.js",
-  "author": "END(KrisralkillPlay)",
+  "main": "src/Structures/Shards.js",
+  "author": "END(KristalkillPlay)",
   "license": "MIT",
   "engines": {
     "node": "12.x"
   },
   "dependencies": {
-    "@lavacord/discord.js": "0.0.7",
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "humanize-duration": "^3.23.1",
     "mongoose": "^5.9.29",
+    "shoukaku": "^1.5.2",
     "weather-js": "^2.0.0"
   },
   "devDependencies": {

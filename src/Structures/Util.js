@@ -12,26 +12,27 @@ module.exports = class Util {
     this.Systems = {};
     this.Systems.Boxes = new Boxes(this);
   }
-
-  async promptMessage(
-    message,
-    author,
-    time,
-    validReactions,
-    max = 10000,
-    promise = false
-  ) {
+  async reaction(validReactions, message, array = false) {
     let validetReactions = [];
     for (let e of validReactions) {
-      validetReactions.push(e.split(':')[0]);
+      if (array == true) {
+        validetReactions.push(e.split(':')[0]);
+      }
       await message.react(e);
     }
+    if (array == true) return validetReactions;
+  }
+  async Rcollector(validetReactions, message, author, time, max, promise) {
     const filter = (reaction, user) =>
       validetReactions.includes(reaction.emoji.name) && user.id === author.id;
-    if (promise) return message.awaitReactions(filter, { max, time });
-    return message.createReactionCollector(filter, { timer: time });
+    if (promise)
+      return message.awaitReactions(filter, {
+        time: time,
+        max: max,
+        errors: promise,
+      });
+    return message.createReactionCollector(filter, { time: time, max: max });
   }
-
   isClass(input) {
     return (
       typeof input === 'function' &&

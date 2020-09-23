@@ -6,12 +6,19 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-    const player = this.Main.music.players.get(message.guild.id);
-    if (!player)
-      return message.reply(
-        'ДА МУЗЛО ЗАКАЖИ,ЧМО ЕБАНОЙ,ГАВНО САБАЧОЕ,ПЁС ВОНЮЧИЙ'
-      );
-    await player.resume();
-    return message.reply('Продолжаем!');
+    const language = require(`../../languages/${
+      message.guild.settings.Moderation.language || 'en'
+    }.json`);
+
+    const dispatcher = this.Main.music.queue.get(message.guild.id);
+    if (!dispatcher) return message.reply(language.nomusic);
+    if (dispatcher.player.paused === false)
+      return message.reply(language.resume.params.param1);
+    await dispatcher.player.setPaused(false);
+    return message.reply(
+      language.resume.params.param2.translate({
+        current: dispatcher.current.info.title,
+      })
+    );
   }
 };

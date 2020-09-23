@@ -5,7 +5,7 @@ module.exports = class extends Command {
     super(...args, {});
   }
 
-  async run(message) {
+  async run(message, args) {
     const language = require(`../../languages/${
       message.guild.settings.Moderation.language || 'en'
     }.json`);
@@ -19,6 +19,18 @@ module.exports = class extends Command {
       message.member.voice.channelID
     )
       return await message.channel.send(language.nomevoice);
-    await dispatcher.player.stopTrack();
+    if (!args[0] || isNaN(args[0]))
+      return await message.channel.send(
+        language.volume.params.param1.translate({
+          volume: dispatcher.player.volume,
+        })
+      );
+    const volume = Number(args[0]);
+    if (volume < 10 || volume > 1000)
+      return await message.channel.send(language.volume.params.param2);
+    await dispatcher.player.setVolume(volume);
+    await message.channel.send(
+      language.volume.params.param3.translate({ volume: volume })
+    );
   }
 };

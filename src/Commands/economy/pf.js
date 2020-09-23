@@ -188,20 +188,24 @@ module.exports = class extends Command {
             )
           )
           .then(async (msg) => {
-            const reacted = await this.Main.utils.promptMessage(
+            const reacted = await this.Main.utils.Rcollector(
+              await this.Main.utils.reaction(
+                [
+                  'arrow_left:756545499586101288',
+                  'smart_button:756545499460272311',
+                  'arrow_right:756545499393294368',
+                ],
+                msg,
+                true
+              ),
               msg,
               message.author,
-              60000,
-              [
-                'arrow_left:756545499586101288',
-                'smart_button:756545499460272311',
-                'arrow_right:756545499393294368',
-              ]
+              60000
             );
             reacted.on('collect', (reaction) => {
               switch (reaction.emoji.name) {
-                case 'rewind':
-                  page = 1;
+                case 'arrow_left':
+                  page == 1 ? (page = pages.length) : page++;
                   msg.edit(
                     pages[page - 1].setFooter(
                       language.pages.translate({ page, pages: pages.length })

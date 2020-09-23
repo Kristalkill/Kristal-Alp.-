@@ -1,8 +1,8 @@
 const { MessageEmbed, Collection, Client } = require('discord.js');
 const Util = require('./Util.js');
-const Music = require('./Music.js');
+const Logger = require('./Logger.js');
+const Music = require('./Systems/Music/Music.js');
 const MongoDB = require('./MongoDB.js');
-
 module.exports = class Main extends Client {
   constructor(options = {}) {
     super({
@@ -25,19 +25,10 @@ module.exports = class Main extends Client {
     this.embeds = {};
     this.embeds.ErrEmbed = new MessageEmbed().setTitle('Error').setColor('RED');
     this.embeds.OKEmbed = new MessageEmbed().setTitle('OK').setColor('RANDOM');
-
+    this.logger = new Logger(this);
     this.db = new MongoDB(this);
-
-    this.music = new Music(this, [
-      {
-        id: '1',
-        host: 'localhost',
-        port: 3000,
-        password: 'enderman',
-      },
-    ]);
+    this.music = new Music(this);
   }
-
   validate(options) {
     if (typeof options !== 'object')
       throw new TypeError('Настройки не обьект.');

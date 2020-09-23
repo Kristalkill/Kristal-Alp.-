@@ -1,5 +1,6 @@
 {
   "pages": "Page %page% of %pages%",
+  "nomusic": "Nothing is playing in this guild.",
   "bot": "**Error: Bots are not humans**",
   "nomember": "User is not found. Indicate it by mentioning it.",
   "nomoney": "You do not have enough money!",
@@ -8,6 +9,8 @@
   "noarg": "Provide %param%!",
   "noperms": "You do not have the right `%perms%`",
   "undefined": "Unknown",
+  "novoice": "You are not in a voice channel",
+  "nomevoice": "You are not in the same voice channel where I am.",
   "ready": {
     "unmute": "Successfully unmuted",
     "winners": "Winners",
@@ -392,42 +395,71 @@
       "usage": "leave",
       "description": "Bot stops playing music"
     },
-    "param": ""
+    "params": {
+      "param1": "You are not in the voice channel",
+      "param2": "You are not in the same voice channel where I am."
+    }
   },
   "pause": {
     "command": {
       "usage": "pause",
       "description": "Pause music"
     },
-    "param": ""
+    "params": {
+      "param1": "The music has already paused",
+      "param2": "Pause"
+    }
   },
   "play": {
     "command": {
       "usage": "play <URL/Name>",
       "description": "Lets play the song :)"
     },
-    "param": ""
-  },
-  "resume": {
-    "command": {
-      "usage": "resume",
-      "description": "Unpause music"
-    },
-    "param": ""
+    "params": {
+      "param1": "You did not specify a link or search mode",
+      "param2": "I didn't find anything in the query you gave me",
+      "param3": "Added the playlist **%playlist%** in queue!",
+      "param4": "Added the track **%track%** in queue!",
+      "param5": "Tracks on request %query%",
+      "param6": "Time is over"
+    }
   },
   "queue": {
     "command": {
       "usage": "queue",
       "description": "View queue"
     },
-    "param": ""
+    "params": {
+      "param1": "Queue",
+      "param2": "current"
+    }
+  },
+  "resume": {
+    "command": {
+      "usage": "resume",
+      "description": "Unpause music"
+    },
+    "params": {
+      "param1": "Music is not paused",
+      "param2": "I keep playing %current%! "
+    }
   },
   "skip": {
     "command": {
       "usage": "skip",
       "description": "Skip song"
+    }
+  },
+  "volume": {
+    "command": {
+      "usage": "volume <volume>",
+      "description": "Change volume"
     },
-    "param": ""
+    "params": {
+      "param1": "The playback volume is currently at **%volume% %**",
+      "param2": "I am not as dumb as you think =3=",
+      "param3": "The playback volume is now set to **%volume%%**"
+    }
   },
   "prefix": {
     "command": {

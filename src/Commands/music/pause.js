@@ -6,10 +6,22 @@ module.exports = class extends Command {
   }
 
   async run(message) {
-    const player = this.Main.music.players.get(message.guild.id);
-    if (!player)
-      return message.reply('Музло закажи сначала,даун как ты родился блять?');
-    await player.pause(true);
-    return message.reply('Жду вас пидарасы');
+    const language = require(`../../languages/${
+      message.guild.settings.Moderation.language || 'en'
+    }.json`);
+
+    const dispatcher = this.Main.music.queue.get(message.guild.id);
+    if (!dispatcher)
+      return await message.channel.send(
+        this.Main.embeds.ErrEmbed.setDescription(language.nomusic)
+      );
+    if (dispatcher.player.paused === true)
+      return await message.channel.send(
+        this.Main.embeds.ErrEmbed.setDescription(language.pause.param1)
+      );
+    await dispatcher.player.setPaused(true);
+    return await message.channel.send(
+      this.Main.embeds.ErrEmbed.setDescription(language.pause.param2)
+    );
   }
 };
