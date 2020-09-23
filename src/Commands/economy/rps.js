@@ -47,17 +47,7 @@ module.exports = class extends Command {
       const reacted =
         (await this.Main.utils
           .Rcollector(
-            await this.Main.utils.reaction(
-              [
-                'rewind:756545499238236272',
-                'arrow_left:756545499586101288',
-                'smart_button:756545499460272311',
-                'arrow_right:756545499393294368',
-                'fast_forward:756545499539964144',
-              ],
-              m,
-              true
-            ),
+            await this.Main.utils.reaction(chooseArr, m, true),
             m,
             message.author,
             60000,
