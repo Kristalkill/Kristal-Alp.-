@@ -46,7 +46,24 @@ module.exports = class extends Command {
       const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
       const reacted =
         (await this.Main.utils
-          .promptMessage(m, message.author, 60000, chooseArr, 1, true)
+          .Rcollector(
+            await this.Main.utils.reaction(
+              [
+                'rewind:756545499238236272',
+                'arrow_left:756545499586101288',
+                'smart_button:756545499460272311',
+                'arrow_right:756545499393294368',
+                'fast_forward:756545499539964144',
+              ],
+              m,
+              true
+            ),
+            m,
+            message.author,
+            60000,
+            1,
+            []
+          )
           .then(
             (collected) => collected.first() && collected.first().emoji.name
           )) || botChoice;
