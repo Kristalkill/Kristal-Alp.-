@@ -11,24 +11,11 @@ module.exports = class extends Event {
   async run() {
     console.log(`[✅Bot] ${this.Main.user.tag} Запущен!`);
     const GiveAway = new Discord.MessageEmbed().setTitle('🎉**Giveaway** 🎉');
-    setInterval(() => {
-      try {
-        this.Main.user.setPresence({
-          game: {
-            name: 'k!help',
-            status: 'online',
-            type: 'STREAMING',
-            url: 'https://www.youtube.com/channel/UC-r7FefpKluK-rlwaWlQFOw',
-          },
-        });
-        this.Main.user.setPresence({
-          activity: { name: 'k!help' },
-          status: 'online',
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }, 15000);
+
+    this.Main.user.setPresence({
+      activity: { name: 'k!help' },
+      status: 'online',
+    });
     setInterval(async () => {
       try {
         const res = await this.Main.db.Mute.find();
