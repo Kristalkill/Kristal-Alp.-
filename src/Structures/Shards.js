@@ -38,5 +38,5 @@ setTimeout(() => {
   manager.on('shardCreate', (shard) =>
     console.log(`[Shard Loading]: Шард по айди: #${shard.id} запускается...`)
   );
-  manager.spawn(2);
+  manager.spawn(1);
 }, 15000);
