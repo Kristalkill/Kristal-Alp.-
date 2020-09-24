@@ -9,6 +9,7 @@ module.exports = class MongoDB {
         guildID: String,
         ownerID: String,
         Moderation: {
+          auto: { type: Boolean, default: false },
           prefix: { type: String, default: 'k!' },
           muterole: { type: String, default: '0' },
           language: { type: String, default: 'en' },

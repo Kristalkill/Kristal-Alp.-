@@ -1,39 +1,30 @@
 const { MessageEmbed } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Event');
-const inviteRegex = () => {
-  const protocol = '(?:(?:http|https)://)?';
-  const subdomain = '(?:www.)?';
-  const domain = '(?:disco|discord|discordapp).(?:com|gg|io|li|me|net|org)';
-  const path = '(?:/(?:invite))?/([a-z0-9-.]+)';
-
-  const regex = `(${protocol}${subdomain}(${domain}${path}))`;
-
-  return new RegExp(regex, 'i');
-};
-
 async function inviteCheck(Main, message) {
   if (
+    res.Moderation.auto === true &&
     !message.member.hasPermission('ADMINISTRATOR') &&
-    message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES')
+    message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES') &&
+    new RegExp(
+      `((?:(?:http|https)://)?(?:www.)?((?:disco|discord|discordapp).(?:com|gg|io|li|me|net|org)(?:/(?:invite))?/([a-z0-9-.]+)))`,
+      'i'
+    ).test(message.content)
   ) {
-    const check = inviteRegex().test(message.content);
-    if (check) {
-      const fetchInvite = await Main.fetchInvite(message.content).catch(null);
-      if (fetchInvite.guild.id === message.guild.id) return false;
+    const fetchInvite = await Main.fetchInvite(message.content).catch(null);
 
-      if (message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES')) {
+    if (fetchInvite && fetchInvite.guild.id !== message.guild.id) {
+      if (isBootManage) {
         await message.delete().catch(null);
       }
 
       message.channel.send(
         `${fetchInvite.guild.name}(\`${fetchInvite.guild.id}\`) ОТ ${message.author}(\`${message.author.id}\`)`
       );
+
       return true;
     }
-    return false;
   }
-  return false;
 }
 module.exports = class extends Event {
   async run(message) {
@@ -99,7 +90,6 @@ module.exports = class extends Event {
         data.xp += res.Economy.xp;
         data.money += res.Economy.money;
         data.massages++;
-
         this.Main.utils.addAchievement(data.level >= 5, '3', data, message);
         this.Main.utils.addAchievement(data.money >= 1000, '2', data, message);
 
