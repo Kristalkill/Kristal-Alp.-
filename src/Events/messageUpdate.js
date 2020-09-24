@@ -1,8 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Event');
-
-async function inviteCheck(Main, message) {
+async function inviteCheck(Main, message, res) {
   if (
     res.Moderation.auto === true &&
     !message.member.hasPermission('ADMINISTRATOR') &&
@@ -32,7 +31,7 @@ module.exports = class extends Event {
     try {
       if (!message) return;
       if (message.channel.type === 'dm' || message.author.bot) return;
-      if (await inviteCheck(this.Main, message)) return;
+      if (await inviteCheck(this.Main, message, res)) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
       });
