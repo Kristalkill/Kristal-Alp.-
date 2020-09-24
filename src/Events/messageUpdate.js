@@ -31,6 +31,9 @@ module.exports = class extends Event {
     try {
       if (!message) return;
       if (message.channel.type === 'dm' || message.author.bot) return;
+      let res = await this.Main.db.Guild.findOne({
+        guildID: message.guild.id,
+      });
       if (await inviteCheck(this.Main, message, res)) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
@@ -38,9 +41,6 @@ module.exports = class extends Event {
       let data = await this.Main.db.User.findOne({
         guildID: message.guild.id,
         userID: message.author.id,
-      });
-      let res = await this.Main.db.Guild.findOne({
-        guildID: message.guild.id,
       });
 
       if (!data)
