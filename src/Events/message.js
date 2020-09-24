@@ -1,37 +1,70 @@
 const { MessageEmbed } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Event');
+const inviteRegex = () => {
+  const protocol = '(?:(?:http|https)://)?';
+  const subdomain = '(?:www.)?';
+  const domain = '(?:disco|discord|discordapp).(?:com|gg|io|li|me|net|org)';
+  const path = '(?:/(?:invite))?/([a-z0-9-.]+)';
 
+  const regex = `(${protocol}${subdomain}(${domain}${path}))`;
+
+  return new RegExp(regex, 'i');
+};
+
+async function inviteCheck(Main, message) {
+  if (
+    !message.member.hasPermission('ADMINISTRATOR') &&
+    message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES')
+  ) {
+    const check = inviteRegex().test(message.content);
+    if (check) {
+      const fetchInvite = await Main.fetchInvite(message.content).catch(null);
+      if (fetchInvite.guild.id === message.guild.id) return false;
+
+      if (message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES')) {
+        await message.delete().catch(null);
+      }
+
+      message.channel.send(
+        `${fetchInvite.guild.name}(\`${fetchInvite.guild.id}\`) ОТ ${message.author}(\`${message.author.id}\`)`
+      );
+      return true;
+    }
+    return false;
+  }
+  return false;
+}
 module.exports = class extends Event {
   async run(message) {
     try {
       if (!message) return;
       if (message.channel.type === 'dm' || message.author.bot) return;
+      if (await inviteCheck(this.Main, message)) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
       });
-      message.member.options = await this.Main.db.User.findOne({
+      let data = await this.Main.db.User.findOne({
         guildID: message.guild.id,
         userID: message.author.id,
       });
-      message.guild.settings = await this.Main.db.Guild.findOne({
+      let res = await this.Main.db.Guild.findOne({
         guildID: message.guild.id,
       });
 
-      if (!message.member.options)
+      if (!data)
         await this.Main.db.User.create({
           guildID: message.guild.id,
           userID: message.author.id,
         });
-      if (!message.guild.settings)
+      if (!res)
         await this.Main.db.Guild.create({
           guildID: message.guild.id,
           ownerID: message.guild.ownerid,
         });
-
-      if (message.member.options && message.guild.settings) {
+      if (data && res) {
         const language = require(`./../languages/${
-          message.guild.settings.Moderation.language || 'en'
+          res.Moderation.language || 'en'
         }.json`);
         if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
           return message.guild.owner
@@ -41,22 +74,19 @@ module.exports = class extends Event {
             .catch();
         if (
           !this.Main.db.boxescoldown.has(message.guild.id) &&
-          message.guild.settings.options.boxes === true
+          res.options.boxes === true
         ) {
           await this.Main.utils.Systems.Boxes.spawnrandombox(message);
         }
         const prefixes = [
           '<@704604456313946182>',
           '<@!704604456313946182>',
-          `${message.guild.settings.Moderation.prefix}`,
+          `${res.Moderation.prefix}`,
         ];
-        let prefix = false;
-        for (const thisPrefix of prefixes) {
-          if (
-            message.content.toLowerCase().startsWith(thisPrefix.toLowerCase())
-          )
-            prefix = thisPrefix;
-        }
+        const prefix =
+          prefixes.find((prefix) =>
+            message.content.toLowerCase().startsWith(prefix.toLowerCase())
+          ) || '';
         const [cmd, ...args] = message.content
           .slice(prefix.length)
           .trim()
@@ -66,44 +96,31 @@ module.exports = class extends Event {
 
         if (BlockY && command) return message.react('733299144311177257');
 
-        message.member.options.xp += message.guild.settings.Economy.xp;
-        message.member.options.money += message.guild.settings.Economy.money;
-        message.member.options.massages++;
+        data.xp += res.Economy.xp;
+        data.money += res.Economy.money;
+        data.massages++;
 
-        this.Main.utils.addAchievement(
-          message.member.options.level >= 5,
-          '3',
-          message.member.options,
-          message
-        );
-        this.Main.utils.addAchievement(
-          message.member.options.money >= 1000,
-          '2',
-          message.member.options,
-          message
-        );
+        this.Main.utils.addAchievement(data.level >= 5, '3', data, message);
+        this.Main.utils.addAchievement(data.money >= 1000, '2', data, message);
 
-        if (
-          message.member.options.xp >=
-          message.guild.settings.Economy.upXP * message.member.options.level
-        ) {
-          message.member.options.xp -=
-            message.guild.settings.Economy.upXP * message.member.options.level;
-          message.member.options.level += 1;
+        if (data.xp >= res.Economy.upXP * data.level) {
+          data.xp -= res.Economy.upXP * data.level;
+          data.level += 1;
           message.channel.send(
             new MessageEmbed().setDescription(
               language.message.levelup.translate({
                 name: message.author.username,
-                level: message.member.options.level,
+                level: data.level,
               })
             )
           );
         }
-
+        message.member.options = data;
+        message.guild.settings = res;
         if (message.mentions.users.has('704604456313946182') && !command) {
           message.channel.send(
             new MessageEmbed().setTitle(
-              `${language.message.param2} ${message.guild.settings.Moderation.prefix}`
+              `${language.message.param2} ${res.Moderation.prefix}`
             )
           );
         } else if (prefix && command) {
@@ -114,7 +131,7 @@ module.exports = class extends Event {
                 language.message.param1.translate({
                   time: humanizeDuration(cooldown - Date.now(), {
                     round: true,
-                    language: message.guild.settings.Moderation.language,
+                    language: res.Moderation.language,
                   }),
                 })
               )
@@ -158,7 +175,6 @@ module.exports = class extends Event {
                 language.message.perms3.translate({ need: Bneed })
               )
             );
-
           await command.run(message, args);
         }
         message.member.options.save().catch(() => null);
