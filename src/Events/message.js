@@ -14,9 +14,7 @@ async function inviteCheck(Main, message, res) {
     const fetchInvite = await Main.fetchInvite(message.content).catch(null);
 
     if (fetchInvite && fetchInvite.guild.id !== message.guild.id) {
-      if (isBootManage) {
-        await message.delete().catch(null);
-      }
+      await message.delete().catch(null);
 
       message.channel.send(
         `${fetchInvite.guild.name}(\`${fetchInvite.guild.id}\`) ОТ ${message.author}(\`${message.author.id}\`)`
@@ -54,6 +52,8 @@ module.exports = class extends Event {
           ownerID: message.guild.ownerid,
         });
       if (data && res) {
+        message.member.options = data;
+        message.guild.settings = res;
         const language = require(`./../languages/${
           res.Moderation.language || 'en'
         }.json`);
@@ -105,8 +105,6 @@ module.exports = class extends Event {
             )
           );
         }
-        message.member.options = data;
-        message.guild.settings = res;
         if (message.mentions.users.has('704604456313946182') && !command) {
           message.channel.send(
             new MessageEmbed().setTitle(

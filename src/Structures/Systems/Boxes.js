@@ -40,8 +40,8 @@ function randof(...arrs) {
 ~(function prepare() {
   for (var x = 1; x <= lim; ++x) {
     for (var y = 1; y <= lim; ++y) {
-      for (var op of Object.keys(fs)) {
-        var res = fs[op](x, y);
+      for (let op of Object.keys(fs)) {
+        let res = fs[op](x, y);
         if (res >= 1 && res <= lim && res === ~~res) {
           ops[op].push([op, x, y]);
           void (byRes[op][res] = byRes[op][res] || []).push([op, x, y]);
@@ -52,8 +52,8 @@ function randof(...arrs) {
 
   var missing = 0;
 
-  for (var res = 1; res <= lim; ++res) {
-    for (var op of Object.keys(byRes)) {
+  for (let res = 1; res <= lim; ++res) {
+    for (let op of Object.keys(byRes)) {
       if (!(res in byRes[op])) {
         console.log(`Низя получить ${res} используя '${op}'`);
         ++missing;
@@ -98,33 +98,10 @@ module.exports = class Boxes {
     }
   }
   randombox(messages) {
-    const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const chanche = (Math.random() * (messages ? messages / 100 : 100)).toFixed(
-      0
-    );
-    let win;
-    switch (true) {
-      case chanche >= 80 && chanche < 90:
-        win = boxes[0];
-        break;
-      case chanche >= 90 && chanche < 95:
-        win = boxes[1];
-        break;
-      case chanche >= 95 && chanche < 98:
-        win = boxes[2];
-        break;
-      case chanche >= 98 && chanche <= 99:
-        win = boxes[3];
-        break;
-      case chanche > 99:
-        win = boxes[4];
-        break;
-      default:
-        return;
-    }
-    return win;
+    return 'CCCCCCCCCCCCCCCCCCCUUUUUUUUUURRRRRRREEL'[
+      ((Math.random() * (messages ? messages / 100 : 100)).toFixed(0) - 60) | 0
+    ];
   }
-
   async spawnrandombox(messag) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
     const win = this.randombox();
