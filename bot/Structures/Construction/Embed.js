@@ -26,12 +26,12 @@ module.exports = class Embed {
     }
     return this;
   } */
-  async OKEmbed(content, channel) {
+  async OKEmbed(content, message) {
 
-    return await channel.send(new MessageEmbed().setColor('#d31f1f').setTitle('OK'.setDescription(content).setTimestamp()))
+    return await message.channel.send(new MessageEmbed().setColor('#d31f1f').setTitle('OK').setDescription(content).setTimestamp())
 
   }
-  async ErrorEmbed(content, channel) {
-    return await channel.send(new MessageEmbed().setColor('#1ecc09').setTitle('Error'.setDescription(content).setTimestamp()))
+  async ErrorEmbed(content, message) {
+    return await message.channel.send(new MessageEmbed().setColor('#1ecc09').setTitle('Error').setDescription(content).setTimestamp())
   }
 };

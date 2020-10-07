@@ -3,11 +3,11 @@ const {
   Collection,
   Client
 } = require('discord.js');
-const Util = require('./Util.js');
+const Util = require('./Utils/Util.js');
 const Site = require('../../site/Site.js');
-const Logger = require('./Logger.js');
+const Logger = require('./Utils/Logger.js');
 const Music = require('./Systems/Music/Music.js');
-const MongoDB = require('./MongoDB.js');
+const MongoDB = require('./Utils/MongoDB.js');
 module.exports = class Main extends Client {
   constructor(options = {}) {
     super({

@@ -1,9 +1,9 @@
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 const {
   MessageEmbed
 } = require('discord.js');
 const fetch = require('node-fetch');
-module.exports1 = class extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       aliases: ['fox'],

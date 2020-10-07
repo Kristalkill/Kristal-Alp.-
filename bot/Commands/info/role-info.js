@@ -1,14 +1,14 @@
 const {
     MessageEmbed
 } = require('discord.js');
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {});
     }
     async run(message, args) {
-        const role = message.guild.roles.cache.get(message.mentions.roles.first() || message.guild.roles.cache.get(args.join(' ')) || message.guild.roles.cache.find(r => r.name1 === args.join(' ')));
+        const role = message.guild.roles.cache.get(message.mentions.roles.first() || message.guild.roles.cache.find(r => r.name1 === args.join(' ')).id || message.guild.roles.cache.get(args.join(' ')));
         if (!role) return this.Embed.ErrorEmbed(`Provid role`, message)
         message.channel.send(new MessageEmbed()
             .setTitle(`Role-Info`)

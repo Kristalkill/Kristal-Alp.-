@@ -1,4 +1,4 @@
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -18,8 +18,8 @@ module.exports = class extends Command {
 
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
-          .first() || message.guild.members.cache.get(args[0])
+        .filter((u) => u.id != message.guild.me.id)
+        .first() || message.guild.members.cache.get(args[0])
       );
       if (member.bannable === true) {
         if (!member)
@@ -28,7 +28,10 @@ module.exports = class extends Command {
           );
         const days = parseInt(args[2]) || Infinity;
         const reason = args[1] || language.undefined;
-        member.ban({ days, reason });
+        member.ban({
+          days,
+          reason
+        });
         message.channel.send(
           this.Main.embeds.OKEmbed.setDescription(
             language.ban.params.param1.translate({

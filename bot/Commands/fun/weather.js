@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 const weather = require('weather-js');
-module.exports1 = class extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       aliases: [],

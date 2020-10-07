@@ -1,4 +1,4 @@
-const Event = require('../Structures/Event');
+const Event = require('../Structures/Construction/Event');
 
 module.exports = class extends Event {
   async run(guild) {
@@ -21,7 +21,10 @@ module.exports = class extends Event {
             ]}\`\nЯ не могу исполнить вашу команду.**`
           )
         );
-      this.Main.db.Guild.create({ guildID: guild.id, ownerID: guild.ownerid });
+      this.Main.db.Guild.create({
+        guildID: guild.id,
+        ownerID: guild.ownerid
+      });
     } catch (error) {
       console.log(error);
     }

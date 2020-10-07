@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 const { Achievements } = require('../../utilites/variables.js');
 
 module.exports = class extends Command {

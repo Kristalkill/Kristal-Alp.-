@@ -80,7 +80,7 @@ module.exports = class Util {
         } = path.parse(commandFile);
         const File = require(`${this.directory}Commands/${module}/${commandFile}`);
         if (!this.isClass(File))
-          throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
+          throw new TypeError(`Команда ${name} не экспортирует класс.!`);
         const command = new File(this.Main, name.toLowerCase());
         if (!(command instanceof Command))
           throw new TypeError(`Команда ${name} не принадлежит командам.`);

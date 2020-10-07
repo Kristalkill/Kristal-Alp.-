@@ -1,11 +1,13 @@
-const { MessageEmbed } = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const humanizeDuration = require('humanize-duration');
-const Event = require('../Structures/Event');
-async function inviteCheck(Main, message, res) {
+const Event = require('../Structures/Construction/Event');
+async function inviteCheck(id, message, res) {
   if (
     res.Moderation.auto === true &&
     !message.member.hasPermission('ADMINISTRATOR') &&
-    message.channel.permissionsFor(Main.user.id).has('MANAGE_MESSAGES') &&
+    message.channel.permissionsFor(id).has('MANAGE_MESSAGES') &&
     new RegExp(
       `((?:(?:http|https)://)?(?:www.)?((?:disco|discord|discordapp).(?:com|gg|io|li|me|net|org)(?:/(?:invite))?/([a-z0-9-.]+)))`,
       'i'
@@ -25,7 +27,7 @@ async function inviteCheck(Main, message, res) {
   }
 }
 module.exports = class extends Event {
-  async run(oldmessage, message) {
+  async run(message) {
     try {
       if (!message) return;
       if (message.channel.type === 'dm' || message.author.bot) return;
@@ -148,7 +150,9 @@ module.exports = class extends Event {
             if (Uneed)
               return message.channel.send(
                 this.Main.embeds.ErrEmbed.setDescription(
-                  language.message.perms2.translate({ need: Uneed })
+                  language.message.perms2.translate({
+                    need: Uneed
+                  })
                 )
               );
           }
@@ -160,9 +164,12 @@ module.exports = class extends Event {
           if (Bneed)
             return message.channel.send(
               this.Main.embeds.ErrEmbed.setDescription(
-                language.message.perms3.translate({ need: Bneed })
+                language.message.perms3.translate({
+                  need: Bneed
+                })
               )
             );
+          message.Main = this.Main;
           await command.run(message, args);
         }
         message.member.options.save().catch(() => null);

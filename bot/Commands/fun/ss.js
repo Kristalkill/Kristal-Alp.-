@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
-const Command = require('../../Structures/Command');
+const Command = require('../../Structures/Construction/Command');
 
-module.exports1 = class extends Command {
+module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
       aliases: ['ss'],
