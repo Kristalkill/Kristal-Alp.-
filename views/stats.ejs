@@ -1,0 +1,80 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/socket.io/socket.io.js" ;></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<head>
+</head>
+
+<body>
+  <script>
+    var Histogram = {
+      cpu: [],
+      memory: []
+    };
+    var histogramLenght = 61;
+    Metrics('cpu', Histogram.cpu)
+    Metrics('memory', Histogram.memory)
+    for (var i = 0; i < histogramLenght; i++) {
+      Histogram.cpu[i] = [i, 0];
+      Histogram.memory[i] = [i, 0];
+    }
+    setInterval(function() {
+      os.cpuUsage(function(value) {
+        updateHistogram('cpu', Math.round(value * 100))
+        updateHistogram('memory', Math.round(100 - os.freememPercentage()))
+      });
+    }, 5000);
+
+    function updateHistogram(type, Load) {
+      var typehistogram = Histogram[type]
+      if (typehistogram.length >= histogramLenght) {
+        typehistogram.shift();
+      }
+      typehistogram.push([0, Load]);
+      for (var i = 0; i < histogramLenght; i++) {
+        typehistogram[i][0] = i;
+      }
+    }
+
+    function Metrics(type, histogram) {
+      google.charts.load('current', {
+        packages: ['corechart', 'line']
+      });
+      google.charts.setOnLoadCallback(drawCurveTypes);
+      var chartLoadet = false;
+
+      function drawCurveTypes() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'X');
+        data.addColumn('number', type);
+        data.addRows(histogram);
+        var options = {
+          hAxis: {
+            title: 'Seconds',
+          },
+          vAxis: {
+            title: `${type}Load %`,
+            vivewWindow: {
+              min: 0,
+              max: 100,
+            },
+          },
+          series: {
+            1: {
+              curveType: 'function'
+            },
+          },
+          backgroundColor: '#000000',
+        };
+        var chart = new google.visualization.LineChart(document.getElementById(type.toLowerCase()));
+        chart.draw(data, options);
+        chartLoadet = true;
+      }
+      setInterval(() => {
+        if (chartLoadet) drawCurveTypes()
+      }, 5000)
+    }
+  </script>
+</body>
+<div id="cpu"></div>
+<div id="memory"></div>

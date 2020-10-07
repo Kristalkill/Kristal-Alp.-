@@ -13,10 +13,15 @@
   "dependencies": {
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "html": "^1.0.0",
+    "http": "0.0.1-security",
     "humanize-duration": "^3.23.1",
     "mongoose": "^5.9.29",
+    "os-utils": "0.0.14",
     "shoukaku": "^1.5.2",
+    "socket.io": "^2.3.0",
     "weather-js": "^2.0.0"
   },
   "devDependencies": {
