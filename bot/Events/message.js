@@ -34,7 +34,6 @@ module.exports = class extends Event {
       let res = await this.Main.db.Guild.findOne({
         guildID: message.guild.id,
       });
-      if (await inviteCheck(this.Main, message, res)) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
       });
@@ -54,6 +53,7 @@ module.exports = class extends Event {
           ownerID: message.guild.ownerid,
         });
       if (data && res) {
+        if (await inviteCheck(this.Main, message, res)) return;
         message.member.options = data;
         message.guild.settings = res;
         const language = require(`./../languages/${

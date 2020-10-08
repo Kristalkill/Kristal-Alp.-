@@ -1,4 +1,6 @@
-const { MessageEmbed } = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Construction/Event');
 async function inviteCheck(Main, message, res) {
@@ -32,7 +34,6 @@ module.exports = class extends Event {
       let res = await this.Main.db.Guild.findOne({
         guildID: message.guild.id,
       });
-      if (await inviteCheck(this.Main, message, res)) return;
       const BlockY = await this.Main.db.Block.findOne({
         id: message.author.id,
       });
@@ -52,6 +53,7 @@ module.exports = class extends Event {
           ownerID: message.guild.ownerid,
         });
       if (data && res) {
+        if (await inviteCheck(this.Main, message, res)) return;
         message.member.options = data;
         message.guild.settings = res;
         const language = require(`./../languages/${
@@ -148,7 +150,9 @@ module.exports = class extends Event {
             if (Uneed)
               return message.channel.send(
                 this.Main.embeds.ErrEmbed.setDescription(
-                  language.message.perms2.translate({ need: Uneed })
+                  language.message.perms2.translate({
+                    need: Uneed
+                  })
                 )
               );
           }
@@ -160,9 +164,12 @@ module.exports = class extends Event {
           if (Bneed)
             return message.channel.send(
               this.Main.embeds.ErrEmbed.setDescription(
-                language.message.perms3.translate({ need: Bneed })
+                language.message.perms3.translate({
+                  need: Bneed
+                })
               )
             );
+          message.Main = this.Main;
           await command.run(message, args);
         }
         message.member.options.save().catch(() => null);

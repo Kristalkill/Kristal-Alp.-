@@ -1,5 +1,4 @@
 const Command = require('../../Structures/Construction/Command');
-
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -21,11 +20,11 @@ module.exports = class extends Command {
         .filter((u) => u.id != message.guild.me.id)
         .first() || message.guild.members.cache.get(args[0])
       );
+      if (!member)
+        return message.channel.send(
+          this.Main.embeds.ErrEmbed.setDescription(language.nomember)
+        );
       if (member.bannable === true) {
-        if (!member)
-          return message.channel.send(
-            this.Main.embeds.ErrEmbed.setDescription(language.nomember)
-          );
         const days = parseInt(args[2]) || Infinity;
         const reason = args[1] || language.undefined;
         member.ban({

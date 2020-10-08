@@ -1,7 +1,8 @@
+const express = require('express')
+const app = express()
 module.exports = class Site {
   constructor(Main) {
     this.Main = Main
-    /*
     app.use('/static', express.static(__dirname + '/public'));
     app.set('view engine', 'ejs');
     app.get('/commands', function(req, res) {
@@ -36,6 +37,5 @@ module.exports = class Site {
       res.send(String(Main.emojis.cache.size));
     });
     app.listen(8080)
-    */
   }
 };
