@@ -1,1 +1,1 @@
-worker1: node src/Structures/Shards
+worker1: node bot/Structures/Shards
