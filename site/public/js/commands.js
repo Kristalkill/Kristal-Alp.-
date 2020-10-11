@@ -1,4 +1,4 @@
-async function commands() {
+module.exports = async function commands() {
   let response = await fetch('/api/commands');
   let pages = await response.json();
   let neededhead = [
@@ -41,7 +41,7 @@ async function commands() {
       newth.appendChild(newtd); // Добавляем td в th
       tr.appendChild(newth); // Добавляем th в tr, который у нас уже существует.
 
-      input.addEventListener('click', function (e) {
+      input.addEventListener('click', function(e) {
         // Начинаем слушать каждый input на нажатие
         e.preventDefault(); // убираем стандартный функционал кнопки
         let table = document.getElementById('table'); // Получаем вторую таблицу, в которую будем вносить данные
@@ -67,7 +67,6 @@ async function commands() {
         }
         for (let k2 in pages1[k]) {
           // Для каждого элемента
-          let headtr = document.createElement('tr'); // Создаём tr
           let newtr1 = document.createElement('tr'); // Создаём tr
           for (let k3 in pages1[k][k2]) {
             if (neededhead.indexOf(k3) != -1) {

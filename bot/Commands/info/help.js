@@ -1,5 +1,7 @@
 const fs = require('fs');
-const { MessageEmbed } = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const Command = require('../../Structures/Construction/Command');
 
 module.exports = class extends Command {
@@ -47,9 +49,9 @@ module.exports = class extends Command {
                   .map(
                     (cmd) =>
                       `**\`${message.guild.settings.Moderation.prefix}${
-                        cmd.name
+                        cmd.name || language.undefined
                       }\`** - ${
-                        language[cmd.name].command.description ||
+                        language[cmd.name] ? language[cmd.name].command.description :
                         language.undefined
                       }`
                   )
@@ -84,22 +86,28 @@ module.exports = class extends Command {
                 page = 1;
                 msg.edit(
                   embed
-                    .setDescription(pages[page - 1])
-                    .setTitle(pages1[page - 1])
-                    .setFooter(
-                      language.pages.translate({ page, pages: pages.length })
-                    )
+                  .setDescription(pages[page - 1])
+                  .setTitle(pages1[page - 1])
+                  .setFooter(
+                    language.pages.translate({
+                      page,
+                      pages: pages.length
+                    })
+                  )
                 );
                 break;
               case 'arrow_left':
                 page == 1 ? (page = pages.length) : page--;
                 msg.edit(
                   embed
-                    .setDescription(pages[page - 1])
-                    .setTitle(pages1[page - 1])
-                    .setFooter(
-                      language.pages.translate({ page, pages: pages.length })
-                    )
+                  .setDescription(pages[page - 1])
+                  .setTitle(pages1[page - 1])
+                  .setFooter(
+                    language.pages.translate({
+                      page,
+                      pages: pages.length
+                    })
+                  )
                 );
                 break;
               case 'smart_button':
@@ -109,22 +117,28 @@ module.exports = class extends Command {
                 page == pages.length ? (page = 1) : page++;
                 msg.edit(
                   embed
-                    .setDescription(pages[page - 1])
-                    .setTitle(pages1[page - 1])
-                    .setFooter(
-                      language.pages.translate({ page, pages: pages.length })
-                    )
+                  .setDescription(pages[page - 1])
+                  .setTitle(pages1[page - 1])
+                  .setFooter(
+                    language.pages.translate({
+                      page,
+                      pages: pages.length
+                    })
+                  )
                 );
                 break;
               case 'fast_forward':
                 page = pages.length;
                 msg.edit(
                   embed
-                    .setDescription(pages[page - 1])
-                    .setTitle(pages1[page - 1])
-                    .setFooter(
-                      language.pages.translate({ page, pages: pages.length })
-                    )
+                  .setDescription(pages[page - 1])
+                  .setTitle(pages1[page - 1])
+                  .setFooter(
+                    language.pages.translate({
+                      page,
+                      pages: pages.length
+                    })
+                  )
                 );
                 break;
             }
@@ -141,10 +155,8 @@ module.exports = class extends Command {
               nsfw: command.nsfw,
               category: command.category,
               aliases: command.aliases,
-              usage: language[command.name].command.usage || language.undefined,
-              description:
-                language[command.name].command.description ||
-                language.undefined,
+              usage: language[command.name] ? language[command.name].command.usage : language.undefined,
+              description: language[command.name] ? language[command.name].command.description : language.undefined,
             })
           )
         );

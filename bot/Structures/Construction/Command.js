@@ -17,25 +17,16 @@ module.exports = class Command {
   async run( /* message, ...args */ ) {
     throw new Error(`Команда ${this.name} не содержин метод запуска!`);
   }
-  async compare(str, arr) {
-    return await arr.sort((a, b) => levenshtein.get(str, a) - levenshtein.get(str, b)).values().next().value
+  async similar(arr, str) {
+    let a = await arr.sort((a, b) => levenshtein.get(str, a) - levenshtein.get(str, b)).values().next().value
+    console.log(a)
+    return a
   }
-  async getUser(args, message) {
-    return message.guild.member(
-      message.mentions.users
-      .filter((u) => u.id != message.guild.me.id)
-      .first() || message.guild.members.cache.get(args)
-    );
+  async get(args, message, type) {
+    const cache = message.guild[type].cache
+    return await cache.get(message.guild[type].cache.get(args) || (type == 'members' ? message.mentions.users.filter((u) => u.id != message.guild.me.id) : message.mentions[type].first() || await this.similar(cache, args)).id)
   }
-  async getChannel(args, message) {
-    message.guild.channels.cache.get((message.mentions.channels.first() || compare(args.join(' '), message.guild.channels.cache)).id || message.guild.channels.cache.get(args.join(' ')));
-  }
-  async getRole(args, message) {
-    return message.guild.roles.cache.get(message.mentions.roles.first() ||
-      message.guild.roles.cache.find(r => r.name === args.join(' ')).id ||
-      message.guild.roles.cache.get(args.join(' ')));
-  }
-  async getGuild(id) {
+  async Guild(id) {
     return this.Main.guilds.cache.get(id)
   }
   async language(language) {

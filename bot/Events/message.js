@@ -3,9 +3,9 @@ const {
 } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Construction/Event');
-async function inviteCheck(id, message, res) {
+async function inviteCheck(id, message, Main) {
   if (
-    res.Moderation.auto === true &&
+    message.guild.options.Moderation.auto === true &&
     !message.member.hasPermission('ADMINISTRATOR') &&
     message.channel.permissionsFor(id).has('MANAGE_MESSAGES') &&
     new RegExp(
@@ -53,9 +53,9 @@ module.exports = class extends Event {
           ownerID: message.guild.ownerid,
         });
       if (data && res) {
+        message.guild.settings = res;
         if (await inviteCheck(this.Main, message, res)) return;
         message.member.options = data;
-        message.guild.settings = res;
         const language = require(`./../languages/${
           res.Moderation.language || 'en'
         }.json`);

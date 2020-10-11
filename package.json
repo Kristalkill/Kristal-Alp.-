@@ -1,6 +1,6 @@
 {
   "name": "kristalbot",
-  "version": "0.2.29",
+  "version": "0.4.45",
   "scripts": {
     "start": "node src/Structures/Shards.js"
   },
@@ -16,6 +16,7 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "fast-levenshtein": "^3.0.0",
+    "find-most-similar": "^1.0.3",
     "html": "^1.0.0",
     "http": "0.0.1-security",
     "humanize-duration": "^3.23.1",

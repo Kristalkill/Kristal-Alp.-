@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const os = require('os-utils')
 module.exports = class Site {
   constructor(Main) {
     this.Main = Main
@@ -17,7 +18,7 @@ module.exports = class Site {
       res.render('index');
     });
     app.get('/api/language', (req, res) => {
-      res.send(language);
+      res.send('en');
     });
     app.get('/api/commands', (req, res) => {
       res.send(
