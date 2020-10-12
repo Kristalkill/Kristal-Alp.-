@@ -5,7 +5,7 @@ const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Construction/Event');
 async function inviteCheck(id, message, Main) {
   if (
-    message.guild.options.Moderation.auto === true &&
+    message.guild.settings.Moderation.auto === true &&
     !message.member.hasPermission('ADMINISTRATOR') &&
     message.channel.permissionsFor(id).has('MANAGE_MESSAGES') &&
     new RegExp(

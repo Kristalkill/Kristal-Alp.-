@@ -3,6 +3,29 @@ const {
 } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Event = require('../Structures/Construction/Event');
+async function inviteCheck(id, message, Main) {
+  if (
+    message.guild.settings.Moderation.auto === true &&
+    !message.member.hasPermission('ADMINISTRATOR') &&
+    message.channel.permissionsFor(id).has('MANAGE_MESSAGES') &&
+    new RegExp(
+      `((?:(?:http|https)://)?(?:www.)?((?:disco|discord|discordapp).(?:com|gg|io|li|me|net|org)(?:/(?:invite))?/([a-z0-9-.]+)))`,
+      'i'
+    ).test(message.content)
+  ) {
+    const fetchInvite = await Main.fetchInvite(message.content).catch(null);
+
+    if (fetchInvite && fetchInvite.guild.id !== message.guild.id) {
+      await message.delete().catch(null);
+
+      message.channel.send(
+        `${fetchInvite.guild.name}(\`${fetchInvite.guild.id}\`) ОТ ${message.author}(\`${message.author.id}\`)`
+      );
+
+      return true;
+    }
+  }
+}
 module.exports = class extends Event {
   async run(oldmessage, message) {
     try {
@@ -34,8 +57,8 @@ module.exports = class extends Event {
         if (await inviteCheck(this.Main, message, res)) return;
         message.member.options = data;
         const language = require(`./../languages/${
-            res.Moderation.language || 'en'
-          }.json`);
+              res.Moderation.language || 'en'
+            }.json`);
         if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
           return message.guild.owner
             .send(
