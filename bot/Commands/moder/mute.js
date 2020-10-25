@@ -20,8 +20,8 @@ module.exports = class extends Command {
 
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
-          .first() || message.guild.members.cache.get(args[0])
+        .filter((u) => u.id != message.guild.me.id)
+        .first() || message.guild.members.cache.get(args[0])
       );
       if (!member)
         return message.channel.send(
@@ -57,12 +57,12 @@ module.exports = class extends Command {
         }
         message.guild.settings.Moderation.muterole = muterole.id;
       }
-      const reason = args[2] || language.undefined;
       if (!args[1])
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.mute.params.param3)
         );
       let time = ms(args[1]);
+      const reason = args[2] || language.undefined;
       const res1 = await this.Main.db.Mute.findOne({
         guildID: message.guild.id,
         id: member.id,
@@ -71,7 +71,8 @@ module.exports = class extends Command {
         return message.channel.send(
           language.mute.params.param1.translate({
             member,
-            time: humanizeDuration(ms(res1.time - Date.now()), {
+            reason: res1.reason,
+            time: humanizeDuration(res1.time - Date.now(), {
               round: true,
               language: message.guild.settings.Moderation.language,
             }),
@@ -81,7 +82,7 @@ module.exports = class extends Command {
         guildID: message.guild.id,
         id: member.id,
         reason,
-        time: time ? (time += parseInt(Date.now())) : (time = false),
+        time: time ? time + Date.now() : time = false,
         channel: message.channel.id,
       });
       await member.roles.add(muterole.id);
@@ -89,13 +90,10 @@ module.exports = class extends Command {
         language.mute.params.param1.translate({
           member,
           reason,
-          time:
-            time == false
-              ? language.mute.params.param2
-              : humanizeDuration(ms(args[2]), {
-                  round: true,
-                  language: message.guild.settings.Moderation.language,
-                }),
+          time: time ? humanizeDuration(time, {
+            round: true,
+            language: message.guild.settings.Moderation.language,
+          }) : language.mute.params.param2,
         })
       );
     } catch (error) {

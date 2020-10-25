@@ -1,4 +1,6 @@
-const { MessageEmbed } = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const Command = require('../../Structures/Construction/Command');
 const humanizeDuration = require('humanize-duration');
 module.exports = class extends Command {
@@ -29,7 +31,11 @@ module.exports = class extends Command {
       const result = await node.rest.resolve(query);
       if (!result)
         return await message.channel.send(language.play.params.param2);
-      const { type, tracks, playlistName } = result;
+      const {
+        type,
+        tracks,
+        playlistName
+      } = result;
       const track = tracks.shift();
       const isPlaylist = type === 'PLAYLIST';
       const res = await this.Main.music.queue.handle(node, track, message);
@@ -39,15 +45,20 @@ module.exports = class extends Command {
       }
       await message.channel
         .send(
-          isPlaylist
-            ? language.play.params.param3.translate({ playlist: playlistName })
-            : language.play.params.param4.translate({ track: track.info.title })
+          isPlaylist ?
+          language.play.params.param3.translate({
+            playlist: playlistName
+          }) :
+          language.play.params.param4.translate({
+            track: track.info.title
+          })
         )
         .catch(() => null);
       if (res) await res.play();
       return;
     }
     const searchData = await node.rest.resolve(query, 'youtube');
+    console.log(searchData)
     if (!searchData.tracks.length)
       return await message.channel.send(language.play.params.param2);
     const tracks = searchData.tracks.slice(0, 10);
@@ -65,8 +76,10 @@ module.exports = class extends Command {
     message.channel
       .send(
         new MessageEmbed()
-          .setTitle(language.play.params.param5.translate({ query: query }))
-          .setDescription(data)
+        .setTitle(language.play.params.param5.translate({
+          query: query
+        }))
+        .setDescription(data)
       )
       .then(async (m) => {
         const numbers = {
@@ -101,7 +114,9 @@ module.exports = class extends Command {
           const res = await this.Main.music.queue.handle(node, track, message);
           await message.channel
             .send(
-              language.play.params.param4.translate({ track: track.info.title })
+              language.play.params.param4.translate({
+                track: track.info.title
+              })
             )
             .catch(() => null);
           if (res) await res.play();
