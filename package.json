@@ -20,6 +20,7 @@
     "http": "0.0.1-security",
     "humanize-duration": "^3.23.1",
     "mongoose": "^5.9.29",
+    "natural": "^2.1.5",
     "os-utils": "0.0.14",
     "shoukaku": "^1.5.2",
     "socket.io": "^2.3.0",

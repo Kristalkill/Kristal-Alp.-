@@ -12,27 +12,16 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    try {
-      const language = require(`../../languages/${
-        message.guild.settings.Moderation.language || 'en'
-      }.json`);
-
-      if (!args[0])
-        return message.channel.send(
-          this.Main.embeds.ErrEmbed.setDescription(language.ss.params.param1)
-        );
-      await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
-        .then((res) => res.json())
-        .then((body) => {
-          if (!body) return;
-          const embed = new Discord.MessageEmbed()
-            .setTitle(language.ss.params.param2)
-            .setDescription(args[0])
-            .setImage(body.content);
-          message.channel.send(embed);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    const language = this.language(message.guild.settings.Moderation.language)
+    if (!args[0]) return this.Embed.ErrorEmbed(language.ss.params.param1)
+    await fetch(`https://chromechain.herokuapp.com/?url=${args[0]}`)
+      .then((res) => res.json())
+      .then((body) => {
+        if (!body) return;
+        message.channel.send(new Discord.MessageEmbed()
+          .setTitle(language.ss.params.param2)
+          .setDescription(args[0])
+          .setImage(body.content));
+      });
   }
 };

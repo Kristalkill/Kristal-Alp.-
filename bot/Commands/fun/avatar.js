@@ -1,4 +1,6 @@
-const Discord = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const Command = require('../../Structures/Construction/Command');
 
 module.exports = class extends Command {
@@ -9,21 +11,16 @@ module.exports = class extends Command {
     });
   }
 
-  async run(message) {
-    try {
-      const language = require(`../../languages/${
-        message.guild.settings.Moderation.language || 'en'
-      }.json`);
-      const user = message.mentions.users.first()
-        ? message.mentions.users.first()
-        : message.author;
-      const AvatarEmbed = new Discord.MessageEmbed()
-        .setColor('RANDOM')
-        .setTitle(`${language.avatar.params.param1} ${user.username}!`)
-        .setImage(user.avatarURL({ dynamic: true }));
-      await message.channel.send(AvatarEmbed);
-    } catch (error) {
-      console.log(error);
-    }
+  async run(message, [user]) {
+    const language = this.language(message.guild.settings.Moderation.language)
+    const member = this.get(user, message, 'members')
+    if (!member) return this.Embed.ErrorEmbed(language.nomember, message)
+    await message.channel.send(new MessageEmbed()
+      .setColor('RANDOM')
+      .setTitle(`${language.avatar.param} ${member.username}!`)
+      .setImage(member.avatarURL({
+        dynamic: true
+      }))
+      .setTimestamp());
   }
 };

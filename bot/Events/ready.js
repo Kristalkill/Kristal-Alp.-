@@ -13,12 +13,14 @@ module.exports = class extends Event {
     const GiveAway = new Discord.MessageEmbed().setTitle('🎉**Giveaway** 🎉');
 
     this.Main.user.setPresence({
-      activity: { name: 'k!help' },
+      activity: {
+        name: 'k!help'
+      },
       status: 'online',
     });
     setInterval(async () => {
       try {
-        const res = await this.Main.db.Mute.find();
+        let res = await this.Main.db.Mute.find();
         if (res) {
           res.forEach(async (mute) => {
             if (mute.time == false) return;
@@ -34,18 +36,24 @@ module.exports = class extends Event {
               mute.time !== null &&
               mute.time <= Date.now()
             )
-              res.deleteOne({ guild: mute.guildID, id: mute.id });
+              res.deleteOne({
+                guild: mute.guildID,
+                id: mute.id
+              });
             if (!guild.members.cache.get(mute.id)) return;
-            if (!role) res.deleteOne({ guild: mute.guildID, id: mute.id });
+            if (!role) res.deleteOne({
+              guild: mute.guildID,
+              id: mute.id
+            });
             if (mute.time === null) {
               if (
                 !guild.members.cache
-                  .get(mute.id)
-                  .roles.cache.has(Data.Moderation.muterole)
+                .get(mute.id)
+                .roles.cache.has(Data.Moderation.muterole)
               )
                 guild.memebrs.cache
-                  .get(mute.id)
-                  .roles.add(Data.Moderation.muterole);
+                .get(mute.id)
+                .roles.add(Data.Moderation.muterole);
             } else if (mute.time !== null) {
               if (mute.time >= Date.now()) {
                 if (!user) return;
@@ -67,8 +75,8 @@ module.exports = class extends Event {
                   guild.channels.cache.get(mute.channel) &&
                   guild.members.cache.get(mute.id) &&
                   guild.members.cache
-                    .get(mute.id)
-                    .roles.cache.has(Data.Moderation.muterole)
+                  .get(mute.id)
+                  .roles.cache.has(Data.Moderation.muterole)
                 )
                   return guild.channels.cache
                     .get(mute.channel)
@@ -95,7 +103,7 @@ module.exports = class extends Event {
     }, 3000);
     setInterval(async () => {
       try {
-        const res = await this.Main.db.Giveaway.find();
+        let res = await this.Main.db.Giveaway.find();
         if (res) {
           res.forEach(async (Giveaway) => {
             const guild = this.Main.guilds.cache.get(Giveaway.guildID);
@@ -121,11 +129,11 @@ module.exports = class extends Event {
                 .then((v) =>
                   Array.from(
                     v.reactions.cache
-                      .get('🎉')
-                      .users.cache.filter(
-                        (user) => user.id != this.Main.user.id && !user.bot
-                      )
-                      .keys()
+                    .get('🎉')
+                    .users.cache.filter(
+                      (user) => user.id != this.Main.user.id && !user.bot
+                    )
+                    .keys()
                   )
                 );
               Giveaway.save();

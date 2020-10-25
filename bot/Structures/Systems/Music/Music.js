@@ -1,18 +1,18 @@
-const { Shoukaku } = require('shoukaku');
+const {
+  Shoukaku
+} = require('shoukaku');
 const Queue = require('./Queue.js');
+const nodes = [{
+  name: '1',
+  host: 'localhost',
+  port: 3000,
+  auth: 'enderman',
+}]
 module.exports = class Music extends Shoukaku {
   constructor(Main) {
     super(
       Main,
-      [
-        {
-          name: '1',
-          host: 'localhost',
-          port: 3000,
-          auth: 'enderman',
-        },
-      ],
-      {
+      nodes, {
         moveOnDisconnect: false,
         resumable: 'resumableKongou',
         resumableTimeout: 30,

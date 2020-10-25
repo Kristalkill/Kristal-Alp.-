@@ -14,11 +14,7 @@ module.exports = class extends Command {
                 dynamic: true
             }))
             .setTitle(`meme`)
-            .setImage(
-                await fetch('https://meme-api.herokuapp.com/gimme')
-                .then((r) => r.json())
-                .then((r) => r.image)
-            )
+            .setImage(await this.fetch('https://meme-api.herokuapp.com/gimme'))
             .setColor("RANDOM")
             .setTimestamp())
     }

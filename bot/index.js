@@ -32,10 +32,10 @@ try {
   String.prototype.clear = function() {
     return this.normalize('NFD')
       .replace(
-        /[^\p{Letter}\p{Number}\p{Emoji_Modifier_Base}\p{Emoji_Modifier}\p{Emoji_Presentation}\p{Emoji}\uFE0F <>:]/gu,
+        /[^\p{Letter}\p{Number}]/gu, //\p{Emoji_Modifier_Base}\p{Emoji_Modifier}\p{Emoji_Presentation}\p{Emoji}\uFE0F <>:
         ''
       )
-      .capitalize();
+    //.capitalize();
   };
 } catch (err) {
   console.log(err);

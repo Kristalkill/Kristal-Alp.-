@@ -1,4 +1,6 @@
-const Discord = require('discord.js');
+const {
+  MessageEmbed
+} = require('discord.js');
 const ms = require('ms');
 const Command = require('../../Structures/Construction/Command');
 
@@ -16,7 +18,9 @@ module.exports = class extends Command {
       const language = require(`../../languages/${
         message.guild.settings.Moderation.language || 'en'
       }.json`);
-      const res = await this.Main.db.Giveaway.findOne({ messageID: messageid });
+      const res = await this.Main.db.Giveaway.findOne({
+        messageID: messageid
+      });
       if (!args[0])
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(
@@ -47,7 +51,7 @@ module.exports = class extends Command {
                   language.giveaway.params.param5
                 )
               );
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
               .setTitle(`🎉**${language.giveaway.params.param4}** 🎉`)
               .setDescription(
                 language.giveaway.params.param6.translate({
@@ -74,7 +78,7 @@ module.exports = class extends Command {
           break;
         case 'end':
           try {
-            const GiveAway = new Discord.MessageEmbed().setTitle(
+            const GiveAway = new MessageEmbed().setTitle(
               `**🎉${language.giveaway.params.param7}🎉**`
             );
             if (res) {
@@ -84,11 +88,11 @@ module.exports = class extends Command {
                 .then((v) =>
                   Array.from(
                     v.reactions.cache
-                      .get('🎉')
-                      .users.cache.filter(
-                        (user) => user.id != this.Main.user.id && !user.bot
-                      )
-                      .keys()
+                    .get('🎉')
+                    .users.cache.filter(
+                      (user) => user.id != this.Main.user.id && !user.bot
+                    )
+                    .keys()
                   )
                 );
               if (userees.length) {

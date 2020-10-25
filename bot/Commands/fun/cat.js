@@ -12,11 +12,9 @@ module.exports = class extends Command {
     }
 
     async run(message) {
-        let embed = new MessageEmbed()
-            .setImage(await fetch('https://some-random-api.ml/img/cat')
-                .then((r) => r.json())
-                .then((r) => r.image))
+        message.channel.send(new MessageEmbed()
+            .setImage(await this.fetch('https://some-random-api.ml/img/cat'))
             .setColor("#2f3136")
-        message.channel.send(embed);
+            .setTimestamp())
     }
 }

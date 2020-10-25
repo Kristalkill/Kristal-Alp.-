@@ -13,10 +13,8 @@ module.exports = class extends Command {
 
     async run(message) {
         message.channel.send(new MessageEmbed()
-                .setImage(await fetch('https://random.dog/woof.json')
-                    .then((r) => r.json())
-                    .then((r) => r.image))
-                .setColor("#2f3136"))
-            .setTimestamp()
+            .setImage(await this.fetch('https://random.dog/woof.json'))
+            .setColor("#2f3136")
+            .setTimestamp())
     }
 }
