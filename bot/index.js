@@ -13,11 +13,11 @@ try {
     const arr = this.match(
       new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, ''));
-    var result = [];
+    let result = [];
     for (let line of arr) {
       let resute = result[result.length - 1]
       if (result.length === 0 || resute.length + line.length < len) {
-        result.push
+        result.push(line)
       } else {
         resute += line
       }
