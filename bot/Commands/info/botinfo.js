@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const Command = require('../../Structures/Construction/Command');
-
 module.exports = class extends Command {
   constructor(...args) {
     super(...args, {
@@ -9,7 +8,7 @@ module.exports = class extends Command {
     });
   }
 
-  async run(message) {
+  run(message) {
     try {
       const promises = [
         this.Main.shard.broadcastEval(
@@ -25,11 +24,11 @@ module.exports = class extends Command {
         const Botinfoembed = new Discord.MessageEmbed();
         message.channel.send(
           Botinfoembed.setTitle('**Показатели бота**')
-            .setColor('RANDOM')
-            .setThumbnail(message.guild.iconURL())
-            .addField(
-              '**Техническая**',
-              `>>> **<:cpu:709750871692542142> | CPU:** ${results[0]
+          .setColor('RANDOM')
+          .setThumbnail(message.guild.iconURL())
+          .addField(
+            '**Техническая**',
+            `>>> **<:cpu:709750871692542142> | CPU:** ${results[0]
                 .reduce((var1, var2) => var1 + var2, 0)
                 .toFixed(2)}%
 **<:ram:709751455610961972> | RAM:**  ${this.Main.utils.formatBytes(
@@ -43,19 +42,19 @@ module.exports = class extends Command {
 **💡 | Discord.js:**  v${Discord.version}
 **Discord API:** ${new Date().getTime() - message.createdTimestamp}ms
 **Bot Ping:** ${Math.round(this.Main.ws.ping)}ms.`,
-              true
-            )
-            .addField(
-              '**👥 | Социальная**',
-              `>>> **:man_artist_tone3:Пользователей**  ${results[5].reduce(
+            true
+          )
+          .addField(
+            '**👥 | Социальная**',
+            `>>> **:man_artist_tone3:Пользователей**  ${results[5].reduce(
                 (var1, var2) => var1 + var2,
                 0
               )}
 **🌐 | Серверов:**  ${results[3].reduce((var1, var2) => var1 + var2, 0)}
 **🗨 | Каналов:**  ${results[2].reduce((var1, var2) => var1 + var2, 0)}
 **🤣 | Емодзи:**  ${results[4].reduce((var1, var2) => var1 + var2, 0)}`,
-              true
-            )
+            true
+          )
         );
       });
     } catch (error) {
