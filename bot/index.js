@@ -16,7 +16,7 @@ try {
     let result = [];
     for (let line of arr) {
       let resute = result[result.length - 1]
-      if (result.length === 0 || resute.length + line.length < len) {
+      if (result.length === 0 && resute.length + line.length < len) {
         result.push(line)
       } else {
         resute += line
