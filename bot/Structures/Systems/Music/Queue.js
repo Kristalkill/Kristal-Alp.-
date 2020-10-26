@@ -1,4 +1,5 @@
 const Discpatcher = require('./Discpatcher.js');
+// eslint-disable-next-line no-undef
 module.exports = class Queue extends Map {
   constructor(Main, iterable) {
     super(iterable);

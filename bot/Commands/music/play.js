@@ -58,7 +58,6 @@ module.exports = class extends Command {
       return;
     }
     const searchData = await node.rest.resolve(query, 'youtube');
-    console.log(searchData)
     if (!searchData.tracks.length)
       return await message.channel.send(language.play.params.param2);
     const tracks = searchData.tracks.slice(0, 10);

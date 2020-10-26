@@ -18,7 +18,7 @@ module.exports = class extends Command {
 
         delete require.cache[require.resolve(`../${command.category}/${command.name}.js`)]
 
-        this.Main.commands.set(command.name, new require(`../${command.category}/${command.name}.js`)())
+        this.Main.commands.set(command.name, new(require(`../${command.category}/${command.name}.js`))())
 
         return message.channel.send(`${command.name} перезагружена`)
 
