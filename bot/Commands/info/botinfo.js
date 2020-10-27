@@ -20,6 +20,7 @@ module.exports = class extends Command {
         this.Main.shard.fetchClientValues('emojis.cache.size'),
         this.Main.shard.fetchClientValues('users.cache.size'),
       ];
+      // eslint-disable-next-line no-undef
       Promise.all(promises).then((results) => {
         const Botinfoembed = new Discord.MessageEmbed();
         message.channel.send(

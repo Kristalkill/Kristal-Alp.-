@@ -146,7 +146,7 @@ module.exports = class Boxes {
             message.channel.send(
               `[Коробка]: Коробка \`${win}\` досталась участнику ${msg.author}!`
             );
-            message.guild.member(msg.author).options.box[win]++;
+            msg.member.options.box[win]++;
             i = 1;
             collector.stop();
           }

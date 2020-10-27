@@ -10,19 +10,31 @@ try {
     return str;
   };
   String.prototype.chunk = function(len) {
+    let result = []
+    this.match(
+      new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
+    ).map((c) => c.replace(/^ +| +$/g, '')).forEach(line => {
+      if (result.length == 0 || result[result.length - 1].length + line.length > len) {
+        result.unshift(line + `\n`)
+      } else {
+        result[result.length - 1] += line + `\n`
+      }
+    })
+    return result
+    /* 
     const arr = this.match(
       new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, ''));
-    let result = [];
+    let result = []
     for (let line of arr) {
-      let resute = result[result.length - 1]
-      if ((resute ? resute.length : 0) + line.length > len) {
+      if (result.length == 0 || result[result.length - 1].length + line.length > len) {
         result.push(line)
       } else {
-        resute += line
+        result[result.length - 1] += line
       }
     }
     return result;
+    */
   };
   String.prototype.capitalize = function() {
     return this.replace(/^./, (match) => match.toUpperCase());
