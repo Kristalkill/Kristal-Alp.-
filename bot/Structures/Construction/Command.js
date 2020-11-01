@@ -1,6 +1,9 @@
 const Embed = require('./Embed')
 const fetch = require('node-fetch');
 const {
+  Permissions
+} = require('discord.js');
+const {
   JaroWinklerDistance
 } = require('natural');
 module.exports = class Command {
@@ -11,8 +14,8 @@ module.exports = class Command {
     this.category = options.category;
     this.nsfw = options.nsfw || false;
     this.public = options.public;
-    this.Permission = options.Permission;
-    this.PermissionBOT = options.PermissionBOT;
+    this.Permission = new Permissions(options.Permission).freeze();
+    this.PermissionBOT = new Permissions(options.PermissionBOT).freeze();
     this.Embed = new Embed(Main)
   }
 

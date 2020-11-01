@@ -64,7 +64,16 @@ module.exports = class Util {
     const i = Math.floor(Math.log(bytes) / Math.log(1024));
     return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${sizes[i]}`;
   }
+  formatPerms(perm) {
+    return perm
+      .toLowerCase()
+      .replace(/(^|"|_)(\S)/g, (s) => s.toUpperCase())
+      .replace(/_/g, ' ')
+      .replace(/Guild/g, 'Server')
+      .replace(/Use Vad/g, 'Use Voice Acitvity');
+  }
   removeDuplicates(arr) {
+    // eslint-disable-next-line no-undef
     return [...new Set(arr)];
   }
 
@@ -144,25 +153,22 @@ module.exports = class Util {
       year: '2-digit',
     });
   }
-  managePerms(message, needPerms, addMore = false) {
-    if (Array.isArray(needPerms)) {
-      const need = [];
-      if (addMore) {
-        needPerms.push('EMBED_LINKS');
-        needPerms.push('ADD_REACTIONS');
-        needPerms.push('USE_EXTERNAL_EMOJIS');
-      }
-      needPerms.map((p) =>
-        !message.channel
-        .permissionsFor(addMore ? message.guild.me : message.member)
-        .has(p) ?
-        need.push(p) :
-        null
-      );
-      if (need.length) return need;
-      return false;
+  formatArray(array, type = 'conjunction') {
+    return new Intl.ListFormat('en-GB', {
+      style: 'short',
+      type: type
+    }).format(array);
+  }
+  managePerms(message, command) {
+    let utils = this
+
+    function permcheck(member) {
+      return utils.formatArray((message.channel.permissionsFor(member).missing(command.Permission ? utils.Main.defaultPerms.add(command.Permission) : utils.Main.defaultPerms)).map(utils.formatPerms))
     }
-    return false;
+    const missing = permcheck(message.member)
+    const bmissing = permcheck(message.guild.me)
+
+    return [bmissing, missing]
   }
 
   randomize(min, max) {

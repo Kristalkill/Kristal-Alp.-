@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {});
     }
     async run(message) {
-        const all = message.guild.members.cache.filter(m => m.user.bot === false).size
+        const all = message.guild.presences.cache.filter(m => m.user.bot === false).size
         const online = message.guild.presences.cache.filter(x => ['online', 'idle', 'dnd'].includes(x)).size
         const offline = all - online;
         message.channel.send(new MessageEmbed()
@@ -22,11 +22,11 @@ module.exports = class extends Command {
                 Region: \`${message.guild.region}\`
                 System Channel: ${message.guild.systemChannel ||  'None' }`
             )
-            .addField(`Members [${message.guild.membersCount}]`,
+            .addField(`Members [${message.guild.memberCount}]`,
                 `Members: **${all}**
                 Online: **${online}**
                 Offline: **${offline}**
-                Bots: **${message.guild.membersCount - all}**`, true
+                Bots: **${message.guild.memberCount - all}**`, true
             )
             .addField(`Channels [${message.guild.channels.cache.size}]`,
                 `Text: **${message.guild.channels.cache.filter(c => c.type == 'text').size}**

@@ -10,7 +10,7 @@ try {
     return str;
   };
   String.prototype.chunk = function(len) {
-    let result = []
+    /*let result = []
     this.match(
       new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, '')).forEach(line => {
@@ -21,7 +21,8 @@ try {
       }
     })
     return result
-    /* 
+    */
+
     const arr = this.match(
       new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, ''));
@@ -34,7 +35,6 @@ try {
       }
     }
     return result;
-    */
   };
   String.prototype.capitalize = function() {
     return this.replace(/^./, (match) => match.toUpperCase());

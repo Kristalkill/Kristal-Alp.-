@@ -57,8 +57,8 @@ module.exports = class extends Event {
         if (await inviteCheck(this.Main, message, res)) return;
         message.member.options = data;
         const language = require(`./../languages/${
-              res.Moderation.language || 'en'
-            }.json`);
+          res.Moderation.language || 'en'
+        }.json`);
         if (!message.guild.me.hasPermission(['SEND_MESSAGES']))
           return message.guild.owner
             .send(
@@ -114,6 +114,7 @@ module.exports = class extends Event {
             )
           );
         } else if (prefix && command) {
+          let [botperm, userperm] = this.Main.utils.managePerms(message, command)
           const cooldown = this.Main.db.cooldowns.get(message.author.id);
           if (cooldown)
             return message.channel.send(
@@ -135,41 +136,30 @@ module.exports = class extends Event {
                 )
               );
             if (command.public === false) return;
-
+            if (userperm) {
+              message.channel.send(
+                this.Main.embeds.ErrEmbed.setDescription(
+                  language.message.perms2.translate({
+                    need: userperm
+                  })
+                )
+              );
+            }
             this.Main.db.cooldowns.set(message.author.id, Date.now() + 5000);
             setTimeout(
               () => this.Main.db.cooldowns.delete(message.author.id),
               5000
             );
-
-            const Uneed = this.Main.utils.managePerms(
-              message,
-              command.Permission,
-              false
-            );
-            if (Uneed)
-              return message.channel.send(
-                this.Main.embeds.ErrEmbed.setDescription(
-                  language.message.perms2.translate({
-                    need: Uneed
-                  })
-                )
-              );
           }
-          const Bneed = this.Main.utils.managePerms(
-            message,
-            command.PermissionBOT,
-            true
-          );
-          if (Bneed)
-            return message.channel.send(
+          if (botperm) {
+            message.channel.send(
               this.Main.embeds.ErrEmbed.setDescription(
                 language.message.perms3.translate({
-                  need: Bneed
+                  need: botperm
                 })
               )
             );
-          message.Main = this.Main;
+          }
           await command.run(message, args);
         }
         message.member.options.save().catch(() => null);
