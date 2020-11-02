@@ -132,7 +132,7 @@ module.exports = class Util {
         .setImage(`${message.author.avatarURL({ dynamic: true })}`)
         .addField(
           `**${message.author.tag}**`,
-          `**С новым дистижением**\n**Значок: **${variables.Achievements[number].emoji}\n**Название: **${variables.Achievements[number].name}\n**Описание: **${variables.Achievements[number].description}`
+          `**С новым достижением**\n**Значок: **${variables.Achievements[number].emoji}\n**Название: **${variables.Achievements[number].name}\n**Описание: **${variables.Achievements[number].description}`
         );
       message.channel.send(AchievementEmed);
     }

@@ -1,0 +1,44 @@
+module.exports = class Poster {
+
+    constructor(Main) {
+        this.Main = Main
+        this.tokens = {
+            "top": "token",
+            "botsserverdiscord": "token",
+            "boticord": "token",
+            "discordbotlist": "token",
+            "discordbots": "token",
+            "discordboats": "token"
+        }
+    }
+
+    top() {
+        const DBL = new require("dblapi.js")(this.tokens.top, this.Main);
+        DBL.on('posted', () => {
+            console.log('[TopGG] Server count posted!');
+        })
+
+        DBL.on('error', e => {
+            console.log(` [TopGG] Oops! ${e}`);
+        })
+        setInterval(() => {
+            let guild = this.Main.guilds.cache.values().next().value
+            DBL.postStats(guild.shard.id, guild.shard.manager.totalShards)
+        }, 18000000)
+    }
+    botsserverdiscord() {
+        new require("@megavasiliy007/sdc-api")(this.tokens.botsserverdiscord).setAutoPost(this.Main);
+    }
+    boticord() {
+
+    }
+    discordbotlistcom() {
+
+    }
+    discordbotsgg() {
+
+    }
+    async discordboats() {
+        await (new require('boats.js')(this.tokens.discordboats).postStats(this.Main.guilds.cache.size, this.Main.user.id));
+    }
+}

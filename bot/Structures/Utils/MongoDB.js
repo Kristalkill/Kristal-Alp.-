@@ -1,4 +1,10 @@
-const { model, Schema, connect, connection } = require('mongoose');
+/* eslint-disable no-undef */
+const {
+  model,
+  Schema,
+  connect,
+  connection
+} = require('mongoose');
 
 module.exports = class MongoDB {
   constructor(Main) {
@@ -9,17 +15,44 @@ module.exports = class MongoDB {
         guildID: String,
         ownerID: String,
         Moderation: {
-          auto: { type: Boolean, default: false },
-          prefix: { type: String, default: 'k!' },
-          muterole: { type: String, default: '0' },
-          language: { type: String, default: 'en' },
+          auto: {
+            type: Boolean,
+            default: false
+          },
+          prefix: {
+            type: String,
+            default: 'k!'
+          },
+          muterole: {
+            type: String,
+            default: '0'
+          },
+          language: {
+            type: String,
+            default: 'en'
+          },
         },
         Economy: {
-          shop: { type: Map, default: {} },
-          upXP: { type: Number, default: 100 },
-          bonus: { type: Number, default: 50 },
-          money: { type: Number, default: 3 },
-          xp: { type: Number, default: 5 },
+          shop: {
+            type: Map,
+            default: {}
+          },
+          upXP: {
+            type: Number,
+            default: 100
+          },
+          bonus: {
+            type: Number,
+            default: 50
+          },
+          money: {
+            type: Number,
+            default: 3
+          },
+          xp: {
+            type: Number,
+            default: 5
+          },
         },
         options: {
           boxes: false,
@@ -38,24 +71,66 @@ module.exports = class MongoDB {
       Schema({
         guildID: String,
         box: {
-          С: { type: Number, default: 0 },
-          U: { type: Number, default: 0 },
-          R: { type: Number, default: 0 },
-          E: { type: Number, default: 0 },
-          L: { type: Number, default: 0 },
+          С: {
+            type: Number,
+            default: 0
+          },
+          U: {
+            type: Number,
+            default: 0
+          },
+          R: {
+            type: Number,
+            default: 0
+          },
+          E: {
+            type: Number,
+            default: 0
+          },
+          L: {
+            type: Number,
+            default: 0
+          },
         },
-        rep: { type: Number, default: 0 },
+        rep: {
+          type: Number,
+          default: 0
+        },
         userID: String,
-        money: { type: Number, default: 0 },
-        level: { type: Number, default: 1 },
-        xp: { type: Number, default: 0 },
-        messages: { type: Number, default: 0 },
-        warn: { type: Number, default: 0 },
+        money: {
+          type: Number,
+          default: 0
+        },
+        level: {
+          type: Number,
+          default: 1
+        },
+        xp: {
+          type: Number,
+          default: 0
+        },
+        messages: {
+          type: Number,
+          default: 0
+        },
+        warn: {
+          type: Number,
+          default: 0
+        },
         Achievements: [],
         Timelyes: {
-          _premium: { type: Number, default: 0 },
-          _rep: { type: Number, default: 0 },
-          _timely: { type: Number, default: 0 },
+          _premium: {
+            type: Number,
+            default: 0
+          },
+          _rep: {
+            type: Number,
+            default: 0
+          },
+          _timely: {
+            type: Number,
+            default: 0
+          },
         },
       })
     );

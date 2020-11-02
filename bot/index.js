@@ -1,5 +1,8 @@
 const Main = new(require('./Structures/Main'))();
 const dotenv = require('dotenv');
+const {
+  MessageEmbed
+} = require('discord.js')
 dotenv.config();
 try {
   String.prototype.translate = function(vars) {
@@ -10,19 +13,6 @@ try {
     return str;
   };
   String.prototype.chunk = function(len) {
-    /*let result = []
-    this.match(
-      new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
-    ).map((c) => c.replace(/^ +| +$/g, '')).forEach(line => {
-      if (result.length == 0 || result[result.length - 1].length + line.length > len) {
-        result.unshift(line + `\n`)
-      } else {
-        result[result.length - 1] += line + `\n`
-      }
-    })
-    return result
-    */
-
     const arr = this.match(
       new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, ''));
@@ -54,3 +44,9 @@ try {
   console.log(err);
 }
 Main.start();
+
+process.on('unhandledRejection', error => {
+  if (error.name.includes('DiscordAPIError')) return;
+  Main.channels.cache.get('772907942718341130').send(new MessageEmbed().setDescription(`message: ${error.message}\npath: ${error.path}`).setTitle(error.name).setURL(error.path).setTimestamp()
+    .setFooter(error.code + error.method))
+});
