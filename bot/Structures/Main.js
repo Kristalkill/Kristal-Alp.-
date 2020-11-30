@@ -2,19 +2,22 @@ const {
   MessageEmbed,
   Collection,
   Client,
-  Permissions
+  Permissions,
+  Intents
 } = require('discord.js');
 const Util = require('./Utils/Util.js');
 const Site = require('../../site/Site.js');
 const Logger = require('./Utils/Logger.js');
 const Music = require('./Systems/Music/Music.js');
 const MongoDB = require('./Utils/MongoDB.js');
-module.exports = class Main extends Client {
+module.exports = class extends Client {
   constructor() {
     super({
       disableMentions: 'everyone',
       messageCacheMaxSize: 200,
-      fetchAllMembers: true,
+      ws: {
+        intents: Intents.ALL
+      }
     });
     this.defaultPerms = new Permissions(process.env.token).freeze();
 
@@ -35,9 +38,9 @@ module.exports = class Main extends Client {
     this.music = new Music(this);
   }
   async start() {
-    this.utils.loadCommands();
-    this.utils.loadEvents();
-    this.db.connect();
+    await this.utils.loadCommands();
+    await this.utils.loadEvents();
+    await this.db.connect();
     await super.login(process.env.token);
     this.site = new Site(this);
   }

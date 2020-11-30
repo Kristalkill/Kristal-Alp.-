@@ -1,6 +1,10 @@
-const { ShardingManager } = require('discord.js');
+const {
+  ShardingManager
+} = require('discord.js');
 const fs = require('fs');
-const { spawn } = require('child_process');
+const {
+  spawn
+} = require('child_process');
 const child = spawn('java', ['-jar', 'Lavalink.jar']);
 let application = fs.readFileSync('./application.yml', 'utf8');
 if (process.env.PORT) {

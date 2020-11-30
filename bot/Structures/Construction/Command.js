@@ -23,11 +23,10 @@ module.exports = class Command {
     throw new Error(`Команда ${this.name} не содержин метод запуска!`);
   }
   get(args, message, type, author = true) {
+    message.guild[type].fetch()
     let cache = message.guild[type].cache
     let arr = type == 'members' ? cache.map(x => (x.nickname || x.user.username)) : cache.map(x => x.name)
-    console.log(args)
     let value = args || ''
-    console.log(value)
     let findet = arr.sort((a, b) => JaroWinklerDistance(value, b) - JaroWinklerDistance(value, a))[0];
     if (JaroWinklerDistance(value, findet) < 0.7) findet = undefined
     return (
