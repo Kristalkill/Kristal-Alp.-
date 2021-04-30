@@ -53,8 +53,8 @@ function send(eror, promise) {
     code: eror.code,
     method: eror.method
   };
-  return Main.channels.cache.get('709749244931866669').send(new MessageEmbed().setDescription(`message: ${error.message}`).setTitle(error.name).setURL(error.path || promise).setTimestamp()
-    .setFooter(error.code + error.method))
+  /* return Main.channels.cache.get('709749244931866669').send(new MessageEmbed().setDescription(`message: ${error.message}`).setTitle(error.name).setURL(error.path || promise).setTimestamp()
+    .setFooter(error.code + error.method)) */
 }
 process.on('unhandledRejection', (reason, promise) => {
   send(reason, promise);
@@ -67,7 +67,7 @@ process.on('uncaughtException', (err, origin) => {
 });
 process.on('uncaughtExceptionMonitor', (err, origin) => {
   let args = [err, origin]
-  Main.channels.cache.get('709749244931866669').send(new MessageEmbed().setDescription(`message: ${args.map((arg) => JSON.parse(JSON.stringify(arg)))}`));
+  /* Main.channels.cache.get('709749244931866669').send(new MessageEmbed().setDescription(`message: ${args.map((arg) => JSON.parse(JSON.stringify(arg)))}`)); */
 })
 process.on('warning', (warning) => {
   send(warning)
