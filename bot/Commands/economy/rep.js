@@ -57,12 +57,12 @@ module.exports = class extends Command {
         OK.setTitle(language.rep.params.down);
       }
       OK.setDescription(
-        language.rep.params.have.translate({
-          name: member.user.username,
-          rep: Data1.rep,
-        })
+          language.rep.params.have.translate({
+            name: member.user.username,
+            rep: Data1.rep,
+          })
       );
-      message.member.options.Timelyes._rep = parseInt(Date.now() + 14400000);
+      message.member.options.Timelyes._rep = Date.now() + 14400000;
       Data1.save();
       message.channel.send(OK);
     } catch (error) {

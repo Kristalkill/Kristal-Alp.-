@@ -1,5 +1,5 @@
-const Discord = require('discord.js');
 const Command = require('../../Structures/Construction/Command');
+const {MessageEmbed} = require("discord.js");
 
 module.exports = class extends Command {
   constructor(...args) {
@@ -12,7 +12,7 @@ module.exports = class extends Command {
 
   async run(message) {
     try {
-      message.channel.send(new Discord.MessageEmbed()
+      message.channel.send(new MessageEmbed()
           .setTitle('Я успешно офнулся')
           .setDescription('EMINEM-FRAMED'));
       await process.exit();

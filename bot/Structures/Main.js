@@ -6,7 +6,6 @@ const {
   Intents
 } = require('discord.js');
 const Util = require('./Utils/Util.js');
-const Site = require('../../site/Site.js');
 const Logger = require('./Utils/Logger.js');
 const Music = require('./Systems/Music/Music.js');
 const MongoDB = require('./Utils/MongoDB.js');
@@ -42,6 +41,5 @@ module.exports = class extends Client {
     await this.utils.loadEvents();
     await this.db.connect();
     await super.login(process.env.token);
-    this.site = new Site(this);
   }
 };

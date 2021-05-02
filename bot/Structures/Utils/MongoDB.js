@@ -8,27 +8,38 @@ const {
 
 module.exports = class MongoDB {
   constructor(Main) {
-    this.Main = Main;
-    this.Guild = model(
-      'Guild',
-      Schema({
-        guildID: String,
-        ownerID: String,
-        Moderation: {
-          auto: {
-            type: Boolean,
-            default: false
-          },
-          prefix: {
-            type: String,
-            default: 'k!'
-          },
-          muterole: {
-            type: String,
-            default: '0'
-          },
-          language: {
-            type: String,
+      this.Main = Main;
+      this.Global_Users = model(
+          'Global_Users',
+          Schema({
+              UserID: Number,
+              Rate: {
+                  rating: String,
+                  reason: String
+              },
+              Badges: Array
+          })
+      );
+      this.Guild = model(
+          'Guild',
+          Schema({
+              guildID: String,
+              ownerID: String,
+              Moderation: {
+                  auto: {
+                      type: Boolean,
+                      default: false
+                  },
+                  prefix: {
+                      type: String,
+                      default: 'k!'
+                  },
+                  muterole: {
+                      type: String,
+                      default: '0'
+                  },
+                  language: {
+                      type: String,
             default: 'en'
           },
         },

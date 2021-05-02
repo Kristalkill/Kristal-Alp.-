@@ -82,31 +82,31 @@ module.exports = class extends Command {
               `**🎉${language.giveaway.params.param7}🎉**`
             );
             if (res) {
-              const userees = await message.guild.channels.cache
-                .get(res.channel)
-                .messages.fetch(res.messageID)
-                .then((v) =>
-                  Array.from(
-                    v.reactions.cache
-                    .get('🎉')
-                    .users.cache.filter(
-                      (user) => user.id !== this.Main.user.id && !user.bot
-                    )
-                    .keys()
-                  )
-                );
-              if (userees.length) {
-                let random = [];
-                random = userees.shuffle().slice(0, res.winners);
-                message.guild.channels.cache
+              const users_res = await message.guild.channels.cache
                   .get(res.channel)
-                  .send(
-                    GiveAway.setDescription(
-                      `${language.giveaway.params.param8} ${random
-                        .map((a) => message.guild.members.cache.get(a))
-                        .join(', ')}`
-                    )
+                  .messages.fetch(res.messageID)
+                  .then((v) =>
+                      Array.from(
+                          v.reactions.cache
+                              .get('🎉')
+                              .users.cache.filter(
+                              (user) => user.id !== this.Main.user.id && !user.bot
+                          )
+                              .keys()
+                      )
                   );
+              if (users_res.length) {
+                let random = [];
+                random = users_res.shuffle().slice(0, res.winners);
+                message.guild.channels.cache
+                    .get(res.channel)
+                    .send(
+                        GiveAway.setDescription(
+                            `${language.giveaway.params.param8} ${random
+                                .map((a) => message.guild.members.cache.get(a))
+                                .join(', ')}`
+                        )
+                    );
               } else {
                 GiveAway.setDescription(language.giveaway.params.param9);
               }

@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {});
     }
     async run(message, args) {
-        const role = message.guild.roles.cache.get(message.mentions.roles.first() || message.guild.roles.cache.find(r => r.name1 === args.join(' ')).id || message.guild.roles.cache.get(args.join(' ')));
+        const role = message.guild.roles.cache.get(message.mentions.roles.first() || message.guild.roles.cache.find(r => r.name === args.join(' ')).id || message.guild.roles.cache.get(args.join(' ')));
         if (!role) return this.Embed.ErrorEmbed(`Provide role`, message)
         message.channel.send(new MessageEmbed()
             .setTitle(`Role-Info`)

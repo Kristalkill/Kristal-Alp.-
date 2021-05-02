@@ -36,22 +36,22 @@ module.exports = class extends Command {
         const pages = [];
         let page = 1;
         fs.readdirSync(`bot/Commands/`)
-          .filter((module) => module != 'development')
+            .filter((module) => module !== 'development')
           .forEach((module) => {
             pages1.push(`≫ ${emojis[module]} | ${module.capitalize()} ≪`);
-            if (
-              this.Main.commands.filter((cmd) => cmd.category == module).size >=
-              1
-            )
-              return pages.push(
-                `${this.Main.commands
-                  .filter((cmd) => cmd.category == module)
-                  .map(
-                    (cmd) =>
-                      `**\`${message.guild.settings.Moderation.prefix}${
-                        cmd.name || language.undefined
-                      }\`** - ${
-                        language[cmd.name] ? language[cmd.name].command.description :
+              if (
+                  this.Main.commands.filter((cmd) => cmd.category === module).size >=
+                  1
+              )
+                  return pages.push(
+                      `${this.Main.commands
+                          .filter((cmd) => cmd.category === module)
+                          .map(
+                              (cmd) =>
+                                  `**\`${message.guild.settings.Moderation.prefix}${
+                                      cmd.name || language.undefined
+                                  }\`** - ${
+                                      language[cmd.name] ? language[cmd.name].command.description :
                         language.undefined
                       }`
                   )
@@ -87,54 +87,54 @@ module.exports = class extends Command {
                 msg.edit(
                   embed
                   .setDescription(pages[page - 1])
-                  .setTitle(pages1[page - 1])
-                  .setFooter(
-                    language.pages.translate({
-                      page,
-                      pages: pages.length
-                    })
-                  )
+                      .setTitle(pages1[page - 1])
+                      .setFooter(
+                          language.pages.translate({
+                              page,
+                              pages: pages.length
+                          })
+                      )
                 );
-                break;
-              case 'arrow_left':
-                page == 1 ? (page = pages.length) : page--;
-                msg.edit(
-                  embed
-                  .setDescription(pages[page - 1])
-                  .setTitle(pages1[page - 1])
-                  .setFooter(
-                    language.pages.translate({
-                      page,
-                      pages: pages.length
-                    })
-                  )
-                );
-                break;
-              case 'smart_button':
-                msg.delete();
-                break;
-              case 'arrow_right':
-                page == pages.length ? (page = 1) : page++;
-                msg.edit(
-                  embed
-                  .setDescription(pages[page - 1])
-                  .setTitle(pages1[page - 1])
-                  .setFooter(
-                    language.pages.translate({
-                      page,
-                      pages: pages.length
-                    })
-                  )
-                );
-                break;
-              case 'fast_forward':
-                page = pages.length;
-                msg.edit(
-                  embed
-                  .setDescription(pages[page - 1])
-                  .setTitle(pages1[page - 1])
-                  .setFooter(
-                    language.pages.translate({
+                  break;
+                case 'arrow_left':
+                    page === 1 ? (page = pages.length) : page--;
+                    msg.edit(
+                        embed
+                            .setDescription(pages[page - 1])
+                            .setTitle(pages1[page - 1])
+                            .setFooter(
+                                language.pages.translate({
+                                    page,
+                                    pages: pages.length
+                                })
+                            )
+                    );
+                    break;
+                case 'smart_button':
+                    msg.delete();
+                    break;
+                case 'arrow_right':
+                    page === pages.length ? (page = 1) : page++;
+                    msg.edit(
+                        embed
+                            .setDescription(pages[page - 1])
+                            .setTitle(pages1[page - 1])
+                            .setFooter(
+                                language.pages.translate({
+                                    page,
+                                    pages: pages.length
+                                })
+                            )
+                    );
+                    break;
+                case 'fast_forward':
+                    page = pages.length;
+                    msg.edit(
+                        embed
+                            .setDescription(pages[page - 1])
+                            .setTitle(pages1[page - 1])
+                            .setFooter(
+                                language.pages.translate({
                       page,
                       pages: pages.length
                     })

@@ -11,11 +11,13 @@
     "node": "14.x"
   },
   "dependencies": {
-    "discord.js": "^12.2.1",
+    "axios": "^0.21.1",
+    "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
     "humanize-duration": "^3.23.1",
     "mongoose": "^5.9.29",
     "natural": "^2.1.5",
+    "node-fetch": "^2.6.1",
     "os-utils": "0.0.14",
     "shoukaku": "^1.5.2",
     "weather-js": "^2.0.0"

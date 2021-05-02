@@ -35,17 +35,19 @@ module.exports = class extends Command {
         args[1] &&
         ['level', 'money', 'rep', 'xp'].includes(args[1].toLowerCase())
       ) {
-        message.channel.send(
-          this.Main.embeds.OKEmbed.setDescription(
-            language.set.params.param1.translate({
-              arg1: args[1],
-              arg2: args[2],
-              name: member.user.username,
-            })
-          )
-        );
-        data[args[1].toLowerCase()] = parseInt(args[2]);
-        message.author.id === member.id ? null : data.save();
+          message.channel.send(
+              this.Main.embeds.OKEmbed.setDescription(
+                  language.set.params.param1.translate({
+                      arg1: args[1],
+                      arg2: args[2],
+                      name: member.user.username,
+                  })
+              )
+          );
+          data[args[1].toLowerCase()] = parseInt(args[2]);
+          if (message.author.id === member.id) {
+              data.save()
+          }
       } else if (!args[1]) {
         message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.set.params.param2)
