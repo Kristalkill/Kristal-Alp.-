@@ -3,16 +3,16 @@ const Command = require('../../Structures/Construction/Command');
 module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
-            aliases: ['relod'],
+            aliases: ['reload'],
             category: 'development',
             public: false,
         });
     }
 
     async run(message, args) {
-        const commandname = args[0].toLowerCase()
-        const command = this.Main.commands.get(commandname) || this.Main.commands.find(cmd => {
-            cmd.aliases && cmd.aliases.includes(commandname)
+        const command_name = args[0].toLowerCase()
+        const command = this.Main.commands.get(command_name) || this.Main.commands.find(cmd => {
+            cmd.aliases && cmd.aliases.includes(command_name)
         })
         if (!command) return message.reply('Нету такой комманды')
 

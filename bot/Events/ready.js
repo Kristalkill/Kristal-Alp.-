@@ -12,7 +12,7 @@ module.exports = class extends Event {
     console.log(`[✅Bot] ${this.Main.user.tag} Запущен!`);
     const GiveAway = new Discord.MessageEmbed().setTitle('🎉**Giveaway** 🎉');
 
-    this.Main.user.setPresence({
+    await this.Main.user.setPresence({
       activity: {
         name: 'k!help'
       },
@@ -20,13 +20,13 @@ module.exports = class extends Event {
     });
     setInterval(async () => {
       try {
-        let res = await this.Main.db.Mute.find();
+        let res = await this.Main.db.Mute;
         if (res) {
-          res.forEach(async (mute) => {
-            if (mute.time == false) return;
+          for (const mute of await res.find()) {
+            if (mute.time === false) continue;
             const guild = this.Main.guilds.cache.get(mute.guildID);
-            if (!guild) return;
-            const Data = await this.Main.db.Guild.findOne({
+            if (!guild) continue;
+            const Data =  await this.Main.db.Guild.findOne({
               guildID: mute.guildID,
             });
             const role = guild.roles.cache.get(Data.Moderation.muterole);
@@ -36,12 +36,12 @@ module.exports = class extends Event {
               mute.time !== null &&
               mute.time <= Date.now()
             )
-              res.deleteOne({
+              await res.deleteOne({
                 guild: mute.guildID,
                 id: mute.id
               });
-            if (!guild.members.cache.get(mute.id)) return;
-            if (!role) res.deleteOne({
+            if (!guild.members.cache.get(mute.id)) continue;
+            if (!role)  await res.deleteOne({
               guild: mute.guildID,
               id: mute.id
             });
@@ -51,17 +51,17 @@ module.exports = class extends Event {
                 .get(mute.id)
                 .roles.cache.has(Data.Moderation.muterole)
               )
-                guild.memebrs.cache
+                guild.members.cache
                 .get(mute.id)
                 .roles.add(Data.Moderation.muterole);
-            } else if (mute.time !== null) {
+            } else {
               if (mute.time >= Date.now()) {
-                if (!user) return;
+                if (!user) continue;
                 if (!user.roles.cache.has(Data.Moderation.muterole))
-                  return user.roles.add(Data.Moderation.muterole);
+                  user.roles.add(Data.Moderation.muterole);
               } else {
                 const language = require(`./../languages/${
-                  Data.Moderation.language || 'en'
+                    Data.Moderation.language || 'en'
                 }.json`);
                 await this.Main.db.Mute.deleteOne({
                   guildID: mute.guildID,
@@ -70,32 +70,32 @@ module.exports = class extends Event {
                   time: mute.time,
                   channel: mute.channel,
                 });
-                user.roles.remove(Data.Moderation.muterole);
+                await user.roles.remove(Data.Moderation.muterole);
                 if (
-                  guild.channels.cache.get(mute.channel) &&
-                  guild.members.cache.get(mute.id) &&
-                  guild.members.cache
-                  .get(mute.id)
-                  .roles.cache.has(Data.Moderation.muterole)
+                    guild.channels.cache.get(mute.channel) &&
+                    guild.members.cache.get(mute.id) &&
+                    guild.members.cache
+                        .get(mute.id)
+                        .roles.cache.has(Data.Moderation.muterole)
                 )
-                  return guild.channels.cache
-                    .get(mute.channel)
-                    .send(
-                      this.Main.embeds.OKEmbed.setDescription(
-                        `${guild.members.cache.get(mute.id)} ${
-                          language.ready.unmute
-                        }`
-                      )
-                    );
+                  guild.channels.cache
+                      .get(mute.channel)
+                      .send(
+                          this.Main.embeds.OKEmbed.setDescription(
+                              `${guild.members.cache.get(mute.id)} ${
+                                  language.ready.unmute
+                              }`
+                          )
+                      );
                 if (user && user.roles.cache.has(Data.Moderation.muterole))
-                  return user.send(
-                    this.Main.embeds.OKEmbed.setDescription(
-                      `${user} ${language.ready.unmute}`
-                    )
+                  user.send(
+                      this.Main.embeds.OKEmbed.setDescription(
+                          `${user} ${language.ready.unmute}`
+                      )
                   );
               }
             }
-          });
+          }
         }
       } catch (error) {
         console.log(error);
@@ -103,18 +103,18 @@ module.exports = class extends Event {
     }, 3000);
     setInterval(async () => {
       try {
-        let res = await this.Main.db.Giveaway.find();
+        let res = await this.Main.db.Giveaway;
         if (res) {
-          res.forEach(async (Giveaway) => {
+          for (const Giveaway of await res.find()) {
             const guild = this.Main.guilds.cache.get(Giveaway.guildID);
-            if (!guild) return;
+            if (!guild) continue;
             if (
-              (await !guild.channels.cache.get(Giveaway.channel)) ||
-              (await !guild.channels.cache
-                .get(Giveaway.channel)
-                .messages.fetch(Giveaway.messageID))
-            )
-              return await Giveaway.deleteOne({
+              (!guild.channels.cache.get(Giveaway.channel)) ||
+              (!guild.channels.cache
+                  .get(Giveaway.channel)
+                  .messages.fetch(Giveaway.messageID))
+              )
+              await Giveaway.deleteOne({
                 guildID: Giveaway.guildID,
                 time: Giveaway.time,
                 prize: Giveaway.prize,
@@ -131,7 +131,7 @@ module.exports = class extends Event {
                     v.reactions.cache
                     .get('🎉')
                     .users.cache.filter(
-                      (user) => user.id != this.Main.user.id && !user.bot
+                      (user) => user.id !== this.Main.user.id && !user.bot
                     )
                     .keys()
                   )
@@ -171,7 +171,7 @@ module.exports = class extends Event {
                 channel: Giveaway.channel,
               });
             }
-          });
+          }
         }
       } catch (error) {
         console.log(error);

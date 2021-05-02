@@ -12,11 +12,11 @@ module.exports = class extends Command {
     if (!args[0]) return message.channel.send('on or off');
     const arg = args[0].toLowerCase();
     switch (true) {
-      case arg == 'on' && message.guild.settings.options.boxes != true:
+      case arg === 'on' && message.guild.settings.options.boxes !== true:
         message.guild.settings.options.boxes = true;
         message.channel.send(`Успешно поставлено on`);
         break;
-      case arg == 'off' && message.guild.settings.options.boxes != false:
+      case arg === 'off' && message.guild.settings.options.boxes !== false:
         message.guild.settings.options.boxes = false;
         message.channel.send(`Успешно поставлено off`);
         break;

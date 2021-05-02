@@ -46,7 +46,7 @@ module.exports = class extends Command {
       const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
       const reacted =
         (await this.Main.utils
-          .Rcollector(
+          .Reaction_Collector(
             await this.Main.utils.reaction(chooseArr, m, true),
             m,
             message.author,

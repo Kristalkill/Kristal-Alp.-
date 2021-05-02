@@ -10,7 +10,6 @@ let application = fs.readFileSync('./application.yml', 'utf8');
 if (process.env.PORT) {
   application = application.replace('DYNAMICPORT', process.env.PORT);
 }
-
 if (process.env.PASS) {
   application = application.replace('youshallnotpass', process.env.PASS);
 }
@@ -33,7 +32,7 @@ child.on('error', (error) => {
 child.on('close', (code) => {
   console.log(`Lavalink exited with code ${code}`);
 });
-setTimeout(() => {
+setTimeout(async () => {
   const manager = new ShardingManager('./bot/index.js', {
     token: process.env.token,
     autoSpawn: true,
@@ -41,5 +40,5 @@ setTimeout(() => {
   manager.on('shardCreate', (shard) =>
     console.log(`[Shard Loading]: Шард по айди: #${shard.id} запускается...`)
   );
-  manager.spawn(1);
+  await manager.spawn(1)
 }, 15000);

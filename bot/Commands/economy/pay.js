@@ -16,7 +16,7 @@ module.exports = class extends Command {
 
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
+          .filter((u) => u.id !== message.guild.me.id)
           .first() || message.guild.members.cache.get(args[0])
       );
       if (!member)
@@ -49,7 +49,7 @@ module.exports = class extends Command {
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param6)
         );
-      if (message.author.id == member.id)
+      if (message.author.id === member.id)
         return message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.pay.params.param7)
         );

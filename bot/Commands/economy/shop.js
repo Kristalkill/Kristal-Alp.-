@@ -19,7 +19,7 @@ module.exports = class extends Command {
         message.mentions.roles.first() ||
         message.guild.roles.cache.get(args[1]);
       if (role) {
-        if (args[0].toLowerCase() == 'add') {
+        if (args[0].toLowerCase() === 'add') {
           if (message.member.hasPermission('ADMINISTRATOR')) {
             if (parseInt(args[2]) > 0) {
               if (message.guild.settings.Economy.shop.get(role.id)) {
@@ -53,7 +53,7 @@ module.exports = class extends Command {
               )
             );
           }
-        } else if (args[0].toLowerCase() == 'delete') {
+        } else if (args[0].toLowerCase() === 'delete') {
           if (message.member.hasPermission('ADMINISTRATOR')) {
             if (message.guild.settings.Economy.shop.get(role.id)) {
               message.guild.settings.Economy.shop.delete(role.id);
@@ -76,7 +76,7 @@ module.exports = class extends Command {
               )
             );
           }
-        } else if (args[0].toLowerCase() == 'buy') {
+        } else if (args[0].toLowerCase() === 'buy') {
           if (message.member.roles.cache.has(role.id)) {
             message.channel.send(
               this.Main.embeds.ErrEmbed.setDescription(

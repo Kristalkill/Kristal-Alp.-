@@ -30,7 +30,7 @@ module.exports = class extends Command {
           )
         );
 
-      message.channel.setRateLimitPerUser(ms(args[0]) / 1000);
+      await message.channel.setRateLimitPerUser(ms(args[0]) / 1000);
       message.channel.send(
         this.Main.embeds.OKEmbed.setDescription(
           language.slowmode.params.param2.translate({

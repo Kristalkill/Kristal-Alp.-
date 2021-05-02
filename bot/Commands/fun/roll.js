@@ -17,8 +17,8 @@ module.exports = class extends Command {
       let num1 = 0;
       let num2 = 100;
       if (args[0] && args[1]) {
-        num1 = this.Main.utilss.toNum(args[0]);
-        num2 = this.Main.utilss.toNum(args[1]);
+        num1 = this.Main.utils.toNum(args[0]);
+        num2 = this.Main.utils.toNum(args[1]);
       }
       const random = Math.floor(Math.random() * (num2 - num1)) + num1;
       if (random > 9999999)

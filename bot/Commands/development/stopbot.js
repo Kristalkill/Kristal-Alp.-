@@ -12,10 +12,9 @@ module.exports = class extends Command {
 
   async run(message) {
     try {
-      const Exitembed = new Discord.MessageEmbed()
-        .setTitle('Я успешно офнулся')
-        .setDescription('EMINEM-FRAMED');
-      message.channel.send(Exitembed);
+      message.channel.send(new Discord.MessageEmbed()
+          .setTitle('Я успешно офнулся')
+          .setDescription('EMINEM-FRAMED'));
       await process.exit();
     } catch (error) {
       console.log(error);

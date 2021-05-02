@@ -64,7 +64,7 @@ module.exports = class extends Command {
           .setTitle(pages1[page - 1])
           .setFooter(`Page ${page} of ${pages.length}`);
         message.channel.send(embed).then(async (msg) => {
-          const reacted = await this.Main.utils.Rcollector(
+          const reacted = await this.Main.utils.Reaction_Collector(
             await this.Main.utils.reaction(
               [
                 'rewind:756545499238236272',

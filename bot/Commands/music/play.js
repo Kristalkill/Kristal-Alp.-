@@ -22,15 +22,15 @@ module.exports = class extends Command {
     }.json`);
 
     if (!message.member.voice.channelID)
-      return await message.channel.send(language.novoice);
+      return  message.channel.send(language.novoice);
     if (!args[0])
-      return await message.channel.send(language.play.params.param1);
+      return  message.channel.send(language.play.params.param1);
     const node = this.Main.music.getNode();
     const query = args.join(' ');
     if (this._checkURL(query)) {
       const result = await node.rest.resolve(query);
       if (!result)
-        return await message.channel.send(language.play.params.param2);
+        return  message.channel.send(language.play.params.param2);
       const {
         type,
         tracks,
@@ -59,7 +59,7 @@ module.exports = class extends Command {
     }
     const searchData = await node.rest.resolve(query, 'youtube');
     if (!searchData.tracks.length)
-      return await message.channel.send(language.play.params.param2);
+      return message.channel.send(language.play.params.param2);
     const tracks = searchData.tracks.slice(0, 10);
     let i = 1;
     let data = '';
@@ -93,7 +93,7 @@ module.exports = class extends Command {
           '9️⃣': 8,
           '🔟': 9,
         };
-        const reacted = await this.Main.utils.Rcollector(
+        const reacted = await this.Main.utils.Reaction_Collector(
           await this.Main.utils.reaction(
             ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'].slice(
               0,
@@ -111,7 +111,7 @@ module.exports = class extends Command {
           let b = numbers[reaction.emoji.name];
           const track = searchData.tracks[b];
           const res = await this.Main.music.queue.handle(node, track, message);
-          await message.channel
+          message.channel
             .send(
               language.play.params.param4.translate({
                 track: track.info.title
@@ -121,7 +121,7 @@ module.exports = class extends Command {
           if (res) await res.play();
         });
         reacted.on('end', (collected, reason) => {
-          if (reason == 'limit') {
+          if (reason === 'limit') {
             m.delete();
           } else
             return m.edit(

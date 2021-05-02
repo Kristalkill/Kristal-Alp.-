@@ -29,9 +29,9 @@ module.exports = class extends Command {
                 Bots: **${message.guild.memberCount - all}**`, true
             )
             .addField(`Channels [${message.guild.channels.cache.size}]`,
-                `Text: **${message.guild.channels.cache.filter(c => c.type == 'text').size}**
-                Voice:  **${message.guild.channels.cache.filter(c => c.type == 'voice').size}**
-                Category: **${message.guild.channels.cache.filter(c => c.type == 'category').size}**`, true)
+                `Text: **${message.guild.channels.cache.filter(c => c.type === 'text').size}**
+                Voice:  **${message.guild.channels.cache.filter(c => c.type === 'voice').size}**
+                Category: **${message.guild.channels.cache.filter(c => c.type === 'category').size}**`, true)
             .addField(`Stats`,
                 `Roles amount: **${message.guild.roles.cache.size}**
                 Voice online: **${message.guild.members.cache.filter(m => m.voice.channel).size}**

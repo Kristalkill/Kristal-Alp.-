@@ -20,20 +20,20 @@ module.exports = class Command {
   }
 
   async run( /* message, ...args */ ) {
-    throw new Error(`Команда ${this.name} не содержин метод запуска!`);
+    throw new Error(`Command ${this.name} doesn't exist start method!`);
   }
   get(args, message, type, author = true) {
     message.guild[type].fetch()
     let cache = message.guild[type].cache
-    let arr = type == 'members' ? cache.map(x => (x.nickname || x.user.username)) : cache.map(x => x.name)
+    let arr = type === 'members' ? cache.map(x => (x.nickname || x.user.username)) : cache.map(x => x.name)
     let value = args || ''
-    let findet = arr.sort((a, b) => JaroWinklerDistance(value, b) - JaroWinklerDistance(value, a))[0];
-    if (JaroWinklerDistance(value, findet) < 0.7) findet = undefined
+    let fined  = arr.sort((a, b) => JaroWinklerDistance(value, b) - JaroWinklerDistance(value, a))[0];
+    if (JaroWinklerDistance(value, fined) < 0.7) fined = undefined
     return (
       cache.get(value) ||
-      (type == 'members' ? message.mentions[type].filter(m => m.id != message.guild.me.id) : message.mentions[type].first()) ||
+      (type === 'members' ? message.mentions[type].filter(m => m.id !== message.guild.me.id) : message.mentions[type].first()) ||
       cache.find(element =>
-        (type == 'members' ? (element.nickname || element.user.username) : element.name) == findet
+        (type === 'members' ? (element.nickname || element.user.username) : element.name) === fined
       ) ||
       author ? message.guild.member(message.author) : undefined
     )

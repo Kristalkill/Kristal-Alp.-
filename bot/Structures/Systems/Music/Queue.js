@@ -1,4 +1,4 @@
-const Discpatcher = require('./Discpatcher.js');
+const Dispatcher = require('./Discpatcher.js');
 // eslint-disable-next-line no-undef
 module.exports = class Queue extends Map {
   constructor(Main, iterable) {
@@ -17,7 +17,7 @@ module.exports = class Queue extends Map {
         player.constructor.name,
         `Новое соединение @ guild "${message.guild.id}"`
       );
-      const dispatcher = new Discpatcher({
+      const dispatcher = new Dispatcher({
         Main: this.Main,
         guild: message.guild,
         text: message.channel,

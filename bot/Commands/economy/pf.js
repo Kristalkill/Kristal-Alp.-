@@ -17,7 +17,7 @@ module.exports = class extends Command {
       }.json`);
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
+          .filter((u) => u.id !== message.guild.me.id)
           .first() ||
           message.guild.members.cache.get(args[0]) ||
           message.author
@@ -26,7 +26,7 @@ module.exports = class extends Command {
         online: '<a:online:709844735119851610>',
         dnd: '<a:dnd:709844760491196576>',
         idle: '<a:snow:709844747145052321>',
-        offline: '<a:offline:709844724311392296> Оффлайн',
+        offline: '<a:offline:709844724311392296>',
       };
       const devices = {
         desktop: language.pf.devices.pc,
@@ -49,13 +49,13 @@ module.exports = class extends Command {
         BUGHUNTER_LEVEL_2: '<:BugHunter2:709854743199219872>',
         VERIFIED_DEVELOPER: '<:coder:709854816725106859>',
       };
-      let ftext = ' ';
+      let flag_text = ' ';
       const flag = member.user.flags.toArray();
       flag.length > 0
         ? flag.forEach((f) => {
-            ftext += `${flags[f]}`;
+            flag_text += `${flags[f]}`;
           })
-        : (ftext = language.pf.type.null);
+        : (flag_text = language.pf.type.null);
       const activity =
         member.presence.activities.length > 0
           ? member.presence.activities
@@ -95,32 +95,32 @@ module.exports = class extends Command {
       });
 
       if (Data) {
-        let reputationtext;
+        let reputation_text;
         switch (true) {
           case Data.rep <= -30:
-            reputationtext = language.pf.reputation.satan;
+            reputation_text = language.pf.reputation.satan;
             break;
           case Data.rep >= -10 && Data.rep <= -5:
-            reputationtext = language.pf.reputation.devil;
+            reputation_text = language.pf.reputation.devil;
             break;
           case Data.rep >= -4 && Data.rep < 0:
-            reputationtext = language.pf.reputation.hypocrite;
+            reputation_text = language.pf.reputation.hypocrite;
             break;
           case Data.rep >= 0 && Data.rep <= 2:
-            reputationtext = language.pf.reputation.neutral;
+            reputation_text = language.pf.reputation.neutral;
             break;
           case Data.rep >= 3 && Data.rep <= 9:
-            reputationtext = language.pf.reputation.kind;
+            reputation_text = language.pf.reputation.kind;
             break;
           case Data.rep >= 10 && Data.rep <= 30:
-            reputationtext = language.pf.reputation.servant;
+            reputation_text = language.pf.reputation.servant;
             break;
           case Data.rep >= 30:
-            reputationtext = language.pf.reputation.angel;
+            reputation_text = language.pf.reputation.angel;
             break;
         }
         let page = 1;
-        const profileembed1 = new Discord.MessageEmbed()
+        const profile_embed_one = new Discord.MessageEmbed()
           .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
           .setTitle(`**${member.user.username}**`)
           .setColor('RANDOM')
@@ -128,7 +128,7 @@ module.exports = class extends Command {
             language.pf.embed.about,
             language.pf.embed.about1.translate({
               activity,
-              ftext,
+              ftext: flag_text,
               statuses: statuses[member.user.presence.status],
               devicesText,
               createdAt: this.Main.utils.formatDate(member.user.createdAt),
@@ -146,18 +146,18 @@ module.exports = class extends Command {
               leftxp:
                 message.guild.settings.Economy.upXP * Data.level - Data.xp,
               warn: Data.warn,
-              reputation: `${Data.rep}${reputationtext}`,
+              reputation: `${Data.rep}${reputation_text}`,
               partner: this.Main.users.cache.get(Data.partner)
                 ? this.Main.users.cache.get(Data.partner).tag
                 : language.pf.type.null,
             }),
             true
           );
-        const profileembed2 = new Discord.MessageEmbed()
+        const profile_embed_two = new Discord.MessageEmbed()
           .setTitle(`**🏅 ${language.pf.embed.achievements}**`)
           .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
           .setColor('RANDOM');
-        const profileembed3 = new Discord.MessageEmbed()
+        const profile_embed_three = new Discord.MessageEmbed()
           .setTitle(`**🏅 ${language.pf.embed.roles}**`)
           .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
           .setColor('RANDOM');
@@ -167,28 +167,28 @@ module.exports = class extends Command {
               .sort((a, b) => b.position - a.position)
               .filter((role) => role.id !== message.guild.id)
               .forEach((role) => {
-                profileembed3.addField('** **', `${role}`);
+                profile_embed_three.addField('** **', `${role}`);
               })
-          : profileembed3.setDescription('**Нету**');
+          : profile_embed_three.setDescription('**Нету**');
         Data.Achievements >= 1
           ? Data.Achievements.forEach((Achievement) => {
-              profileembed2.addField(
+              profile_embed_two.addField(
                 `**${i++}.${Achievements[Achievement].name}|${
                   Achievements[Achievement].emoji
                 }**`,
                 `\n**${Achievements[Achievement].description}**`
               );
             })
-          : profileembed2.setDescription('**Нету**');
-        const pages = [profileembed1, profileembed2, profileembed3];
+          : profile_embed_two.setDescription('**Нету**');
+        const pages = [profile_embed_one, profile_embed_two, profile_embed_three];
         message.channel
           .send(
-            profileembed1.setFooter(
+            profile_embed_one.setFooter(
               language.pages.translate({ page, pages: pages.length })
             )
           )
           .then(async (msg) => {
-            const reacted = await this.Main.utils.Rcollector(
+            const reacted = await this.Main.utils.Reaction_Collector(
               await this.Main.utils.reaction(
                 [
                   'arrow_left:756545499586101288',
@@ -205,7 +205,7 @@ module.exports = class extends Command {
             reacted.on('collect', (reaction) => {
               switch (reaction.emoji.name) {
                 case 'arrow_left':
-                  page == 1 ? (page = pages.length) : page++;
+                  page === 1 ? (page = pages.length) : page++;
                   msg.edit(
                     pages[page - 1].setFooter(
                       language.pages.translate({ page, pages: pages.length })
@@ -216,7 +216,7 @@ module.exports = class extends Command {
                   msg.delete();
                   break;
                 case 'arrow_right':
-                  page == pages.length ? (page = 1) : page++;
+                  page === pages.length ? (page = 1) : page++;
                   msg.edit(
                     pages[page - 1].setFooter(
                       language.pages.translate({ page, pages: pages.length })

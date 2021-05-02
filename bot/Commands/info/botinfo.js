@@ -22,9 +22,8 @@ module.exports = class extends Command {
       ];
       // eslint-disable-next-line no-undef
       Promise.all(promises).then((results) => {
-        const Botinfoembed = new Discord.MessageEmbed();
         message.channel.send(
-          Botinfoembed.setTitle('**Показатели бота**')
+            new Discord.MessageEmbed().setTitle('**Показатели бота**')
           .setColor('RANDOM')
           .setThumbnail(message.guild.iconURL())
           .addField(

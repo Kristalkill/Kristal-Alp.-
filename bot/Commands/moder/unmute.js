@@ -16,17 +16,17 @@ module.exports = class extends Command {
         message.guild.settings.Moderation.language || 'en'
       }.json`);
 
-      const muterole =
+      const mute_role =
         message.guild.settings.Moderation.muterole.id ||
         message.guild.roles.cache.find((x) =>
           /(В)?[Mм][uyу][t(ьт)]([eеd])?/gi.test(x.name)
         ).id;
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
+          .filter((u) => u.id !== message.guild.me.id)
           .first() || message.guild.members.cache.get(args[0])
       );
-      if (member.roles.cache.has(muterole)) {
+      if (member.roles.cache.has(mute_role)) {
         const data = await this.Main.db.Mute.findOne({
           guildID: message.guild.id,
           id: member.id,
@@ -36,7 +36,7 @@ module.exports = class extends Command {
             guildID: message.guild.id,
             id: member.id,
           });
-          await member.roles.remove(muterole);
+          await member.roles.remove(mute_role);
           message.channel.send(
             this.Main.embeds.OKEmbed.setDescription(
               member + language.unmute.params.param1

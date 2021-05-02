@@ -11,21 +11,21 @@ module.exports = class extends Command {
   }
 
   async run(message, args) {
-    const argss = args.join(' ');
+    const argument = args.join(' ');
     try {
-      let evaled = await eval(argss);
-      const eevaled = typeof evaled;
-      const tyype = eevaled[0].toUpperCase() + eevaled.slice(1);
+      let evaled = await eval(argument);
+      const type_evaled = typeof evaled;
+      const typo = type_evaled[0].toUpperCase() + type_evaled.slice(1);
       if (typeof evaled !== 'string')
         evaled = require('util').inspect(evaled, { depth: 0 });
-      evaled == (undefined || null)
+      evaled === null
         ? (evaled = `Empty response: ${evaled}`)
         : evaled;
       const embed = new Discord.MessageEmbed()
-        .addField('Вход', `\`\`\`js\n${argss}\`\`\``)
+        .addField('Вход', `\`\`\`js\n${arguments}\`\`\``)
         .addField(
           'Выход',
-          `\`\`\`js\nType: ${tyype}\nDone for: ${`${
+          `\`\`\`js\nType: ${typo}\nDone for: ${`${
             new Date().getTime() - message.createdTimestamp
           }ms`}\`\`\``,
           true
@@ -39,7 +39,7 @@ module.exports = class extends Command {
       await message.channel.send(embed).then(() => message.react('✅'));
     } catch (err) {
       const embed = new Discord.MessageEmbed()
-        .addField('Вход', `${argss}`)
+        .addField('Вход', `${argument}`)
         .addField('Выход', `\`\`\`js\nError ❎\n${err}\`\`\``, true);
       message.channel.send(embed).then(() => message.react('❎'));
     }

@@ -16,7 +16,7 @@ module.exports = class extends Command {
       }.json`);
       const member = message.guild.member(
         message.mentions.users
-          .filter((u) => u.id != message.guild.me.id)
+          .filter((u) => u.id !== message.guild.me.id)
           .first() || message.guild.members.cache.get(args[0])
       );
       if (!member)
@@ -45,7 +45,9 @@ module.exports = class extends Command {
           )
         );
         data[args[1].toLowerCase()] += Math.floor(parseInt(args[2]));
-        message.author.id === member.id ? null : data.save();
+        if(message.author.id !== member.id) {
+          data.save()
+        }
       } else if (!args[1]) {
         message.channel.send(
           this.Main.embeds.ErrEmbed.setDescription(language.add.params.param2)

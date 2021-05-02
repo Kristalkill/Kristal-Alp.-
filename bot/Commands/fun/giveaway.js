@@ -14,12 +14,12 @@ module.exports = class extends Command {
 
   async run(message, args) {
     try {
-      const messageid = args[1];
+      const message_id = args[1];
       const language = require(`../../languages/${
         message.guild.settings.Moderation.language || 'en'
       }.json`);
       const res = await this.Main.db.Giveaway.findOne({
-        messageID: messageid
+        messageID: message_id
       });
       if (!args[0])
         return message.channel.send(
@@ -90,7 +90,7 @@ module.exports = class extends Command {
                     v.reactions.cache
                     .get('🎉')
                     .users.cache.filter(
-                      (user) => user.id != this.Main.user.id && !user.bot
+                      (user) => user.id !== this.Main.user.id && !user.bot
                     )
                     .keys()
                   )

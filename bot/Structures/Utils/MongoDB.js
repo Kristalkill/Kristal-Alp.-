@@ -162,7 +162,7 @@ module.exports = class MongoDB {
   }
 
   async connect() {
-    connect(process.env.dataURL, {
+    await connect(process.env.dataURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

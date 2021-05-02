@@ -1,10 +1,6 @@
 const Main = new(require('./Structures/Main'))();
 const dotenv = require('dotenv');
-const {
-  MessageEmbed
-} = require('discord.js')
 dotenv.config();
-try {
   String.prototype.translate = function(vars) {
     let str = this;
     for (const [KEY, value] of Object.entries(vars)) {
@@ -14,11 +10,11 @@ try {
   };
   String.prototype.chunk = function(len) {
     const arr = this.match(
-      new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n|(?: *.){1,${len}}`, 'g')
+      new RegExp(`(?: *[^\\n]){0,${len - 1}}\\n| *.{1,${len}}`, 'g')
     ).map((c) => c.replace(/^ +| +$/g, ''));
     let result = []
     for (let line of arr) {
-      if (result.length == 0 || result[result.length - 1].length + line.length > len) {
+      if (result.length === 0 || result[result.length - 1].length + line.length > len) {
         result.push(line)
       } else {
         result[result.length - 1] += line
@@ -40,21 +36,17 @@ try {
       )
     //.capitalize();
   };
-} catch (err) {
-  console.log(err);
-}
-Main.start();
+ void Main.start()
 
-function send(eror, promise) {
-  let error = {
-    message: eror.message || eror,
-    path: eror.path || promise,
-    name: eror.name,
-    code: eror.code,
-    method: eror.method
+function send(error, promise) {
+  let text = {
+    message: error.message || error,
+    path: error.path || promise,
+    name: error.name,
+    code: error.code,
+    method: error.method
   };
-  return Main.channels.cache.get('709749244931866669').send(new MessageEmbed().setDescription(`message: ${error.message}`).setTitle(error.name).setURL(error.path || promise).setTimestamp()
-    .setFooter(error.code + error.method))
+  return console.log(text)
 }
 process.on('unhandledRejection', (reason, promise) => {
   send(reason, promise);

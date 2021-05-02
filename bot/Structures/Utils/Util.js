@@ -2,6 +2,7 @@ const path = require('path');
 const Discord = require('discord.js');
 const fs = require('fs');
 const Boxes = require('../Systems/Boxes.js');
+const Message = require('../Utils/Message.js');
 const Command = require('../Construction/Command.js');
 const variables = require('../../utilites/variables.js');
 const Event = require('../Construction/Event.js');
@@ -9,22 +10,23 @@ const Event = require('../Construction/Event.js');
 module.exports = class Util {
   constructor(Main) {
     this.Main = Main;
+    this.Message = new Message(this)
     this.Systems = {};
     this.Systems.Boxes = new Boxes(this);
   }
   async reaction(validReactions, message, array = false) {
-    let validetReactions = [];
+    let Validated_Reactions = [];
     for (let e of validReactions) {
-      if (array == true) {
-        validetReactions.push(e.split(':')[0]);
+      if (array === true) {
+        Validated_Reactions.push(e.split(':')[0]);
       }
       await message.react(e);
     }
-    if (array == true) return validetReactions;
+    if (array === true) return Validated_Reactions;
   }
-  async Rcollector(validetReactions, message, author, time, max, promise) {
+  async Reaction_Collector(Validated_Reactions, message, author, time, max, promise) {
     const filter = (reaction, user) =>
-      validetReactions.includes(reaction.emoji.name) && user.id === author.id;
+        Validated_Reactions.includes(reaction.emoji.name) && user.id === author.id;
     if (promise)
       return message.awaitReactions(filter, {
         time: time,
@@ -53,7 +55,7 @@ module.exports = class Util {
     if (arr.length > maxLen) {
       const len = arr.length - maxLen;
       array = arr.slice(0, maxLen);
-      array.push(`${len} больше...`);
+      array.push(`${len} more...`);
     }
     return array;
   }
@@ -70,7 +72,7 @@ module.exports = class Util {
       .replace(/(^|"|_)(\S)/g, (s) => s.toUpperCase())
       .replace(/_/g, ' ')
       .replace(/Guild/g, 'Server')
-      .replace(/Use Vad/g, 'Use Voice Acitvity');
+      .replace(/Use Vad/g, 'Use Voice Activity');
   }
   removeDuplicates(arr) {
     // eslint-disable-next-line no-undef
@@ -93,7 +95,7 @@ module.exports = class Util {
         const command = new File(this.Main, name.toLowerCase());
         if (!(command instanceof Command))
           throw new TypeError(`Команда ${name} не принадлежит командам.`);
-        command.category == undefined ? (command.category = module) : null;
+        command.category === undefined ? (command.category = module) : null;
         this.Main.commands.set(command.name, command);
         if (command.aliases.length) {
           for (const alias of command.aliases) {
@@ -124,17 +126,16 @@ module.exports = class Util {
   }
 
   addAchievement(param, number, Data, message) {
-    if (param && Data.Achievements.includes(number) == false) {
+    if (param && Data.Achievements.includes(number) === false) {
       Data.Achievements.push(number);
-      const AchievementEmed = new Discord.MessageEmbed()
-        .setColor('RANDOM')
-        .setTitle('**Поздравим**')
-        .setImage(`${message.author.avatarURL({ dynamic: true })}`)
-        .addField(
-          `**${message.author.tag}**`,
-          `**С новым достижением**\n**Значок: **${variables.Achievements[number].emoji}\n**Название: **${variables.Achievements[number].name}\n**Описание: **${variables.Achievements[number].description}`
-        );
-      message.channel.send(AchievementEmed);
+      message.channel.send(new Discord.MessageEmbed()
+          .setColor('RANDOM')
+          .setTitle('**Поздравим**')
+          .setImage(`${message.author.avatarURL({ dynamic: true })}`)
+          .addField(
+              `**${message.author.tag}**`,
+              `**С новым достижением**\n**Значок: **${variables.Achievements[number].emoji}\n**Название: **${variables.Achievements[number].name}\n**Описание: **${variables.Achievements[number].description}`
+          ));
     }
   }
 
@@ -161,14 +162,13 @@ module.exports = class Util {
   }
   managePerms(message, command) {
     let utils = this
-
-    function permcheck(member) {
+    function permission_check(member) {
       return utils.formatArray((message.channel.permissionsFor(member).missing(command.Permission ? utils.Main.defaultPerms.add(command.Permission) : utils.Main.defaultPerms)).map(utils.formatPerms))
     }
-    const missing = permcheck(message.member)
-    const bmissing = permcheck(message.guild.me)
+    const user_missing = permission_check(message.member)
+    const bot_missing = permission_check(message.guild.me)
 
-    return [bmissing, missing]
+    return [bot_missing, user_missing]
   }
 
   randomize(min, max) {
@@ -190,10 +190,10 @@ module.exports = class Util {
       } = path.parse(eventFile);
       const File = require(`${this.directory}Events/${eventFile}`);
       if (!this.isClass(File))
-        throw new TypeError(`Ивент ${name} не экспортирует класс.!`);
+        throw new TypeError(`Event ${name} dont export class!`);
       const event = new File(this.Main, name);
       if (!(event instanceof Event))
-        throw new TypeError(`Ивент ${name} не принадлежит Ивентам`);
+        throw new TypeError(`Event ${name} not belong event's`);
       this.Main.events.set(event.name, event);
       event.emitter[event.type](name, (...args) => event.run(...args));
     }

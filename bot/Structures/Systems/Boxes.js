@@ -1,5 +1,5 @@
-var lim = 100;
-var ops = {
+const lim = 100;
+const ops = {
   '+': [],
   '-': [],
   '*': [],
@@ -7,14 +7,14 @@ var ops = {
   '%': [],
 };
 
-var byRes = {
+const byRes = {
   '+': Array(lim + 1),
   '-': Array(lim + 1),
   '*': Array(lim + 1),
   '/': Array(lim + 1),
   '%': Array(lim + 1),
 };
-var fs = {
+const fs = {
   '+'(x, y) {
     return x + y;
   },
@@ -32,13 +32,15 @@ var fs = {
   },
 };
 
-function randof(...arrs) {
-  var len = arrs.reduce((r, a) => r + a.length, 0);
-  var i = (Math.random() * len) | 0;
-  return arrs.find((a) => i < a.length || ((i -= a.length), false))[i];
-}~(function prepare() {
-  for (var x = 1; x <= lim; ++x) {
-    for (var y = 1; y <= lim; ++y) {
+function random_of(...array) {
+  const len = array.reduce((r, a) => r + a.length, 0);
+  let i = (Math.random() * len) | 0;
+  return array.find((a) => i < a.length || ((i -= a.length), false))[i];
+}
+
+~(function prepare() {
+  for (let x = 1; x <= lim; ++x) {
+    for (let y = 1; y <= lim; ++y) {
       for (let op of Object.keys(fs)) {
         let res = fs[op](x, y);
         if (res >= 1 && res <= lim && res === ~~res) {
@@ -49,7 +51,7 @@ function randof(...arrs) {
     }
   }
 
-  var missing = 0;
+  let missing = 0;
 
   for (let res = 1; res <= lim; ++res) {
     for (let op of Object.keys(byRes)) {
@@ -73,51 +75,51 @@ module.exports = class Boxes {
     this.utils = Utils;
   }
   generate(lev) {
-    var simpleLevels = [
+    const simpleLevels = [
       [ops['+'], ops['-']],
       [ops['*']],
       [ops['/']],
       [ops['%']],
     ];
     if (lev < simpleLevels.length) {
-      let [op, x, y] = randof(...simpleLevels[lev]);
+      let [op, x, y] = random_of(...simpleLevels[lev]);
       return [fs[op](x, y), `${x} ${op} ${y}`];
     }
 
-    var lev2 = 0;
-    var levOp1 = '*/%' [lev - simpleLevels.length];
-    let [op2, l, z] = randof(...simpleLevels[lev2]);
+    const lev2 = 0;
+    const levOp1 = '*/%' [lev - simpleLevels.length];
+    let [op2, l, z] = random_of(...simpleLevels[lev2]);
 
     if (!byRes[levOp1][l]) {
       console.log(`Попитка на уровне ${lev}`); // Очень редко
     }
 
-    let [op1, x, y] = randof(byRes[levOp1][l]);
+    let [op1, x, y] = random_of(byRes[levOp1][l]);
     return [fs[op2](fs[op1](x, y), z), `${x} ${op1} ${y} ${op2} ${z}`];
   }
-  randombox(messages) {
+  random_box(messages) {
     return 'CCCCCCCCCCCCCCCCCCCUUUUUUUUUURRRRRRREEL' [
       ((Math.random() * (messages ? messages / 100 : 100)).toFixed(0) - 60) | 0
     ];
   }
-  async spawnrandombox(messag) {
+  async spawn_random_box(main_message) {
     const boxes = ['C', 'U', 'R', 'E', 'L'];
-    const win = this.randombox();
+    const win = this.random_box();
     if (!win) return;
     let i;
     const [result, example] = this.generate(boxes.indexOf(win));
-    await messag.channel
+    await main_message.channel
       .send(
         new MessageEmbed()
         .setTitle(`Появилась ${win} коробка!`)
         .setDescription(
-          `Напишите ответ **${messag.guild.settings.Moderation.prefix}pick ${example}**!`
+          `Напишите ответ **${main_message.guild.settings.Moderation.prefix}pick ${example}**!`
         )
         .setColor('GREEN')
         .setTimestamp()
       )
       .then((message) => {
-        this.Main.db.boxescoldown.add(messag.guild.id);
+        this.Main.db.boxescoldown.add(main_message.guild.id);
         const collector = message.channel.createMessageCollector(
           (m) => !m.author.bot, {
             time: 15000
@@ -126,7 +128,7 @@ module.exports = class Boxes {
         collector.on('collect', (msg) => {
           if (
             msg.content.toLowerCase() ===
-            `${messag.guild.settings.Moderation.prefix}pick ${result}`
+            `${main_message.guild.settings.Moderation.prefix}pick ${result}`
           ) {
             message
               .edit(
@@ -135,7 +137,7 @@ module.exports = class Boxes {
                 .setDescription(
                   `Коробка \`${win}\` была собрана участником ${msg.author}.`
                 )
-                .setColor('BLURPLE')
+                .setColor('0x7289da')
                 .setTimestamp()
               )
               .then((m) => {
@@ -155,7 +157,7 @@ module.exports = class Boxes {
           setTimeout(() => {
             this.Main.db.boxescoldown.delete(message.guild.id);
           }, 405000);
-          if (i == 1) return;
+          if (i === 1) return;
           message.channel.send(
             new MessageEmbed()
             .setTitle('Время вышло.')

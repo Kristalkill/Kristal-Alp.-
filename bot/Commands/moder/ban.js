@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
       const member = message.guild.member(
         message.mentions.users
-        .filter((u) => u.id != message.guild.me.id)
+        .filter((u) => u.id !== message.guild.me.id)
         .first() || message.guild.members.cache.get(args[0])
       );
       if (!member)

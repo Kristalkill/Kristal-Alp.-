@@ -95,6 +95,6 @@ module.exports = class extends Event {
             90001: `Reaction was blocked `,
             130000: `API resource is currently overloaded.Try again a little later `
         }
-        return this.Main.channels.cache.get('772907942718341130').send(new MessageEmbed().setTitle(codes[error.code]).setDescription(`message: ${error.message}\npath: ${error.path}`).setTitle(error.name).setURL(error.path).setTimestamp().setFooter(error.method))
+        return this.Main.channels.cache.get('772907942718341130').send(new MessageEmbed().setTitle(codes[error.code]).setDescription(`message: ${error.message}\n path: ${error.path}`).setTitle(error.name).setURL(error.path).setTimestamp().setFooter(error.method))
     }
 }
