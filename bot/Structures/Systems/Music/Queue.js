@@ -26,7 +26,7 @@ module.exports = class Queue extends Map {
       dispatcher.queue.push(track);
       this.set(message.guild.id, dispatcher);
       this.Main.logger.debug(
-        dispatcher.constructor.name,
+        dispatcher.player.constructor.name,
         `Диспетчер нового игрока @ guild "${message.guild.id}"`
       );
       return dispatcher;

@@ -109,7 +109,7 @@ module.exports = class Util {
   abbreviateNumber(number, digits = 2) {
     let expK = Math.floor(Math.log10(Math.abs(number)) / 3);
     let scaled = number / Math.pow(1000, expK);
-    if (Math.abs(scaled.toFixed(digits)) >= 1000) {
+    if (Math.abs(+scaled.toFixed(digits)) >= 1000) {
       scaled /= 1000;
       expK += 1;
     }

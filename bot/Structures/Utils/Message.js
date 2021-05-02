@@ -93,7 +93,7 @@ module.exports = class Message {
 
             data.xp += res.Economy.xp;
             data.money += res.Economy.money;
-            data.massages++;
+            data.messages++;
             this.Main.utils.addAchievement(data.level >= 5, '3', data, message);
             this.Main.utils.addAchievement(data.money >= 1000, '2', data, message);
 

@@ -71,7 +71,7 @@ module.exports = class MongoDB {
       Schema({
         guildID: String,
         box: {
-          С: {
+          C: {
             type: Number,
             default: 0
           },

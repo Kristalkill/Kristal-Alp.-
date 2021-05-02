@@ -41,10 +41,10 @@ module.exports = class Dispatcher {
 
   destroy(reason) {
     this.Main.logger.debug(
-      this.constructor.name,
+        this.player.constructor.name,
       `Destroyed the player dispatcher @ guild "${this.guild.id}"`
     );
-    if (reason) this.Main.logger.debug(this.constructor.name, reason);
+    if (reason) this.Main.logger.debug(this.player.constructor.name, reason);
     this.queue.length = 0;
     this.player.disconnect();
     this.Main.logger.debug(
