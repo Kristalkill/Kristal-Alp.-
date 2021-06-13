@@ -30,8 +30,50 @@ module.exports = class Message {
             }
         }
     }
+    check_bump(message){
+        const embed = message.embeds[0]
+        const message_embed = (bump) => {
+           return  message.channel.send('<@&852657879533092905>\n', new MessageEmbed().setDescription(`**Time to bump ${bump}**`));
+        }
+        if (message.author.id === '705876500175519856' && embed?.title === ':AHD_yes: Bumping Completed') {
+            setTimeout(() => {
+                return message_embed('*bump');
+            }, 7200000);
+        }
+        else if (message.author.id === '212681528730189824' && embed?.title === 'Bumped!') {
+            setTimeout(() => {
+                return message_embed('dlm!bump');
+            }, 28800000);
+        }
+        else if (message.author.id === '478290034773196810' && embed?.description === "Support Bump Central on Patreon to keep it running. AUTOBUMP IS BACK") {
+            setTimeout(() => {
+                return message_embed('-bump');
+            }, 3000000);
+        }
+        else if (message.author.id === '415773861486002186' && message.content === `:success: END's community & support has been bumped`) {
+            setTimeout(() => {
+                return message_embed('d=bump');
+            }, 1800000);
+        }
+        else if (message.author.id === '481810078031282176' && embed?.author.name === "Server Bumped") {
+            setTimeout(() => {
+                return message_embed('sm!bump');
+            }, 1200000);
+        }
+        else if (message.author.id === '777851498297688065' && embed?.title === ":hahaok: Bumping your server...!") {
+            setTimeout(() => {
+                return message_embed('ob!bump');
+            }, 3600000);
+        }
+        else if(message.author.id === '302050872383242240' && embed?.title === "[DISBOARD: The Public Server List](https://disboard.org/)") {
+            setTimeout(() => {
+                return message_embed('d!bump');
+            }, 7200000);
+        }
+    }
     async reaction_on_message(message) {
         if (!message) return;
+        await this.check_bump(message)
         if (message.channel.type === 'dm' || message.author.bot) return;
         let res = await this.Main.db.Guild.findOne({
             guildID: message.guild.id,
